@@ -7,8 +7,8 @@
       package = pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; };
     };
     regular = {
-      family = "SF Pro Display";
-      package = pkgs.apple-fonts;
+      family = "Inter";
+      package = pkgs.inter;
     };
   };
 }
