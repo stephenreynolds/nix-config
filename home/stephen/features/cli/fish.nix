@@ -27,6 +27,8 @@ in
       hm = "home-manager --flake .";
       hms = "home-manager --flake . switch";
 
+      run = "nix run nixpkgs#";
+
       e = mkIf hasNeovim "nvim";
 
       ls = mkIf hasExa "exa";
