@@ -11,6 +11,7 @@
     ../common/optional/systemd-boot.nix
     ../common/optional/gamemode.nix
     ../common/optional/pipewire.nix
+    ../common/optional/quietboot.nix
   ];
 
   networking = {
