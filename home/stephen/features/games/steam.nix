@@ -32,5 +32,6 @@ in
     gamescope
     mangohud
     protontricks
+    protonup-qt
   ];
 }
