@@ -9,6 +9,7 @@
     ../common/users/stephen
 
     ../common/optional/systemd-boot.nix
+    ../common/optional/zram.nix
     ../common/optional/gamemode.nix
     ../common/optional/pipewire.nix
     ../common/optional/quietboot.nix
@@ -36,11 +37,6 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-  };
-
-  zramSwap = {
-    enable = true;
-    memoryPercent = 100;
   };
 
   hardware = {
