@@ -28,4 +28,7 @@ in
   home-manager.users.stephen = import ../../../../home/stephen/${config.networking.hostName}.nix;
 
   services.geoclue2.enable = true;
+
+  # Required to let swaylock check password.
+  security.pam.services = { swaylock = { }; };
 }
