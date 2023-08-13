@@ -1,7 +1,7 @@
 { lib, ... }:
 let
   workspaces =
-    (map toString (lib.range 0 9)) ++
+    (map toString (lib.range 1 9)) ++
     (map (n: "F${toString n}") (lib.range 1 12));
   directions = rec {
     left = "l"; right = "r"; up ="u"; down = "d";
