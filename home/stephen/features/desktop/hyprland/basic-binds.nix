@@ -5,7 +5,6 @@ let
     (map (n: "F${toString n}") (lib.range 1 12));
   directions = rec {
     left = "l"; right = "r"; up ="u"; down = "d";
-    h = left; l = right; k = up; j = down;
   };
 in
 {
@@ -19,10 +18,13 @@ in
       "SUPER, C, killactive"
       "SUPERSHIFT, E, exit"
 
-      "SUPER, S, togglesplit"
-      "SUPER, F, fullscreen, 1"
-      "SUPERSHIFT, F, fullscreen, 0"
-      "SUPERSHIFT, space, togglefloating"
+      "SUPER, J, togglesplit"
+      "SUPER, V, fullscreen, 1"
+      "SUPERSHIFT, V, fullscreen, 0"
+      "SUPER, F, togglefloating"
+      "SUPERSHIFT, F, pin"
+
+      "SUPER, U, pseudo"
 
       "SUPER, minus, splitratio, -0.25"
       "SUPERSHIFT, equal, splitratio, 0.3333333"
@@ -31,8 +33,15 @@ in
       "SUPER, apostrophe, changegroupactive, f"
       "SUPERSHIFT, apostrophe, changegroupactive, b"
 
-      "SUPER, U, togglespecialworkspace"
-      "SUPERSHIFT, U, movetoworkspace, special"
+      "SUPER, 0, togglespecialworkspace"
+      "SUPERSHIFT, 0, movetoworkspace, special"
+
+      "SUPER, S, exec, hyprctl dispatch cyclenext && hyprctl dispatch layoutmsg swapwithmaster"
+      "SUPER, L, layoutmsg, orientationnext"
+      "SUPERSHIFT, L, layoutmsg, orientationprev"
+
+      "SUPER, mouse_down, workspace, m+1"
+      "SUPER, mouse_up, workspace, m-1"
     ] ++
     # Change workspace
     (map (n:

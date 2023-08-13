@@ -13,14 +13,14 @@
       width = 1920;
       height = 1080;
       x = 0;
-      workspace = "2";
+      workspace = "1";
     }
     {
       name = "DP-2";
       width = 1920;
       height = 1080;
       x = 1920;
-      workspace = "1";
+      workspace = "2";
       primary = true;
     }
     {

@@ -12,6 +12,105 @@
     enable = true;
     enableNvidiaPatches = true;
     settings = {
+      general = {
+        gaps_in = 5;
+        gaps_out = 10;
+        border_size = 1;
+        layout = "master";
+        resize_on_border = true;
+        cursor_inactive_timeout = 10;
+        "col.active_border" = "rgb(bd93f9)";
+        "col.inactive_border" = "rgba(44475aaa)";
+        "col.group_border" = "rgba(282a36dd)";
+        "col.group_border_active" = "rgb(bd93f9)";
+      };
+      decoration = {
+        active_opacity = 0.94;
+        inactive_opacity = 0.84;
+        fullscreen_opacity = 1.0;
+        rounding = 5;
+        blur = true;
+        blur_size = 5;
+        blur_passes = 3;
+        blur_new_optimizations = true;
+        blur_ignore_opacity = true;
+        drop_shadow = true;
+        shadow_range = 12;
+        shadow_offset = "3 3";
+        "col.shadow" = "0x44000000";
+        "col.shadow_inactive" = "0x66000000";
+      };
+      animations = {
+        enabled = true;
+        bezier = [
+          "myBezier, 0.05, 0.9, 0.1, 1.05"
+        ];
+        animation = [
+          "windows, 1, 2, myBezier"
+          "windowsOut, 1, 2, default, popin 80%"
+          "border, 1, 10, default"
+          "borderangle, 1, 8, default"
+          "fade, 1, 2, default"
+          "workspaces, 1, 2, default"
+          "specialWorkspace, 1, 2, default, slidevert"
+        ];
+      };
+      dwindle = {
+        pseudotile = true;
+        preserve_split = true;
+        no_gaps_when_only = true;
+      };
+      master = {
+        mfact = 0.5;
+        new_is_master = true;
+        new_on_top = true;
+        orientation = "left";
+        inherit_fullscreen = true;
+        no_gaps_when_only = 1;
+      };
+      device = {
+        logitech-g502-hero-gaming-mouse = {
+          sensitivity = 0;
+        };
+      };
+      input = {
+        kb_layout = "us";
+        follow_mouse = 2;
+        float_switch_override_focus = 2;
+        numlock_by_default = true;
+      };
+      binds = {
+        allow_workspace_cycles = true;
+      };
+      misc = {
+        focus_on_activate = true;
+        mouse_move_enables_dpms = true;
+        key_press_enables_dpms = true;
+        allow_session_lock_restore = true;
+        render_titles_in_groupbar = false;
+      };
+      xwayland = {
+        force_zero_scaling = true;
+      };
+      windowrulev2 = [
+        # Wofi
+        "dimaround, class:^(wofi)$"
+
+        # Browser
+        "opaque, class:^(firefox)$"
+        "idleinhibit fullscreen, class:^(firefox)$"
+        "float, title:^(Firefox - Sharing Indicator)$"
+
+        # picture-in-picture
+        "float, title:^(Picture-in-Picture)$"
+        "pin, title:^(Picture-in-Picture)$"
+        "noborder, title:^(Picture-in-Picture)$"
+        "noshadow, title:^(Picture-in-Picture)$"
+
+        # pavucontrol
+        "float, class:^(pavucontrol)$"
+        "center, class:^(pavucontrol)$"
+      ];
       bind = let
         swaylock = "${config.programs.swaylock.package}/bin/swaylock";
         playerctl = "${config.services.playerctld.package}/bin/playerctl";
@@ -62,8 +161,8 @@
 
       # Launcher
       (lib.optionals config.programs.wofi.enable [
-        "SUPER,space,exec,${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
-        "SUPER,d,exec,${wofi} -S run"
+        "SUPER,space,exec,${wofi} -S drun -x 10 -y 10 -W 25% -H 60% --normal-window"
+        "SUPER,d,exec,${wofi} -S run --normal-window"
       ]);
 
       monitor = map (m: let
