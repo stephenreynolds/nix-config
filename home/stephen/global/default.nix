@@ -38,5 +38,10 @@ in
     stateVersion = lib.mkDefault "23.05";
   };
 
+  services.nextcloud-client = {
+    enable = true;
+    startInBackground = true;
+  };
+
   colorscheme = lib.mkDefault colorSchemes.dracula;
 }
