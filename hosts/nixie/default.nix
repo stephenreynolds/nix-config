@@ -56,5 +56,7 @@
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  security.polkit.enable = true;
+
   system.stateVersion = "23.05";
 }

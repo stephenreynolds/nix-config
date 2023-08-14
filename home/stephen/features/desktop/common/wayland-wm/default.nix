@@ -26,4 +26,6 @@
     QT_QPA_PLATFORM = "wayland";
     LIBSEAT_BACKEND = "logind";
   };
+
+  services.gnome-policykit-agent.enable = true;
 }
