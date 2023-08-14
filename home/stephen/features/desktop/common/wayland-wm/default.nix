@@ -12,6 +12,8 @@
   xdg.mimeApps.enable = true;
   home.packages = with pkgs; [
     gtk3
+    qt6.qtwayland
+    qt5.qtwayland
     imv
     primary-xwayland
     pulseaudio
