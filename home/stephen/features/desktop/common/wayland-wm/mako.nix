@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   inherit (config.colorscheme) colors kind;
 in
@@ -18,4 +18,6 @@ in
     borderSize = 2;
     defaultTimeout = 12000;
   };
+
+  home.packages = with pkgs; [ libnotify ];
 }
