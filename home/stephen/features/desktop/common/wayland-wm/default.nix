@@ -19,6 +19,7 @@
     pulseaudio
     wl-clipboard
     xdg-utils
+    swww
   ];
 
   home.sessionVariables = {
