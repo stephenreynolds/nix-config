@@ -63,5 +63,7 @@
 
   security.polkit.enable = true;
 
+  services.gvfs.enable = true;
+
   system.stateVersion = "23.05";
 }
