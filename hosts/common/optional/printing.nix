@@ -2,6 +2,7 @@
 {
   services.printing = {
     enable = true;
+    drivers = [ pkgs.hplip ];
     browsing = true;
     browsedConf = ''
       BrowseDNSSDSubTypes _cups,_print
@@ -16,5 +17,8 @@
   services.avahi = {
     enable = true;
     nssmdns = true;
+    openFirewall = true;
   };
+
+  programs.system-config-printer.enable = true;
 }
