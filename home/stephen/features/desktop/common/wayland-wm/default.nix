@@ -9,7 +9,12 @@
     ./zathura.nix
   ];
 
-  xdg.mimeApps.enable = true;
+  xdg = {
+    enable = true;
+    mimeApps.enable = true;
+    userDirs.enable = true;
+  };
+
   home.packages = with pkgs; [
     gtk3
     qt6.qtwayland
