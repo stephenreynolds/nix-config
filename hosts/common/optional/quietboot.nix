@@ -8,7 +8,7 @@
   boot = {
     plymouth = {
       enable = true;
-      theme = "spinner";
+      theme = "breeze";
     };
     loader.timeout = 0;
     kernelParams = [
