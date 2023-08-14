@@ -3,6 +3,7 @@
     ./global
     ./features/desktop/hyprland
     ./features/games
+    ./features/latex
   ];
 
   #  ------   ------   ----------
