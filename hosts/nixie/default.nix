@@ -13,6 +13,7 @@
     ../common/optional/gamemode.nix
     ../common/optional/pipewire.nix
     ../common/optional/quietboot.nix
+    ../common/optional/nextdns.nix
   ];
 
   networking = {
