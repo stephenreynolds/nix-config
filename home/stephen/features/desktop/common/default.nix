@@ -4,8 +4,9 @@
     ./font.nix
     ./cursor.nix
     ./gtk.nix
+    ./qt.nix
     ./pavucontrol.nix
     ./playerctl.nix
-    ./qt.nix
+    ./nautilus.nix
   ];
 }
