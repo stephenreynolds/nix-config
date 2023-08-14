@@ -25,6 +25,7 @@ in
         "privacy.trackingprotection.enabled" = true;
         "browser.discovery.enabled" = false;
         "app.shield.optoutstudies.enabled" = false;
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
     };
   };
