@@ -8,5 +8,6 @@
     ./pavucontrol.nix
     ./playerctl.nix
     ./nautilus.nix
+    ./discord.nix
   ];
 }
