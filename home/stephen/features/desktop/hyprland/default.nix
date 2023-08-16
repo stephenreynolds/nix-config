@@ -12,9 +12,9 @@
   wayland.windowManager.hyprland = {
     enable = true;
     enableNvidiaPatches = true;
+    recommendedEnvironment = true;
     extraConfig = let
       modifier = "SUPER";
-
       swaylock = "${config.programs.swaylock.package}/bin/swaylock";
       playerctl = "${config.services.playerctld.package}/bin/playerctl";
       playerctld = "${config.services.playerctld.package}/bin/playerctld";
