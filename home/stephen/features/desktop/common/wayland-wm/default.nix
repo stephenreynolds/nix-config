@@ -14,6 +14,7 @@
     enable = true;
     mimeApps.enable = true;
     userDirs.enable = true;
+    configFile."mimeapps.list".force = true;
   };
 
   home.packages = with pkgs; [
