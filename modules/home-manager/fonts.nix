@@ -28,7 +28,6 @@ in
 
   config = lib.mkIf cfg.enable {
     fonts.fontconfig.enable = true;
-    fonts.enableDefaultPackages = true;
     home.packages = [ cfg.monospace.package cfg.regular.package ];
   };
 }
