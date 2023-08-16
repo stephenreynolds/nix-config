@@ -18,14 +18,10 @@ in
         output = builtins.map (m:  m.name) (builtins.filter (m: !m.noBar) config.monitors);
         modules-left = (lib.optionals config.wayland.windowManager.hyprland.enable [
           "wlr/workspaces"
-          "cpu"
-          "memory"
         ]);
         modules-center = [
         ];
         modules-right = [
-          "network"
-          "pulseaudio"
           "tray"
           "clock"
         ];
@@ -116,6 +112,7 @@ in
         font-family: ${config.fontProfiles.regular.family}, ${config.fontProfiles.monospace.family};;
         font-size: 10pt;
         padding: 0 8px;
+        background-color: #000;
       }
 
       .modules-right {
