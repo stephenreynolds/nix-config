@@ -19,5 +19,6 @@
     ripgrep
     fd
     jq
+    wget
   ];
 }
