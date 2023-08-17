@@ -4,7 +4,6 @@
     ./features/desktop/hyprland
     ./features/games
     ./features/productivity
-    ./features/onedrive.nix
   ];
 
   #  ------   ------   ----------
