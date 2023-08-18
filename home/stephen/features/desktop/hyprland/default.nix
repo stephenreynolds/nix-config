@@ -161,15 +161,8 @@
     ''
     ''
       windowrule = dimaround, ^(wofi)$
-      windowrule = workspace name:notes, ^(obsidian)$
-      windowrule = workspace name:social, ^(steam)$
       windowrule = nofullscreenrequest, ^(steam)$
-      windowrule = workspace name:tasks, ^(ClickUp)$
-      windowrule = workspace name:social, ^(Mailspring)$
-      windowrule = workspace name:social, ^(discord)$
-      windowrule = workspace name:misc, ^(tasty.javafx.launcher.LauncherFxApp)$
       windowrule = nofullscreenrequest, ^(tasty.javafx.launcher.LauncherFxApp)$
-      windowrulev2 = workspace special, class:^(kitty)$, title:^(webui\.sh)$
 
       ## Rules: polkit agent
       windowrulev2 = float,class:^(lxqt-policykit-agent)$
