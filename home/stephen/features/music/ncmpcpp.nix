@@ -1,18 +1,15 @@
+{ config, pkgs, ... }:
 {
   programs.ncmpcpp = {
     enable = true;
+    package = pkgs.ncmpcpp.override {
+      visualizerSupport = true;
+    };
     settings = {
-      ncmpcpp_directory = "${xdg.configHome}/ncmpcpp";
+      ncmpcpp_directory = "${config.xdg.configHome}/ncmpcpp";
 
       mpd_host = "localhost";
       mpd_port = 6600;
-
-      audio_output = {
-        type = "fifo";
-        name = "Visualizer feed";
-        path = "/tmp/mpd.fifo";
-        format = "44100:16:2"
-      };
 
       visualizer_data_source = "/tmp/mpd.fifo";
       visualizer_output_name = "my_fifo";
@@ -36,7 +33,7 @@
       song_columns_list_format = "(10)[blue]{l} (30)[green]{t} (30)[yellow]{b} (30)[magenta]{a}";
 
       media_library_albums_split_by_date = false;
-      media_library_hide_albums_dates = true;
+      media_library_hide_album_dates = true;
 
       ignore_leading_the = true;
 

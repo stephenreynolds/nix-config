@@ -1,8 +1,10 @@
+{ config, ... }:
 {
   services.mpd = {
     enable = true;
-    musicDirectory = "${xdg.userDirs.music}";
-    playlistDirectory = "${xdg.userDirs.music}/Playlists";
+    musicDirectory = "${config.xdg.userDirs.music}";
+    playlistDirectory = "${config.xdg.userDirs.music}/Playlists";
+    network.startWhenNeeded = true;
     extraConfig = ''
       log_file            "syslog"
 
