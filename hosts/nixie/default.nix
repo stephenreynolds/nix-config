@@ -13,6 +13,7 @@
     ../common/optional/system76-scheduler.nix
     ../common/optional/sddm.nix
     ../common/optional/gamemode.nix
+    ../common/optional/game-memory-fix.nix
     ../common/optional/pipewire.nix
     ../common/optional/quietboot.nix
     ../common/optional/nextdns.nix
