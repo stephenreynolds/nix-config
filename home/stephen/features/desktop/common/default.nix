@@ -9,5 +9,6 @@
     ./playerctl.nix
     ./nautilus.nix
     ./discord.nix
+    ./deluge.nix
   ];
 }
