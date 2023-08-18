@@ -51,7 +51,10 @@
         vaapiVdpau
       ];
     };
-    nvidia.modesetting.enable = true;
+    nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = true;
+    };
     openrgb.enable = true;
   };
 
