@@ -5,7 +5,6 @@
     ./features/games
     ./features/productivity
     ./features/easyeffects
-    ./features/openrgb
   ];
 
   #  ------   ------   ----------
