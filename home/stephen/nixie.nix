@@ -6,6 +6,7 @@
     ./features/productivity
     ./features/music
     ./features/easyeffects
+    ./features/openrgb
   ];
 
   #  ------   ------   ----------
