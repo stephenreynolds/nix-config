@@ -4,6 +4,7 @@
     ./features/desktop/hyprland
     ./features/games
     ./features/productivity
+    ./features/openrgb.nix
   ];
 
   #  ------   ------   ----------
