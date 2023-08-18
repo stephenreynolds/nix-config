@@ -10,7 +10,7 @@
 
     ../common/optional/systemd-boot.nix
     ../common/optional/zram.nix
-    ../common/optional/gdm.nix
+    ../common/optional/sddm.nix
     ../common/optional/gamemode.nix
     ../common/optional/pipewire.nix
     ../common/optional/quietboot.nix
