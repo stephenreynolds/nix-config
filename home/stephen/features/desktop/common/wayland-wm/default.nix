@@ -6,6 +6,7 @@
     ./mako.nix
     ./swayidle.nix
     ./swaylock.nix
+    ./sway-audio-idle-inhibit.nix
     ./wofi.nix
     ./zathura.nix
   ];
