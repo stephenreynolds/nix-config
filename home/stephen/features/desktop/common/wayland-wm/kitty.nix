@@ -18,12 +18,13 @@ in
       name = config.fontProfiles.monospace.family;
       size = 10;
     };
+    theme = "Catppuccin-Mocha";
     settings = {
       shell_integration = "no-rc";
       scrollback_lines = 4000;
       scrollback_pager_history_size = 2048;
       window_padding_width = 10;
-      background_opacity = "0.8";
+      background_opacity = "1";
       confirm_os_window_close = 0;
       allow_cloning = "yes";
     };
