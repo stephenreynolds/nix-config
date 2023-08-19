@@ -1,6 +1,7 @@
 {
   imports = [
     ./global
+    ./features/productivity/latex.nix
   ];
 
   programs.git.extraConfig = {
