@@ -20,5 +20,6 @@
     fd
     jq
     wget
+    tree
   ];
 }
