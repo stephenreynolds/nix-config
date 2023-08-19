@@ -21,6 +21,7 @@
       julia
       ruby
       tree-sitter
+      nil
     ];
   };
 }
