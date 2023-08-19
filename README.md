@@ -2,6 +2,10 @@
 
 Based on [Misterio77's config](https://github.com/Misterio77/nix-config).
 
+Currently managing two systems:
+- nixie: NixOS install (not in use)
+- wsl: Ubuntu on [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/) (in use).
+
 ## How to bootstrap
 
 All you need is nix (any version). Run:
