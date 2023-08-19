@@ -22,6 +22,7 @@
     jq
     wget
     tree
+    trash-cli
     t
     tt
   ];
