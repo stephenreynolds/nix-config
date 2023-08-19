@@ -21,5 +21,7 @@
     jq
     wget
     tree
+    t
+    tt
   ];
 }

@@ -4,4 +4,7 @@
   primary-xwayland = pkgs.callPackage ./primary-xwayland { };
 
   sway-audio-idle-inhibit = pkgs.callPackage ./sway-audio-idle-inhibit { };
+
+  t = pkgs.callPackage ./t { };
+  tt = pkgs.callPackage ./tt { };
 }
