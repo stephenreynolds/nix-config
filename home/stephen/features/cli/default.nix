@@ -14,6 +14,7 @@
     ./zoxide.nix
     ./lsd.nix
     ./mcfly.nix
+    ./lf.nix
   ];
   home.packages = with pkgs; [
     distrobox
