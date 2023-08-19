@@ -12,10 +12,10 @@
     ./btop.nix
     ./fzf.nix
     ./zoxide.nix
+    ./lsd.nix
   ];
   home.packages = with pkgs; [
     distrobox
-    exa
     ripgrep
     fd
     jq

@@ -40,8 +40,6 @@ in
 
       e = mkIf hasNeovim "nvim";
 
-      ls = mkIf hasExa "exa";
-
       cik = mkIf hasKitty "clone-in-kitty --type os-window";
       ck = cik;
     };
