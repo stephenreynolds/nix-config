@@ -58,6 +58,12 @@
 	        pkgs = pkgsFor.x86_64-linux;
 	        extraSpecialArgs = { inherit inputs outputs; };
         };
+
+        "stephen@wsl" = lib.homeManagerConfiguration {
+	        modules = [ ./home/stephen/wsl.nix ];
+	        pkgs = pkgsFor.x86_64-linux;
+	        extraSpecialArgs = { inherit inputs outputs; };
+        };
       };
     };
 }
