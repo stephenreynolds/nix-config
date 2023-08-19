@@ -13,6 +13,7 @@
     ./fzf.nix
     ./zoxide.nix
     ./lsd.nix
+    ./mcfly.nix
   ];
   home.packages = with pkgs; [
     distrobox
