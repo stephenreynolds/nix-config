@@ -13,13 +13,7 @@
       wget
       go
       cargo
-      php
       luarocks
-      jdk17
-      python3
-      python311Packages.pip
-      julia
-      ruby
       tree-sitter
       nil
     ];
