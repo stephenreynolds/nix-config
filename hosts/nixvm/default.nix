@@ -10,7 +10,6 @@
     ../common/optional/systemd-boot.nix
     ../common/optional/zram.nix
     ../common/optional/system76-scheduler.nix
-    ../common/optional/sddm.nix
     ../common/optional/pipewire.nix
     ../common/optional/quietboot.nix
     ../common/optional/nextdns.nix
