@@ -26,6 +26,8 @@
     kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   };
 
+  virtualisation.vmware.guest.enable = true;
+
   programs = {
     dconf.enable = true;
   };
