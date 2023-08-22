@@ -19,6 +19,7 @@
   home.packages = with pkgs; [
     distrobox
     ripgrep
+    sad
     fd
     jq
     wget
