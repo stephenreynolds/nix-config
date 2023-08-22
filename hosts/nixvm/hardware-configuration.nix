@@ -10,10 +10,16 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  fileSystems."/" =
+    { device = "none";
+      fsType = "tmpfs";
+      options = [ "defaults" "size=2G" "mode=755" ];
+    };
+
   fileSystems."/nix" =
     { device = "/dev/disk/by-label/ROOT";
       fsType = "btrfs";
-      options = [ "subvol=nix" ];
+      options = [ "subvol=nix" "noatime" "compress-force=zstd" "space_cache=v2" ];
     };
 
   fileSystems."/boot" =
