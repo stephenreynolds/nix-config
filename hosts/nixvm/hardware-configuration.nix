@@ -2,7 +2,6 @@
   boot = {
     initrd = {
       availableKernelModules = [ "ata_piix" "uhci_hcd" "ehci_pci" "nvme" "sr_mod" ];
-      kernelModules = [ ];
     };
   };
 
