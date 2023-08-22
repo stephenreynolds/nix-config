@@ -5,7 +5,7 @@
   ];
 
   environment.persistence = {
-    "/nix/persist" = {
+    "/persist" = {
       directories = [
         "/var/log"
         "/etc/passwords"
@@ -18,9 +18,9 @@
   system.activationScripts.persistent-dirs =
     let
       mkHomePersist = user: lib.optionalString user.createHome ''
-        mkdir -p /nix/persist/${user.home}
-        chown ${user.name}:${user.group} /nix/persist/${user.home}
-        chmod ${user.homeMode} /nix/persist/${user.home}
+        mkdir -p /persist/${user.home}
+        chown ${user.name}:${user.group} /persist/${user.home}
+        chmod ${user.homeMode} /persist/${user.home}
       '';
       users = lib.attrValues config.users.users;
     in

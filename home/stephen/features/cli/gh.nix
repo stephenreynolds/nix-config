@@ -8,6 +8,6 @@
   };
 
   home.persistence = {
-    "/nix/persist/home/stephen".directories = [ ".config/gh" ];
+    "/persist/home/stephen".directories = [ ".config/gh" ];
   };
 }

@@ -40,7 +40,7 @@ in
     stateVersion = lib.mkDefault "23.05";
 
     persistence = {
-      "/nix/persist/home/stephen" = {
+      "/persist/home/stephen" = {
         directories = [
           "Downloads"
           "src"
