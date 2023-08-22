@@ -5,22 +5,26 @@
   };
 
   fileSystems = {
-    "/" = { device = "/dev/disk/by-label/ROOT";
+    "/" = {
+      device = "/dev/disk/by-label/ROOT";
       fsType = "btrfs";
       options = [ "subvol=@" "noatime" "compress-force=zstd" "space_cache=v2" ];
     };
 
-    "/home" = { device = "/dev/disk/by-label/ROOT";
+    "/home" = {
+      device = "/dev/disk/by-label/ROOT";
       fsType = "btrfs";
       options = [ "subvol=@home" "noatime" "compress-force=zstd" "space_cache=v2" ];
     };
 
-    "/nix" = { device = "/dev/disk/by-label/ROOT";
+    "/nix" = {
+      device = "/dev/disk/by-label/ROOT";
       fsType = "btrfs";
       options = [ "subvol=@nix" "noatime" "compress-force=zstd" "space_cache=v2" ];
     };
 
-    "/boot" = { device = "/dev/disk/by-label/BOOT";
+    "/boot" = {
+      device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
     };
   };
