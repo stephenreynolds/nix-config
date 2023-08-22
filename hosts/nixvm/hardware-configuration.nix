@@ -21,6 +21,7 @@
     { device = "/dev/disk/by-label/ROOT";
       fsType = "btrfs";
       options = [ "subvol=persist" "noatime" "compress-force=zstd" "space_cache=v2" ];
+      neededForBoot = true;
     };
 
   fileSystems."/boot" =
