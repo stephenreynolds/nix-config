@@ -4,6 +4,7 @@ let
 in
 {
   imports = [
+    inputs.impermanence.nixosModules.home-manager.impermanence
     inputs.nix-colors.homeManagerModule
     ../features/cli
     ../features/nvim
@@ -37,6 +38,16 @@ in
     username = lib.mkDefault "stephen";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = lib.mkDefault "23.05";
+
+    persistence = {
+      "/nix/persist/home/stephen" = {
+        directories = [
+          "Downloads"
+          "src"
+        ];
+        allowOther = true;
+      };
+    };
   };
 
   colorscheme = lib.mkDefault colorSchemes.dracula;

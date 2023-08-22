@@ -6,4 +6,8 @@
       gh-markdown-preview
     ];
   };
+
+  home.persistence = {
+    "/nix/persist/home/stephen".directories = [ ".config/gh" ];
+  };
 }
