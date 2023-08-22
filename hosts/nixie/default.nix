@@ -25,6 +25,7 @@
 
   networking = {
     hostName = "nixie";
+    useDHCP = true;
     networkmanager = {
       enable = true;
       wifi = {

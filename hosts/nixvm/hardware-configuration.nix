@@ -1,14 +1,10 @@
-{ config, lib, modulesPath, ... }:
-
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
-
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    initrd = {
+      availableKernelModules = [ "ata_piix" "uhci_hcd" "ehci_pci" "nvme" "sr_mod" ];
+      kernelModules = [ ];
+    };
+  };
 
   fileSystems."/" =
     { device = "none";
@@ -22,16 +18,16 @@
       options = [ "subvol=nix" "noatime" "compress-force=zstd" "space_cache=v2" ];
     };
 
+  fileSystems."/persist" =
+    { device = "/dev/disk/by-label/ROOT";
+      fsType = "btrfs";
+      options = [ "subvol=persist" "noatime" "compress-force=zstd" "space_cache=v2" ];
+    };
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
     };
 
-  swapDevices = [ ];
-
-  networking.useDHCP = lib.mkDefault true;
-
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  nixpkgs.hostPlatform = "x86_64-linux";
 }

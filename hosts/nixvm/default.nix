@@ -19,6 +19,7 @@
 
   networking = {
     hostName = "nixie";
+    useDHCP = true;
   };
 
   boot = {
