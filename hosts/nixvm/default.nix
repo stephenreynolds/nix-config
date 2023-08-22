@@ -18,7 +18,7 @@
   ];
 
   networking = {
-    hostName = "nixie";
+    hostName = "nixvm";
     useDHCP = true;
   };
 
