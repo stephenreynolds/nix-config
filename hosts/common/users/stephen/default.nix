@@ -12,12 +12,12 @@ in
       # "video"
       # "audio"
     ] ++ ifTheyExist [
-       # Add additional groups only if they exist
-       # "i2c"
-       # "docker"
-       # "podman"
-       # "git"
-       # "libvirtd"
+      # Add additional groups only if they exist
+      # "i2c"
+      # "docker"
+      # "podman"
+      # "git"
+      # "libvirtd"
     ];
 
     # TODO: Try using SOPS
