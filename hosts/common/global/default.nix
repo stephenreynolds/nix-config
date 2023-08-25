@@ -7,6 +7,7 @@
     ./nix.nix
     ./systemd-initrd.nix
     ./optin-persistence.nix
+    ./sops.nix
   ] ++ (builtins.attrValues outputs.nixosModules);
 
   home-manager.extraSpecialArgs = { inherit inputs outputs; };

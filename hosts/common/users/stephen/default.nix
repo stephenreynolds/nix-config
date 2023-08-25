@@ -12,7 +12,6 @@ in
       "video"
       "audio"
     ] ++ ifTheyExist [
-      # Add additional groups only if they exist
       "i2c"
       "docker"
       "podman"
@@ -20,9 +19,13 @@ in
       "libvirtd"
     ];
 
-    # TODO: Try using SOPS
-    passwordFile = "/etc/passwords/stephen";
+    passwordFile = config.sops.secrets.stephen-password.path;
     packages = [ pkgs.home-manager ];
+  };
+
+  sops.secrets.stephen-password = {
+    sopsFile = ../../secrets.yaml;
+    neededForUsers = true;
   };
 
   home-manager.users.stephen = import ../../../../home/stephen/${config.networking.hostName}.nix;
