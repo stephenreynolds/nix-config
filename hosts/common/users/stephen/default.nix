@@ -9,15 +9,15 @@ in
     shell = pkgs.fish;
     extraGroups = [
       "wheel"
-      # "video"
-      # "audio"
+      "video"
+      "audio"
     ] ++ ifTheyExist [
       # Add additional groups only if they exist
-      # "i2c"
-      # "docker"
-      # "podman"
-      # "git"
-      # "libvirtd"
+      "i2c"
+      "docker"
+      "podman"
+      "git"
+      "libvirtd"
     ];
 
     # TODO: Try using SOPS
