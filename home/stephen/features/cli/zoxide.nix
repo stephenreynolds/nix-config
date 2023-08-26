@@ -6,8 +6,8 @@
   };
 
   home.persistence = {
-    "/persist/home/stephen".files = [
-      ".local/share/zoxide/db.zo"
+    "/persist/home/stephen".directories = [
+      ".local/share/zoxide"
     ];
   };
 }

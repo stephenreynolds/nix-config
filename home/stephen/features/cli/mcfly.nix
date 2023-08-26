@@ -7,8 +7,8 @@
   };
 
   home.persistence = {
-    "/persist/home/stephen".files = [
-      ".local/share/mcfly/history.db"
+    "/persist/home/stephen".directories = [
+      ".local/share/mcfly"
     ];
   };
 }
