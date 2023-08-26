@@ -19,6 +19,7 @@ in
         "browser.disableResetPrompt" = true;
         "browser.newtabpage.activity-stream.showSponsored" = false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+        "browser.newtabpage.activity-stream.feeds.system.topstories" = false;
         "extensions.pocket.enabled" = false;
         "browser.shell.checkDefaultBrowser" = false;
         "browser.shell.defaultBrowserCheckCount" = 1;
@@ -29,6 +30,7 @@ in
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         "browser.newtabpage.activity-stream.topSitesRows" = 3;
         "browser.newtabpage.activity-stream.telemetry" = false;
+        "browser.toolbars.bookmarks.visibility" = "never";
       };
     };
   };
