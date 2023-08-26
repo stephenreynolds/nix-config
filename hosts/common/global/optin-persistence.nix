@@ -8,7 +8,6 @@
     "/persist" = {
       directories = [
         "/var/log"
-        "/etc/passwords"
       ];
     };
   };
