@@ -24,6 +24,7 @@
     jq
     wget
     tree
+    unzip
     trash-cli
     t
     tt
