@@ -48,7 +48,7 @@ in
     "/" = {
       device = "/dev/disk/by-label/${hostname}";
       fsType = "btrfs";
-      options = [ "subvol=root" "compress-force=zstd:2" ];
+      options = [ "subvol=root" "noatime" "compress-force=zstd:2" ];
     };
 
     "/nix" = {
@@ -60,7 +60,7 @@ in
     "/persist" = {
       device = "/dev/disk/by-label/${hostname}";
       fsType = "btrfs";
-      options = [ "subvol=persist" "compress-force=zstd:2" ];
+      options = [ "subvol=persist" "noatime" "compress-force=zstd:2" ];
     };
   };
 }
