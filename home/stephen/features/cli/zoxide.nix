@@ -7,10 +7,7 @@
 
   home.persistence = {
     "/persist/home/stephen".directories = [
-      {
-        directory = ".local/share/zoxide";
-        method = "symlink";
-      }
+      ".local/share/zoxide"
     ];
   };
 }
