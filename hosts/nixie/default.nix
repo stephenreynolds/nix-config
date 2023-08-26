@@ -12,6 +12,7 @@
     ../common/optional/zram.nix
     ../common/optional/system76-scheduler.nix
     ../common/optional/sddm.nix
+    ../common/optional/wireless.nix
     ../common/optional/hyprland.nix
     ../common/optional/gamemode.nix
     ../common/optional/game-memory-fix.nix
@@ -27,13 +28,6 @@
   networking = {
     hostName = "nixie";
     useDHCP = lib.mkDefault true;
-    networkmanager = {
-      enable = true;
-      wifi = {
-        backend = "iwd";
-	      macAddress = "random";
-      };
-    };
   };
 
   boot = {
