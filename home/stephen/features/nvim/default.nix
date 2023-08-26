@@ -21,6 +21,9 @@
   };
 
   home.persistence = {
-    "/persist/home/stephen".directories = [ ".config/nvim" ];
+    "/persist/home/stephen".directories = [
+      ".config/nvim"
+      ".local/share/nvim"
+    ];
   };
 }
