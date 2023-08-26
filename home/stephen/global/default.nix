@@ -50,5 +50,5 @@ in
     };
   };
 
-  colorscheme = lib.mkDefault colorSchemes.dracula;
+  colorscheme = lib.mkDefault colorSchemes.catppuccin-mocha;
 }
