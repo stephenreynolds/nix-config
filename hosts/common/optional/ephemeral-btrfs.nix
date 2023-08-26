@@ -61,6 +61,7 @@ in
       device = "/dev/disk/by-label/${hostname}";
       fsType = "btrfs";
       options = [ "subvol=persist" "noatime" "compress-force=zstd:2" ];
+      neededForBoot = true;
     };
   };
 }
