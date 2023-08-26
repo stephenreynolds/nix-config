@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ lib, pkgs, inputs, ... }: {
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel-kaby-lake
     inputs.hardware.nixosModules.common-pc-ssd
@@ -26,7 +26,7 @@
 
   networking = {
     hostName = "nixie";
-    useDHCP = true;
+    useDHCP = lib.mkDefault true;
     networkmanager = {
       enable = true;
       wifi = {

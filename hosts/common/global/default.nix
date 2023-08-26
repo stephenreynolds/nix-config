@@ -6,6 +6,7 @@
     ./locale.nix
     ./nix.nix
     ./systemd-initrd.nix
+    ./openssh.nix
     ./optin-persistence.nix
     ./sops.nix
   ] ++ (builtins.attrValues outputs.nixosModules);
