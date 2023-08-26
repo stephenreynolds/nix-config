@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  # TODO: Declaratively configure nvim config
   programs.neovim = {
     enable = true;
     extraPackages = with pkgs; [
@@ -17,5 +18,9 @@
       tree-sitter
       nil
     ];
+  };
+
+  home.persistence = {
+    "/persist/home/stephen".directories = [ ".config/nvim" ];
   };
 }

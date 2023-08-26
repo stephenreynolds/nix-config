@@ -3,6 +3,7 @@ let
   addons = inputs.firefox-addons.packages.${pkgs.system};
 in
 {
+  # TODO: Add custom theme
   programs.firefox = {
     enable = true;
     profiles.stephen = {
@@ -26,6 +27,8 @@ in
         "browser.discovery.enabled" = false;
         "app.shield.optoutstudies.enabled" = false;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "browser.newtabpage.activity-stream.topSitesRows" = 3;
+        "browser.newtabpage.activity-stream.telemetry" = false;
       };
     };
   };
@@ -35,5 +38,9 @@ in
     "text/xml" = [ "firefox.desktop" ];
     "x-scheme-handler/http" = [ "firefox.desktop" ];
     "x-scheme-handler/https" = [ "firefox.desktop" ];
+  };
+
+  home.persistence = {
+    "/persist/home/stephen".directories = [ ".mozilla/firefox" ];
   };
 }

@@ -70,4 +70,8 @@ in
         set fish_cursor_visual      block
       '';
   };
+
+  home.persistence = {
+    "/persist/home/stephen".files = [ ".local/share/fish/fish_history" ];
+  };
 }
