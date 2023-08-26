@@ -29,4 +29,9 @@
       users = lib.attrValues config.users.users;
     in
     lib.concatLines (map mkHomePersist users);
+
+  security.sudo.extraConfig = ''
+    # Rollback results in sudo lectures after each reboot
+    Defaults lecture = never
+  '';
 }
