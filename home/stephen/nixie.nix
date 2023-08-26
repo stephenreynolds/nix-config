@@ -1,4 +1,4 @@
-{ inputs, outputs, ...}: {
+{
   imports = [
     ./global
     ./features/desktop/hyprland
@@ -7,6 +7,7 @@
     ./features/music
     ./features/easyeffects
     ./features/openrgb
+    ./features/onedrive
   ];
 
   #  ------   ------   ----------
