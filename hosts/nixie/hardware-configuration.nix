@@ -1,7 +1,6 @@
 {
   imports = [
     ../common/optional/ephemeral-btrfs.nix
-    ../common/optional/encrypted-root.nix
   ];
 
   boot = {
