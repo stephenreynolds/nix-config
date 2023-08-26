@@ -1,4 +1,4 @@
-{ lib, pkgs, inputs, ... }: {
+{ pkgs, inputs, ... }: {
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel-kaby-lake
     inputs.hardware.nixosModules.common-pc-ssd
@@ -9,10 +9,10 @@
     ../common/users/stephen
 
     ../common/optional/systemd-boot.nix
+    ../common/optional/network-manager.nix
     ../common/optional/zram.nix
     ../common/optional/system76-scheduler.nix
     ../common/optional/sddm.nix
-    ../common/optional/wireless.nix
     ../common/optional/hyprland.nix
     ../common/optional/gamemode.nix
     ../common/optional/game-memory-fix.nix
@@ -27,7 +27,6 @@
 
   networking = {
     hostName = "nixie";
-    useDHCP = lib.mkDefault true;
   };
 
   boot = {
