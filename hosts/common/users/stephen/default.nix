@@ -17,6 +17,7 @@ in
       "podman"
       "git"
       "libvirtd"
+      "mlocate"
     ];
 
     passwordFile = config.sops.secrets.stephen-password.path;

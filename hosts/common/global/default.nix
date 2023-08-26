@@ -9,6 +9,7 @@
     ./openssh.nix
     ./optin-persistence.nix
     ./sops.nix
+    ./locate.nix
   ] ++ (builtins.attrValues outputs.nixosModules);
 
   home-manager.extraSpecialArgs = { inherit inputs outputs; };
