@@ -44,6 +44,7 @@
       driSupport32Bit = true;
       extraPackages = with pkgs; [
         vaapiVdpau
+        nvidia-vaapi-driver
       ];
     };
     nvidia = {
