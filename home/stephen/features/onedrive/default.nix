@@ -17,9 +17,12 @@
   };
 
   home.persistence = {
-    "/persist/home/stephen".directories = [
-      ".config/onedrive"
-      ".onedrive"
-    ];
+    "/persist/home/stephen" = {
+      directories = [
+        ".config/onedrive"
+        ".onedrive"
+      ];
+      allowOther = true;
+    };
   };
 }
