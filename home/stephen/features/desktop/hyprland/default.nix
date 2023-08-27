@@ -15,10 +15,7 @@
     recommendedEnvironment = true;
     extraConfig = let
       modifier = "SUPER";
-      swaylock = "${config.programs.swaylock.package}/bin/swaylock";
       playerctl = "${config.services.playerctld.package}/bin/playerctl";
-      playerctld = "${config.services.playerctld.package}/bin/playerctld";
-      makoctl = "${config.services.mako.package}/bin/makoctl";
       wofi = "${config.programs.wofi.package}/bin/wofi";
 
       pactl = "${pkgs.pulseaudio}/bin/pactl";
@@ -206,7 +203,7 @@
       bind = ${modifier} SHIFT, V, fullscreen, 0
       bind = ${modifier}, F, togglefloating
       bind = ${modifier} SHIFT, F, pin
-      bind = ${modifier}, Space, exec, pkill wofi || wofi --show drun --normal-window --allow-images
+      bind = ${modifier}, Space, exec, pkill ${wofi} || ${wofi} --show drun --normal-window --allow-images
       bind = ${modifier}, U, pseudo, # dwindle
       bind = ${modifier}, J, togglesplit, # dwindle
       bind = ${modifier}, S, exec, hyprctl dispatch cyclenext && hyprctl dispatch layoutmsg swapwithmaster # master
@@ -291,17 +288,17 @@
       $volume_helper_cmd = ~/.config/hypr/scripts/volume-helper
       bindle = , XF86AudioRaiseVolume, exec, $volume_helper_cmd --limit "$volume_limit" --increase "$volume_step"
       bindle = , XF86AudioLowerVolume, exec, $volume_helper_cmd --limit "$volume_limit" --decrease "$volume_step"
-      bindl = , XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle && $volume_helper_cmd
-      bindl = , XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle
+      bindl = , XF86AudioMute, exec, ${pactl} set-sink-mute @DEFAULT_SINK@ toggle && $volume_helper_cmd
+      bindl = , XF86AudioMicMute, exec, ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle
 
       # Media keys
-      bind = , XF86AudioForward, exec, playerctl position +10
-      bind = , XF86AudioRewind, exec, playerctl position -10
-      bind = , XF86AudioNext, exec, playerctl next
-      bind = , XF86AudioPrev, exec, playerctl previous
-      bind = , XF86AudioPause, exec, playerctl pause
-      bindl = , XF86AudioPlay, exec, playerctl play-pause
-      bindl = , XF86AudioStop, exec, playerctl stop
+      bind = , XF86AudioForward, exec, ${playerctl} position +10
+      bind = , XF86AudioRewind, exec, ${playerctl} position -10
+      bind = , XF86AudioNext, exec, ${playerctl} next
+      bind = , XF86AudioPrev, exec, ${playerctl} previous
+      bind = , XF86AudioPause, exec, ${playerctl} pause
+      bindl = , XF86AudioPlay, exec, ${playerctl} play-pause
+      bindl = , XF86AudioStop, exec, ${playerctl} stop
 
       # Capture the active output
       bind = , Print, exec, grimblast save output - | swappy -f -
