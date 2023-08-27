@@ -226,10 +226,10 @@
       bind = ${modifier} SHIFT, down,movewindow, d
 
       # Resize window with {modifier} + Ctrl + arrow keys
-      bind = ${modifier} CTRL, left, resizeactive, -10 0
-      bind = ${modifier} CTRL, right, resizeactive, 10 0
-      bind = ${modifier} CTRL, up, resizeactive, 0 -10
-      bind = ${modifier} CTRL, down,resizeactive, 0 10
+      binde = ${modifier} CTRL, left, resizeactive, -10 0
+      binde = ${modifier} CTRL, right, resizeactive, 10 0
+      binde = ${modifier} CTRL, up, resizeactive, 0 -10
+      binde = ${modifier} CTRL, down,resizeactive, 0 10
 
       # Group window
       bind = ${modifier}, G, togglegroup
