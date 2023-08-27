@@ -2,7 +2,6 @@
   imports = [
     ./global
     ./features/desktop/hyprland
-    ./features/pass
     ./features/games
     ./features/productivity
     ./features/music

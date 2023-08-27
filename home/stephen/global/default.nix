@@ -50,6 +50,11 @@ in
     };
   };
 
+  services.gnome-keyring = {
+    enable = true;
+    components = [ "pkcs11" "secrets" "ssh" ];
+  };
+
   colorscheme = lib.mkDefault colorSchemes.catppuccin-mocha;
   home.file.".colorscheme".text = config.colorscheme.slug;
 }
