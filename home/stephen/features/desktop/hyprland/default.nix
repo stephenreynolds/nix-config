@@ -62,10 +62,10 @@
         gaps_out = 10
 
         border_size = 1
-        col.active_border = 0xffcba6f7
-        col.inactive_border = 0xff1e1e2e
-        col.group_border = 0xfff9e2af
-        col.group_border_active = 0xfff38ba8
+        col.active_border = 0xff${config.colorscheme.colors.base0C}
+        col.inactive_border = 0xff${config.colorscheme.colors.base02}
+        col.group_border = 0xff${config.colorscheme.colors.base04}
+        col.group_border_active = 0xff${config.colorscheme.colors.base0B}
 
         layout = master
 
