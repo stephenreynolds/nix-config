@@ -7,7 +7,7 @@
     ./qt.nix
     ./pavucontrol.nix
     ./playerctl.nix
-    ./nautilus.nix
+    ./nemo.nix
     ./discord.nix
     ./deluge.nix
   ];
