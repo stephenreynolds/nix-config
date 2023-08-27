@@ -51,4 +51,5 @@ in
   };
 
   colorscheme = lib.mkDefault colorSchemes.catppuccin-mocha;
+  home.file.".colorscheme".text = config.colorscheme.slug;
 }
