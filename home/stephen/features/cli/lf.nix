@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   vidthumb = pkgs.writeShellScript "vidthumb" ''
     if ! [ -f "$1" ]; then
@@ -56,13 +56,14 @@ let
 
     filetype="$(${pkgs.file}/bin/file -Lb --mime-type "$file")"
 
+    # TODO: Check if kitty is enabled
     if [[ "$filetype" =~ ^image ]]; then
-      ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
+      ${config.programs.kitty.package}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
       exit 1
     fi
 
     if [[ "$filetype" =~ ^video ]]; then
-       ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$(${vidthumb} "$file")" < /dev/null > /dev/tty
+       ${config.programs.kitty.package}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$(${vidthumb} "$file")" < /dev/null > /dev/tty
        exit 1
     fi
 
