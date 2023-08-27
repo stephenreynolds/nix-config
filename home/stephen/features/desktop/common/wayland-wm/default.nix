@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./waybar.nix
@@ -16,13 +16,6 @@
     mimeApps.enable = true;
     userDirs.enable = true;
     configFile."mimeapps.list".force = true;
-  };
-
-  home.file = {
-    "Documents".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.onedrive/Documents";
-    "Music".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.onedrive/Music";
-    "Pictures".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.onedrive/Pictures";
-    "Videos".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.onedrive/Videos";
   };
 
   home.packages = with pkgs; [
