@@ -4,6 +4,7 @@
     ./bat.nix
     ./direnv.nix
     ./fish.nix
+    ./gpg.nix
     ./gh.nix
     ./git.nix
     ./lazygit.nix
