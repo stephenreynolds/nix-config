@@ -11,6 +11,7 @@
   home.persistence = {
     "/persist/home/stephen".directories = [
       ".config/onedrive"
+      ".onedrive"
     ];
   };
 }
