@@ -1,8 +1,6 @@
 { pkgs, ... }:
 let
   vidthumb = pkgs.writeShellScript "vidthumb" ''
-    #!/usr/bin/env bash
-
     if ! [ -f "$1" ]; then
       exit 1
     fi
@@ -26,44 +24,51 @@ let
 
     thumbnail="$(uuidgen).jpg"
 
-    if ! ffmpegthumbnailer -i "$movie" -o "$cache/$thumbnail" -s 0 2>/dev/null; then
+    if ! ${pkgs.ffmpegthumbnailer}/bin/ffmpegthumbnailer -i "$movie" -o "$cache/$thumbnail" -s 0 2>/dev/null; then
       exit 1
     fi
 
     if [[ ! -f "$index" ]]; then
       echo "{\"$movie\": \"$thumbnail\"}" >"$index"
     fi
-    json="$(jq -r --arg "$movie" "$thumbnail" ". + {\"$movie\": \"$thumbnail\"}" <"$index")"
+    json="$(${pkgs.jq}/bin/jq -r --arg "$movie" "$thumbnail" ". + {\"$movie\": \"$thumbnail\"}" <"$index")"
     echo "$json" >"$index"
 
     echo "$cache/$thumbnail"
   '';
 
   previewer = pkgs.writeShellScript "previewer" ''
-    #!/usr/bin/env bash
     file=$1
     w=$2
     h=$3
     x=$4
     y=$5
 
-    filetype="$( file -Lb --mime-type "$file")"
+    case "$file" in
+      *.tar*) tar tf "$file";;
+      *.zip) ${pkgs.unzip}/bin/unzip -l "$file";;
+      *.rar) ${pkgs.unrar}/bin/unrar l "$file";;
+      *.7z) ${pkgs.p7zip}/bin/7z l "$file";;
+      *.pdf) ${pkgs.poppler_utils}/bin/pdftotext "$file" -;;
+      *) ${pkgs.highlight}/bin/highlight -O ansi "$file" || cat "$file";;
+    esac
+
+    filetype="$(${pkgs.file}/bin/file -Lb --mime-type "$file")"
 
     if [[ "$filetype" =~ ^image ]]; then
-      kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
+      ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
       exit 1
     fi
 
     if [[ "$filetype" =~ ^video ]]; then
-       kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$(${vidthumb} "$file")" < /dev/null > /dev/tty
+       ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$(${vidthumb} "$file")" < /dev/null > /dev/tty
        exit 1
     fi
 
-    pistol "$file"
+    ${pkgs.pistol}/pin/pistol "$file"
   '';
 
   cleaner = pkgs.writeShellScript "cleaner" ''
-    #!/usr/bin/env bash
     kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
   '';
 in
@@ -77,10 +82,4 @@ in
       cleaner = "${cleaner}";
     };
   };
-
-  home.packages = with pkgs; [
-    file
-    pistol
-    ffmpegthumbnailer
-  ];
 }
