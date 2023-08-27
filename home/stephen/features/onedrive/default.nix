@@ -4,6 +4,7 @@
     target = "onedrive/config";
     text = ''
       sync_dir = "~/.onedrive"
+      enable_logging = "true"
     '';
   };
 
