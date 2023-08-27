@@ -50,6 +50,7 @@ let
       *.rar) ${pkgs.unrar}/bin/unrar l "$file";;
       *.7z) ${pkgs.p7zip}/bin/7z l "$file";;
       *.pdf) ${pkgs.poppler_utils}/bin/pdftotext "$file" -;;
+      *.epub) ${pkgs.epub2txt2}/bin/epub2txt "$file";;
       *) ${pkgs.highlight}/bin/highlight -O ansi "$file" || cat "$file";;
     esac
 
