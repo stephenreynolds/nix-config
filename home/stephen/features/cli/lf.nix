@@ -100,8 +100,8 @@ in
         trash "$f"
       }}'';
       setwallpaper = ''''${{
-        ln -sf "$f" ${config.xdg.configHome}/wallpaper
-        ${pkgs.swww}/bin/swww img ${config.xdg.configHome}/wallpaper --transition-type random --transition-step 90
+        ln -sf "$f" /persist/home/stephen/.config/wallpaper
+        ${pkgs.swww}/bin/swww img /home/stephen/.config/wallpaper --transition-type random --transition-step 90
       }}'';
     };
     extraConfig =
