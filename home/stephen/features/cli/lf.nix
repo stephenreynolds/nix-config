@@ -83,6 +83,7 @@ in
     settings = {
       cleaner = "${cleaner}";
       ignorecase = true;
+      icons = true;
     };
     commands = {
       unarchive = ''''${{
@@ -97,11 +98,25 @@ in
         esac
       }}'';
       trash = ''''${{
-        trash "$f"
+        trash-put $fx
       }}'';
       setwallpaper = ''''${{
         ln -sf "$f" /persist/home/stephen/.config/wallpaper
         ${pkgs.swww}/bin/swww img /home/stephen/.config/wallpaper --transition-type random --transition-step 90
+      }}'';
+      z = ''%{{
+        result="$(zoxide query --exclude $PWD $@ | sed 's/\\/\\\\/g;s/"/\\"/g')"
+        lf -remote "send $id cd \"$result\""
+      }}'';
+      zi = ''''${{
+        result="$(zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
+        lf -remote "send $id cd \"$result\""
+      }}'';
+      git_branch = ''''${{
+          git branch | fzf | xargs git checkout
+          pwd_shell=$(pwd | sed 's/\\/\\\\/g;s/"/\\"/g')
+          lf -remote "send $id updir"
+          lf -remote "send $id cd \"$pwd_shell\""
       }}'';
     };
     extraConfig =
@@ -119,8 +134,179 @@ in
         }}
 
         map DD trash
-        map au unarchive
+        map xx unarchive
         map sw setwallpaper
+        map zz z
+        map zi zi
+        map gb :git_branch
+        map gp ''${{clear; git pull --rebase || true; echo "press ENTER"; read ENTER}}
+        map gs ''${{clear; git status; echo "press ENTER"; read ENTER}}
+        map gl ''${{clear; git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit}}
       '';
+  };
+
+  home.sessionVariables = {
+    LF_ICONS = ''
+      tw=:\
+      st=:\
+      ow=:\
+      dt=:\
+      di=:\
+      fi=:\
+      ln=:\
+      or=:\
+      ex=:\
+      *.c=:\
+      *.cc=:\
+      *.clj=:\
+      *.coffee=:\
+      *.cpp=:\
+      *.css=:\
+      *.d=:\
+      *.dart=:\
+      *.erl=:\
+      *.exs=:\
+      *.fs=:\
+      *.go=:\
+      *.h=:\
+      *.hh=:\
+      *.hpp=:\
+      *.hs=:\
+      *.html=:\
+      *.java=:\
+      *.jl=:\
+      *.js=:\
+      *.json=:\
+      *.lua=:\
+      *.md=:\
+      *.php=:\
+      *.pl=:\
+      *.pro=:\
+      *.py=:\
+      *.rb=:\
+      *.rs=:\
+      *.scala=:\
+      *.ts=:\
+      *.vim=:\
+      *.cmd=:\
+      *.ps1=:\
+      *.sh=:\
+      *.bash=:\
+      *.zsh=:\
+      *.fish=:\
+      *.tar=:\
+      *.tgz=:\
+      *.arc=:\
+      *.arj=:\
+      *.taz=:\
+      *.lha=:\
+      *.lz4=:\
+      *.lzh=:\
+      *.lzma=:\
+      *.tlz=:\
+      *.txz=:\
+      *.tzo=:\
+      *.t7z=:\
+      *.zip=:\
+      *.z=:\
+      *.dz=:\
+      *.gz=:\
+      *.lrz=:\
+      *.lz=:\
+      *.lzo=:\
+      *.xz=:\
+      *.zst=:\
+      *.tzst=:\
+      *.bz2=:\
+      *.bz=:\
+      *.tbz=:\
+      *.tbz2=:\
+      *.tz=:\
+      *.deb=:\
+      *.rpm=:\
+      *.jar=:\
+      *.war=:\
+      *.ear=:\
+      *.sar=:\
+      *.rar=:\
+      *.alz=:\
+      *.ace=:\
+      *.zoo=:\
+      *.cpio=:\
+      *.7z=:\
+      *.rz=:\
+      *.cab=:\
+      *.wim=:\
+      *.swm=:\
+      *.dwm=:\
+      *.esd=:\
+      *.jpg=:\
+      *.jpeg=:\
+      *.mjpg=:\
+      *.mjpeg=:\
+      *.gif=:\
+      *.bmp=:\
+      *.pbm=:\
+      *.pgm=:\
+      *.ppm=:\
+      *.tga=:\
+      *.xbm=:\
+      *.xpm=:\
+      *.tif=:\
+      *.tiff=:\
+      *.png=:\
+      *.svg=:\
+      *.svgz=:\
+      *.mng=:\
+      *.pcx=:\
+      *.mov=:\
+      *.mpg=:\
+      *.mpeg=:\
+      *.m2v=:\
+      *.mkv=:\
+      *.webm=:\
+      *.ogm=:\
+      *.mp4=:\
+      *.m4v=:\
+      *.mp4v=:\
+      *.vob=:\
+      *.qt=:\
+      *.nuv=:\
+      *.wmv=:\
+      *.asf=:\
+      *.rm=:\
+      *.rmvb=:\
+      *.flc=:\
+      *.avi=:\
+      *.fli=:\
+      *.flv=:\
+      *.gl=:\
+      *.dl=:\
+      *.xcf=:\
+      *.xwd=:\
+      *.yuv=:\
+      *.cgm=:\
+      *.emf=:\
+      *.ogv=:\
+      *.ogx=:\
+      *.aac=:\
+      *.au=:\
+      *.flac=:\
+      *.m4a=:\
+      *.mid=:\
+      *.midi=:\
+      *.mka=:\
+      *.mp3=:\
+      *.mpc=:\
+      *.ogg=:\
+      *.ra=:\
+      *.wav=:\
+      *.oga=:\
+      *.opus=:\
+      *.spx=:\
+      *.xspf=:\
+      *.pdf=:\
+      *.nix=:\
+    '';
   };
 }
