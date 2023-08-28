@@ -16,6 +16,7 @@
     ../common/optional/hyprland.nix
     ../common/optional/gamemode.nix
     ../common/optional/game-memory-fix.nix
+    ../common/optional/network-perf-fix.nix
     ../common/optional/pipewire.nix
     ../common/optional/quietboot.nix
     ../common/optional/nextdns.nix
