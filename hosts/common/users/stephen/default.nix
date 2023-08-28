@@ -18,6 +18,7 @@ in
       "git"
       "libvirtd"
       "mlocate"
+      "gamemode"
     ];
 
     passwordFile = config.sops.secrets.stephen-password.path;
