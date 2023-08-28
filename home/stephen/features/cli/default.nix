@@ -5,6 +5,7 @@
     ./direnv.nix
     ./fish.nix
     ./gpg.nix
+    ./keyring.nix
     ./gh.nix
     ./git.nix
     ./lazygit.nix
