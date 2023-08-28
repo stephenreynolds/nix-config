@@ -9,7 +9,7 @@ in
     flags = [
       "--refresh"
     ];
-    flake = inputs.self.outPath;
+    flake = "github:stephenreynolds/nix-config";
   };
 
   systemd.services.nixos-upgrade = lib.mkIf config.system.autoUpgrade.enable {
