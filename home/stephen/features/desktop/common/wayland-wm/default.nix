@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ./swww.nix
     ./waybar.nix
     ./kitty.nix
     ./mako.nix
@@ -27,7 +28,6 @@
     pulseaudio
     wl-clipboard
     xdg-utils
-    swww
   ];
 
   home.sessionVariables = {
