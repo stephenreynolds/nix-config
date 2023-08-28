@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ config, pkgs, inputs, ... }: {
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel-kaby-lake
     inputs.hardware.nixosModules.common-pc-ssd
@@ -57,6 +57,7 @@
       ];
     };
     nvidia = {
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
       modesetting.enable = true;
       powerManagement.enable = true;
     };
