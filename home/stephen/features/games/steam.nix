@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, ... }:
 let
   steam-with-pkgs = pkgs.steam.override {
     extraPkgs = pkgs: with pkgs; [
@@ -16,8 +16,6 @@ let
       mangohud
     ];
   };
-
-  monitor = lib.head (lib.filter (m: m.primary) config.monitors);
 in
 {
   home.packages = with pkgs; [
