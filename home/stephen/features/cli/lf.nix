@@ -82,6 +82,27 @@ in
     };
     settings = {
       cleaner = "${cleaner}";
+      ignorecase = true;
+    };
+    commands = {
+      unarchive = ''''${{
+        case "$f" in
+          *.zip) ${pkgs.unzip}/bin/unzip "$f";;
+          *.tar) tar -xvf "$f";;
+          *.tar.gz) tar -xzvf "$f";;
+          *.tar.xz) tar -xJvf "$f";;
+          *.tar.bz2) tar -zjvf "$f";;
+          *.rar) ${pkgs.unrar}/bin/unrar "$f";;
+          *) echo "Unsupported format";;
+        esac
+      }}'';
+      trash = ''''${{
+        trash "$f"
+      }}'';
+      setwallpaper = ''''${{
+        ln -sf "$f" ${config.xdg.configHome}/wallpaper
+        ${pkgs.swww}/bin/swww img ${config.xdg.configHome}/wallpaper --transition-type random --transition-step 90
+      }}'';
     };
     extraConfig =
       # https://github.com/gokcehan/lf/wiki/Tips#dynamically-set-number-of-columns
@@ -96,6 +117,10 @@ in
                 lf -remote "send $id set ratios 1:2:3:5"
             fi
         }}
+
+        map DD trash
+        map au unarchive
+        map sw setwallpaper
       '';
   };
 }
