@@ -1,6 +1,6 @@
 {
   imports = [
-    ./mail.nix
+    ./mailspring.nix
     ./latex.nix
   ];
 }
