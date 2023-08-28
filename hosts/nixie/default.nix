@@ -31,6 +31,14 @@
 
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+    kernelParams = [
+      "mitigations=off"
+      "intel_iommu=on"
+      "iommu=pt"
+      "video=HDMI-A-1:1920x1080@70"
+      "video=DP-1:1920x1080@70"
+      "video=DP-2:1920x1080@70"
+    ];
   };
 
   programs = {
