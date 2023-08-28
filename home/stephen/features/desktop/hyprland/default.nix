@@ -85,6 +85,7 @@
           new_optimizations = true
           xray = false
           noise = 0.0117
+          special = false
         }
 
         drop_shadow = true
