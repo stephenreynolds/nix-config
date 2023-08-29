@@ -14,16 +14,6 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ meson ninja pkg-config ];
   buildInputs = [ libpulseaudio wayland wayland-protocols ];
 
-  buildPase = ''
-    meson build
-    ninja -C build
-  '';
-
-  installPhase = ''
-    mkdir -p $out/bin
-    cp sway-audio-idle-inhibit $out/bin
-  '';
-
   meta = {
     description = "Prevents swayidle from sleeping while any application is outputting or receiving audio";
     license = lib.licenses.gpl3;
