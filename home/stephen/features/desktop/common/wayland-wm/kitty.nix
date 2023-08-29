@@ -27,6 +27,7 @@ in
       background_opacity = "1";
       confirm_os_window_close = 0;
       allow_cloning = "yes";
+      copy_on_select = "yes";
       foreground = "#${colors.base05}";
       background = "#${colors.base00}";
       selection_background = "#${colors.base05}";
