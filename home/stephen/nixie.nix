@@ -8,6 +8,7 @@
     ./features/easyeffects
     ./features/openrgb
     ./features/onedrive
+    ./features/stable-diffusion
   ];
 
   #  ------   ------   ----------
