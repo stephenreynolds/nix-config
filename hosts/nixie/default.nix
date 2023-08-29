@@ -24,7 +24,6 @@
     ../common/optional/bluetooth.nix
     ../common/optional/xpadneo.nix
     ../common/optional/onedrive.nix
-    ../common/optional/preload.nix
   ];
 
   networking = {
