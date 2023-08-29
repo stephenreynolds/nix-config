@@ -1,4 +1,5 @@
-{ pkgs ? (import ../nixpkgs.nix) { } }: rec {
+{ pkgs ? (import ../nixpkgs.nix) { } }:
+{
   qt6gtk2 = pkgs.qt6Packages.callPackage ./qt6gtk2 { };
 
   primary-xwayland = pkgs.callPackage ./primary-xwayland { };
