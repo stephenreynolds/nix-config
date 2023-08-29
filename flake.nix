@@ -20,6 +20,8 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    eww.url = "github:ralismark/eww";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:

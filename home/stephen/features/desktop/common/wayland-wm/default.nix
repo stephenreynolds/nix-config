@@ -10,6 +10,7 @@
     ./sway-audio-idle-inhibit.nix
     ./wofi.nix
     ./zathura.nix
+    ./eww
   ];
 
   xdg = {
