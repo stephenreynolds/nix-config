@@ -1,11 +1,35 @@
 { config, pkgs, ... }:
 let
   inherit (config.colorscheme) colors;
+
+  mailspring-wrapped = pkgs.symlinkJoin {
+    name = "mailspring";
+    paths = [ pkgs.mailspring ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/mailspring --add-flags "--disable-gpu"
+    '';
+  };
 in
 {
-  home.packages = with pkgs; [
-    mailspring
+  home.packages = [
+    mailspring-wrapped
   ];
+
+  xdg.desktopEntries.Mailspring = {
+    name = "Mailspring";
+    genericName = "Mail Client";
+    exec = "mailspring --disable-gpu %U";
+    icon = "mailspring";
+    categories = [ "GNOME" "GTK" "Network" "Email" ];
+    mimeType = [ "x-scheme-handle/mailto" "x-scheme-handler/mailspring" ];
+    startupNotify = true;
+    actions = {
+      "NewMessage" = {
+        exec = "mailspring mailto:";
+      };
+    };
+  };
 
   home.persistence = {
     "/persist/home/stephen".directories = [
