@@ -1,6 +1,7 @@
 .calendar-timezones {
   @include background-opacity(get-value("bg-layer-1"), get-value("bg-opacity"));
   padding: 1rem;
+  border: 1px solid get-value("accent-3");
   border-radius: 9px;
 
   .calendar-toggle-button {
