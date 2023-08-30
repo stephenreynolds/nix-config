@@ -15,6 +15,8 @@ let
     pamixer
     dbus
     python3
+    kitty
+    iputils
     json-notification-daemon
   ];
 in
