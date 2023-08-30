@@ -34,6 +34,7 @@ in
           directory = ".local/share/Steam";
           method = "symlink";
         }
+        "./local/share/applications"
       ];
     };
   };
