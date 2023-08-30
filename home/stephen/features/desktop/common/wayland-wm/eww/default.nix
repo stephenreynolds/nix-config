@@ -25,6 +25,8 @@ in
     configDir = ./config;
   };
 
+  home.packages = [ pkgs.segoe-fluent-icons ];
+
   systemd.user.services.eww = {
     Unit = {
       Description = "ElKowars wacky widgets";

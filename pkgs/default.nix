@@ -10,4 +10,6 @@
   tt = pkgs.callPackage ./tt { };
 
   json-notification-daemon = pkgs.callPackage ./json-notification-daemon { };
+
+  segoe-fluent-icons = pkgs.callPackage ./segoe-fluent-icons { };
 }
