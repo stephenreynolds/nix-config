@@ -3,11 +3,16 @@
 * {
   all: unset;
   color: get-value("text");
+  font-family: SF Pro Text;
 }
 
 .icon {
-  font-family: Segoe Fluent Icons;
-  font-size: 1.125rem;
+  font-family: "CaskaydiaCove Nerd Font Mono";
+
+  &.fluent {
+    font-family: Segoe Fluent Icons;
+    font-size: 1.125rem;
+  }
 }
 
 @import "./scss/widgets/bottom-bar";

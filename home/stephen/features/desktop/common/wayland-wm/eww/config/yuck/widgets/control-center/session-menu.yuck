@@ -6,14 +6,14 @@
                (eventbox :class "session-button"
                          :onclick "scripts/toggle-control-center && sleep 0.3 && $HOME/.config/swayidle/lock.sh &"
                          :cursor "pointer"
-                         (label :class "session-button-icon"
+                         (label :class "session-button-icon icon"
                                 :text ""))
                (eventbox :class "session-button"
                          :onclick {reveal-session-menu ?
                                      "${EWW_CMD} update reveal-session-menu=false" :
                                      "scripts/hide-control-center-menus && ${EWW_CMD} update reveal-session-menu=true"}
                          :cursor "pointer"
-                         (label :class "session-button-icon"
+                         (label :class "session-button-icon icon"
                                 :text ""))))
 
 (defwidget session-menu []

@@ -4,5 +4,5 @@
 (defwidget network []
   (eventbox :class "network"
             :onrightclick "kitty -e nmtui &"
-            (label :class "wifi-icon icon"
+            (label :class "wifi-icon icon fluent"
                    :text {offline ? "" : wifi-strength > 66 ? "" : wifi-strength > 40 ? "" : wifi-strength > 20 ? "" : ""})))

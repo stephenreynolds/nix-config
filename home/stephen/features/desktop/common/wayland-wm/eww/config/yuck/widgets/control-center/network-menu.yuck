@@ -15,9 +15,9 @@
                         :onclick "scripts/toggle-wifi &"
                         :cursor "pointer"
                         (overlay
-                                 (label :class "icon"
+                                 (label :class "icon fluent"
                                         :text {wifi-enabled ? "" : ""})
-                                 (label :class "icon"
+                                 (label :class "icon fluent"
                                         :visible {!wifi-enabled}
                                         :text "")))
               (eventbox :class "network-button"
@@ -52,16 +52,16 @@
                                       (box :space-evenly false
                                            :spacing 5
                                            (overlay :class "network-menu-item-icon"
-                                                    (label :class "icon"
+                                                    (label :class "icon fluent"
                                                            :text "")
-                                                    (label :class "icon"
+                                                    (label :class "icon fluent"
                                                            :visible {network.security != ""}
                                                            :text ""))
                                            (label :limit-width 35
                                                   :hexpand true
                                                   :xalign 0
                                                   :text {network.ssid})
-                                           (label :class "network-connected"
+                                           (label :class "network-connected icon"
                                                   :text {network.in_use ? "" : " "})))))
                    (eventbox :class "network-settings-button"
                              :onclick "kitty -e nmtui &"

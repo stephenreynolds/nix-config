@@ -2,6 +2,6 @@
     (eventbox :class "volume widget"
               :onmiddleclick "pamixer --toggle-mute"
               :onscroll "scripts/set-volume {}"
-              (label :class "volume-icon icon"
+              (label :class "volume-icon icon fluent"
                      :tooltip "${volume}%"
                      :text {volume-muted ? "" : volume > 66 ? "" : volume > 33 ? "" : volume > 0 ? "" : ""})))

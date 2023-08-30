@@ -56,9 +56,9 @@ stdenv.mkDerivation rec {
     7z x 'NY Fonts.pkg'
     7z x 'Payload~'
     mv Library/Fonts/* $out/fontfiles
-    mkdir -p $out/usr/share/fonts/OTF $out/usr/share/fonts/TTF
-    mv $out/fontfiles/*.otf $out/usr/share/fonts/OTF
-    mv $out/fontfiles/*.ttf $out/usr/share/fonts/TTF
+    mkdir -p $out/share/fonts/OTF $out/share/fonts/TTF
+    mv $out/fontfiles/*.otf $out/share/fonts/OTF
+    mv $out/fontfiles/*.ttf $out/share/fonts/TTF
     rm -rf $out/fontfiles
   '';
 
