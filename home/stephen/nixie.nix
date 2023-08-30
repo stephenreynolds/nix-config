@@ -1,6 +1,7 @@
 {
   imports = [
     ./global
+    ./features/flatpak
     ./features/desktop/hyprland
     ./features/games
     ./features/productivity
