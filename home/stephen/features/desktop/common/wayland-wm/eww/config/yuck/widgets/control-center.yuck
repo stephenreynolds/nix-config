@@ -1,0 +1,25 @@
+(include "./yuck/widgets/control-center/network-menu.yuck")
+(include "./yuck/widgets/control-center/session-menu.yuck")
+(include "./yuck/widgets/control-center/volume-outputs.yuck")
+(include "./yuck/widgets/control-center/volume-inputs.yuck")
+
+(defvar reveal-control-center false)
+
+(defwidget control-center []
+    (revealer :transition "slideup"
+              :duration transition-duration
+              :reveal reveal-control-center
+              (box :class "control-center"
+                   (box :class "control-center-content"
+                        :orientation "vertical"
+                        :spacing 5
+                        :space-evenly false
+                        (box :spacing 10
+                             (network-toggle)
+                             (box :class "bluetooth-toggle widget"
+                                  (label ""))
+                             (session-buttons))
+                        (network-menu)
+                        (session-menu)
+                        (volume-outputs)
+                        (volume-inputs)))))

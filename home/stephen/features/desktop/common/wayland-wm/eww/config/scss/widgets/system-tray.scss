@@ -1,0 +1,23 @@
+@import "./scss/colors";
+
+.system-tray {
+  menubar {
+    menuitem {
+      margin: 0 0.5rem;
+
+      menu {
+        @include background-opacity(get-value("bg-layer-1"), 0.8);
+        border-radius: 9px;
+
+        menuitem {
+          padding: 9px;
+          border-radius: 9px;
+
+          &:hover {
+            @include background-opacity(get-value("bg-layer-2"), 0.8);
+          }
+        }
+      }
+    }
+  }
+}

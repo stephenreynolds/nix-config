@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+EWW_CMD=eww
+
+result=$($EWW_CMD get reveal-calendar)
+
+if [[ $result == "true" ]]; then
+    $EWW_CMD update reveal-calendar="false" &
+else
+    $EWW_CMD update reveal-calendar="true" &
+fi

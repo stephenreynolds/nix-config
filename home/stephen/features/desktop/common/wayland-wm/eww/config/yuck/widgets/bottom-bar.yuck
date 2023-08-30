@@ -1,0 +1,29 @@
+(include "./yuck/widgets/launcher.yuck")
+(include "./yuck/widgets/workspaces.yuck")
+(include "./yuck/widgets/system-tray.yuck")
+(include "./yuck/widgets/indicators.yuck")
+(include "./yuck/widgets/widgets-button.yuck")
+
+(defwidget bottom-bar [monitor]
+    (box :class "widget-bottom-bar"
+         (left :monitor monitor)
+         (right :monitor monitor)))
+
+(defwidget left [monitor]
+    (box :halign "start"
+         :space-evenly false
+         :spacing 12
+         (launcher)
+         (workspaces :monitor monitor)))
+
+(defwidget right [monitor]
+    (box :halign "end"
+         :space-evenly false
+         :spacing 5
+         (box :visible {monitor == primary-monitor}
+              :space-evenly false
+              :spacing 5
+              (label :text {submap})
+              (system-tray)
+              (indicators))
+         (widgets-button :monitor monitor)))

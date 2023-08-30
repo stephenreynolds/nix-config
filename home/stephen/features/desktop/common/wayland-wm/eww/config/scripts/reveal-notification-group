@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+EWW_CMD=eww
+
+group=$($EWW_CMD get reveal-notification-group)
+
+if [[ $group == $1 ]]; then
+    $EWW_CMD update reveal-notification-group="null"
+else
+    $EWW_CMD update reveal-notification-group="$1"
+fi

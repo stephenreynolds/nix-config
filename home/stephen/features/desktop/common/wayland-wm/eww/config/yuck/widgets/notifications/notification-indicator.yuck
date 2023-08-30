@@ -1,0 +1,5 @@
+(defwidget notification-indicator []
+    (label :class "notification-indicator"
+           :valign "center"
+           :visible {mode != 0 || arraylength(notifications) > 0}
+           :text {mode == 1 ? "󰂟" : mode == 2 ? "󰪑" : "󰅸"}))

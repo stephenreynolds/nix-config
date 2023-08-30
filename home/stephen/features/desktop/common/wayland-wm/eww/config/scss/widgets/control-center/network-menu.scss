@@ -1,0 +1,82 @@
+@import "./scss/colors";
+
+.network-buttons {
+  .network-buttons-inner {
+    border-radius: 5px;
+    @include background-opacity(
+      get-value("bg-layer-4"),
+      get-value("bg-opacity")
+    );
+
+    .network-button {
+      transition: border 0.2s ease;
+      border-radius: 0 5px 5px 0;
+
+      &:first-child {
+        border-radius: 5px 0 0 5px;
+      }
+
+      &:hover {
+        border: 1px solid get-value("accent-5");
+      }
+
+      .icon {
+        padding: 0 0.6rem;
+      }
+
+      .network-menu-expand-icon {
+        font-size: 1.875rem;
+      }
+    }
+  }
+}
+
+.network-menu {
+  .network-menu-disabled, .network-menu-scranning {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid get-value("bg-layer-4");
+    margin-bottom: 0.25rem;
+
+    label {
+      padding: 0.5rem;
+    }
+  }
+
+  .network-networks {
+    border-bottom: 1px solid get-value("bg-layer-4");
+    padding: 0.25rem 0;
+    margin-bottom: 0.25rem;
+
+    .network-menu-item {
+      border-radius: 9px;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        @include background-opacity(
+          get-value("bg-layer-4"),
+          get-value("bg-opacity")
+        );
+      }
+
+      label {
+        padding: 0.5rem;
+      }
+    }
+  }
+
+  .network-settings-button {
+    border-radius: 9px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      @include background-opacity(
+        get-value("bg-layer-4"),
+        get-value("bg-opacity")
+      );
+    }
+
+    label {
+      padding: 0.5rem;
+    }
+  }
+}

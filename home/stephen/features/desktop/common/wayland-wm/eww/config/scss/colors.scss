@@ -1,0 +1,27 @@
+@import "./colorschemes/catppuccin_mocha.scss";
+
+$theme: "catppuccin-mocha";
+
+$themes: (
+    "catppuccin-mocha": $catppuccin-mocha,
+);
+
+@function get-value($value) {
+    @return map-get(map-get($themes, $theme), $value);
+}
+
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+@function transparentize($color, $percentage) {
+  @return rgba($color, 1 - $percentage);
+}
+
+@mixin background-opacity($color, $opacity) {
+  background-color: rgba($color, $opacity);
+}

@@ -21,7 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    eww.url = "github:ralismark/eww";
+    eww.url = "github:ralismark/eww/tray-3";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:

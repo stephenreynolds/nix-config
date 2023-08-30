@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+EWW_CMD=eww
+
+$EWW_CMD open-many --toggle session-window-window-closer-0 session-window-window-closer-1 session-window-window-closer-2
+$EWW_CMD open --toggle --screen $1 session-window

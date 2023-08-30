@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+EWW_CMD=eww
+
+$EWW_CMD open-many --toggle control-center-window-closer-0 control-center-window-closer-1 control-center-window-closer-2
+
+revealed=$($EWW_CMD get reveal-control-center)
+
+if [[ $revealed == "true" ]]; then
+    $EWW_CMD update reveal-control-center="false" &
+    scripts/hide-control-center-menus &
+else
+    $EWW_CMD update reveal-control-center="true" &
+fi

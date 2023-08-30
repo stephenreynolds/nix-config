@@ -1,0 +1,6 @@
+(defwidget launcher []
+    (eventbox :class "launcher-btn"
+              :onclick "pkill wofi || wofi --show drun --normal-window --allow-images &"
+              :cursor "pointer"
+              (label :class "launcher-label"
+                     :text "")))

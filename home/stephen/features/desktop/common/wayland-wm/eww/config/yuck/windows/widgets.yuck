@@ -1,0 +1,51 @@
+(include "./yuck/widgets/widgets.yuck")
+
+(defwindow widgets-0
+    :monitor 0
+    :geometry (geometry :x "-1px"
+                        :height "1042px"
+                        :anchor "bottom right")
+    :stacking "overlay"
+    :namespace "eww"
+    (widgets :monitor 0))
+
+(defwindow widgets-1
+    :monitor 1
+    :geometry (geometry :x "-1px"
+                        :height "1042px"
+                        :anchor "bottom right")
+    :stacking "overlay"
+    :namespace "eww"
+    (widgets :monitor 1))
+
+(defwindow widgets-2
+    :monitor 2
+    :geometry (geometry :x "-1px"
+                        :height "1042px"
+                        :anchor "bottom right")
+    :stacking "overlay"
+    :namespace "eww"
+    (widgets :monitor 2))
+
+(defwidget widgets-closer []
+  (eventbox :onclick "scripts/hide-widgets"
+            :onrightclick "scripts/hide-widgets"
+            :onmiddleclick "scripts/hide-widgets"))
+
+(defwindow widgets-0-closer
+  :monitor 0
+  :geometry (geometry :width "100%" :height "100%")
+  :stacking "fg"
+  (widgets-closer))
+
+(defwindow widgets-1-closer
+  :monitor 1
+  :geometry (geometry :width "100%" :height "100%")
+  :stacking "fg"
+  (widgets-closer))
+
+(defwindow widgets-2-closer
+  :monitor 2
+  :geometry (geometry :width "100%" :height "100%")
+  :stacking "fg"
+  (widgets-closer))

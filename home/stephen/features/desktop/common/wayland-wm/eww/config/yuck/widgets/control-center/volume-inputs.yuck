@@ -1,0 +1,62 @@
+(defvar reveal-volume-sources false)
+
+(defwidget volume-inputs []
+    (box :class "volume-menu widget"
+         :orientation "vertical"
+         :space-evenly false
+         :visible {arraylength(audio-sources) > 0}
+         (box :class "volume-menu-parent"
+              :spacing 8
+              :space-evenly false
+              (eventbox :onclick "pamixer --toggle-mute --source 0"
+                        :cursor "pointer"
+                        :class "volume-icon"
+                        (label :class "volume-icon icon"
+                               :text {mic-muted ? "" : ""}))
+              (scale :class "volume-slider"
+                     :value mic-volume
+                     :onchange "scripts/set-microphone {}"
+                     :min 0
+                     :max 100
+                     :hexpand true)
+              (label :class "volume-label"
+                     :text "${mic-volume}%")
+              (eventbox :onclick {reveal-volume-sources ?
+                                    "${EWW_CMD} update reveal-volume-sources=false" :
+                                    "scripts/hide-control-center-menus && ${EWW_CMD} update reveal-volume-sources=true"}
+                        :cursor "pointer"
+                        :class "volume-menu-button"
+                        (label :class "volume-menu-expand-icon icon"
+                               :text {reveal-volume-sources ? "" : ""})))
+         (revealer :class "audio-device-menu"
+                   :transition "slidedown"
+                   :duration transition-duration
+                   :reveal reveal-volume-sources
+                   (box :orientation "vertical"
+                        :space-evenly false
+                        (box :orientation "vertical"
+                             :class "audio-device-menu-devices"
+                             (for source in audio-sources
+                                 (eventbox :class "audio-device-menu-item"
+                                           :onclick "pactl set-default-source ${source.index}"
+                                           :cursor "pointer"
+                                           (box :class "audio-device-menu-item"
+                                                :space-evenly false
+                                                :spacing 5
+                                                (label :class "audio-device-icon"
+                                                       :text {arraylength(source.ports) == 0 ? "" :
+                                                              jq(source.ports, '.[] | select(.name == "${source.active_port}")').type == "Mic" ? "" :
+                                                              jq(source.ports, '.[] | select(.name == "${source.active_port}")').type == "Line" ? "󱡬" :
+                                                              ""})
+                                                (label :class "audio-device-name"
+                                                       :limit-width 35
+                                                       :hexpand true
+                                                       :xalign 0
+                                                       :text {source.description})
+                                                (label :class "audio-device-enabled"
+                                                       :text {source.index == audio-source-current ? "" : " "})))))
+                        (eventbox :class "audio-settings-button"
+                                  :cursor "pointer"
+                                  :onclick "pavucontrol -t 4 | scripts/toggle-control-center &"
+                                  (label :text "Settings"
+                                         :xalign 0))))))

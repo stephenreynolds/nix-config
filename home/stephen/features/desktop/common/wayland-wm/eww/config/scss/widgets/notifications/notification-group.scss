@@ -1,0 +1,44 @@
+@import "./scss/colors";
+
+.notification-group {
+  .notification-group-header {
+    .notification-group-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .notification-group-collapse-btn {
+      box {
+        padding: 0.5rem;
+        @include background-opacity(get-value("bg-layer-3"), 0.8);
+        border-radius: 9px;
+      }
+
+      &:hover box {
+        @include background-opacity(get-value("bg-layer-4"), 0.8);
+      }
+    }
+
+    .notification-dismiss {
+      border-radius: 999px;
+
+      &:hover label {
+        color: get-value("accent-1");
+      }
+    }
+  }
+
+  .notification-group-expand-button-box {
+    .notification-group-expand-button {
+      label {
+        padding: 0.4rem 1rem;
+        @include background-opacity(get-value("bg-layer-4"), 0.8);
+        border-radius: 9px;
+      }
+
+      &:hover label {
+        @include background-opacity(get-value("bg-layer-5"), 0.8);
+      }
+    }
+  }
+}

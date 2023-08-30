@@ -1,0 +1,64 @@
+(defvar reveal-calendar false)
+
+(defpoll timeUTC :interval "1s"
+                 :run-while {reveal_widgets[0] || reveal_widgets[1] || reveal_widgets[2]}
+                 "TZ=':Europe/London' date '+%l:%M %p'")
+(defpoll timeJST :interval "1s"
+                 :run-while {reveal_widgets[0] || reveal_widgets[1] || reveal_widgets[2]}
+                 "TZ=':Asia/Tokyo' date '+%l:%M %p'")
+
+(defwidget calendar-timezones []
+    (box :class "calendar-timezones"
+         :orientation "vertical"
+         :space-evenly false
+         :spacing 10
+         (calendar-header)
+         (timezones)
+         (revealer :transition "slideup"
+                   :duration transition-duration
+                   :reveal reveal-calendar
+                   (calendar :show-details true
+                             :show-heading true
+                             :width 380))))
+
+(defwidget calendar-header []
+    (box :space-evenly false
+         (time)
+         (eventbox :class "calendar-toggle-button"
+                   :onclick "scripts/toggle-calendar"
+                   :cursor "pointer"
+                   :valign "center"
+                   (label :class "icon"
+                          :text {reveal-calendar ? "" : ""}))))
+
+(defwidget time []
+    (box :class "calendar-time"
+         :orientation "vertical"
+         :hexpand true
+         (label :class "calendar-time-label"
+                :xalign 0
+                :text "${formattime(EWW_TIME, '%r')}")
+         (label :class "calendar-date-label"
+                :xalign 0
+                :text "${formattime(EWW_TIME, '%A, %B %d, %Y')}")))
+
+(defwidget timezones []
+    (box :class "timezones"
+         :orientation "vertical"
+         :spacing 5
+         (box :class "timezone-item"
+              :space-evenly false
+              (label :class "timezone-time"
+                     :halign "start"
+                     :hexpand true
+                     :text "London")
+              (label :class "timezone-name"
+                     :text timeUTC))
+         (box :class "timezone-item"
+              :space-evenly false
+              (label :class "timezone-time"
+                     :halign "start"
+                     :hexpand true
+                     :text "Japan")
+              (label :class "timezone-name"
+                     :text timeJST))))

@@ -1,0 +1,34 @@
+(include "./yuck/widgets/bottom-bar.yuck")
+
+(defwindow bottom-bar-0
+    :monitor 0
+    :geometry (geometry :x "0%"
+                        :y "0%"
+                        :width "100%"
+                        :anchor "bottom center")
+    :stacking "fg"
+    :exclusive true
+    :namespace "eww"
+    (bottom-bar :monitor 0))
+
+(defwindow bottom-bar-1
+    :monitor 1
+    :geometry (geometry :x "0%"
+                        :y "0%"
+                        :width "100%"
+                        :anchor "bottom center")
+    :stacking "fg"
+    :exclusive true
+    :namespace "eww"
+    (bottom-bar :monitor 1))
+
+(defwindow bottom-bar-2
+    :monitor 2
+    :geometry (geometry :x "0%"
+                        :y "0%"
+                        :width "100%"
+                        :anchor "bottom center")
+    :stacking "fg"
+    :exclusive true
+    :namespace "eww"
+    (bottom-bar :monitor 2))

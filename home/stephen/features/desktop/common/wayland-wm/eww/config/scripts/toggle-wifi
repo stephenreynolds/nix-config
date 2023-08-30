@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+EWW_CMD=eww
+
+ENABLED=$(nmcli radio wifi)
+
+if [ "$ENABLED" = "enabled" ]; then
+    nmcli radio wifi off &
+    $EWW_CMD update wifi-enabled=false
+else
+    nmcli radio wifi on &
+    $EWW_CMD update wifi-enabled=true
+fi

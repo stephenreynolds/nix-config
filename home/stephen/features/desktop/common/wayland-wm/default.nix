@@ -1,16 +1,14 @@
 { pkgs, ... }:
 {
   imports = [
+    ./eww
     ./swww.nix
-    ./waybar.nix
     ./kitty.nix
-    ./mako.nix
     ./swayidle.nix
     ./swaylock.nix
     ./sway-audio-idle-inhibit.nix
     ./wofi.nix
     ./zathura.nix
-    ./eww
   ];
 
   xdg = {
@@ -26,9 +24,9 @@
     qt5.qtwayland
     imv
     primary-xwayland
-    pulseaudio
     wl-clipboard
     xdg-utils
+    pulseaudio
   ];
 
   home.sessionVariables = {

@@ -1,0 +1,59 @@
+(include "./yuck/widgets/notifications/notification.yuck")
+
+(defvar reveal-notification-group "null")
+
+(defwidget notification-group [appname group-notifications]
+    (box :class "notification-group"
+         :orientation "vertical"
+         :space-evenly false
+         :spacing 10
+         :visible {reveal-notification-group == "null" || reveal-notification-group == appname}
+         (notification-group-header :appname appname)
+         (notification-group-top :latest {group-notifications[0]}
+                                 :count {arraylength(group-notifications)})
+         (notification-group-expanded :reveal {reveal-notification-group == appname}
+                                      :group-notifications {jq(group-notifications, ".[1:]")})))
+
+(defwidget notification-group-header [appname]
+    (box :class "notification-group-header"
+         :visible {reveal-notification-group == appname}
+         :space-evenly false
+         :spacing 10
+         (notification-group-title :appname appname)
+         (notification-group-collapse)
+         (notification-group-dismiss :appname appname)))
+
+(defwidget notification-group-title [appname]
+   (label :text {appname}
+          :class "notification-group-name"
+          :halign "start"
+          :hexpand true))
+
+(defwidget notification-group-collapse []
+   (eventbox :class "notification-group-collapse-btn"
+             :onclick "${EWW_CMD} update reveal-notification-group='null'"
+             :cursor "pointer"
+             (box (label :text "Show less"))))
+
+(defwidget notification-group-dismiss [appname]
+   (eventbox :class "notification-dismiss"
+             :onclick "scripts/dbus-send --group '${appname}'"
+             :cursor "pointer"
+             :width 28
+             (label :text "")))
+
+(defwidget notification-group-top [latest count]
+  (notification :notification {latest}
+                :is-group true
+                :show-count {count > 1 && reveal-notification-group == "null"}
+                :group-count count))
+
+(defwidget notification-group-expanded [reveal group-notifications]
+  (revealer :transition "slideup"
+            :duration "300ms"
+            :reveal reveal
+            (box :orientation "vertical"
+                 :spacing 10
+                 :space-evenly false
+                 (for notification in group-notifications
+                     (notification :notification notification)))))

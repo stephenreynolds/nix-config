@@ -1,0 +1,49 @@
+@import "./scss/colors";
+
+.notification {
+  border-radius: 9px;
+  padding: 0.75rem;
+  @include background-opacity(get-value("bg-layer-3"), 0.8);
+
+  &.notification-low {
+    border: get-value("notification-border-size") solid get-value("accent-4");
+  }
+
+  &.notification-normal {
+    border: get-value("notification-border-size") solid get-value("accent-5");
+  }
+
+  &.notification-critical {
+    border: get-value("notification-border-size") solid get-value("accent-1");
+  }
+
+  .notification-header {
+    .notification-dismiss {
+      border-radius: 999px;
+
+      &:hover label {
+        color: get-value("accent-1");
+      }
+    }
+  }
+
+  .notification-container {
+    .notification-summary {
+      font-weight: 500;
+    }
+  }
+
+  .notification-action-button {
+    @include background-opacity(get-value("bg-layer-4"), 0.8);
+    border-radius: 9px;
+    font-weight: 500;
+
+    &:hover {
+      @include background-opacity(get-value("bg-layer-5"), 0.8);
+    }
+
+    label {
+      padding: 0.4rem;
+    }
+  }
+}

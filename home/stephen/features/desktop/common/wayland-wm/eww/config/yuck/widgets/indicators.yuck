@@ -1,0 +1,10 @@
+(include "./yuck/widgets/indicators/network.yuck")
+(include "./yuck/widgets/indicators/volume.yuck")
+
+(defwidget indicators []
+    (eventbox :class `widget-indicators ${reveal-control-center ? "btn-active" : ""}`
+              :onclick "scripts/toggle-control-center"
+              :cursor "pointer"
+              (box :spacing 12
+                   (network)
+                   (volume))))

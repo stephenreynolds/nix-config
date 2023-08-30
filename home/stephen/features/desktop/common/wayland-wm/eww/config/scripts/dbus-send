@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+
+import argparse
+import os
+
+
+def dismiss_by_id(id):
+    os.system(
+        f"dbus-send --session --type=method_call --dest=org.freedesktop.Notifications /org/freedesktop/Notifications org.freedesktop.Notifications.CloseNotification uint32:{id}")
+
+
+def dismiss_by_group(appname):
+    os.system(
+        f"dbus-send --session --type=method_call --dest=org.freedesktop.Notifications /org/freedesktop/Notifications org.freedesktop.Notifications.CloseNotificationGroup string:'{appname}'")
+
+
+def dismiss_all():
+    os.system(
+        f"dbus-send --session --type=method_call --dest=org.freedesktop.Notifications /org/freedesktop/Notifications org.freedesktop.Notifications.ClearNotifications")
+
+
+def invoke_action(id, action_key):
+    os.system(
+        f"dbus-send --session --type=method_call --dest=org.freedesktop.Notifications /org/freedesktop/Notifications org.freedesktop.Notifications.InvokeAction uint32:{id} string:'{action_key}'")
+
+
+def set_mode(value):
+    os.system(
+            f"dbus-send --session --type=method_call --dest=org.freedesktop.Notifications /org/freedesktop/Notifications org.freedesktop.Notifications.SetMode uint32:{value}")
+
+
+def main():
+    parser = argparse.ArgumentParser()
+
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("--id", type=int)
+    group.add_argument("--group", type=str)
+    group.add_argument("--all", action="store_true")
+    group.add_argument("--action", nargs=2)
+    group.add_argument("--mode", type=int)
+
+    args = parser.parse_args()
+
+    if args.id:
+        dismiss_by_id(args.id)
+    elif args.group:
+        dismiss_by_group(args.group)
+    elif args.all:
+        dismiss_all()
+    elif args.action:
+        invoke_action(args.action[0], args.action[1])
+    elif args.mode:
+        set_mode(args.mode)
+
+
+if __name__ == "__main__":
+    main()

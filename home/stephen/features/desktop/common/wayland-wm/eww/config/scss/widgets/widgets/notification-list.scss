@@ -1,0 +1,59 @@
+@import "./scss/colors";
+
+.notification-list {
+  @include background-opacity(get-value("bg-layer-1"), get-value("bg-opacity"));
+  padding: 1rem;
+  border-radius: 9px;
+
+  .notification-list-header {
+    margin-bottom: 10px;
+
+    .notification-list-header-label {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    .dnd-button {
+      @include background-opacity(get-value("bg-layer-3"), 0.8);
+      border-radius: 9px;
+      font-size: 1.2rem;
+
+      label {
+        padding: 0.375rem 0.875rem;
+      }
+
+      &:hover {
+        @include background-opacity(get-value("bg-layer-4"), 0.8);
+      }
+    }
+
+    .notification-clear {
+      @include background-opacity(get-value("bg-layer-3"), 0.8);
+      border-radius: 9px;
+
+      label {
+        padding: 0.5rem 1rem;
+      }
+
+      &:hover {
+        @include background-opacity(get-value("bg-layer-4"), 0.8);
+      }
+    }
+  }
+
+  .notification-list-expand-button {
+    label {
+      padding: 0.5rem;
+      @include background-opacity(get-value("bg-layer-3"), 0.8);
+      border-radius: 9px;
+    }
+
+    &:hover label {
+      @include background-opacity(get-value("bg-layer-4"), 0.8);
+    }
+  }
+
+  .notifications-empty {
+    font-weight: 500;
+  }
+}

@@ -1,0 +1,22 @@
+@import "./scss/colors.scss";
+
+* {
+  all: unset;
+  color: get-value("text");
+}
+
+.icon {
+  font-family: Segoe Fluent Icons;
+  font-size: 1.125rem;
+}
+
+@import "./scss/widgets/bottom-bar";
+@import "./scss/widgets/launcher";
+@import "./scss/widgets/workspaces";
+@import "./scss/widgets/clock";
+@import "./scss/widgets/indicators";
+@import "./scss/widgets/control-center";
+@import "./scss/widgets/system-tray";
+@import "./scss/widgets/notifications";
+@import "./scss/widgets/widgets";
+@import "./scss/widgets/widgets-button";

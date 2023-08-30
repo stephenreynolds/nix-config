@@ -8,4 +8,6 @@
 
   t = pkgs.callPackage ./t { };
   tt = pkgs.callPackage ./tt { };
+
+  json-notification-daemon = pkgs.callPackage ./json-notification-daemon { };
 }

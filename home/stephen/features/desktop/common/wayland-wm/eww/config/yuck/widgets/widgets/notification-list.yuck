@@ -1,0 +1,60 @@
+(include "./yuck/widgets/notifications/notification-group.yuck")
+
+; Do not disturb mode
+; 0 = disabled, 1 = priority only, 2 = do not disturb
+(defvar mode 0)
+(defvar expand-notification-groups false)
+
+(defwidget notification-list []
+    (box :class "notification-list"
+         :orientation "vertical"
+         :space-evenly false
+         (notification-list-header)
+         (empty-message)
+         (box :orientation "vertical"
+              :space-evenly false
+              (for group in {jq(notifications, ".[:3]")}
+                  (notification-group :appname {group.appname} :group-notifications {group.notifications})))
+        (revealer :transition "slidedown"
+                  :duration transition-duration
+                  :reveal expand-notification-groups
+                  (box :orientation "vertical"
+                       :space-evenly false
+                       (for group in {jq(notifications, ".[3:]")}
+                           (notification-group :appname {group.appname}
+                                               :group-notifications {group.notifications}))))
+         (notification-list-expand-button)))
+
+(defwidget notification-list-header []
+    (box :class "notification-list-header"
+         :space-evenly false
+         :spacing 10
+         :visible {reveal-notification-group == "null"}
+         (label :class "notification-list-header-label"
+                :hexpand true
+                :halign "start"
+                :text "Notifications")
+         (eventbox :class "dnd-button"
+                   :onclick "${EWW_CMD} update mode='${mode == 2 ? 0 : mode + 1}' && scripts/dbus-send --mode ${mode == 2 ? 0 : mode + 1}"
+                   :cursor "pointer"
+                   (label :text {mode == 1 ? "󰂟" :mode == 2 ? "󰪑" : "󰂜"}
+                          :tooltip {mode == 0 ? "Notifications on" :
+                                    mode == 1 ? "Priority only" :
+                                    "Do not disturb"}))
+         (eventbox :class "notification-clear"
+                   :onclick "scripts/dbus-send --all && scripts/hide-widgets"
+                   :cursor "pointer"
+                   (label :text "Clear all"))))
+
+(defwidget notification-list-expand-button []
+  (eventbox :visible {reveal-notification-group == "null" && arraylength(notifications) > 3}
+            :onclick "scripts/toggle-expand-groups"
+            :cursor "pointer"
+            :class "notification-list-expand-button"
+            (label :text {expand-notification-groups ? "Show less" :
+                   "${jq(notifications, "[del(.[0:3])[] | .notifications | length] | add")} more notifications"})))
+
+(defwidget empty-message []
+    (box :class "notifications-empty"
+         :visible {arraylength(notifications) == 0}
+         (label :text "No new notifications")))

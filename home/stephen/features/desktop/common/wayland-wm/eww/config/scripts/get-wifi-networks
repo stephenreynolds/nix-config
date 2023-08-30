@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+EWW_CMD=eww
+
+# Start of JSON array
+json_output='['
+
+# Read command output line by line
+while IFS= read -r line
+do
+  # Remove leading/trailing spaces
+  line=$(echo "$line" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+
+  # Extract network details
+  connected=$(echo "$line" | awk -F':' '{print $1}')
+  ssid=$(echo "$line" | awk -F':' '{print $2}')
+  strength=$(echo "$line" | awk -F':' '{print $3}')
+  security=$(echo "$line" | awk -F':' '{print $4}')
+
+  # Check if network is in use
+  if [ "$connected" = "*" ]; then
+    connected='true'
+  else
+    connected='false'
+  fi
+
+  # Add network details to JSON array
+  json_output+='{"in_use":'$connected', "ssid":"'$ssid'", "wifi_strength":'$strength', "security":"'$security'"},'
+
+done < <(nmcli -t -f IN-USE,SSID,SIGNAL,SECURITY dev wifi)
+
+# Remove trailing comma and add end of JSON array
+json_output=${json_output%?}
+json_output+=']'
+
+# Print JSON array
+echo "$json_output"

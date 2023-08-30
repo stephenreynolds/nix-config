@@ -1,0 +1,103 @@
+(defwidget notification [notification ?is-popup ?is-group ?group-count ?show-count]
+    (box :class "notification notification-${notification.hints.urgency ?: 'normal'}"
+         :orientation "vertical"
+         :space-evenly false
+         :spacing 10
+         :width 380
+         (box :class "notification-container"
+              :orientation "vertical"
+              :space-evenly false
+              :spacing 5
+              (notification-header :id {notification.id}
+                                   :appname {notification.appname}
+                                   :timestamp {notification.timestamp}
+                                   :icon {notification.icon}
+                                   :is-popup {is-popup ?: false}
+                                   :is-group {is-group ?: false})
+              (eventbox :onclick {arraylength(notification.actions) == 0 ?
+                                    "scripts/dbus-send --id ${notification.id} && scripts/hide-widgets" :
+                                        jq(notification.actions, 'any(.[]; . == "default")') ?
+                                            "scripts/dbus-send --action ${notification.id} default && scripts/hide-widgets" :
+                                                "scripts/dbus-send --action ${notification.id} ${notification.actions[0]} && scripts/hide-widgets"}
+                        :onrightclick {jq(notification.actions, 'any(.[]; . == "settings")') ?
+                                       "scripts/dbus-send --action ${notification.id} settings && scripts/hide-widgets" : ""}
+                        (notification-content :notification notification)))
+         (notification-actions :id {notification.id} :actions {notification.actions})
+         (notification-group-expand-button :visible {show-count ?: false}
+                                           :appname {notification.appname}
+                                           :group-count {group-count ?: 1})))
+
+(defwidget notification-header [id appname timestamp icon ?is-popup ?is-group]
+    (box :class "notification-header"
+         :space-evenly false
+         :spacing 5
+         (box :class "notification-appname"
+              :space-evenly false
+              :spacing 8
+              :hexpand true
+              (image :class "notification-icon"
+                     :visible {icon != "null"}
+                     :image-width 16
+                     :image-height 16
+                     :path {icon})
+              (label :show-truncated true
+                     :limit-width 36
+                     :text {appname}))
+        (label :visible {!is-popup}
+               :text {formattime(timestamp, "%-l:%M %p")})
+        (notification-dismiss-button :id id :appname appname :is-group is-group)))
+
+(defwidget notification-dismiss-button [id ?appname ?is-group]
+    (eventbox :class "notification-dismiss"
+              :onclick {is-group ?
+                        "scripts/dbus-send --group '${appname}'" :
+                        "scripts/dbus-send --id ${id}"}
+              :cursor "pointer"
+              :width 24
+              :height 24
+              (label :text "")))
+
+(defwidget notification-content [notification]
+    (box :class "notification-content"
+         :space-evenly false
+         :spacing 10
+         (box :class "notification-text"
+              :orientation "vertical"
+              :space-evenly false
+              :spacing 5
+              :hexpand true
+              (label :class "notification-summary"
+                     :xalign 0
+                     :limit-width 30
+                     :show-truncated true
+                     :text {notification.summary})
+              (label :class "notification-body"
+                     :visible {notification.body != ""}
+                     :xalign 0
+                     :halign "start"
+                     :limit-width 141
+                     :show-truncated true
+                     :markup {notification.body}))
+         (image :class "notification-image"
+                :visible {notification.hints.image-path != "null"}
+                :image-width 64
+                :valign "start"
+                :path {notification.hints.image-path})))
+
+(defwidget notification-actions [id actions]
+    (box :spacing 5
+         (for action in {jq(actions, `[range(0; ${arraylength(actions) / 2}) as $i | ({"key": .[2*$i], "text": .[2*$i+1]}) | select(.key != "default" and .key != "settings")]`)}
+            (eventbox :class "notification-action-button"
+                      :cursor "pointer"
+                      :onclick "scripts/dbus-send --action ${id} ${action.key}"
+                      (label :text {action.text})))))
+
+(defwidget notification-group-expand-button [visible appname group-count]
+  (box :class "notification-group-expand-button-box"
+       :visible visible
+       (eventbox :onclick `scripts/reveal-notification-group "${appname}"`
+                 :cursor "pointer"
+                 :halign "start"
+                 :visible visible
+                 :class "notification-group-expand-button"
+                 (label :text "+${group-count - 1} more"))))

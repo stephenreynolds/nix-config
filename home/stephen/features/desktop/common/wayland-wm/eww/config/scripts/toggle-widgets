@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+EWW_CMD=eww
+
+./scripts/hide-control-center &
+
+$EWW_CMD open-many --toggle widgets-0-closer widgets-1-closer widgets-2-closer
+
+IFS=","
+read -a revealed <<< "$($EWW_CMD get reveal-widgets)"
+revealed[0]=${revealed[0]#[}
+revealed[-1]=${revealed[-1]%]}
+monitors=(false false false)
+
+$EWW_CMD update reveal-notification-group="null" &
+$EWW_CMD update expand-notification-groups="false" &
+
+if [[ "${revealed[$1]}" == "true" ]]; then
+    monitors[$1]=false
+    $EWW_CMD update reveal-widgets="[${monitors[0]},${monitors[1]},${monitors[2]}]" &
+else
+    monitors[$1]=true
+    $EWW_CMD update reveal-widgets="[${monitors[0]},${monitors[1]},${monitors[2]}]" &
+fi

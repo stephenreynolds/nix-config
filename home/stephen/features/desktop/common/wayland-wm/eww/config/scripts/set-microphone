@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+STEP=5
+
+if [ "$1" == "up" ]; then
+	pamixer --increase ${STEP} --source 0
+elif [ "$1" == "down" ]; then
+	pamixer --decrease ${STEP} --source 0
+else
+	volume=$(pamixer --get-volume --source 0)
+	new_volume=$1
+	if [ $1 -lt $volume ] && [ $(($1 % 2)) -ne 0 ]; then
+		new_volume=$(($1 - 1))
+	elif [ $1 -gt $volume ] && [ $(($1 % 2)) -ne 0 ]; then
+		new_volume=$(($1 + 1))
+	fi
+	pamixer --set-volume $new_volume --source 0
+fi
