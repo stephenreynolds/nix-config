@@ -1,6 +1,4 @@
 { lib
-, stdenv
-, fetchFromGitHub
 , gobject-introspection
 , gtk3
 , libnotify
