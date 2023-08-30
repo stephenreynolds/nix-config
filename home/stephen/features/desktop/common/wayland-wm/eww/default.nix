@@ -1,5 +1,7 @@
 { config, lib, inputs, pkgs, ... }:
 let
+  inherit (config.colorscheme) colors;
+
   dependencies = with pkgs; [
     config.programs.eww.package
     coreutils
@@ -16,6 +18,8 @@ let
     dbus
     python3
     kitty
+    wofi
+    procps
     iputils
     json-notification-daemon
   ];
@@ -43,5 +47,27 @@ in
       Environment = "PATH=/run/wrapper/bin:${lib.makeBinPath dependencies}";
       WorkingDirectory = "${config.xdg.configHome}/eww";
     };
+  };
+
+  xdg.configFile."eww-colors" = {
+    target = "base16.scss";
+    text = ''
+      $base16: (
+        "bg-layer-1": #${colors.base00},
+        "bg-layer-2": #${colors.base01},
+        "bg-layer-3": #${colors.base00},
+        "bg-layer-4": #${colors.base02},
+        "bg-layer-5": #${colors.base03},
+        "text": #${colors.base05},
+        "muted": #${colors.base04},
+        "accent-1": #${colors.base08},
+        "accent-2": #${colors.base09},
+        "accent-3": #${colors.base0E},
+        "accent-4": #${colors.base0B},
+        "accent-5": #${colors.base0D},
+        "accent-6": #${colors.base07},
+        "bg-opacity": 1
+      );
+    '';
   };
 }

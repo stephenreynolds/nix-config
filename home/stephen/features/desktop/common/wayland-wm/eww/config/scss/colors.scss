@@ -1,9 +1,9 @@
-@import "./colorschemes/catppuccin_mocha.scss";
+@import "/home/stephen/.config/base16.scss";
 
-$theme: "catppuccin-mocha";
+$theme: "base16";
 
 $themes: (
-    "catppuccin-mocha": $catppuccin-mocha,
+    "base16": $base16,
 );
 
 @function get-value($value) {

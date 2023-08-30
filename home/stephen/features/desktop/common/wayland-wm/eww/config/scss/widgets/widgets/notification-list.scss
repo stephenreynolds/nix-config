@@ -14,7 +14,7 @@
     }
 
     .dnd-button {
-      @include background-opacity(get-value("bg-layer-3"), 0.8);
+      @include background-opacity(get-value("bg-layer-3"), get-value("bg-opacity"));
       border-radius: 9px;
       font-size: 1.2rem;
 
@@ -23,12 +23,12 @@
       }
 
       &:hover {
-        @include background-opacity(get-value("bg-layer-4"), 0.8);
+        @include background-opacity(get-value("bg-layer-4"), get-value("bg-opacity"));
       }
     }
 
     .notification-clear {
-      @include background-opacity(get-value("bg-layer-3"), 0.8);
+      @include background-opacity(get-value("bg-layer-3"), get-value("bg-opacity"));
       border-radius: 9px;
 
       label {
@@ -36,7 +36,7 @@
       }
 
       &:hover {
-        @include background-opacity(get-value("bg-layer-4"), 0.8);
+        @include background-opacity(get-value("bg-layer-4"), get-value("bg-opacity"));
       }
     }
   }
@@ -44,12 +44,12 @@
   .notification-list-expand-button {
     label {
       padding: 0.5rem;
-      @include background-opacity(get-value("bg-layer-3"), 0.8);
+      @include background-opacity(get-value("bg-layer-3"), get-value("bg-opacity"));
       border-radius: 9px;
     }
 
     &:hover label {
-      @include background-opacity(get-value("bg-layer-4"), 0.8);
+      @include background-opacity(get-value("bg-layer-4"), get-value("bg-opacity"));
     }
   }
 

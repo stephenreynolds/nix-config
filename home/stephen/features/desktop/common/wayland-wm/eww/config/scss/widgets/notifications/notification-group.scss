@@ -10,12 +10,12 @@
     .notification-group-collapse-btn {
       box {
         padding: 0.5rem;
-        @include background-opacity(get-value("bg-layer-3"), 0.8);
+        @include background-opacity(get-value("bg-layer-3"), get-value("bg-opacity"));
         border-radius: 9px;
       }
 
       &:hover box {
-        @include background-opacity(get-value("bg-layer-4"), 0.8);
+        @include background-opacity(get-value("bg-layer-4"), get-value("bg-opacity"));
       }
     }
 
@@ -32,12 +32,12 @@
     .notification-group-expand-button {
       label {
         padding: 0.4rem 1rem;
-        @include background-opacity(get-value("bg-layer-4"), 0.8);
+        @include background-opacity(get-value("bg-layer-4"), get-value("bg-opacity"));
         border-radius: 9px;
       }
 
       &:hover label {
-        @include background-opacity(get-value("bg-layer-5"), 0.8);
+        @include background-opacity(get-value("bg-layer-5"), get-value("bg-opacity"));
       }
     }
   }
