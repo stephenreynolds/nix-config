@@ -36,6 +36,7 @@ in
 
       gpg = {
         enable = true;
+        homeDir = "${config.xdg.dataHome}/gnupg";
         settings = {
           trust-model = "tofu+pgp";
         };
