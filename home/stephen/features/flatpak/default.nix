@@ -4,6 +4,7 @@
       directories = [
         ".local/share/flatpak"
         ".cache/flatpak"
+        ".var"
       ];
     };
   };
