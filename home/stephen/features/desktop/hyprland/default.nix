@@ -122,7 +122,7 @@
         mfact = 0.55
         new_is_master = true
         new_on_top = true
-        orientation = left
+        orientation = center
         inherit_fullscreen = true
         no_gaps_when_only = 1
       }
