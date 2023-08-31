@@ -119,7 +119,7 @@
     ''
     ''
       master {
-        mfact = 0.5
+        mfact = 0.55
         new_is_master = true
         new_on_top = true
         orientation = left
