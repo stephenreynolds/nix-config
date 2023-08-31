@@ -19,19 +19,45 @@ in
         default = "Google";
         engines = {
           "Google".metaData.alias = "@g";
-          "Bing".metaData.hidden = true;
-          "DuckDuckGo".metaData.hidden = true;
           "Nix Packages" = {
             urls = [{
               template = "https://search.nixos.org/packages";
               params = [
                 { name = "type"; value = "packages"; }
                 { name = "query"; value = "{searchTerms}"; }
+                { name = "channel"; value = "unstable"; }
               ];
             }];
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@np" ];
           };
+          "Nix Options" = {
+            urls = [{
+              template = "https://search.nixos.org/options";
+              params = [
+                { name = "type"; value = "packages"; }
+                { name = "query"; value = "{searchTerms}"; }
+                { name = "channel"; value = "unstable"; }
+              ];
+            }];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "@no" ];
+          };
+          "YouTube" = {
+            urls = [{
+              template = "https://www.youtube.com/results";
+              params = [
+                { name = "search_query"; value = "{searchTerms}"; }
+              ];
+            }];
+            definedAliases = [ "@yt" ];
+          };
+
+          "Bing".metaData.hidden = true;
+          "DuckDuckGo".metaData.hidden = true;
+          "Amazon.com".metaData.hidden = true;
+          "eBay".metaData.hidden = true;
+          "Wikipedia (en)".metaData.hidden = true;
         };
       };
       settings = {
