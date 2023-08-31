@@ -2,10 +2,14 @@
 {
   imports = [
     ./lutris.nix
-    ./steam.nix
+    # ./steam.nix
   ];
 
-  home.packages = with pkgs; [ gamescope ];
+  home.packages = with pkgs; [
+    gamescope
+    mangohud
+    protonup-qt
+  ];
 
   home.sessionVariables = {
     VKD3D_CONFIG = "dxr11,dxr";
