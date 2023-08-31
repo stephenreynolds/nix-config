@@ -26,4 +26,7 @@ rec {
       "Net/IconThemeName" = "${gtk.iconTheme.name}";
     };
   };
+
+  # Use XDG config directory
+  home.sessionVariables.GTK2_RC_FILES = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 }

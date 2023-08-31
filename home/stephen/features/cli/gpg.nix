@@ -56,4 +56,7 @@ in
       Install.WantedBy = [ "default.target" ];
     };
   };
+
+  # Use XDG data directory
+  home.sessionVariables.GNUPGHOME = "${config.xdg.dataHome}/gnupg";
 }
