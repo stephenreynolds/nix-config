@@ -36,7 +36,7 @@ in
 
       gpg = {
         enable = true;
-        homeDir = "${config.xdg.dataHome}/gnupg";
+        homedir = "${config.xdg.dataHome}/gnupg";
         settings = {
           trust-model = "tofu+pgp";
         };
@@ -57,7 +57,4 @@ in
       Install.WantedBy = [ "default.target" ];
     };
   };
-
-  # Use XDG data directory
-  home.sessionVariables.GNUPGHOME = "${config.xdg.dataHome}/gnupg";
 }
