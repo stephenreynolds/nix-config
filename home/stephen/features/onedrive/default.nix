@@ -16,6 +16,11 @@
     "Videos".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.onedrive/Videos";
   };
 
+  xdg.userDirs.documents = "${config.home.homeDirectory}/.onedrive/Documents";
+  xdg.userDirs.music = "${config.home.homeDirectory}/.onedrive/Music";
+  xdg.userDirs.pictures = "${config.home.homeDirectory}/.onedrive/Pictures";
+  xdg.userDirs.videos = "${config.home.homeDirectory}/.onedrive/Videos";
+
   home.persistence = {
     "/persist/home/stephen" = {
       directories = [
