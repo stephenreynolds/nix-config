@@ -51,6 +51,63 @@ in
         "browser.newtabpage.activity-stream.telemetry" = false;
         "browser.toolbars.bookmarks.visibility" = "never";
       };
+      userChrome =
+      ''
+        :root {
+          --panel-hide-offset: -70px;
+          --opacity-when-hidden: 0.00;
+        }
+
+        /* Auto-hide address bar */
+        #navigator-toolbox {
+          position: fixed !important;
+          display: block;
+          width: 100%;
+          transition: margin-top 82ms 33ms linear, opacity 82ms 33ms linear !important;
+          transition-delay: 0.25s !important;
+          z-index: 1;
+          opacity: 1;
+          /* Disabled the borders, as the bottom one seemed to have unwanted top padding sometimes */
+          border: none !important;
+        }
+
+        #navigator-toolbox:not(:focus-within):not(:hover) {
+          margin-top: var(--panel-hide-offset);
+          opacity: var(--opacity-when-hidden);
+        }
+
+        #navigator-toolbox.auto-hide-cursor {
+          transition: margin-top 82ms 33ms linear, opacity 82ms 33ms linear !important;
+        }
+
+        #navigator-toolbox:focus-within {
+          transition: margin-top 82ms 33ms linear, opacity 82ms 33ms linear !important;
+          margin-top: 0px !important;
+          opacity: 1 !important;
+        }
+
+        /* Disable auto-hiding when in 'customize' mode */
+        :root[customizing] #navigator-toolbox{
+          position: relative !important;
+          opacity: 1 !important;
+          margin-top: 0px;
+        }
+
+        /* Hide the close button */
+        .titlebar-buttonbox-container{ display:none }
+        .titlebar-spacer[type="post-tabs"]{ display:none }
+
+        /* Remove some elements from the bookmarks menu */
+        .openintabs-menuseparator,
+        .openintabs-menuitem,
+        .bookmarks-actions-menuseparator {
+          display: none !important;
+        }
+
+        #BMB_searchBookmarks, #BMB_bookmarksShowAllTop, #BMB_viewBookmarksSidebar, #BMB_bookmarksShowAll, #BMB_bookmarksToolbar, html#main-window body box#navigator-toolbox-background toolbox#navigator-toolbox toolbar#nav-bar.browser-toolbar hbox#nav-bar-customization-target.customization-target toolbarbutton#bookmarks-menu-button.toolbarbutton-1.chromeclass-toolbar-additional.subviewbutton-nav menupopup#BMB_bookmarksPopup.cui-widget-panel.cui-widget-panelview.PanelUI-subView menuseparator {
+          display: none;
+        }
+      '';
     };
   };
 
@@ -65,61 +122,4 @@ in
     "/persist/home/stephen".directories = [ ".mozilla/firefox" ];
   };
 
-  home.file.".mozilla/firefox/stephen/chrome/userChrome.css".text =
-  ''
-    :root {
-      --panel-hide-offset: -70px;
-      --opacity-when-hidden: 0.00;
-    }
-
-    /* Auto-hide address bar */
-    #navigator-toolbox {
-      position: fixed !important;
-      display: block;
-      width: 100%;
-      transition: margin-top 82ms 33ms linear, opacity 82ms 33ms linear !important;
-      transition-delay: 0.25s !important;
-      z-index: 1;
-      opacity: 1;
-      /* Disabled the borders, as the bottom one seemed to have unwanted top padding sometimes */
-      border: none !important;
-    }
-
-    #navigator-toolbox:not(:focus-within):not(:hover) {
-      margin-top: var(--panel-hide-offset);
-      opacity: var(--opacity-when-hidden);
-    }
-
-    #navigator-toolbox.auto-hide-cursor {
-      transition: margin-top 82ms 33ms linear, opacity 82ms 33ms linear !important;
-    }
-
-    #navigator-toolbox:focus-within {
-      transition: margin-top 82ms 33ms linear, opacity 82ms 33ms linear !important;
-      margin-top: 0px !important;
-      opacity: 1 !important;
-    }
-
-    /* Disable auto-hiding when in 'customize' mode */
-    :root[customizing] #navigator-toolbox{
-      position: relative !important;
-      opacity: 1 !important;
-      margin-top: 0px;
-    }
-
-    /* Hide the close button */
-    .titlebar-buttonbox-container{ display:none }
-    .titlebar-spacer[type="post-tabs"]{ display:none }
-
-    /* Remove some elements from the bookmarks menu */
-    .openintabs-menuseparator,
-    .openintabs-menuitem,
-    .bookmarks-actions-menuseparator {
-      display: none !important;
-    }
-
-    #BMB_searchBookmarks, #BMB_bookmarksShowAllTop, #BMB_viewBookmarksSidebar, #BMB_bookmarksShowAll, #BMB_bookmarksToolbar, html#main-window body box#navigator-toolbox-background toolbox#navigator-toolbox toolbar#nav-bar.browser-toolbar hbox#nav-bar-customization-target.customization-target toolbarbutton#bookmarks-menu-button.toolbarbutton-1.chromeclass-toolbar-additional.subviewbutton-nav menupopup#BMB_bookmarksPopup.cui-widget-panel.cui-widget-panelview.PanelUI-subView menuseparator {
-      display: none;
-    }
-  '';
 }
