@@ -13,6 +13,8 @@ in
         violentmonkey
         sponsorblock
         reddit-enhancement-suite
+        stylus
+        betterttv
       ];
       settings = {
         "browser.disableResetPrompt" = true;
