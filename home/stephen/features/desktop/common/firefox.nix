@@ -122,4 +122,5 @@ in
     "/persist/home/stephen".directories = [ ".mozilla/firefox" ];
   };
 
+  nixpkgs.config.firefox.speechSynthesisSupport = true;
 }
