@@ -5,7 +5,7 @@ let
       exit 1
     fi
 
-    cache="$HOME/.cache/vidthumb"
+    cache="$XDG_CACHE_HOME/vidthumb"
     index="$cache/index.json"
     movie="$(realpath "$1")"
 
