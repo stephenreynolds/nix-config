@@ -70,6 +70,22 @@
         "type": "github"
       }
     },
+    "eww-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1691207188,
+        "narHash": "sha256-sTTO9VhMBAL+Kn6IINQVY3gMc6T6bQ6kfZf9Tcx8LY8=",
+        "owner": "stephenreynolds",
+        "repo": "eww-widgets",
+        "rev": "f0ff577946c2c80b75b2d60616fb6a0390e40e0f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stephenreynolds",
+        "repo": "eww-widgets",
+        "type": "github"
+      }
+    },
     "firefox-addons": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -507,6 +523,7 @@
     "root": {
       "inputs": {
         "eww": "eww",
+        "eww-config": "eww-config",
         "firefox-addons": "firefox-addons",
         "hardware": "hardware",
         "home-manager": "home-manager",

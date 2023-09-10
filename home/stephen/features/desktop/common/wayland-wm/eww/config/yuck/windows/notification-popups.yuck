@@ -1,8 +1,0 @@
-(include "./yuck/widgets/notifications/notification-popups.yuck")
-
-(defwindow notification-popups
-    :monitor 2
-    :geometry (geometry :anchor "bottom right")
-    :stacking "overlay"
-    :namespace "eww"
-    (notification-popups))

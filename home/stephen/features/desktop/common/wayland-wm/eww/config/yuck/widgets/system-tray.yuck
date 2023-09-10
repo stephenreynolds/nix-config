@@ -1,4 +1,0 @@
-(defwidget system-tray []
-    (box :class "system-tray"
-         (systray :pack-direction "ltr"
-                  :icon-size 16)))

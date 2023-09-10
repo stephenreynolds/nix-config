@@ -17,8 +17,11 @@
       luarocks
       tree-sitter
       nil
+      nixpkgs-fmt
     ];
   };
+
+  xdg.configFile.nvim.source = ./config;
 
   xdg.desktopEntries = {
     nvim = {

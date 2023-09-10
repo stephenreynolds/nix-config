@@ -27,6 +27,11 @@
     };
 
     eww.url = "github:ralismark/eww/tray-3";
+    eww-config = {
+      url = "github:stephenreynolds/eww-widgets";
+      flake = false;
+    };
+
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:

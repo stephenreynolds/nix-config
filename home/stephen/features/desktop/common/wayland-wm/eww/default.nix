@@ -28,7 +28,7 @@ in
   programs.eww = {
     enable = true;
     package = inputs.eww.packages.${pkgs.system}.eww-wayland;
-    configDir = ./config;
+    configDir = inputs.eww-config;
   };
 
   systemd.user.services.eww = {

@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-EWW_CMD=eww
-
-$EWW_CMD update reveal-volume-sources=false
-$EWW_CMD update reveal-volume-sinks=false
-$EWW_CMD update reveal-session-menu=false
-$EWW_CMD update reveal-network-menu=false

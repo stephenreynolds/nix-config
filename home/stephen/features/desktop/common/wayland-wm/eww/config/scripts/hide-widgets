@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-EWW_CMD=eww
-
-$EWW_CMD update reveal-widgets="[false,false,false]" &
-$EWW_CMD update reveal-notification-group="null" &
-$EWW_CMD update expand-notification-groups="false" &
-$EWW_CMD close widgets-0-closer widgets-1-closer widgets-2-closer
