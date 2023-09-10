@@ -63,11 +63,6 @@
           modules = [ ./hosts/nixie ];
           specialArgs = { inherit inputs outputs; };
         };
-
-        nixvm = lib.nixosSystem {
-          modules = [ ./hosts/nixvm ];
-          specialArgs = { inherit inputs outputs; };
-        };
       };
 
       homeConfigurations = {
@@ -79,12 +74,6 @@
 
         "stephen@wsl" = lib.homeManagerConfiguration {
 	        modules = [ ./home/stephen/wsl.nix ];
-	        pkgs = pkgsFor.x86_64-linux;
-	        extraSpecialArgs = { inherit inputs outputs; };
-        };
-
-        "stephen@nixvm" = lib.homeManagerConfiguration {
-	        modules = [ ./home/stephen/nixvm.nix ];
 	        pkgs = pkgsFor.x86_64-linux;
 	        extraSpecialArgs = { inherit inputs outputs; };
         };
