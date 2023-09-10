@@ -6,8 +6,9 @@ in
 {
   programs.fzf = {
     enable = true;
-    enableBashIntegration = true;
-    enableFishIntegration = true;
+    enableBashIntegration = config.programs.bash.enable;
+    enableFishIntegration = config.programs.fish.enable;
+    enableZshIntegration = config.programs.zsh.enable;
     colors = {
       "bg+" = "#${colors.base02}";
       bg = "#${colors.base00}";
