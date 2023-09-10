@@ -1,9 +1,8 @@
-{ config, ... }:
 {
   programs.btop = {
     enable = true;
     settings = {
-      color_theme = "${config.xdg.configHome}/btop/themes/catppuccin_mocha.theme";
+      color_theme = "TTY";
       theme_background = false;
     };
   };
