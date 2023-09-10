@@ -45,22 +45,10 @@ in
   };
 
   fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/${hostname}";
-      fsType = "btrfs";
-      options = [ "subvol=root" "noatime" "compress-force=zstd:2" ];
-    };
-
-    "/nix" = {
-      device = "/dev/disk/by-label/${hostname}";
-      fsType = "btrfs";
-      options = [ "subvol=nix" "noatime" "compress-force=zstd:2" ];
-    };
-
     "/persist" = {
       device = "/dev/disk/by-label/${hostname}";
       fsType = "btrfs";
-      options = [ "subvol=persist" "noatime" "compress-force=zstd:2" ];
+      options = [ "subvol=persist" "noatime" "compress-force=zstd:2" "space_cache=v2" ];
       neededForBoot = true;
     };
   };
