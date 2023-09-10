@@ -109,6 +109,22 @@
         "type": "gitlab"
       }
     },
+    "firefox-onebar": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1690562838,
+        "narHash": "sha256-qVMIUcax4dt/faYNhcVgy3NyLsFbG8lqQxVBhg9TONU=",
+        "ref": "refs/heads/main",
+        "rev": "efc2ce9634f0cfc47e92535fa32b52aacf2d97da",
+        "revCount": 43,
+        "type": "git",
+        "url": "https://codeberg.org/Freeplay/Firefox-Onebar"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/Freeplay/Firefox-Onebar"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -526,6 +542,7 @@
         "eww": "eww",
         "eww-config": "eww-config",
         "firefox-addons": "firefox-addons",
+        "firefox-onebar": "firefox-onebar",
         "hardware": "hardware",
         "home-manager": "home-manager",
         "hyprland": "hyprland",

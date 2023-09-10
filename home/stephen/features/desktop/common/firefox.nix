@@ -78,6 +78,7 @@ in
         "browser.toolbars.bookmarks.visibility" = "never";
       };
       userChrome =
+      (builtins.readFile "${inputs.firefox-onebar}/userChrome.css") +
       ''
         /* Hide the close button */
         .titlebar-buttonbox-container{ display:none }

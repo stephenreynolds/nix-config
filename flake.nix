@@ -24,6 +24,10 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    firefox-onebar = {
+      url = "git+https://codeberg.org/Freeplay/Firefox-Onebar";
+      flake = false;
+    };
 
     eww.url = "github:ralismark/eww/tray-3";
     eww-config = {
