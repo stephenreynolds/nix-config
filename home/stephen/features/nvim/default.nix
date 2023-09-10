@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   # TODO: Declaratively configure nvim config
   programs.neovim = {
@@ -21,7 +21,7 @@
     ];
   };
 
-  xdg.configFile.nvim.source = ./config;
+  xdg.configFile.nvim.source = inputs.nvim-config;
 
   xdg.desktopEntries = {
     nvim = {

@@ -32,6 +32,10 @@
       flake = false;
     };
 
+    nvim-config = {
+      url = "github:stephenreynolds/nvim";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:

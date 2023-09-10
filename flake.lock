@@ -489,6 +489,22 @@
         "type": "github"
       }
     },
+    "nvim-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1694331695,
+        "narHash": "sha256-o/24dlKumT89qfnOzRuXNyb3oB3Tzpt0R/jDQNXqBTE=",
+        "owner": "stephenreynolds",
+        "repo": "nvim",
+        "rev": "c021b3eedcc61759fb4fd5d3cd07f1bb35ffd0e8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stephenreynolds",
+        "repo": "nvim",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -532,6 +548,7 @@
         "lanzaboote": "lanzaboote",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs_3",
+        "nvim-config": "nvim-config",
         "sops-nix": "sops-nix"
       }
     },
