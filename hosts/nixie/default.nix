@@ -31,7 +31,7 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "mitigations=off"
       "intel_iommu=on"
