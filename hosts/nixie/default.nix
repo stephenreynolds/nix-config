@@ -12,7 +12,6 @@
     ../common/optional/network-manager.nix
     ../common/optional/zram.nix
     ../common/optional/system76-scheduler.nix
-    ../common/optional/flatpak.nix
     ../common/optional/sddm.nix
     ../common/optional/hyprland.nix
     ../common/optional/gamemode.nix
