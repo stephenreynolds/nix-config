@@ -16,6 +16,7 @@ in
       ];
       search = {
         default = "Google";
+        force = true;
         engines = {
           "Google".metaData.alias = "@g";
           "Nix Packages" = {
