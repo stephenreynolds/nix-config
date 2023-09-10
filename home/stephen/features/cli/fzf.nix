@@ -1,6 +1,7 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   inherit (config.colorscheme) colors;
+  ag = "${pkgs.silver-searcher}/bin/ag";
 in
 {
   programs.fzf = {
@@ -21,8 +22,8 @@ in
       prompt = "#${colors.base0E}";
       "hl+" = "#${colors.base08}";
     };
-    defaultCommand = "ag --ignore .git -g ''";
+    defaultCommand = "${ag} --ignore .git -g ''";
     defaultOptions = [ "--extended" ];
-    fileWidgetCommand = "ag --hidden --ignore .git -g '' --ignore '.cache' --ignore '.dotfiles' --ignore '.local' --ignore '.mozilla'";
+    fileWidgetCommand = "${ag} --hidden --ignore .git -g '' --ignore '.cache' --ignore '.dotfiles' --ignore '.local' --ignore '.mozilla'";
   };
 }
