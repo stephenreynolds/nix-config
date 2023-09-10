@@ -79,46 +79,6 @@ in
       };
       userChrome =
       ''
-        :root {
-          --panel-hide-offset: -70px;
-          --opacity-when-hidden: 0.00;
-        }
-
-        /* Auto-hide address bar */
-        #navigator-toolbox {
-          position: fixed !important;
-          display: block;
-          width: 100%;
-          transition: margin-top 82ms 33ms linear, opacity 82ms 33ms linear !important;
-          transition-delay: 0.25s !important;
-          z-index: 1;
-          opacity: 1;
-          /* Disabled the borders, as the bottom one seemed to have unwanted top padding sometimes */
-          border: none !important;
-        }
-
-        #navigator-toolbox:not(:focus-within):not(:hover) {
-          margin-top: var(--panel-hide-offset);
-          opacity: var(--opacity-when-hidden);
-        }
-
-        #navigator-toolbox.auto-hide-cursor {
-          transition: margin-top 82ms 33ms linear, opacity 82ms 33ms linear !important;
-        }
-
-        #navigator-toolbox:focus-within {
-          transition: margin-top 82ms 33ms linear, opacity 82ms 33ms linear !important;
-          margin-top: 0px !important;
-          opacity: 1 !important;
-        }
-
-        /* Disable auto-hiding when in 'customize' mode */
-        :root[customizing] #navigator-toolbox{
-          position: relative !important;
-          opacity: 1 !important;
-          margin-top: 0px;
-        }
-
         /* Hide the close button */
         .titlebar-buttonbox-container{ display:none }
         .titlebar-spacer[type="post-tabs"]{ display:none }
