@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   imports = [
     ./global
@@ -11,6 +12,8 @@
     ./features/onedrive
     ./features/stable-diffusion
   ];
+
+  home.persistence = lib.mkForce { };
 
   #  ------   ------   ----------
   # | DP-1 | | DP-2 | | HDMI-A-1 |
