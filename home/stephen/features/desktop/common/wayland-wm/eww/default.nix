@@ -41,7 +41,7 @@ in
 
     Service = {
       ExecStart = "${config.programs.eww.package}/bin/eww daemon --no-daemonize";
-      ExecStartPost = "${config.xdg.configHome}/eww/scripts/launch";
+      ExecStartPost = "${inputs.eww-config}/scripts/launch";
       ExecStop = "${config.programs.eww.package}/bin/eww kill";
       Restart = "on-failure";
       Environment = "PATH=/run/wrapper/bin:${lib.makeBinPath dependencies}";
