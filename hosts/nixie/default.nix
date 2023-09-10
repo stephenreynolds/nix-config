@@ -9,6 +9,7 @@
     ../common/users/stephen
 
     ../common/optional/systemd-boot.nix
+    ../common/optional/secure-boot.nix
     ../common/optional/network-manager.nix
     ../common/optional/zram.nix
     ../common/optional/system76-scheduler.nix
