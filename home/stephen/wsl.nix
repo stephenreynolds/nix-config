@@ -1,13 +1,17 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ./global
     ./features/productivity/latex.nix
   ];
 
-  home.persistence = lib.mkForce { };
+  home.packages = [ pkgs.wslu ];
+
+  home.sessionVariables.BROWSER = "${pkgs.wslu}/bin/wslview";
 
   programs.git.extraConfig = {
     credential.helper = "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe";
   };
+
+  home.persistence = lib.mkForce { };
 }
