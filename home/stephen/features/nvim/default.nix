@@ -3,6 +3,7 @@
   # TODO: Declaratively configure nvim config
   programs.neovim = {
     enable = true;
+    defaultEditor = true;
     extraPackages = with pkgs; [
       gcc
       gnumake
