@@ -3,8 +3,6 @@ let
   inherit (config.networking) hostName;
   hosts = outputs.nixosConfigurations;
   pubKey = host: ../../${host}/ssh_host_ed25519_key.pub;
-
-  hasOptinPersistence = config.environment.persistence ? "/persist";
 in
 {
   services.openssh = {
@@ -16,7 +14,7 @@ in
       GatewayPorts = "clientspecified";
     };
     hostKeys = [{
-      path = "${lib.optionalString hasOptinPersistence "/persist"}/etc/ssh/ssh_host_ed25519_key";
+      path = "/etc/ssh/ssh_host_ed25519_key";
       type = "ed25519";
     }];
   };
