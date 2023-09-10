@@ -1,28 +1,6 @@
 { config, lib, inputs, pkgs, ... }:
 let
   inherit (config.colorscheme) colors;
-
-  dependencies = with pkgs; [
-    config.programs.eww.package
-    coreutils
-    bash
-    gawk
-    gnugrep
-    gnused
-    socat
-    jq
-    hyprland
-    networkmanager
-    pulseaudio
-    pamixer
-    dbus
-    python3
-    kitty
-    wofi
-    procps
-    iputils
-    json-notification-daemon
-  ];
 in
 {
   programs.eww = {
@@ -44,7 +22,31 @@ in
       ExecStartPost = "${inputs.eww-config}/scripts/launch";
       ExecStop = "${config.programs.eww.package}/bin/eww kill";
       Restart = "on-failure";
-      Environment = "PATH=/run/wrapper/bin:${lib.makeBinPath dependencies}";
+      Environment =
+        let
+          dependencies = with pkgs; [
+            config.programs.eww.package
+            config.programs.wofi.package
+            config.programs.kitty.package
+            coreutils
+            bash
+            gawk
+            gnugrep
+            gnused
+            socat
+            jq
+            hyprland
+            networkmanager
+            pulseaudio
+            pamixer
+            dbus
+            python3
+            procps
+            iputils
+            json-notification-daemon
+          ];
+        in
+        "PATH=/run/wrapper/bin:${lib.makeBinPath dependencies}";
       WorkingDirectory = "${config.xdg.configHome}/eww";
     };
   };
