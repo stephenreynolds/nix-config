@@ -1,18 +1,24 @@
+{ config, ... }:
+let
+  inherit (config.colorscheme) colors;
+in
 {
   programs.lazygit = {
     enable = true;
     settings = {
-      # Catppuccin mocha theme
-      gui.theme = {
-        lightTheme = false;
-        activeBorderColor = [ "#a6e3a1" "bold" ];
-        inactiveBorderColor = [ "#cdd6f4" ];
-        optionsTextColor = [ "#89b4fa" ];
-        selectedLineBgColor = [ "#313244" ];
-        selectedRangeBgColor = [ "#313244" ];
-        cherryPickedCommitBgColor = [ "#94e2d5" ];
-        cherryPickedCommitFgColor = [ "#89b4fa" ];
-        unstagedChangesColor = [ "red" ];
+      gui = {
+        showRandomTip = false;
+        theme = {
+          lightTheme = false;
+          activeBorderColor = [ "#${colors.base0B}" "bold" ];
+          inactiveBorderColor = [ "#${colors.base05}" ];
+          optionsTextColor = [ "#${colors.base0D}" ];
+          selectedLineBgColor = [ "#${colors.base02}" ];
+          selectedRangeBgColor = [ "#${colors.base02}" ];
+          cherryPickedCommitBgColor = [ "#${colors.base0C}" ];
+          cherryPickedCommitFgColor = [ "#${colors.base0D}" ];
+          unstagedChangesColor = [ "#${colors.base08}" ];
+        };
       };
     };
   };
