@@ -39,6 +39,8 @@ in
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = lib.mkDefault "23.05";
 
+    language.base = "en_US.UTF-8";
+
     persistence = {
       "/persist/home/stephen" = {
         directories = [
