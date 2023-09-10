@@ -1,22 +1,25 @@
+{ config, ... }:
+let
+  inherit (config.colorscheme) colors;
+in
 {
   programs.fzf = {
     enable = true;
     enableBashIntegration = true;
     enableFishIntegration = true;
-    # Catppuccin mocha theme
     colors = {
-      "bg+" = "#313244";
-      bg = "#1e1e2e";
-      spinner = "#f5e0dc";
-      hl = "#f38ba8";
-      fg = "#cdd6f4";
-      header = "#f38ba8";
-      info = "#cba6f7";
-      pointer = "#f5e0dc";
-      marker = "#f5e0dc";
-      "fg+" = "#cdd6f4";
-      prompt = "#cba6f7";
-      "hl+" = "#f38ba8";
+      "bg+" = "#${colors.base02}";
+      bg = "#${colors.base00}";
+      spinner = "#${colors.base06}";
+      hl = "#${colors.base08}";
+      fg = "#${colors.base05}";
+      header = "#${colors.base08}";
+      info = "#${colors.base0E}";
+      pointer = "#${colors.base06}";
+      marker = "#${colors.base06}";
+      "fg+" = "#${colors.base05}";
+      prompt = "#${colors.base0E}";
+      "hl+" = "#${colors.base08}";
     };
     defaultCommand = "ag --ignore .git -g ''";
     defaultOptions = [ "--extended" ];
