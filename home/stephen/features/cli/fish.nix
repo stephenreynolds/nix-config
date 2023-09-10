@@ -1,9 +1,4 @@
 { pkgs, lib, config, ... }:
-let
-  inherit (lib) mkIf;
-  hasNeovim = config.programs.neovim.enable;
-  hasKitty = config.programs.kitty.enable;
-in
 {
   programs.fish = {
     enable = true;
@@ -36,9 +31,11 @@ in
 
       run = "nix run nixpkgs#";
 
-      e = mkIf hasNeovim "nvim";
+      e = lib.mkIf config.programs.neovim.enable "nvim";
 
-      cik = mkIf hasKitty "clone-in-kitty --type os-window";
+      g = lib.mkIf config.programs.lazygit.enable "lazygit";
+
+      cik = lib.mkIf config.programs.kitty.enable "clone-in-kitty --type os-window";
       ck = cik;
     };
     shellAliases = {
