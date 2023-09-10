@@ -73,11 +73,11 @@
     "eww-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1694354558,
-        "narHash": "sha256-BqygenUpEJg81d17hT6IwHiqfWIkA20iPhvN5gLNsX0=",
+        "lastModified": 1694358657,
+        "narHash": "sha256-XGL0i8CfS9ryckgwbo0akJJVX/ETQaO5W0Ia5pW40Og=",
         "owner": "stephenreynolds",
         "repo": "eww-widgets",
-        "rev": "d8f7d7f8cada47a0ce8fab0b43a3d2a553b95f9d",
+        "rev": "1d434d93ce7a1a6a239fd9f978d267365f30baef",
         "type": "github"
       },
       "original": {
