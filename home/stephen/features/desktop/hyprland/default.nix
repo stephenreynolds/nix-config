@@ -80,8 +80,8 @@
 
         blur {
           enabled = true
-          size = 8
-          passes = 2
+          size = 5
+          passes = 4
           new_optimizations = true
           xray = false
           noise = 0.0117
@@ -89,8 +89,7 @@
         }
 
         drop_shadow = true
-        shadow_range = 12
-        shadow_offset = 3 3
+        shadow_range = 30
         col.shadow = 0x44000000
         col.shadow_inactive = 0x66000000
       }
