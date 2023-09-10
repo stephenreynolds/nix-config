@@ -57,7 +57,7 @@ let
     filetype="$(${pkgs.file}/bin/file -Lb --mime-type "$file")"
 
     ${lib.optionalString config.programs.kitty.enable ''
-      if [[ $filetype" =~ ^image ]]; then
+      if [[ "$filetype" =~ ^image ]]; then
         ${config.programs.kitty.package}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
         exit 1
       fi
