@@ -8,6 +8,7 @@ in
     settings = {
       gui = {
         showRandomTip = false;
+        nerdFontsVersion = "3";
         theme = {
           lightTheme = false;
           activeBorderColor = [ "#${colors.base0B}" "bold" ];
