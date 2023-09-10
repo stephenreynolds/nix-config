@@ -9,7 +9,6 @@ in
       bookmarks = { };
       extensions = with addons; [
         ublock-origin
-        bitwarden
         violentmonkey
         sponsorblock
         reddit-enhancement-suite
