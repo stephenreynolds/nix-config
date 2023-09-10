@@ -31,12 +31,6 @@ in
     };
   };
 
-  home.persistence = {
-    "/persist/home/stephen".directories = [
-      ".config/Mailspring"
-    ];
-  };
-
   xdg.configFile."Mailspring-package.json" = {
     enable = true;
     target = "Mailspring/packages/nix-colors/package.json";

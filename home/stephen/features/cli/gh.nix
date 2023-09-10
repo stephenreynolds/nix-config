@@ -6,8 +6,4 @@
       gh-markdown-preview
     ];
   };
-
-  home.persistence = {
-    "/persist/home/stephen".directories = [ ".config/gh" ];
-  };
 }

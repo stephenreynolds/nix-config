@@ -102,7 +102,7 @@ in
         trash-put $fx
       }}'';
       setwallpaper = ''''${{
-        ln -sf "$f" /persist/home/stephen/.config/wallpaper
+        ln -sf "$f" /home/stephen/.config/wallpaper
         ${pkgs.swww}/bin/swww img /home/stephen/.config/wallpaper --transition-type random --transition-step 90
       }}'';
       z = ''%{{

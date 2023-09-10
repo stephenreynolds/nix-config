@@ -25,17 +25,4 @@ in
     protontricks
     protonup-qt
   ];
-
-  home.persistence = {
-    "/persist/home/stephen" = {
-      allowOther = true;
-      directories = [
-        {
-          directory = ".local/share/Steam";
-          method = "symlink";
-        }
-        ".local/share/applications"
-      ];
-    };
-  };
 }

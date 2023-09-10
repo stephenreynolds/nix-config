@@ -4,7 +4,6 @@ let
 in
 {
   imports = [
-    inputs.impermanence.nixosModules.home-manager.impermanence
     inputs.nix-colors.homeManagerModule
     ../features/cli
     ../features/nvim
@@ -40,16 +39,6 @@ in
     stateVersion = lib.mkDefault "23.05";
 
     language.base = "en_US.UTF-8";
-
-    persistence = {
-      "/persist/home/stephen" = {
-        directories = [
-          "Downloads"
-          "src"
-        ];
-        allowOther = true;
-      };
-    };
   };
 
   colorscheme = lib.mkDefault colorSchemes.catppuccin-mocha;

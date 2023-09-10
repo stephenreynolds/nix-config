@@ -57,11 +57,4 @@
   home.sessionVariables = {
     NVIM_SQLITE_PATH = pkgs.sqlite.out;
   };
-
-  home.persistence = {
-    "/persist/home/stephen".directories = [
-      ".config/nvim"
-      ".local/share/nvim"
-    ];
-  };
 }

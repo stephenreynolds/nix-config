@@ -6,10 +6,4 @@
     enableFishIntegration = config.programs.fish.enable;
     enableZshIntegration = config.programs.zsh.enable;
   };
-
-  home.persistence = {
-    "/persist/home/stephen".directories = [
-      ".local/share/zoxide"
-    ];
-  };
 }

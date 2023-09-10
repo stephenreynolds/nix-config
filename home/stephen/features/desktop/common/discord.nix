@@ -8,10 +8,6 @@ in
     discocss
   ];
 
-  home.persistence = {
-    "/persist/home/stephen".directories = [ ".config/discord" ];
-  };
-
   xdg.configFile."discocss/custom.css".text = ''
     .theme-dark {
         --header-primary: #${colors.base05};

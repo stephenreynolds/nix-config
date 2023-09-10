@@ -20,14 +20,4 @@
   xdg.userDirs.music = "${config.home.homeDirectory}/.onedrive/Music";
   xdg.userDirs.pictures = "${config.home.homeDirectory}/.onedrive/Pictures";
   xdg.userDirs.videos = "${config.home.homeDirectory}/.onedrive/Videos";
-
-  home.persistence = {
-    "/persist/home/stephen" = {
-      directories = [
-        ".config/onedrive"
-        ".onedrive"
-      ];
-      allowOther = true;
-    };
-  };
 }

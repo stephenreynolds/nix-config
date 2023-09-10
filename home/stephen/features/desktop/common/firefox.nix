@@ -104,9 +104,5 @@ in
     "x-scheme-handler/https" = [ "firefox.desktop" ];
   };
 
-  home.persistence = {
-    "/persist/home/stephen".directories = [ ".mozilla/firefox" ];
-  };
-
   nixpkgs.config.firefox.speechSynthesisSupport = true;
 }

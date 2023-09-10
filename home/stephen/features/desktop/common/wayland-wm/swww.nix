@@ -15,8 +15,4 @@ in
     };
     Install.WantedBy = [ "graphical-session.target" ];
   };
-
-  home.persistence = {
-    "/persist/home/stephen".files = [ ".config/wallpaper" ];
-  };
 }

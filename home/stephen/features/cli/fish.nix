@@ -96,8 +96,4 @@
         set -U fish_pager_color_progress      'brwhite' '--background=cyan'
       '';
   };
-
-  home.persistence = {
-    "/persist/home/stephen".files = [ ".local/share/fish/fish_history" ];
-  };
 }
