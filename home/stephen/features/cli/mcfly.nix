@@ -4,6 +4,7 @@
     enableBashIntegration = true;
     enableFishIntegration = true;
     keyScheme = "vim";
+    fuzzySearchFactor = 2;
   };
 
   home.persistence = {
