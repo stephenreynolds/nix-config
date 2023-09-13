@@ -76,6 +76,7 @@ in
         "browser.newtabpage.activity-stream.topSitesRows" = 3;
         "browser.newtabpage.activity-stream.telemetry" = false;
         "browser.toolbars.bookmarks.visibility" = "never";
+        "browser.tabs.tabmanager.enabled" = false;
       };
       userChrome =
       (builtins.readFile "${inputs.firefox-onebar}/userChrome.css") +
