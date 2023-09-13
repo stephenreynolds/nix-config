@@ -138,7 +138,6 @@
         key_press_enables_dpms = true
         allow_session_lock_restore = true
         render_titles_in_groupbar = false
-        moveintogroup_lock_check = true
       }
     ''
     ''
