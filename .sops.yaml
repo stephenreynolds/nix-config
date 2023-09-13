@@ -1,6 +1,6 @@
 keys:
   - &hosts:
-    - &nixie age1qja3q0krfx8rwj6leyng3p9h5hrvsefchypfs7ntyxjmwjvwtvgscdznq2
+    - &nixie age1j5n7rnrmen08v2gh258nvnwqnvaupcatn3ly90ez3m67fzmr7vns8kuvx7
 
 creation_rules:
   - path_regex: hosts/common/secrets.ya?ml$
