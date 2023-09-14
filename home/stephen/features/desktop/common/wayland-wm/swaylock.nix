@@ -1,13 +1,10 @@
 { config, pkgs, ... }:
-let
-  image = "$HOME/Pictures/Wallpapers/Slideshow/1212315.jpg";
-in
 {
   programs.swaylock = {
     enable = true;
     package = pkgs.swaylock-effects;
     settings = {
-      image = image;
+      image = "$HOME/Pictures/Wallpapers/Slideshow/1212315.jpg";
 
       clock = true;
       ignore-empty-password = true;
