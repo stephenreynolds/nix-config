@@ -29,6 +29,7 @@ in
     };
     "/boot" = {
       device = "/dev/disk/by-label/ESP";
+      options = [ "noexec" "nosuid" "nodev" ];
       fsType = "vfat";
     };
   };
