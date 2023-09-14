@@ -1,3 +1,5 @@
+[![Flake](https://github.com/stephenreynolds/nix-config/actions/workflows/flake-check.yml/badge.svg)](https://github.com/stephenreynolds/nix-config/actions/workflows/flake-check.yml)
+
 # My Nix configurations
 
 Based on [Misterio77's config](https://github.com/Misterio77/nix-config).
