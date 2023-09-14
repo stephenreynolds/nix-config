@@ -19,6 +19,7 @@ in {
   };
   config = mkIf cfg.enable {
     boot.kernelModules = [ "v4l2loopback" "i2c-dev" "i2c-piix4" ];
+    boot.kernelParams = [ "acpi_enforce_resources=lax" ];
     environment.systemPackages = [ cfg.package ];
     services.udev.packages = [ cfg.package ];
 
