@@ -2,10 +2,10 @@
 {
   services.locate = {
     enable = true;
-    locate = pkgs.mlocate;
+    locate = pkgs.plocate;
     interval = "hourly";
 
-    # Suppress "mlocate does not support localuser" warning
+    # Suppress "mlocate and plocate do not support localuser" warning
     localuser = null;
   };
 }
