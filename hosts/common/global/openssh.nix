@@ -24,7 +24,7 @@ in
       (name: _: {
         publicKeyFile = pubKey name;
         extraHostNames =
-          (lib.optional (name == hostName) "localhost");
+          (lib.optional name == hostName "localhost");
       })
       hosts;
   };
