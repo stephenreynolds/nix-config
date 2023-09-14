@@ -2,21 +2,22 @@
   imports = [
     ./bash.nix
     ./bat.nix
+    ./btop.nix
+    ./comma.nix
     ./direnv.nix
     ./fish.nix
-    ./gpg.nix
-    ./keyring.nix
+    ./fzf.nix
     ./gh.nix
     ./git.nix
+    ./gpg.nix
+    ./keyring.nix
     ./lazygit.nix
-    ./starship.nix
-    ./tmux.nix
-    ./btop.nix
-    ./fzf.nix
-    ./zoxide.nix
+    ./lf.nix
     ./lsd.nix
     ./mcfly.nix
-    ./lf.nix
+    ./starship.nix
+    ./tmux.nix
+    ./zoxide.nix
   ];
   home.packages = with pkgs; [
     distrobox
@@ -28,6 +29,7 @@
     tree
     unzip
     trash-cli
+    comma
     t
     tt
   ];
