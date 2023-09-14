@@ -11,7 +11,6 @@ in
       "wheel"
       "video"
       "audio"
-      "gamemode"
     ] ++ ifTheyExist [
       "i2c"
       "docker"
@@ -20,6 +19,8 @@ in
       "libvirtd"
       "mlocate"
       "flatpak"
+      "gamemode"
+      "tss"
     ];
 
     passwordFile = config.sops.secrets.stephen-password.path;

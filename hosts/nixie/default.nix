@@ -65,11 +65,19 @@
     openrgb.enable = true;
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services = {
+    xserver.videoDrivers = [ "nvidia" ];
+    gvfs.enable = true;
+  };
 
-  security.polkit.enable = true;
-
-  services.gvfs.enable = true;
+  security = {
+    polkit.enable = true;
+    tpm2 = {
+      enable = true;
+      pkcs11.enable = true;
+      tctiEnvironment.enable = true;
+    };
+  };
 
   system.stateVersion = "23.05";
 }
