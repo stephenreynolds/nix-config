@@ -1,3 +1,4 @@
+# Source: https://github.com/nix-community/home-manager/issues/3019
 { config, lib, pkgs, ... }:
 
 with lib;
