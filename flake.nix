@@ -21,6 +21,8 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hypr-contrib.url = "github:hyprwm/contrib";
 
+    nix-gaming.url = "github:fufexan/nix-gaming";
+
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -71,15 +73,15 @@
 
       homeConfigurations = {
         "stephen@nixie" = lib.homeManagerConfiguration {
-	        modules = [ ./home/stephen/nixie.nix ];
-	        pkgs = pkgsFor.x86_64-linux;
-	        extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./home/stephen/nixie.nix ];
+          pkgs = pkgsFor.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
         };
 
         "stephen@wsl" = lib.homeManagerConfiguration {
-	        modules = [ ./home/stephen/wsl.nix ];
-	        pkgs = pkgsFor.x86_64-linux;
-	        extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./home/stephen/wsl.nix ];
+          pkgs = pkgsFor.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
         };
       };
     };
