@@ -68,6 +68,7 @@
   services = {
     xserver.videoDrivers = [ "nvidia" ];
     gvfs.enable = true;
+    gnome.gnome-keyring.enable = true;
   };
 
   security = {
