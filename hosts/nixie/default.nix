@@ -24,7 +24,7 @@
     ../common/optional/printing.nix
     ../common/optional/bluetooth.nix
     ../common/optional/xpadneo.nix
-    ../common/optional/onedrive.nix
+    #../common/optional/onedrive.nix
   ];
 
   networking = {
