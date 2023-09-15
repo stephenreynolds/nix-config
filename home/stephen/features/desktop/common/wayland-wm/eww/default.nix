@@ -40,6 +40,7 @@ in
             networkmanager
             pulseaudio
             pamixer
+            pavucontrol
             dbus
             python3
             procps
