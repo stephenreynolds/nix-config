@@ -29,7 +29,7 @@
       flake = false;
     };
 
-    eww.url = "github:ralismark/eww/tray-3";
+    eww.url = "github:hylophile/eww/dynamic-icons";
     eww-config = {
       url = "github:stephenreynolds/eww-widgets";
       flake = false;
