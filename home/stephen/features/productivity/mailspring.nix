@@ -16,6 +16,11 @@ in
     mailspring-wrapped
   ];
 
+  services.protonmail-bridge = {
+    enable = true;
+    nonInteractive = true;
+  };
+
   xdg.desktopEntries.Mailspring = {
     name = "Mailspring";
     genericName = "Mail Client";
