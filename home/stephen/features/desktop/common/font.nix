@@ -20,5 +20,6 @@
     font-awesome
     apple-fonts
     segoe-fluent-icons
+    ttf-ms-win11-auto
   ];
 }
