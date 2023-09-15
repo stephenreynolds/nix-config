@@ -47,6 +47,9 @@
       workspace = 9, monitor:HDMI-A-1
     ''
     ''
+      exec-once = [workspace special] ${terminal}
+    ''
+    ''
       input {
         kb_layout = us
 
