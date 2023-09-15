@@ -47,7 +47,7 @@
       workspace = 9, monitor:HDMI-A-1
     ''
     ''
-      exec-once = [workspace special] ${terminal}
+      exec-once = [workspace special silent] ${terminal}
     ''
     ''
       input {
