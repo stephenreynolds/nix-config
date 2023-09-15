@@ -5,7 +5,7 @@
     ./features/games
     ./features/productivity
     ./features/music
-    ./features/easyeffects
+    ./features/audio/corsair-virtuoso-wireless-headset
     ./features/openrgb
     #./features/onedrive
     #./features/stable-diffusion

@@ -2,6 +2,7 @@
 {
   imports = [
     ./autostart.nix
+    ./monitors.nix
     ./workspaces.nix
     ./window-rules.nix
     ./layer-rules.nix
