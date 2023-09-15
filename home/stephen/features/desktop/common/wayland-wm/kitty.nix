@@ -29,6 +29,7 @@ in
       confirm_os_window_close = 0;
       allow_cloning = "yes";
       copy_on_select = "yes";
+      disable_ligatures = "cursor";
       foreground = "#${colors.base05}";
       background = "#${colors.base00}";
       selection_background = "#${colors.base05}";
