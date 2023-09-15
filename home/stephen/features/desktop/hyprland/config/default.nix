@@ -5,6 +5,7 @@
     ./workspaces.nix
     ./window-rules.nix
     ./layer-rules.nix
+    ./binds.nix
   ];
 
   wayland.windowManager.hyprland.extraConfig = ''
