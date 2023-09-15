@@ -18,6 +18,9 @@
       playerctl = "${config.services.playerctld.package}/bin/playerctl";
       wofi = "${config.programs.wofi.package}/bin/wofi";
 
+      grimblast = "${inputs.hypr-contrib.packages.${pkgs.system}.grimblast}/bin/grimblast";
+      swappy = lib.getExe pkgs.swappy;
+
       pactl = "${pkgs.pulseaudio}/bin/pactl";
 
       gtk-launch = "${pkgs.gtk3}/bin/gtk-launch";
@@ -303,11 +306,11 @@
       bindl = , XF86AudioStop, exec, ${playerctl} stop
 
       # Capture the active output
-      bind = , Print, exec, grimblast save output - | swappy -f -
+      bind = , Print, exec, ${grimblast} save output - | ${swappy} -f -
       # Capture the active window
-      bind = ALT, Print, exec, grimblast save active - | swappy -f -
+      bind = ALT, Print, exec, ${grimblast} save active - | ${swappy} -f -
       # Capture the active window
-      bind = CTRL, Print, exec, grimblast save area - | swappy -f -
+      bind = CTRL, Print, exec, ${grimblast} save area - | ${swappy} -f -
 
       # Passthrough submap
       bind = ${modifier}, Pause, submap, passthrough_submap
