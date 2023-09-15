@@ -1,4 +1,9 @@
 { outputs, inputs }:
+let
+  addPatches = pkg: patches: pkg.overrideAttrs (oldAttrs: {
+    patches = (oldAttrs.patches or [ ]) ++ patches;
+  });
+in
 {
   # For every flake input, aliases 'pkgs.inputs.${flake}' to
   # 'inputs.${flake}.packages.${pkgs.system}' or
@@ -15,5 +20,6 @@
 
   # Modifies existing packages
   modifications = final: prev: {
+    discocss = addPatches prev.discocss [ ./discocss.diff ];
   };
 }
