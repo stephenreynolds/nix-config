@@ -28,7 +28,7 @@ in {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/openrgb --server";
-        ExecStartPost = "${cfg.package}/bin/openrgb --profile 'All off'}";
+        ExecStartPost = "${cfg.package}/bin/openrgb --profile 'All off'";
         Restart = "on-failure";
       };
     };
