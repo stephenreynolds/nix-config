@@ -29,8 +29,7 @@ in
     bind = ${modifier}, U, pseudo, # dwindle
     bind = ${modifier}, J, togglesplit, # dwindle
     bind = ${modifier}, S, exec, hyprctl dispatch cyclenext && hyprctl dispatch layoutmsg swapwithmaster # master
-    bind = ${modifier}, L, layoutmsg, orientationnext
-    bind = ${modifier} SHIFT, L, layoutmsg, orientationprev
+    bind = ${modifier}, L, layoutmsg, orientationcycle center left
 
     # Focus last window
     bind = ${modifier}, D, focuscurrentorlast
