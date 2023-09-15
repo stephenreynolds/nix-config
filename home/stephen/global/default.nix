@@ -42,4 +42,5 @@ in
   };
 
   colorscheme = lib.mkDefault colorSchemes.catppuccin-mocha;
+  xdg.configFile."colorscheme.json".text = builtins.toJSON config.colorscheme.colors;
 }
