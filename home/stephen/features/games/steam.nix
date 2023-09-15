@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   steam-with-pkgs = pkgs.steam.override {
     extraPkgs = pkgs: with pkgs; [
@@ -12,17 +12,19 @@ let
       stdenv.cc.cc.lib
       libkrb5
       keyutils
-      gamescope
-      mangohud
     ];
   };
+
+  extraCompatPackages = with pkgs; [
+    proton-ge
+  ];
 in
 {
-  home.packages = with pkgs; [
+  home.packages = [
     steam-with-pkgs
-    gamescope
-    mangohud
-    protontricks
-    protonup-qt
   ];
+
+  home.sessionVariables = {
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS = lib.makeBinPath extraCompatPackages;
+  };
 }

@@ -2,13 +2,13 @@
 {
   imports = [
     ./lutris.nix
-    # ./steam.nix
+    ./steam.nix
   ];
 
   home.packages = with pkgs; [
     gamescope
     mangohud
-    protonup-qt
+    protontricks
   ];
 
   home.sessionVariables = {
