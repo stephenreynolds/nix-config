@@ -23,7 +23,7 @@ in
       "tss"
     ];
 
-    passwordFile = config.sops.secrets.stephen-password.path;
+    hashedPasswordFile = config.sops.secrets.stephen-password.path;
     packages = [ pkgs.home-manager ];
   };
 
