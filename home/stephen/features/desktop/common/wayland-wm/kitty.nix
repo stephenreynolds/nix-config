@@ -24,12 +24,16 @@ in
       scrollback_lines = 4000;
       scrollback_pager_history_size = 2048;
       window_padding_width = 10;
-      background_opacity = "0.5";
-      dynamic_background_opacity = "yes";
       confirm_os_window_close = 0;
       allow_cloning = "yes";
-      copy_on_select = "yes";
       disable_ligatures = "cursor";
+      copy_on_select = "yes";
+      strip_trailing_spaces = "smart";
+      show_hyprlink_targets = "yes";
+
+      background_opacity = "0.5";
+      dynamic_background_opacity = "yes";
+
       foreground = "#${colors.base05}";
       background = "#${colors.base00}";
       selection_background = "#${colors.base05}";
