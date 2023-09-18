@@ -70,7 +70,7 @@ in
         "accent-4": #${colors.base0B},
         "accent-5": #${colors.base0D},
         "accent-6": #${colors.base07},
-        "bg-opacity": 1
+        "bg-opacity": 0.5
       );
     '';
   };
