@@ -11,6 +11,7 @@ in
       "wheel"
       "video"
       "audio"
+      "gamemode"
     ] ++ ifTheyExist [
       "i2c"
       "docker"
@@ -19,7 +20,6 @@ in
       "libvirtd"
       "mlocate"
       "flatpak"
-      "gamemode"
       "tss"
     ];
 
