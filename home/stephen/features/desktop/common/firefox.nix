@@ -5,6 +5,11 @@ in
 {
   programs.firefox = {
     enable = true;
+    package = pkgs.firefox.override {
+      cfg = {
+        enableTridactylNative = true;
+      };
+    };
     profiles.stephen = {
       bookmarks = { };
       extensions = with addons; [
@@ -13,6 +18,7 @@ in
         sponsorblock
         reddit-enhancement-suite
         stylus
+        tridactyl
       ];
       search = {
         default = "Google";
