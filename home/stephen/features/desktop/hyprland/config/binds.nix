@@ -95,7 +95,7 @@ in
 
     # Special workspaces
     bind = ${modifier} SHIFT, 0, movetoworkspace, special
-    bind = ${modifier}, 0, togglespecialworkspace,
+    bind = ${modifier}, 0, togglespecialworkspace
 
     # Scroll through existing workspaces with {modifier} + scroll
     bind = ${modifier}, mouse_down, workspace, m+1
