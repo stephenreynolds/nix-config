@@ -14,7 +14,7 @@
     ../common/optional/hyprland.nix
     ../common/optional/network-manager.nix
     ../common/optional/nextdns.nix
-    #../common/optional/onedrive.nix
+    ../common/optional/onedrive.nix
     ../common/optional/pipewire.nix
     ../common/optional/printing.nix
     ../common/optional/quietboot.nix
