@@ -60,18 +60,6 @@ in
     ## Dwindle layout
     bind = ${modifier}, U, pseudo
     bind = ${modifier}, J, togglesplit
-    bind = ${modifier}, L, submap, preselect_submap
-    submap = preselect_submap
-    bind = , up, layoutmsg, preselect u
-    bind = , up, submap, reset
-    bind = , down, layoutmsg, preselect d
-    bind = , down, submap, reset
-    bind = , left, layoutmsg, preselect l
-    bind = , left, submap, reset
-    bind = , right, layoutmsg, preselect r
-    bind = , right, submap, reset
-    bind = , Escape, submap, reset
-    submap = reset
 
     ## Master layout
     bind = ${modifier}, S, exec, ${cyclemaster}
