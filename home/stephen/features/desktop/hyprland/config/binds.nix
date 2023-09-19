@@ -16,11 +16,22 @@ let
   browser = defaultApp "x-scheme-handler/https";
   fileBrowser = defaultApp "inode/directory";
 
+  jq = lib.getExe pkgs.jq;
+
   killandswitch = pkgs.writeShellScript "killandswitch" ''
-    single=$(hyprctl activeworkspace -j | ${lib.getExe pkgs.jq} -c ".windows == 1")
+    single=$(hyprctl activeworkspace -j | ${jq} -r ".windows == 1")
     hyprctl dispatch killactive
     if [[ $single == "true" ]]; then
         hyprctl dispatch workspace m-1
+    fi
+  '';
+
+  togglelayout = pkgs.writeShellScript "togglelayout" ''
+    layout=$(hyprctl -j getoption general:layout | ${jq} -r ".str")
+    if [[ $layout == "master" ]]; then
+      hyprctl keyword general:layout "dwindle"
+    else
+      hyprctl keyword general:layout "master"
     fi
   '';
 
@@ -43,11 +54,14 @@ in
     bind = ${modifier}, F, togglefloating
     bind = ${modifier} SHIFT, F, pin
 
-    # Dwindle layout
+    # Layout
+    bind = ${modifier} SHIFT, L, exec, ${togglelayout}
+
+    ## Dwindle layout
     bind = ${modifier}, U, pseudo
     bind = ${modifier}, J, togglesplit
 
-    # Master layout
+    ## Master layout
     bind = ${modifier}, S, exec, ${cyclemaster}
     bind = ${modifier}, L, layoutmsg, orientationcycle center left
 
