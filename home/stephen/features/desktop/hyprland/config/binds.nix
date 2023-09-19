@@ -15,12 +15,20 @@ let
   terminal = config.home.sessionVariables.TERMINAL;
   browser = defaultApp "x-scheme-handler/https";
   fileBrowser = defaultApp "inode/directory";
+
+  killandswitch = pkgs.writeShellScript "killandswitch" ''
+    single=$(hyprctl activeworkspace -j | ${lib.getExe pkgs.jq} -c ".windows == 1")
+    hyprctl dispatch killactive
+    if [[ $single == "true" ]]; then
+        hyprctl dispatch workspace m-1
+    fi
+  '';
 in
 {
   wayland.windowManager.hyprland.extraConfig = ''
     bind = ${modifier}, T, exec, ${terminal}
     bind = ${modifier}, W, exec, ${browser}
-    bind = ${modifier}, C, killactive
+    bind = ${modifier}, C, exec, ${killandswitch}
     bind = ${modifier}, V, fullscreen, 1
     bind = ${modifier} SHIFT, V, fullscreen, 0
     bind = ${modifier}, F, togglefloating
