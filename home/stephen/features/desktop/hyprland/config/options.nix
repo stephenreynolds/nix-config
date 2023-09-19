@@ -61,18 +61,19 @@
     }
 
     dwindle {
+      no_gaps_when_only = 1
       pseudotile = true
       preserve_split = true
-      no_gaps_when_only = 1
+      force_split = 2 # Split right
     }
 
     master {
+      no_gaps_when_only = 1
       mfact = 0.55
       new_is_master = true
       new_on_top = true
       orientation = center
       inherit_fullscreen = true
-      no_gaps_when_only = 1
     }
 
     binds {
