@@ -71,35 +71,24 @@ in
     bind = ${modifier} ALT, down, moveintogroup, d
     bind = ${modifier} CTRL, 8, movegroupwindow, f
 
-    # Move window through workspaces
-    bind = ${modifier}, 8, workspace, r-1
-    bind = ${modifier}, 9, workspace, r+1
-    bind = ${modifier} SHIFT, 8, movetoworkspace, r-1
-    bind = ${modifier} SHIFT, 9, movetoworkspace, r+1
-
-    # Bind workspaces
-    bind = ${modifier}, 1, workspace, 1
-    bind = ${modifier}, 2, workspace, 2
-    bind = ${modifier}, 3, workspace, 3
-    bind = ${modifier}, 4, workspace, 4
-    bind = ${modifier}, 5, workspace, 5
-    bind = ${modifier}, 6, workspace, 6
-    bind = ${modifier}, 7, workspace, 7
-    bind = ${modifier}, 8, workspace, 8
-    bind = ${modifier}, 9, workspace, 9
-
-    # Move window to workspace
-    bind = ${modifier} SHIFT, 1, movetoworkspace, 1
-    bind = ${modifier} SHIFT, 2, movetoworkspace, 2
-    bind = ${modifier} SHIFT, 3, movetoworkspace, 3
-    bind = ${modifier} SHIFT, 4, movetoworkspace, 4
-    bind = ${modifier} SHIFT, 5, movetoworkspace, 5
-    bind = ${modifier} SHIFT, 6, movetoworkspace, 6
-    bind = ${modifier} SHIFT, 7, movetoworkspace, 7
-    bind = ${modifier} SHIFT, 8, movetoworkspace, 8
-    bind = ${modifier} SHIFT, 9, movetoworkspace, 9
-
+    # Switch to next window in group
     bind = ${modifier} ALT, 7, changegroupactive
+
+    # Focus next/previous workspace on monitor
+    bind = ${modifier}, 5, workspace, m-1
+    bind = ${modifier}, 6, workspace, m+1
+
+    # Move window to next/previous workspace on monitor
+    bind = ${modifier} SHIFT, 5, movetoworkspace, m-1
+    bind = ${modifier} SHIFT, 6, movetoworkspace, m+1
+
+    # Focus next/previous workspace on monitor (including empty)
+    bind = ${modifier}, 2, workspace, r-1
+    bind = ${modifier}, 3, workspace, r+1
+
+    # Move window to next/previous workspace on monitor
+    bind = ${modifier} SHIFT, 2, movetoworkspace, r-1
+    bind = ${modifier} SHIFT, 3, movetoworkspace, r+1
 
     # Special workspaces
     bind = ${modifier} SHIFT, 0, movetoworkspace, special
