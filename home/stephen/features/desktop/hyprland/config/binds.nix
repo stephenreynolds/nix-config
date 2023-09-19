@@ -95,10 +95,11 @@ in
     bind = ${modifier} ALT, right, moveintogroup, r
     bind = ${modifier} ALT, up, moveintogroup, u
     bind = ${modifier} ALT, down, moveintogroup, d
-    bind = ${modifier} CTRL, 8, movegroupwindow, f
 
     # Switch to next window in group
-    bind = ${modifier} ALT, 7, changegroupactive
+    bind = ${modifier}, 8, changegroupactive
+    bind = ${modifier}, 7, movegroupwindow, b
+    bind = ${modifier}, 9, movegroupwindow, f
 
     # Focus next/previous workspace on monitor
     bind = ${modifier}, 5, workspace, m-1
