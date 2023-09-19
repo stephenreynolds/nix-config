@@ -23,6 +23,11 @@ let
         hyprctl dispatch workspace m-1
     fi
   '';
+
+  cyclemaster = pkgs.writeShellScript "swapmaster" ''
+    hyprctl dispatch cyclenext
+    hyprctl dispatch layoutmsg swapwithmaster
+  '';
 in
 {
   wayland.windowManager.hyprland.extraConfig = ''
@@ -34,9 +39,13 @@ in
     bind = ${modifier}, F, togglefloating
     bind = ${modifier} SHIFT, F, pin
     bind = ${modifier}, Space, exec, pkill ${wofi} || ${wofi} --show drun --normal-window --allow-images
-    bind = ${modifier}, U, pseudo, # dwindle
-    bind = ${modifier}, J, togglesplit, # dwindle
-    bind = ${modifier}, S, exec, hyprctl dispatch cyclenext && hyprctl dispatch layoutmsg swapwithmaster # master
+
+    # Dwindle layout
+    bind = ${modifier}, U, pseudo
+    bind = ${modifier}, J, togglesplit
+
+    # Master layout
+    bind = ${modifier}, S, exec, ${cyclemaster}
     bind = ${modifier}, L, layoutmsg, orientationcycle center left
 
     # Focus last window
@@ -52,7 +61,7 @@ in
     bind = ${modifier} SHIFT, left, movewindow, l
     bind = ${modifier} SHIFT, right, movewindow, r
     bind = ${modifier} SHIFT, up, movewindow, u
-    bind = ${modifier} SHIFT, down,movewindow, d
+    bind = ${modifier} SHIFT, down, movewindow, d
 
     # Resize window with {modifier} + Ctrl + arrow keys
     binde = ${modifier} CTRL, left, resizeactive, -10 0
