@@ -34,11 +34,11 @@ in
     bind = ${modifier}, T, exec, ${terminal}
     bind = ${modifier}, W, exec, ${browser}
     bind = ${modifier}, C, exec, ${killandswitch}
+    bind = ${modifier}, Space, exec, pkill wofi || ${wofi} --show drun --normal-window --allow-images
     bind = ${modifier}, V, fullscreen, 1
     bind = ${modifier} SHIFT, V, fullscreen, 0
     bind = ${modifier}, F, togglefloating
     bind = ${modifier} SHIFT, F, pin
-    bind = ${modifier}, Space, exec, pkill ${wofi} || ${wofi} --show drun --normal-window --allow-images
 
     # Dwindle layout
     bind = ${modifier}, U, pseudo
