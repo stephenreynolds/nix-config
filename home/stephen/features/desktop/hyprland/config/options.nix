@@ -77,10 +77,13 @@
     }
 
     binds {
+      workspace_back_and_forth = true
       allow_workspace_cycles = true
+      ignore_group_lock = true
     }
 
     misc {
+      enable_swallow = true
       focus_on_activate = true
       mouse_move_enables_dpms = true
       key_press_enables_dpms = true

@@ -53,6 +53,7 @@ in
     bind = ${modifier} SHIFT, V, fullscreen, 0
     bind = ${modifier}, F, togglefloating
     bind = ${modifier} SHIFT, F, pin
+    bind = ${modifier} ALT, F, workspaceopt, allfloat
 
     # Layout
     bind = ${modifier} SHIFT, L, exec, ${togglelayout}
@@ -101,25 +102,31 @@ in
     bind = ${modifier}, 7, movegroupwindow, b
     bind = ${modifier}, 9, movegroupwindow, f
 
-    # Focus next/previous workspace on monitor
+    # Next/previous workspace on monitor
     bind = ${modifier}, 5, workspace, m-1
     bind = ${modifier}, 6, workspace, m+1
-
-    # Move window to next/previous workspace on monitor
     bind = ${modifier} SHIFT, 5, movetoworkspace, m-1
     bind = ${modifier} SHIFT, 6, movetoworkspace, m+1
 
-    # Focus next/previous workspace on monitor (including empty)
-    bind = ${modifier}, 2, workspace, r-1
-    bind = ${modifier}, 3, workspace, r+1
+    # Next empty workspace on monitor
+    bind = ${modifier}, 4, workspace, empty
+    bind = ${modifier} SHIFT, 4, movetoworkspace, empty
 
-    # Move window to next/previous workspace on monitor
-    bind = ${modifier} SHIFT, 2, movetoworkspace, r-1
-    bind = ${modifier} SHIFT, 3, movetoworkspace, r+1
+    # Previous workspace
+    bind = ${modifier}, 1, workspace, previous
+    bind = ${modifier} SHIFT, 1, movetoworkspace, previous
 
     # Special workspaces
     bind = ${modifier} SHIFT, 0, movetoworkspace, special
     bind = ${modifier}, 0, togglespecialworkspace
+
+    # Move to monitor
+    bind = ${modifier}, 2, focusmonitor, l
+    bind = ${modifier}, 3, focusmonitor, r
+    bind = ${modifier} SHIFT, 2, movewindow, mon:l
+    bind = ${modifier} SHIFT, 3, movewindow, mon:r
+    bind = ${modifier} CTRL, 2, movecurrentworkspacetomonitor, l
+    bind = ${modifier} CTRL, 3, movecurrentworkspacetomonitor, r
 
     # Scroll through existing workspaces with {modifier} + scroll
     bind = ${modifier}, mouse_down, workspace, m+1
