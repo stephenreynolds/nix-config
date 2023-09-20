@@ -1,6 +1,6 @@
 {
   imports = [
-    ./firefox.nix
+    ./firefox
     ./font.nix
     ./cursor.nix
     ./gtk.nix
