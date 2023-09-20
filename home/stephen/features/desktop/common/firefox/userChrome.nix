@@ -7,6 +7,9 @@
       .titlebar-buttonbox-container{ display:none }
       .titlebar-spacer[type="post-tabs"]{ display:none }
 
+      /* Hide all tabs button */
+      #alltabs-button { display: none !important; }
+
       /* Remove some elements from the bookmarks menu */
       .openintabs-menuseparator,
       .openintabs-menuitem,
