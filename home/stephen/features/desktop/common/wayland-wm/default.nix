@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./eww
+    ./ags.nix
     ./swww.nix
     ./kitty.nix
     ./swayidle.nix

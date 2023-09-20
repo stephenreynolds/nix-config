@@ -46,11 +46,11 @@
       flake = false;
     };
 
-    eww.url = "github:hylophile/eww/dynamic-icons";
-    eww-config = {
-      url = "github:stephenreynolds/eww-widgets";
-      flake = false;
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+    ags-config.url = "github:stephenreynolds/ags-config";
 
     nvim-config = {
       url = "github:stephenreynolds/nvim";
