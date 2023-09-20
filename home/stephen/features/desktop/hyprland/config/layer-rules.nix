@@ -1,12 +1,18 @@
 {
   wayland.windowManager.hyprland.extraConfig = ''
-    blurls = notifications
+    layerrule = blur, notifications
     layerrule = ignorezero, notifications
-    blurls = rofi
+
+    layerrule = blur, rofi
     layerrule = ignorezero, rofi
-    blurls = gtk-layer-shell
+
+    layerrule = blur, gtk-layer-shell
     layerrule = ignorezero, gtk-layer-shell
-    blurls = eww
+
+    layerrule = blur, eww
     layerrule = ignorezero, eww
+
+    layerrule = blur, ^(bar-.)$
+    layerrule = ignorezero, ^(bar-.)$
   '';
 }
