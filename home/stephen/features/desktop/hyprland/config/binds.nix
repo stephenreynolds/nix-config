@@ -6,7 +6,6 @@ let
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   playerctl = "${config.services.playerctld.package}/bin/playerctl";
   swappy = lib.getExe pkgs.swappy;
-  wofi = "${config.programs.wofi.package}/bin/wofi";
 
   gtk-launch = "${pkgs.gtk3}/bin/gtk-launch";
   xdg-mime = "${pkgs.xdg-utils}/bin/xdg-mime";
@@ -46,7 +45,7 @@ in
     bind = ${modifier}, T, exec, ${terminal}
     bind = ${modifier}, W, exec, ${browser}
     bind = ${modifier}, C, exec, ${killandswitch}
-    bind = ${modifier}, Space, exec, pkill wofi || ${wofi} --show drun --normal-window --allow-images
+    bind = ${modifier}, Space, exec, ags -t applauncher
 
     # Window mode
     bind = ${modifier}, V, fullscreen, 1
