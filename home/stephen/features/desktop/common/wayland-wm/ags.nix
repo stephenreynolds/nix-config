@@ -10,7 +10,14 @@
   };
 
   home.packages = with pkgs; [
+    inputs.ags.packages.${pkgs.system}.default
     sassc
     inotify-tools
+    wf-recorder
+    swww
+    swappy
+    slurp
+    imagemagick
+    inter
   ];
 }

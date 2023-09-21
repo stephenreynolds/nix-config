@@ -9,10 +9,9 @@
     layerrule = blur, gtk-layer-shell
     layerrule = ignorezero, gtk-layer-shell
 
-    layerrule = blur, eww
-    layerrule = ignorezero, eww
-
     layerrule = blur, ^(bar-.)$
     layerrule = ignorezero, ^(bar-.)$
+    layerrule = blur, ^(notifications-.)$
+    layerrule = ignorezero, ^(notifications-.)$
   '';
 }
