@@ -69,14 +69,6 @@
         icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
         definedAliases = [ "@no" ];
       };
-      "Home Manager" = {
-        urls = [
-          {
-            template = "https://rycee.gitlab.io/home-manager/options.html";
-          }
-        ];
-        definedAliases = [ "@hm" ];
-      };
 
       "Bing".metaData.hidden = true;
       "DuckDuckGo".metaData.hidden = true;
