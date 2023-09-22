@@ -8,6 +8,6 @@ in
   wayland.windowManager.hyprland.extraConfig = ''
     exec = ${ags} -q; sleep 0.5; ${ags}
     exec-once = hyprctl dispatch focusmonitor ${primaryMonitor.name}
-    exec-once = [workspace special silent] ${terminal}
+    exec-once = [workspace special silent;group new] ${terminal}
   '';
 }
