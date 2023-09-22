@@ -1,12 +1,19 @@
 { pkgs, lib, config, ... }:
 
 let
-  swaylock = "${config.programs.swaylock.package}/bin/swaylock";
+  gtklock = "${config.programs.gtklock.package}/bin/gtklock";
   pgrep = "${pkgs.procps}/bin/pgrep";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
 
-  isLocked = "${pgrep} -x ${swaylock}";
+  lock = pkgs.writeShellScriptBin "lock" ''
+    wallpaper=$(${lib.getExe pkgs.swww} query | awk -F'image: ' 'NR==1 {print $2}')
+    image=$(${pkgs.imagemagick}/bin/convert $wallpaper -blur 0x50 /tmp/lock.jpg && echo /tmp/lock.jpg)
+    ${lib.getExe pkgs.gtklock} -b $image
+  '';
+  lockCommand = "${lock} -d";
+
+  isLocked = "${pgrep} -x ${gtklock}";
   lockTime = 60 * 10; # 10 min
   muteTime = 5; # 5 sec
   screenOffTime = 30; # 30 sec
@@ -26,7 +33,7 @@ in
       # Lock screen
       [{
         timeout = lockTime;
-        command = "${swaylock} --grace 10 --fade-in 1";
+        command = "${lockCommand}";
       }] ++
       # Mute mic
       (afterLockTimeout {
@@ -49,17 +56,17 @@ in
       # Before sleep
       {
         event = "before-sleep";
-        command = "${swaylock}";
+        command = "${lockCommand}";
       }
       # Lock
       {
         event = "lock";
-        command = "${swaylock}";
+        command = "${lockCommand}";
       }
       # Unlock
       {
         event = "unlock";
-        command = "pkill -xu '$USER' -SIGUSR1 ${swaylock}";
+        command = "pkill -xu '$USER' -SIGUSR1 ${lockCommand}";
       }
     ];
   };

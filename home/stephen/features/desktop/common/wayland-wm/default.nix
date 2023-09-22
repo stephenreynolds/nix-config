@@ -2,10 +2,10 @@
 {
   imports = [
     ./ags.nix
+    ./gtklock.nix
     ./swww.nix
     ./kitty.nix
     ./swayidle.nix
-    ./swaylock.nix
     ./sway-audio-idle-inhibit.nix
     ./zathura.nix
   ];

@@ -37,5 +37,8 @@ in
   services.geoclue2.enable = true;
 
   # Required to let swaylock check password.
-  security.pam.services = { swaylock = { }; };
+  security.pam.services = {
+    gtklock = { };
+    swaylock = { };
+  };
 }
