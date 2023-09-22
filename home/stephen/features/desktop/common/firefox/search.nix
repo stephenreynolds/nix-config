@@ -33,6 +33,18 @@
         updateInterval = 24 * 60 * 60 * 1000; # every day
         definedAliases = [ "@yt" ];
       };
+      "GitHub" = {
+        urls = [{
+          template = "https://github.com/search";
+          params = [
+            { name = "type"; value = "code"; }
+            { name = "q"; value = "{searchTerms}"; }
+          ];
+        }];
+        iconUpdateURL = "https://github.githubassets.com/favicons/favicon.svg";
+        updateInterval = 24 * 60 * 60 * 1000; # every day
+        definedAliases = [ "@gh" ];
+      };
       "Nix Packages" = {
         urls = [{
           template = "https://search.nixos.org/packages";
