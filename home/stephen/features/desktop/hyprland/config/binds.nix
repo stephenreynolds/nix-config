@@ -21,7 +21,7 @@ let
     single=$(hyprctl activeworkspace -j | ${jq} -r ".windows == 1")
     hyprctl dispatch killactive
     if [[ $single == "true" ]]; then
-        hyprctl dispatch workspace m-1
+        hyprctl dispatch workspace r-1
     fi
   '';
 
@@ -32,11 +32,6 @@ let
     else
       hyprctl keyword general:layout "master"
     fi
-  '';
-
-  cyclemaster = pkgs.writeShellScript "swapmaster" ''
-    hyprctl dispatch cyclenext
-    hyprctl dispatch layoutmsg swapwithmaster
   '';
 in
 {
@@ -62,7 +57,8 @@ in
     bind = ${modifier}, J, togglesplit
 
     ## Master layout
-    bind = ${modifier}, S, exec, ${cyclemaster}
+    bind = ${modifier}, S, cyclenext
+    bind = ${modifier}, S, layoutmsg, swapwithmaster
     bind = ${modifier}, L, layoutmsg, orientationcycle center left
 
     # Focus last window
@@ -108,7 +104,9 @@ in
     bind = ${modifier} SHIFT, 6, movetoworkspace, m+1
 
     # Next empty workspace on monitor
+    bind = ${modifier}, 4, moveworkspacetomonitor, empty current
     bind = ${modifier}, 4, workspace, empty
+    bind = ${modifier} SHIFT, 4, moveworkspacetomonitor, empty current
     bind = ${modifier} SHIFT, 4, movetoworkspace, empty
 
     # Previous workspace
