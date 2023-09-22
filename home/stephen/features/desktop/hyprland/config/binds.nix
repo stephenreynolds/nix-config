@@ -18,10 +18,15 @@ let
   jq = lib.getExe pkgs.jq;
 
   killandswitch = pkgs.writeShellScript "killandswitch" ''
-    single=$(hyprctl activeworkspace -j | ${jq} -r ".windows == 1")
-    hyprctl dispatch killactive
-    if [[ $single == "true" ]]; then
-        hyprctl dispatch workspace r-1
+    workspace=$(hyprctl activewindow -j | ${jq} -r ".workspace.id")
+    if [[ $workspace == "-99" ]]; then
+      hyprctl dispatch killactive
+    else
+      single=$(hyprctl activeworkspace -j | ${jq} -r ".windows == 1")
+      hyprctl dispatch killactive
+      if [[ $single == "true" ]]; then
+          hyprctl dispatch workspace r-1
+      fi
     fi
   '';
 
