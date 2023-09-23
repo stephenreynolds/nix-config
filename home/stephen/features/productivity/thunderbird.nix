@@ -5,4 +5,9 @@
       isDefault = true;
     };
   };
+
+  services.protonmail-bridge = {
+    enable = true;
+    nonInteractive = true;
+  };
 }
