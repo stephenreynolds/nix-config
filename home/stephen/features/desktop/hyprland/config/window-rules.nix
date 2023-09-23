@@ -15,10 +15,6 @@
     windowrule = nofullscreenrequest, ^(tasty.javafx.launcher.LauncherFxApp)$
 
     # Steam
-    windowrule = workspace empty, ^(Mailspring)$
-
-    # Steam
-    windowrule = workspace empty, ^(steam)$
     windowrule = nofullscreenrequest, ^(steam)$
 
     # polkit agent
