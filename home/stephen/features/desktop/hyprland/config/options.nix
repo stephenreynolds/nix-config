@@ -26,7 +26,7 @@
     }
 
     decoration {
-      rounding = 8
+      rounding = 0
 
       blur {
         enabled = true
