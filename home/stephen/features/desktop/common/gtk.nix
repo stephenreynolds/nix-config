@@ -18,6 +18,16 @@ rec {
       package = pkgs.papirus-icon-theme;
     };
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+    gtk3.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+    gtk4.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
   };
 
   services.xsettingsd = {
