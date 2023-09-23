@@ -1,7 +1,7 @@
 {
   imports = [
     ./global
-    ./features/desktop/hyprland
+    ./features/desktop/gnome
     ./features/games
     ./features/productivity
     ./features/music

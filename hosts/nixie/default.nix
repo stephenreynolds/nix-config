@@ -8,17 +8,16 @@
     ../common/global
     ../common/users/stephen
 
+    ../common/optional/gnome.nix
     ../common/optional/bluetooth.nix
     ../common/optional/game-memory-fix.nix
     ../common/optional/gamemode.nix
-    ../common/optional/hyprland.nix
     ../common/optional/network-manager.nix
     ../common/optional/nextdns.nix
     ../common/optional/onedrive.nix
     ../common/optional/pipewire.nix
     ../common/optional/printing.nix
     ../common/optional/quietboot.nix
-    ../common/optional/sddm.nix
     ../common/optional/secure-boot.nix
     ../common/optional/system76-scheduler.nix
     ../common/optional/systemd-boot.nix
