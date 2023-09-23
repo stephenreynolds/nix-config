@@ -14,4 +14,6 @@
 
     lowLatency.enable = true;
   };
+
+  hardware.pulseaudio.enable = false;
 }
