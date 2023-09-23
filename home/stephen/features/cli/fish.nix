@@ -25,8 +25,10 @@
 
       nr = "nixos-rebuild --flake .";
       nrs = "nixos-rebuild --flake . switch";
+      nrb = "nixos-rebuild --flake . boot";
       snr = "sudo nixos-rebuild --flake .";
       snrs = "sudo nixos-rebuild --flake . switch";
+      snrb = "sudo nixos-rebuild --flake . boot";
       hm = "home-manager --flake .";
       hms = "home-manager --flake . switch";
 
