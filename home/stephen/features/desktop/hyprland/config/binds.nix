@@ -26,7 +26,7 @@ let
       single=$(hyprctl activeworkspace -j | ${jq} -r ".windows == 1")
       hyprctl dispatch killactive
       if [[ $single == "true" ]]; then
-          hyprctl dispatch workspace r-1
+        hyprctl dispatch workspace r-1
       fi
     fi
   '';
