@@ -14,7 +14,6 @@
     ./lazygit.nix
     ./lf.nix
     ./lsd.nix
-    ./mcfly.nix
     ./starship.nix
     ./tmux.nix
     ./zoxide.nix
