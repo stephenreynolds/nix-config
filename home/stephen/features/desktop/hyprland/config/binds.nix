@@ -23,10 +23,15 @@ let
     if [[ $workspace == "-99" ]]; then
       hyprctl dispatch killactive
     else
-      single=$(hyprctl activeworkspace -j | ${jq} -r ".windows == 1")
+      active=$(hyprctl activeworkspace -j)
+      lastwindow=$(echo "$active" | ${jq} -r ".windows == 1")
       hyprctl dispatch killactive
-      if [[ $single == "true" ]]; then
-        hyprctl dispatch workspace r-1
+      if [[ $lastwindow == "true" ]]; then
+        monitor=$(echo "$active" | ${jq} -r ".monitor")
+        lastworkspace=$(hyprctl workspaces -j | ${jq} -r --arg m "$monitor" '[.[] | select(.monitor == $m and .id != -99)] | length == 1')
+        if [[ $lastworkspace == "false" ]]; then
+          hyprctl dispatch workspace r-1
+        fi
       fi
     fi
   '';
