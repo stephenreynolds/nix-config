@@ -16,6 +16,8 @@
 
     # Steam
     windowrule = nofullscreenrequest, ^(steam)$
+    windowrulev2 = float, title:^(Steam Settings)$
+    windowrulev2 = float, title:^(Friends List)$, class:^(steam)$
 
     # polkit agent
     windowrulev2 = float,class:^(lxqt-policykit-agent)$
