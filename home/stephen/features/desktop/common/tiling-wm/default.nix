@@ -1,10 +1,12 @@
 { pkgs, ... }:
 {
   imports = [
+    ./gtk.nix
     ./kitty.nix
     ./nemo.nix
     ./pavucontrol.nix
     ./playerctl.nix
+    ./qt.nix
     ./zathura.nix
   ];
 
