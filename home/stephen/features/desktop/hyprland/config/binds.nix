@@ -143,20 +143,20 @@ in
     bind = ${modifier} SHIFT, 4, exec, ${movetoempty}
 
     # Previous workspace
-    bind = ${modifier}, 1, workspace, previous
-    bind = ${modifier} SHIFT, 1, movetoworkspace, previous
+    bind = ${modifier}, 3, workspace, previous
+    bind = ${modifier} SHIFT, 3, movetoworkspace, previous
 
     # Special workspaces
     bind = ${modifier} SHIFT, 0, movetoworkspace, special
     bind = ${modifier}, 0, togglespecialworkspace
 
     # Move to monitor
-    bind = ${modifier}, 2, focusmonitor, l
-    bind = ${modifier}, 3, focusmonitor, r
-    bind = ${modifier} SHIFT, 2, movewindow, mon:l
-    bind = ${modifier} SHIFT, 3, movewindow, mon:r
-    bind = ${modifier} CTRL, 2, movecurrentworkspacetomonitor, l
-    bind = ${modifier} CTRL, 3, movecurrentworkspacetomonitor, r
+    bind = ${modifier}, 1, focusmonitor, l
+    bind = ${modifier}, 2, focusmonitor, r
+    bind = ${modifier} SHIFT, 1, movewindow, mon:l
+    bind = ${modifier} SHIFT, 2, movewindow, mon:r
+    bind = ${modifier} CTRL, 1, movecurrentworkspacetomonitor, l
+    bind = ${modifier} CTRL, 2, movecurrentworkspacetomonitor, r
 
     # Scroll through existing workspaces with {modifier} + scroll
     bind = ${modifier}, mouse_down, workspace, m+1
