@@ -41,11 +41,17 @@ let
   '';
 
   focusempty = pkgs.writeShellScript "focusempty" ''
-    empty=$(hyprctl activeworkspace -j | ${jq} -r ".windows == 0")
+    active=$(hyprctl activeworkspace -j)
+    workspaces=$(hyprctl workspaces -j)
+    empty=$(echo "$active" | ${jq} -r ".windows == 0")
     if [[ $empty == "true" ]]; then
-      hyprctl dispatch workspace previous
+      monitor=$(echo "$active" | ${jq} -r ".monitor")
+      single=$(echo "$workspaces" | ${jq} -r --arg m "$monitor" '[.[] | select(.monitor == $m and .id != -99)] | length == 1')
+      if [[ $single == "false" ]]; then
+        hyprctl dispatch workspace previous
+      fi
     else
-      id=$(hyprctl workspaces -j | ${jq} -r "max_by(.id).id + 1")
+      id=$(echo "$workspaces" | ${jq} -r "max_by(.id).id + 1")
       hyprctl dispatch workspace $id
     fi
   '';
