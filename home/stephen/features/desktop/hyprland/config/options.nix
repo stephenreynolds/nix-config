@@ -63,6 +63,7 @@
       pseudotile = true
       preserve_split = true
       force_split = 2 # Split right
+      special_scale_factor = 0.95
     }
 
     master {
@@ -72,6 +73,7 @@
       new_on_top = true
       orientation = center
       inherit_fullscreen = true
+      special_scale_factor = 0.95
     }
 
     binds {
