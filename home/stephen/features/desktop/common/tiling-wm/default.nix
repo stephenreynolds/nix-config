@@ -2,6 +2,7 @@
 {
   imports = [
     ./deluge.nix
+    ./firefox.nix
     ./gtk.nix
     ./kitty.nix
     ./nemo.nix

@@ -3,10 +3,6 @@
   programs.firefox.profiles.stephen.userChrome =
     (builtins.readFile "${inputs.firefox-onebar}/userChrome.css") +
     ''
-      /* Hide the close button */
-      .titlebar-buttonbox-container{ display:none }
-      .titlebar-spacer[type="post-tabs"]{ display:none }
-
       /* Hide all tabs button */
       #alltabs-button { display: none !important; }
 
