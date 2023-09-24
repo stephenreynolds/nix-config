@@ -26,11 +26,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1695523339,
+        "lastModified": 1695526674,
         "narHash": "sha256-G5QSu4iaub65sodl5IvBKFhKAKSqEMA6JA8fvs8mQSU=",
         "owner": "stephenreynolds",
         "repo": "ags-config",
-        "rev": "b9f4d5e020e18f7105fd7ff297ee9428f364388d",
+        "rev": "3d72ab1996306cc2903756d85d574732a0c148c2",
         "type": "github"
       },
       "original": {
