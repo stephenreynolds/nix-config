@@ -23,6 +23,8 @@
       layout = master
 
       resize_on_border = true
+
+      cursor_inactive_timeout = 10
     }
 
     decoration {
