@@ -39,6 +39,24 @@ let
       hyprctl keyword general:layout "master"
     fi
   '';
+
+  focusempty = pkgs.writeShellScript "focusempty" ''
+    empty=$(hyprctl activeworkspace -j | ${jq} -r ".windows == 0")
+    if [[ $empty == "true" ]]; then
+      hyprctl dispatch workspace previous
+    else
+      id=$(hyprctl workspaces -j | ${jq} -r "max_by(.id).id + 1")
+      hyprctl dispatch workspace $id
+    fi
+  '';
+
+  movetoempty = pkgs.writeShellScript "movetoempty" ''
+    multiple=$(hyprctl activeworkspace -j | jq -r ".windows > 1")
+    if [[ $multiple == "true" ]]; then
+      id=$(hyprctl workspaces -j | ${jq} -r "max_by(.id).id + 1")
+      hyprctl dispatch movetoworkspace $id
+    fi
+  '';
 in
 {
   wayland.windowManager.hyprland.extraConfig = ''
@@ -110,10 +128,8 @@ in
     bind = ${modifier} SHIFT, 6, movetoworkspace, m+1
 
     # Next empty workspace on monitor
-    bind = ${modifier}, 4, moveworkspacetomonitor, empty current
-    bind = ${modifier}, 4, workspace, empty
-    bind = ${modifier} SHIFT, 4, moveworkspacetomonitor, empty current
-    bind = ${modifier} SHIFT, 4, movetoworkspace, empty
+    bind = ${modifier}, 4, exec, ${focusempty}
+    bind = ${modifier} SHIFT, 4, exec, ${movetoempty}
 
     # Previous workspace
     bind = ${modifier}, 1, workspace, previous
