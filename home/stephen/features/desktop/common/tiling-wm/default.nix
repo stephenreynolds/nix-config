@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ./deluge.nix
     ./gtk.nix
     ./kitty.nix
     ./nemo.nix
