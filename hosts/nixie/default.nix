@@ -8,7 +8,7 @@
     ../common/global
     ../common/users/stephen
 
-    ../common/optional/gnome.nix
+    ../common/optional/hyprland.nix
     ../common/optional/bluetooth.nix
     ../common/optional/game-memory-fix.nix
     ../common/optional/gamemode.nix
