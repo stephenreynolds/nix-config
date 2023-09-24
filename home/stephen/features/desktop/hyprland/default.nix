@@ -3,7 +3,7 @@
     inputs.hyprland.homeManagerModules.default
 
     ../common
-    ../common/wayland-wm
+    ../common/tiling-wm/wayland
 
     ./tty-init.nix
     ./systemd-fixes.nix
