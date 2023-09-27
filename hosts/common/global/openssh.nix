@@ -29,6 +29,5 @@ in
       hosts;
   };
 
-  # TODO: Fix when https://github.com/NixOS/nixpkgs/issues/256713 is resolved.
-  # security.pam.enableSSHAgentAuth = true;
+  security.pam.enableSSHAgentAuth = true;
 }
