@@ -15,7 +15,7 @@
     ../common/optional/network-manager.nix
     ../common/optional/nextdns.nix
     ../common/optional/onedrive.nix
-    ../common/optional/pipewire
+    ../common/optional/pipewire.nix
     ../common/optional/printing.nix
     ../common/optional/quietboot.nix
     ../common/optional/secure-boot.nix
