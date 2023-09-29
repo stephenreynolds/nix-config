@@ -66,6 +66,5 @@ in
     language.base = "en_US.UTF-8";
   };
 
-  xdg.configFile."colorscheme.json".text = builtins.toJSON config.colorscheme.colors;
   inherit colorscheme;
 }
