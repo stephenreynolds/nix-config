@@ -1,31 +1,7 @@
 { inputs, lib, pkgs, config, outputs, ... }:
 let
   inherit (inputs.nix-colors) colorSchemes;
-
-  scheme = colorSchemes.catppuccin-mocha;
-  colors = scheme.colors;
-  colorscheme = lib.mkDefault {
-    slug = scheme.slug;
-    colors = {
-      base00 = "171717";
-      inherit (colors)
-        base01
-        base02
-        base03
-        base04
-        base05
-        base06
-        base07
-        base08
-        base09
-        base0A
-        base0B
-        base0C
-        base0D
-        base0E
-        base0F;
-    };
-  };
+  colorscheme = colorSchemes.rose-pine;
 in
 {
   imports = [
