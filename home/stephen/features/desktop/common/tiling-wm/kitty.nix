@@ -31,7 +31,7 @@ in
       strip_trailing_spaces = "smart";
       show_hyprlink_targets = "yes";
 
-      background_opacity = "1";
+      background_opacity = "0.85";
       dynamic_background_opacity = "yes";
 
       foreground = "#${colors.base05}";
