@@ -1,7 +1,7 @@
 {
   wayland.windowManager.hyprland.extraConfig = ''
     # ags
-    windowrule = float, ^(ags)$
+    windowrule = float, ^(com.github.Aylur.ags)$
 
     # XDG Portal
     windowrule = float, ^(xdg-desktop-portal)$
