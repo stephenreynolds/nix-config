@@ -2,7 +2,7 @@
 {
   services.locate = {
     enable = true;
-    locate = pkgs.plocate;
+    package = pkgs.plocate;
     interval = "hourly";
 
     # Suppress "mlocate and plocate do not support localuser" warning
