@@ -58,16 +58,18 @@
       animation = specialWorkspace, 1, 2, default, slidevert
     }
 
+    # https://wiki.hyprland.org/Configuring/Dwindle-Layout/#config
     dwindle {
-      no_gaps_when_only = 1
+      no_gaps_when_only = 0
       pseudotile = true
       preserve_split = true
       force_split = 2 # Split right
       special_scale_factor = 0.95
     }
 
+    # https://wiki.hyprland.org/Configuring/Master-Layout/#config
     master {
-      no_gaps_when_only = 1
+      no_gaps_when_only = 0
       mfact = 0.55
       new_is_master = true
       new_on_top = true
