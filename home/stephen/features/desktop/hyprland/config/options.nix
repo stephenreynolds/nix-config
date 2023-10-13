@@ -17,8 +17,6 @@
       border_size = 1
       col.active_border = 0xff${config.colorscheme.colors.base0C}
       col.inactive_border = 0xff${config.colorscheme.colors.base02}
-      col.group_border = 0xff${config.colorscheme.colors.base04}
-      col.group_border_active = 0xff${config.colorscheme.colors.base0B}
 
       layout = master
 
@@ -32,17 +30,18 @@
 
       blur {
         enabled = true
-        size = 5
-        passes = 4
+        size = 8
+        passes = 2
         new_optimizations = true
         xray = false
-        noise = 0.0117
+        noise = 0.1117
         special = false
       }
 
       drop_shadow = true
       shadow_range = 30
-      col.shadow = 0x44000000
+      shadow_render_power = 3
+      col.shadow = rgba(1a1a1aee)
       col.shadow_inactive = 0x66000000
     }
 
@@ -83,12 +82,27 @@
       allow_workspace_cycles = true
     }
 
+    group {
+      col.border_active = 0xff${config.colorscheme.colors.base0A}
+      col.border_inactive = 0xff${config.colorscheme.colors.base03}
+      col.border_locked_active = 0xff${config.colorscheme.colors.base08}
+      col.border_locked_inactive = 0xff${config.colorscheme.colors.base03}
+
+      groupbar {
+        render_titles = false
+
+        col.active = 0xff${config.colorscheme.colors.base0A}
+        col.inactive = 0xff${config.colorscheme.colors.base03}
+        col.locked_active = 0xff${config.colorscheme.colors.base08}
+        col.locked_inactive = 0xff${config.colorscheme.colors.base03}
+      }
+    }
+
     misc {
       focus_on_activate = true
       mouse_move_enables_dpms = true
       key_press_enables_dpms = true
       allow_session_lock_restore = true
-      render_titles_in_groupbar = false
       enable_swallow = true
       swallow_regex = ^(kitty)$
     }
