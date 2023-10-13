@@ -34,6 +34,8 @@
 
       run = "nix run nixpkgs#";
 
+      lsa = "ls -a";
+
       e = lib.mkIf config.programs.neovim.enable "nvim";
 
       g = lib.mkIf config.programs.lazygit.enable "lazygit";
