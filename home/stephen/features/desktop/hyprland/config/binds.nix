@@ -202,7 +202,7 @@ in
     bind = , D, submap, reset
     bind = , F, exec, ${fileBrowser}
     bind = , F, submap, reset
-    bind = , M, exec, ${pkgs.mailspring}
+    bind = , M, exec, ${pkgs.thunderbird}
     bind = , M, submap, reset
     bind = , P, exec, ${pkgs.pavucontrol}
     bind = , P, submap, reset
