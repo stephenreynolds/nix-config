@@ -22,19 +22,5 @@ in
         Restart = "on-failure";
       };
     };
-    systemd.user.services.swww-default = {
-      Unit = {
-        Description = "Default wallpaper";
-        Requires = [ "swww.service" ];
-        After = [ "swww.service" ];
-        PartOf = [ "swww.service" ];
-      };
-      Install.WantedBy = [ "swww.service" ];
-      Service = {
-        Type = "oneshot";
-        ExecStart = "${lib.getExe pkgs.swww} img ${./wallpaper.jpg}";
-        Restart = "on-failure";
-      };
-    };
   };
 }
