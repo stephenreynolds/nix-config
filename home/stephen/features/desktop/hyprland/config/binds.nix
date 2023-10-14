@@ -75,8 +75,7 @@ in
     bind = ${modifier}, T, exec, ${terminal}
     bind = ${modifier}, W, exec, ${browser}
     bind = ${modifier}, C, exec, ${killandswitch}
-    bind = ${modifier}, Space, exec, ${ags} -t applauncher
-    bind = ALT, Tab, exec, ${ags} -t overview
+    bind = ${modifier}, Space, exec, ${ags} -t overview
 
     # Window mode
     bind = ${modifier}, V, fullscreen, 1
