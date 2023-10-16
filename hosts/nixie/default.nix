@@ -18,6 +18,7 @@
     ../common/optional/onedrive.nix
     ../common/optional/pipewire.nix
     ../common/optional/printing.nix
+    ../common/optional/vpn.nix
     ../common/optional/quietboot.nix
     ../common/optional/secure-boot.nix
     ../common/optional/system76-scheduler.nix

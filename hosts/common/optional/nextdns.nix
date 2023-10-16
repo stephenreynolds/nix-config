@@ -17,6 +17,7 @@
   };
 
   sops.secrets.nextdns-id = {
+    restartUnits = [ "nextdns.service" ];
     sopsFile = ../secrets.yaml;
   };
 }

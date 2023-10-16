@@ -8,7 +8,6 @@
     ./features/audio/corsair-virtuoso-wireless-headset
     ./features/openrgb
     ./features/onedrive
-    ./features/security
     ./features/stable-diffusion
   ];
 
