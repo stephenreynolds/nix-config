@@ -14,6 +14,7 @@
     ./lazygit.nix
     ./lf.nix
     ./lsd.nix
+    ./nvim.nix
     ./starship.nix
     ./tmux.nix
     ./zoxide.nix
