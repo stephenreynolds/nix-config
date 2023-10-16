@@ -99,7 +99,7 @@ in
         esac
       }}'';
       trash = ''''${{
-        trash-put $fx
+        trash-put "$fx"
       }}'';
       setwallpaper = ''''${{
         ln -sf "$f" /home/stephen/.config/wallpaper
