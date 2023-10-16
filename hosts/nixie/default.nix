@@ -12,6 +12,7 @@
     ../common/optional/bluetooth.nix
     ../common/optional/game-memory-fix.nix
     ../common/optional/gamemode.nix
+    ../common/optional/gamescope.nix
     ../common/optional/network-manager.nix
     ../common/optional/nextdns.nix
     ../common/optional/onedrive.nix
