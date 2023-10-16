@@ -4,12 +4,13 @@ let
 in
 {
   programs.firefox.profiles.stephen.extensions = with addons; [
-    ublock-origin
-    violentmonkey
-    sponsorblock
+    proton-pass
     reddit-enhancement-suite
+    sponsorblock
     stylus
     tridactyl
+    ublock-origin
+    violentmonkey
   ];
 
   programs.firefox.package = pkgs.firefox.override {
