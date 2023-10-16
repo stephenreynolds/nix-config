@@ -3,6 +3,7 @@
   imports = [
     ./lutris.nix
     ./steam.nix
+    ./yuzu.nix
   ];
 
   home.packages = with pkgs; [
