@@ -39,6 +39,9 @@
       "intel_iommu=on"
       "iommu=pt"
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+      "video=HDMI-A-1:1920x1080@70"
+      "video=DP-1:1920x1080@70"
+      "video=DP-2:1920x1080@70"
     ];
   };
 
