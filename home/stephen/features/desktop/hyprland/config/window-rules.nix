@@ -56,9 +56,7 @@
     # Games
     ## Riichi City
     windowrulev2 = keepaspectratio, class:^(Mahjong-JP.x86_64)$
-    windowrulev2 = workspace empty, class:^(Mahjong-JP.x86_64)$
     ## Steam games
     windowrulev2 = keepaspectratio, class:^(steam_app_.*)$
-    windowrulev2 = workspace empty, class:^(steam_app_.*)$
   '';
 }
