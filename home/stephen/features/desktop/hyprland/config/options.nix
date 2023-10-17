@@ -59,7 +59,7 @@
 
     # https://wiki.hyprland.org/Configuring/Dwindle-Layout/#config
     dwindle {
-      no_gaps_when_only = 0
+      no_gaps_when_only = 1
       pseudotile = true
       preserve_split = true
       force_split = 2 # Split right
