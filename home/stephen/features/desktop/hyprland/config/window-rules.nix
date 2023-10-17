@@ -52,5 +52,9 @@
     # onedrivegui
     windowrulev2 = float, title:^(OneDriveGUI)$
     windowrulev2 = move 78% 22%, title:^(OneDriveGUI)$
+
+    # Games
+    ## Riichi City
+    windowrulev2 = keepaspectratio, class:^(Mahjong-JP.x86_64)$
   '';
 }
