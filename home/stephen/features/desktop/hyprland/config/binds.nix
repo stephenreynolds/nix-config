@@ -78,6 +78,9 @@ in
     bind = ${modifier}, Space, exec, ${ags} -t overview
     bindr = ${modifier}, SUPER_L, exec, ${ags} -t overview
 
+    # Cycle through windows
+    bind = ${modifier}, Tab, cyclenext
+
     # Window mode
     bind = ${modifier}, V, fullscreen, 1
     bind = ${modifier} SHIFT, V, fullscreen, 0
