@@ -20,6 +20,7 @@
       width = 1920;
       height = 1080;
       refreshRate = 70;
+      modeline = "modeline 205.20 1920 2056 2264 2608 1080 1081 1084 1124 -hsync +vsync";
       x = 0;
     }
     {
@@ -27,6 +28,7 @@
       width = 1920;
       height = 1080;
       refreshRate = 70;
+      modeline = "modeline 205.20 1920 2056 2264 2608 1080 1081 1084 1124 -hsync +vsync";
       x = 1920;
       primary = true;
     }
@@ -35,6 +37,7 @@
       width = 1920;
       height = 1080;
       refreshRate = 70;
+      modeline = "modeline 205.20 1920 2056 2264 2608 1080 1081 1084 1124 -hsync +vsync";
       x = 3840;
     }
   ];

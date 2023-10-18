@@ -32,6 +32,10 @@ in
           type = types.int;
           default = 60;
         };
+        modeline = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+        };
         x = mkOption {
           type = types.int;
           default = 0;
