@@ -76,6 +76,7 @@ in
     bind = ${modifier}, W, exec, ${browser}
     bind = ${modifier}, C, exec, ${killandswitch}
     bind = ${modifier}, Space, exec, ${ags} -t overview
+    bindr = ${modifier}, SUPER_L, exec, ${ags} -t overview
 
     # Window mode
     bind = ${modifier}, V, fullscreen, 1
