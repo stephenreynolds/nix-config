@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }: {
+{ pkgs, inputs, ... }: {
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel-kaby-lake
     inputs.hardware.nixosModules.common-pc-ssd
@@ -15,6 +15,7 @@
     ../common/optional/gamescope.nix
     ../common/optional/network-manager.nix
     ../common/optional/nextdns.nix
+    ../common/optional/nvidia.nix
     ../common/optional/onedrive.nix
     ../common/optional/pipewire.nix
     ../common/optional/printing.nix
@@ -38,33 +39,15 @@
       "mitigations=off"
       "intel_iommu=on"
       "iommu=pt"
-      "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
       "video=HDMI-A-1:1920x1080@70"
       "video=DP-1:1920x1080@70"
       "video=DP-2:1920x1080@70"
     ];
   };
 
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-      extraPackages = with pkgs; [
-        vaapiVdpau
-        nvidia-vaapi-driver
-      ];
-    };
-    nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-      modesetting.enable = true;
-      powerManagement.enable = true;
-    };
-    openrgb.enable = true;
-  };
+  hardware.openrgb.enable = true;
 
   services = {
-    xserver.videoDrivers = [ "nvidia" ];
     gvfs.enable = true;
     gnome.gnome-keyring.enable = true;
   };
