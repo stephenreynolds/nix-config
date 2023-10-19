@@ -72,7 +72,7 @@ let
   '';
 
   cleaner = pkgs.writeShellScript "cleaner" ''
-    kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
+    ${lib.getExe pkgs.kitty} +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
   '';
 in
 {
@@ -99,7 +99,7 @@ in
         esac
       }}'';
       trash = ''''${{
-        trash-put "$fx"
+        ${pkgs.trash-cli}/bin/trash-put "$fx"
       }}'';
       setwallpaper = ''''${{
         ln -sf "$f" /home/stephen/.config/wallpaper
