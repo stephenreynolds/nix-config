@@ -76,8 +76,6 @@ in
     bind = ${modifier}, W, exec, ${browser}
     bind = ${modifier}, C, exec, ${killandswitch}
     bind = ${modifier}, Space, exec, ${ags} -t overview
-    bindr = ${modifier}, SUPER_L, exec, ${ags} -t overview
-    bindr = ${modifier}, mouse:274, exec, ${killandswitch}
 
     # Cycle through windows
     bind = ${modifier}, Tab, cyclenext
