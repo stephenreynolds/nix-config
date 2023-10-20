@@ -10,6 +10,7 @@
   sway-audio-idle-inhibit = pkgs.callPackage ./sway-audio-idle-inhibit { };
   t = pkgs.callPackage ./t { };
   tt = pkgs.callPackage ./tt { };
+  allusion = pkgs.callPackage ./allusion { };
   json-notification-daemon = pkgs.callPackage ./json-notification-daemon { };
   segoe-fluent-icons = pkgs.callPackage ./segoe-fluent-icons { };
   ttf-ms-win11-auto = pkgs.callPackage ./ttf-ms-win11-auto { };
