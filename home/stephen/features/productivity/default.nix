@@ -8,5 +8,7 @@
 
   home.packages = with pkgs; [
     allusion
+    gimp-with-plugins
+    krita
   ];
 }
