@@ -2,6 +2,7 @@
 {
   imports = [
     ./lutris.nix
+    ./osu.nix
     ./proton.nix
     ./steam.nix
     ./yuzu.nix
