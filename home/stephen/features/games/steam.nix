@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
   steam-with-pkgs = pkgs.steam.override {
     extraPkgs = pkgs: with pkgs; [
@@ -13,18 +13,11 @@ let
       libkrb5
       keyutils
     ];
+    extraProfile = "export STEAM_EXTRA_COMPAT_TOOLS_PATHS='${inputs.nix-gaming.packages.${pkgs.system}.proton-ge}'";
   };
-
-  extraCompatPackages = with pkgs; [
-    proton-ge
-  ];
 in
 {
   home.packages = [
     steam-with-pkgs
   ];
-
-  home.sessionVariables = {
-    STEAM_EXTRA_COMPAT_TOOLS_PATHS = lib.makeBinPath extraCompatPackages;
-  };
 }
