@@ -11,7 +11,7 @@ let
     };
   };
 in
-{ 
+{
   programs.tmux = {
     enable = true;
     baseIndex = 1;
@@ -42,33 +42,35 @@ in
     ];
     extraConfig = ''
       set -ga terminal-overrides ",*256col*:Tc"
-      
+
       bind r source-file ~/.config/tmux/tmux.conf
-      
+
       bind -T copy-mode-vi v send-keys -X begin-selection
       bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy"
-      
+      bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "wl-copy"
+      bind P paste-buffer
+
       # Select pane
       bind -r ^ last-window
       bind -r k select-pane -U
       bind -r j select-pane -D
       bind -r h select-pane -L
       bind -r l select-pane -R
-      
+
       # Split window
       bind | split-window -h
       bind - split-window -v
       unbind '"'
       unbind %
-      
+
       # Toggle between current and previous window
       set -g renumber-windows on
       bind c new-window -c "#{pane_current_path}"
       bind Space last-window
-      
+
       bind T display-popup -E "tt"
       set-option -g detach-on-destroy off
-      
+
       # Disable status bar
       set -g status off
     '';
