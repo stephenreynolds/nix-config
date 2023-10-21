@@ -35,6 +35,7 @@
       run = "nix run nixpkgs#";
 
       lsa = "lsd -a";
+      tree = "lsd --tree";
 
       e = lib.mkIf config.programs.neovim.enable "nvim";
 
