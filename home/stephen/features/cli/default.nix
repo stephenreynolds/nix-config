@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   imports = [
     ./bash.nix
     ./bat.nix
@@ -19,6 +20,7 @@
     ./tmux.nix
     ./zoxide.nix
   ];
+
   home.packages = with pkgs; [
     distrobox
     ripgrep
@@ -33,4 +35,8 @@
     t
     tt
   ];
+
+  home.sessionVariables = {
+    GOPATH = "${config.xdg.dataHome}/go";
+  };
 }
