@@ -25,6 +25,7 @@
     ../common/optional/system76-scheduler.nix
     ../common/optional/systemd-boot.nix
     ../common/optional/tcp-bbr.nix
+    ../common/optional/tablet.nix
     ../common/optional/xpadneo.nix
     ../common/optional/zram.nix
   ];
