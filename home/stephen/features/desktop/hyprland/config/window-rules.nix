@@ -46,6 +46,9 @@
     windowrulev2 = float,class:^(pavucontrol-qt)$
     windowrulev2 = center,class:^(pavucontrol-qt)$
 
+    # Bluetooth Manager
+    windowrulev2 = float, class:^(.blueman-manager-wrapped)$
+
     # GNOME Clocks
     windowrulev2 = float, class:^(org.gnome.clocks)$
 
