@@ -67,5 +67,7 @@
     windowrulev2 = keepaspectratio, class:^(Mahjong-JP.x86_64)$
     ## Steam games
     windowrulev2 = keepaspectratio, class:^(steam_app_.*)$
+    windowrulev2 = keepaspectratio, class:^(steam_app_.*)$
+    windowrulev2 = fullscreen, class:^(steam_app_.*)$
   '';
 }
