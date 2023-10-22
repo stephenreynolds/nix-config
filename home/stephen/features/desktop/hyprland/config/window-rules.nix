@@ -46,6 +46,9 @@
     windowrulev2 = float,class:^(pavucontrol-qt)$
     windowrulev2 = center,class:^(pavucontrol-qt)$
 
+    # GNOME Clocks
+    windowrulev2 = float, class:^(org.gnome.clocks)$
+
     # GNOME Calculator
     windowrulev2 = float, class:^(org.gnome.Calculator)$
 
