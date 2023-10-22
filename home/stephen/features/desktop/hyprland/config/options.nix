@@ -69,7 +69,7 @@
     # https://wiki.hyprland.org/Configuring/Master-Layout/#config
     master {
       no_gaps_when_only = 1
-      mfact = 0.55
+      mfact = 0.5
       new_is_master = true
       new_on_top = true
       orientation = center
