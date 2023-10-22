@@ -1,5 +1,6 @@
 {
   imports = [
+    ./calculator.nix
     ./celluloid.nix
     ./cursor.nix
     ./discord.nix
