@@ -4,6 +4,7 @@
     ./deluge.nix
     ./firefox.nix
     ./gtk.nix
+    ./imv.nix
     ./kitty.nix
     ./nemo.nix
     ./pavucontrol.nix
@@ -21,7 +22,6 @@
 
   home.packages = with pkgs; [
     gtk3
-    imv
     xdg-utils
     pulseaudio
   ];
