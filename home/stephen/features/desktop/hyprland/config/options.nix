@@ -72,7 +72,7 @@
       mfact = 0.5
       new_is_master = true
       new_on_top = true
-      orientation = center
+      orientation = left
       inherit_fullscreen = true
       special_scale_factor = 0.95
     }
