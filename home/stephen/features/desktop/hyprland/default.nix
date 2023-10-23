@@ -7,6 +7,7 @@
 
     ./tty-init.nix
     ./systemd-fixes.nix
+    ./xdg-autostart.nix
 
     ./config
   ];
