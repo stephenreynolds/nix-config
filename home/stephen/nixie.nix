@@ -1,13 +1,14 @@
 {
   imports = [
     ./global
+    ./features/audio/corsair-virtuoso-wireless-headset
     ./features/desktop/hyprland
     ./features/games
-    ./features/productivity
     ./features/music
-    ./features/audio/corsair-virtuoso-wireless-headset
-    ./features/openrgb
     ./features/onedrive
+    ./features/openrgb
+    ./features/productivity
+    ./features/stable-diffusion
     ./features/wine
   ];
 
