@@ -68,7 +68,7 @@
 
     # https://wiki.hyprland.org/Configuring/Master-Layout/#config
     master {
-      no_gaps_when_only = 1
+      no_gaps_when_only = 2
       mfact = 0.5
       new_is_master = true
       new_on_top = true
