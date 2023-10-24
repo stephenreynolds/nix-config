@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   wayland.windowManager.hyprland.extraConfig = ''
     input {
       kb_layout = us
@@ -58,7 +57,7 @@
 
     # https://wiki.hyprland.org/Configuring/Dwindle-Layout/#config
     dwindle {
-      no_gaps_when_only = 2
+      no_gaps_when_only = 1
       pseudotile = true
       preserve_split = true
       force_split = 2 # Split right
@@ -67,7 +66,7 @@
 
     # https://wiki.hyprland.org/Configuring/Master-Layout/#config
     master {
-      no_gaps_when_only = 2
+      no_gaps_when_only = 1
       mfact = 0.5
       new_is_master = true
       new_on_top = true
