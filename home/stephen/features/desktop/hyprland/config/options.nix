@@ -11,8 +11,8 @@
     }
 
     general {
-      gaps_in = 5
-      gaps_out = 10
+      gaps_in = 0
+      gaps_out = 0
 
       border_size = 1
       col.active_border = 0xff${config.colorscheme.colors.base0C}
@@ -26,7 +26,7 @@
     }
 
     decoration {
-      rounding = 4
+      rounding = 0
 
       blur {
         enabled = true
@@ -38,7 +38,7 @@
         special = false
       }
 
-      drop_shadow = true
+      drop_shadow = false
       shadow_range = 30
       shadow_render_power = 3
       col.shadow = rgba(1a1a1aee)
