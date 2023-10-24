@@ -31,7 +31,6 @@
       black
       emmet-ls
       pyright
-      codeql
       marksman
       ocamlPackages.ocaml-lsp
       ocamlformat
