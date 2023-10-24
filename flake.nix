@@ -61,7 +61,7 @@
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ags-config.url = "github:stephenreynolds/ags-config/develop";
+    ags-config.url = "github:stephenreynolds/ags-config";
 
     nvim-config = {
       url = "github:stephenreynolds/nvim";
