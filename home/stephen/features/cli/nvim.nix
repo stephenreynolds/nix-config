@@ -1,13 +1,15 @@
-{ pkgs, inputs, ... }:
-{
-  # TODO: Declaratively configure nvim config
+{ pkgs, config, ... }: {
   programs.neovim = {
     enable = true;
     defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+    withNodeJs = true;
     extraPackages = with pkgs; [
       gcc
+      clang-tools
       gnumake
-      nodejs
       fzf
       unzip
       sqlite
@@ -19,10 +21,32 @@
       tree-sitter
       nil
       nixpkgs-fmt
+      lua-language-server
+      stylua
+      vscode-langservers-extracted
+      nodePackages.typescript-language-server
+      nodePackages.bash-language-server
+      prettierd
+      isort
+      black
+      emmet-ls
+      pyright
+      codeql
+      marksman
+      ocamlPackages.ocaml-lsp
+      ocamlformat
+      nixfmt
+      rustfmt
+      rust-analyzer
+      shellcheck
+      yamlfmt
+      jq
+      codespell
     ];
   };
 
-  xdg.configFile.nvim.source = inputs.nvim-config;
+  xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink
+    "${config.home.homeDirectory}/src/repos/nvim";
 
   xdg.desktopEntries = {
     nvim = {
@@ -54,7 +78,5 @@
     };
   };
 
-  home.sessionVariables = {
-    NVIM_SQLITE_PATH = pkgs.sqlite.out;
-  };
+  home.sessionVariables = { NVIM_SQLITE_PATH = pkgs.sqlite.out; };
 }
