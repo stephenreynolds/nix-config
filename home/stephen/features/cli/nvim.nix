@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, inputs, ... }: {
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -45,8 +45,7 @@
     ];
   };
 
-  xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink
-    "${config.home.homeDirectory}/src/repos/nvim";
+  xdg.configFile.nvim.source = inputs.nvim-config;
 
   xdg.desktopEntries = {
     nvim = {
