@@ -48,13 +48,12 @@
     animations {
       enabled = true
 
-      animation = windows, 1, 2, default
-      animation = windowsOut, 1, 2, default, popin 80%
-      animation = border, 1, 10, default
-      animation = borderangle, 1, 8, default
-      animation = fade, 1, 2, default
-      animation = workspaces, 1, 2, default
-      animation = specialWorkspace, 1, 2, default, slidevert
+      animation = windows, 0, 2, default
+      animation = windowsOut, 0, 2, default, popin 80%
+      animation = border, 0
+      animation = fade, 0, 2, default
+      animation = workspaces, 0, 2, default
+      animation = specialWorkspace, 1, 1, default, slidevert
     }
 
     # https://wiki.hyprland.org/Configuring/Dwindle-Layout/#config
