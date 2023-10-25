@@ -2,7 +2,9 @@
 let
   modifier = "SUPER";
 
-  grimblast = "${inputs.hyprland-contrib.packages.${pkgs.system}.grimblast}/bin/grimblast";
+  grimblast = "${
+      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+    }/bin/grimblast";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   playerctl = "${config.services.playerctld.package}/bin/playerctl";
   swappy = lib.getExe pkgs.swappy;
@@ -19,13 +21,24 @@ let
   jq = lib.getExe pkgs.jq;
 
   killandswitch = pkgs.writeShellScript "killandswitch" ''
+    killactive() {
+      case $(hyprctl activewindow -j | ${jq} -r ".class") in
+        "discord")
+          ${pkgs.xdotool}/bin/xdotool getactivewindow windowunmap
+          hyprctl dispatch killactive ""
+          ;;
+        *)
+          hyprctl dispatch killactive
+      esac
+    }
+
     workspace=$(hyprctl activewindow -j | ${jq} -r ".workspace.id")
     if [[ $workspace == "-99" ]]; then
-      hyprctl dispatch killactive
+      killactive
     else
       active=$(hyprctl activeworkspace -j)
       lastwindow=$(echo "$active" | ${jq} -r ".windows == 1")
-      hyprctl dispatch killactive
+      killactive
       if [[ $lastwindow == "true" ]]; then
         monitor=$(echo "$active" | ${jq} -r ".monitor")
         lastworkspace=$(hyprctl workspaces -j | ${jq} -r --arg m "$monitor" '[.[] | select(.monitor == $m and .id != -99)] | length == 1')
@@ -68,8 +81,7 @@ let
       hyprctl dispatch movetoworkspace $id
     fi
   '';
-in
-{
+in {
   wayland.windowManager.hyprland.extraConfig = ''
     # Launch applications
     bind = ${modifier}, T, exec, ${terminal}
