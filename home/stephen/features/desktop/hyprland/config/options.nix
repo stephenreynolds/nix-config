@@ -47,10 +47,9 @@
     animations {
       enabled = true
 
-      animation = windows, 1, 1, default
+      animation = windows, 1, 2, default, slide
       animation = windowsOut, 1, 1, default, popin 80%
-      animation = border, 0
-      animation = fade, 1, 1, default
+      animation = fade, 0, 1, default
       animation = workspaces, 1, 1, default
       animation = specialWorkspace, 1, 1, default, slidevert
     }
