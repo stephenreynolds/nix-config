@@ -48,7 +48,7 @@
       enabled = true
 
       animation = windows, 1, 2, default, slide
-      animation = windowsOut, 1, 1, default, popin 80%
+      animation = windowsOut, 1, 2, default, slide
       animation = fade, 0, 1, default
       animation = workspaces, 1, 1, default
       animation = specialWorkspace, 1, 1, default, slidevert
