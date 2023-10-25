@@ -1,14 +1,5 @@
-{ pkgs, ... }:
-{
-  imports = [
-    ./latex.nix
-    ./obsidian.nix
-    ./thunderbird.nix
-  ];
+{ pkgs, ... }: {
+  imports = [ ./latex.nix ./obsidian.nix ./thunderbird.nix ];
 
-  home.packages = with pkgs; [
-    allusion
-    gimp-with-plugins
-    krita
-  ];
+  home.packages = with pkgs; [ allusion gimp-with-plugins krita tastytrade ];
 }
