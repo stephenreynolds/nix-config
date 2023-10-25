@@ -41,6 +41,7 @@
       yamlfmt
       jq
       codespell
+      lldb
     ];
   };
 
