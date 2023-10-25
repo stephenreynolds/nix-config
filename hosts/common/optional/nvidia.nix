@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   boot.kernelParams = [
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     "nvidia.NVreg_TemporaryFilePath=/var/tmp"
+    "nvidia-drm.fbdev=1"
   ];
 
   hardware = {
@@ -10,13 +10,11 @@
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
-      extraPackages = with pkgs; [
-        vaapiVdpau
-        nvidia-vaapi-driver
-      ];
+      extraPackages = with pkgs; [ vaapiVdpau nvidia-vaapi-driver ];
     };
     nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      open = true;
       modesetting.enable = true;
       powerManagement.enable = true;
     };
