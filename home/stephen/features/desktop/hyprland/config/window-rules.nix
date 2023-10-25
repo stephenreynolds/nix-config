@@ -11,7 +11,6 @@
     windowrule = dimaround, ^(wofi)$
 
     # TastyTrade
-    windowrule = workspace empty, ^(tasty.javafx.launcher.LauncherFxApp)$
     windowrule = nofullscreenrequest, ^(tasty.javafx.launcher.LauncherFxApp)$
 
     # Steam
