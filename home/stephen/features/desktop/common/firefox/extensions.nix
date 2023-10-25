@@ -1,8 +1,6 @@
 { pkgs, inputs, ... }:
-let
-  addons = inputs.firefox-addons.packages.${pkgs.system};
-in
-{
+let addons = inputs.firefox-addons.packages.${pkgs.system};
+in {
   programs.firefox.profiles.stephen.extensions = with addons; [
     proton-pass
     reddit-enhancement-suite
@@ -13,10 +11,7 @@ in
     violentmonkey
   ];
 
-  programs.firefox.package = pkgs.firefox.override {
-    cfg = {
-      enableTridactylNative = true;
-    };
-  };
+  programs.firefox.package =
+    pkgs.firefox.override { nativeMessagingHosts = [ pkgs.tridactyl-native ]; };
 }
 
