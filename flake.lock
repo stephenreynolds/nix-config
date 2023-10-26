@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1698254710,
-        "narHash": "sha256-1wwckx7Cp1XWRIMsYE3FZss3l7VWYQoFEv428mtTokg=",
+        "lastModified": 1698279263,
+        "narHash": "sha256-NVtdt2F1Hcd0g76wj1fgcsyRV6KCHrVyDKAI8a0sKlU=",
         "owner": "Aylur",
         "repo": "ags",
-        "rev": "e98c6446e6f4cbbc94edd97073f8c2b1dd753f99",
+        "rev": "59377ec1eb48887a41b596f9ecf125013f213383",
         "type": "github"
       },
       "original": {
@@ -26,11 +26,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1698127103,
-        "narHash": "sha256-jujrMgEMSpaLEmd77h1nYYBVac1rLRqIQ1si1KLRLY0=",
+        "lastModified": 1698302895,
+        "narHash": "sha256-3EnCiCXbQEGJxWAiRerm6pZa7tWigVat6MFT5HQHtOk=",
         "owner": "stephenreynolds",
         "repo": "ags-config",
-        "rev": "7edf373169e3c43a2b0522e1ad6485717acfecc3",
+        "rev": "4cf7d414eeccb094355f2d9baf362d3b7a60d9ce",
         "type": "github"
       },
       "original": {
@@ -115,11 +115,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1698252763,
-        "narHash": "sha256-fIN7QP76Hv0fkyS860MQQ4Abx+7iQ62L9ffy9t3EsHQ=",
+        "lastModified": 1698292959,
+        "narHash": "sha256-mUrw83EO2i8ehOS53JPRl5za13aVbKYiiePbEoX2kq0=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "1c0edd81d576b8df4b7d2ba83267e4dded0f473a",
+        "rev": "00f54dacff80b66da5492a09819fa1321ae4e324",
         "type": "gitlab"
       },
       "original": {
@@ -301,11 +301,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1698278603,
-        "narHash": "sha256-1yHpzmJWGQjEjzA0sMBtPQcz0QQCB6Ewle55DPSxGmQ=",
+        "lastModified": 1698282310,
+        "narHash": "sha256-9n9+7qvhSKU+3mwY7h2Btr2lOT83r/VHWuk7XgaUKhI=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "5cc33b4e8c3e672202d5167652a4e49ff1acf105",
+        "rev": "07714dd5bd9ff60e10170e11b535409e1bbc92ef",
         "type": "github"
       },
       "original": {
@@ -542,11 +542,11 @@
     "nvim-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1698231441,
-        "narHash": "sha256-HqcUcM0wTmBouhjX6rTeqs3zme8hrt4mfVMPOCMQYdU=",
+        "lastModified": 1698302361,
+        "narHash": "sha256-tMHDBjqq0rqKHs8OsKr2ePFx6+nc5SzbxsTUl0P4wfg=",
         "owner": "stephenreynolds",
         "repo": "nvim",
-        "rev": "216ea7c179b4a4c15bf3c0a11ed8e28816589c01",
+        "rev": "0d2754571cc07e1950b679d60e54a1394f07e28b",
         "type": "github"
       },
       "original": {
