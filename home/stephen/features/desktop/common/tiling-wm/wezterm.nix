@@ -1,8 +1,10 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   inherit (config.colorscheme) colors;
-in
-{
+  wezterm-xterm = pkgs.writeShellScriptBin "xterm" ''
+    ${config.programs.wezterm.package}/bin/wezterm -1 "$@"
+  '';
+in {
   programs.wezterm = {
     enable = true;
     enableBashIntegration = config.programs.bash.enable;
@@ -49,7 +51,8 @@ in
         };
       };
     };
-    extraConfig = /* lua */ ''
+    extraConfig = # lua
+      ''
         local config = {}
 
         if wezterm.config_builder then
@@ -86,6 +89,11 @@ in
         config.check_for_updates = false
 
         return config
-    '';
+      '';
+  };
+
+  home = {
+    packages = [ wezterm-xterm ];
+    sessionVariables = { TERMINAL = "wezterm -1"; };
   };
 }
