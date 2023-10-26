@@ -4,6 +4,7 @@
   primary-xwayland = pkgs.callPackage ./primary-xwayland.nix { };
   apple-fonts = pkgs.callPackage ./apple-fonts.nix { };
   tastytrade = pkgs.callPackage ./tastytrade.nix { };
+  pyprland = pkgs.callPackage ./pyprland.nix { };
 
   # Custom packages
   sway-audio-idle-inhibit = pkgs.callPackage ./sway-audio-idle-inhibit.nix { };

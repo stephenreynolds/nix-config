@@ -134,7 +134,6 @@ in {
 
     # Group window
     bind = ${modifier}, G, togglegroup
-    bind = ${modifier} SHIFT, G, changegroupactive
     bind = ${modifier} CTRL, G, moveoutofgroup
     bind = ${modifier} ALT, G, lockactivegroup, toggle
     bind = ${modifier} ALT, left, moveintogroup, l

@@ -7,5 +7,7 @@
     ./window-rules.nix
     ./layer-rules.nix
     ./binds.nix
+
+    ./pyprland.nix
   ];
 }
