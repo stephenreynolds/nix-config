@@ -30,9 +30,7 @@
     ../common/optional/zram.nix
   ];
 
-  networking = {
-    hostName = "nixie";
-  };
+  networking = { hostName = "nixie"; };
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -61,6 +59,8 @@
       tctiEnvironment.enable = true;
     };
   };
+
+  hardware.keyboard.zsa.enable = true;
 
   system.stateVersion = "23.05";
 }
