@@ -4,13 +4,10 @@ let
   kitty-xterm = pkgs.writeShellScriptBin "xterm" ''
     ${config.programs.kitty.package}/bin/kitty -1 "$@"
   '';
-in
-{
+in {
   home = {
     packages = [ kitty-xterm ];
-    sessionVariables = {
-      TERMINAL = "kitty -1";
-    };
+    sessionVariables = { TERMINAL = "kitty -1"; };
   };
 
   programs.kitty = {
@@ -30,6 +27,8 @@ in
       copy_on_select = "yes";
       strip_trailing_spaces = "smart";
       show_hyprlink_targets = "yes";
+
+      enabled_layouts = "tall,grid";
 
       background_opacity = "0.85";
       dynamic_background_opacity = "yes";
@@ -69,6 +68,30 @@ in
       color19 = "#${colors.base02}";
       color20 = "#${colors.base04}";
       color21 = "#${colors.base06}";
+    };
+    keybindings = {
+      "ctrl+left" = "neighboring_window left";
+      "ctrl+right" = "neighboring_window right";
+      "ctrl+up" = "neighboring_window up";
+      "ctrl+down" = "neighboring_window down";
+
+      "shift+left" = "move_window left";
+      "shift+right" = "move_window right";
+      "shift+up" = "move_window up";
+      "shift+down" = "move_window down";
+
+      "ctrl+f2" = "detach_window";
+      "ctrl+f3" = "detach_window new-tab";
+      "ctrl+f4" = "detach_window tab-prev";
+      "ctrl+f5" = "detach_window tab-left";
+      "ctrl+f6" = "detach_window tab-right";
+      "ctrl+f9" = "close_other_windows_in_tab";
+
+      "ctrl+shift+enter" = "new_window_with_cwd";
+      "ctrl+shift+t" = "new_tab_with_cwd";
+      "ctrl+shift+n" = "new_os_window_with_cwd";
+
+      "ctrl+c" = "copy_or_interrupt";
     };
   };
 }
