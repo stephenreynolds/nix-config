@@ -1,8 +1,5 @@
-{ pkgs, lib, ... }:
-{
-  home.packages = with pkgs; [
-    comma
-  ];
+{ pkgs, lib, config, ... }: {
+  home.packages = with pkgs; [ comma ];
 
   programs.nix-index = {
     enable = true;
@@ -12,35 +9,38 @@
   };
 
   systemd.user.services.nix-update-index = {
-    Unit = {
-      Description = "Update nix-index";
-    };
+    Unit = { Description = "Update nix-index"; };
 
     Service = {
       Type = "oneshot";
-      ExecStart = lib.getExe (
-        pkgs.writeShellScriptBin "nix-update-index" ''
-          filename="index-${pkgs.system}"
-          release="https://github.com/Mic92/nix-index-database/releases/latest/download/''${filename}"
+      ExecStart = lib.getExe (pkgs.writeShellApplication {
+        name = "nix-index-update";
 
-          mkdir -p ~/.cache/nix-index
+        runtimeInputs = with pkgs; [ coreutils wget ];
 
-          pushd ~/.cache/nix-index > /dev/null
+        text = ''
+          readonly filename="index-${pkgs.system}"
+          readonly release="https://github.com/Mic92/nix-index-database/releases/latest/download/$filename"
+          readonly indexDir="${config.xdg.cacheHome}/nix-index"
 
-          ${pkgs.wget}/bin/wget -q -N https://github.com/Mic92/nix-index-database/releases/latest/download/$filename
+          mkdir -p "$indexDir"
 
-          ln -f ''${filename} files
+          pushd "$indexDir" > /dev/null
 
-          popd > /dev/null
-        ''
-      );
+          trap "popd > /dev/null" EXIT
+
+          wget -q -N "$release"
+
+          ln -f "$filename" files
+
+          echo "Finished updating nix-index"
+        '';
+      });
     };
   };
 
   systemd.user.timers.nix-update-index = {
-    Unit = {
-      Description = "Update nix-index";
-    };
+    Unit = { Description = "Update nix-index"; };
 
     Timer = {
       OnCalendar = "daily";
