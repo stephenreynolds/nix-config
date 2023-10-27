@@ -3,10 +3,7 @@
   imports = [
     ../default.nix
     ./ags.nix
-    ./gtklock.nix
     ./swww.nix
-    ./swayidle.nix
-    ./sway-audio-idle-inhibit.nix
   ];
 
   home.packages = with pkgs; [
