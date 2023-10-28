@@ -43,8 +43,10 @@
       "video=DP-1:1920x1080@70"
       "video=DP-2:1920x1080@70"
     ];
-    tmpOnTmpfs = true;
-    cleanTmpDir = (!config.boot.tmpOnTmpfs);
+    tmp = {
+      useTmpfs = true;
+      cleanOnBoot = !config.boot.tmpOnTmpfs;
+    };
   };
 
   hardware.openrgb.enable = true;
