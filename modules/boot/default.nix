@@ -16,7 +16,7 @@ in {
   };
 
   config = mkMerge [
-    { boot.loader.efi.canTouchEfiVariables = cfg.boot.efi; }
+    { boot.loader.efi.canTouchEfiVariables = mkDefault cfg.boot.efi; }
 
     (mkIf (cfg.bootloader == "grub") {
       boot.loader.grub = {
