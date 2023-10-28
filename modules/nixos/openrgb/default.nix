@@ -28,13 +28,9 @@ in {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/openrgb --server";
-        ExecStartPost = "${cfg.package}/bin/openrgb --profile 'All off'";
+        ExecStartPost = "${cfg.package}/bin/openrgb --profile '${./off.orp}'";
         Restart = "on-failure";
       };
     };
-  };
-
-  meta = {
-    maintainers = with lib.maintainers; [ misterio77 ];
   };
 }

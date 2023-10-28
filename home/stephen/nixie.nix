@@ -6,7 +6,6 @@
     ./features/games
     ./features/music
     ./features/onedrive
-    ./features/openrgb
     ./features/productivity
     ./features/stable-diffusion
     ./features/wine
