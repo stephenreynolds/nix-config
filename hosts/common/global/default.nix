@@ -2,6 +2,7 @@
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ./auto-upgrade.nix
+    ./envfs.nix
     ./fish.nix
     ./locale.nix
     ./nix.nix
