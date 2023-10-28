@@ -2,6 +2,5 @@
 {
   home.packages = with pkgs; [
     gnome.gnome-clocks
-    pomodoro
   ];
 }
