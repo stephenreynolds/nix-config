@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ config, pkgs, inputs, ... }: {
   imports = [
     inputs.hardware.nixosModules.common-cpu-intel-kaby-lake
     inputs.hardware.nixosModules.common-pc-ssd
@@ -26,6 +26,7 @@
     ../common/optional/systemd-boot.nix
     ../common/optional/tcp-bbr.nix
     ../common/optional/tablet.nix
+    ../common/optional/virtualization.nix
     ../common/optional/xpadneo.nix
     ../common/optional/zram.nix
   ];
@@ -42,6 +43,8 @@
       "video=DP-1:1920x1080@70"
       "video=DP-2:1920x1080@70"
     ];
+    tmpOnTmpfs = true;
+    cleanTmpDir = (!config.boot.tmpOnTmpfs);
   };
 
   hardware.openrgb.enable = true;
