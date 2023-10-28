@@ -27,7 +27,10 @@ in {
     })
 
     (mkIf (cfg.bootloader == "systemd-boot") {
-      boot.loader.systemd-boot.enable = true;
+      boot.loader.systemd-boot = {
+        enable = true;
+        consoleMode = "max";
+      };
     })
   ];
 }
