@@ -45,7 +45,7 @@
     ];
     tmp = {
       useTmpfs = true;
-      cleanOnBoot = !config.boot.tmpOnTmpfs;
+      cleanOnBoot = !config.boot.tmp.useTmpfs;
     };
   };
 
