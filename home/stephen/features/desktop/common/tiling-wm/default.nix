@@ -1,6 +1,6 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   imports = [
+    ./autotrash.nix
     ./deluge.nix
     ./firefox.nix
     ./gtk.nix
@@ -20,11 +20,7 @@
     configFile."mimeapps.list".force = true;
   };
 
-  home.packages = with pkgs; [
-    gtk3
-    xdg-utils
-    pulseaudio
-  ];
+  home.packages = with pkgs; [ gtk3 xdg-utils pulseaudio ];
 
   services.gnome-policykit-agent.enable = true;
 

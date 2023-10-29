@@ -11,6 +11,7 @@
   t = pkgs.callPackage ./t { };
   tt = pkgs.callPackage ./tt { };
   allusion = pkgs.callPackage ./allusion.nix { };
+  autotrash = pkgs.callPackage ./autotrash.nix { };
   segoe-fluent-icons = pkgs.callPackage ./segoe-fluent-icons.nix { };
   ttf-ms-win11-auto = pkgs.callPackage ./ttf-ms-win11-auto.nix { };
 }

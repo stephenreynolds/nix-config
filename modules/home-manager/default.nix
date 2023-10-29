@@ -5,4 +5,5 @@
   polkit-gnome = import ./polkit-gnome.nix;
   protonmail-bridge = import ./protonmail-bridge.nix;
   swww = import ./swww.nix;
+  autotrash = import ./autotrash.nix;
 }
