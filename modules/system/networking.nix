@@ -7,7 +7,7 @@ in {
       enable = mkEnableOption "Enable NetworkManager";
       backend = mkOption {
         type = types.enum [ "wpa_supplicant" "iwd" ];
-        default = "wpa_supplicant";
+        default = "iwd";
         description = "The backend to use for WiFi connections";
       };
       randomizeMac = mkEnableOption "Whether to randomize MAC address";
