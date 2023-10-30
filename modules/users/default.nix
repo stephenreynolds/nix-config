@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, options, ... }:
 with lib;
 let cfg = config.modules.users;
 in {
@@ -19,19 +19,24 @@ in {
   };
 
   config = mkMerge [
-    { users.mutableUsers = cfg.mutableUsers; }
+    {
+      users.mutableUsers = cfg.mutableUsers;
 
-    (mkIf cfg.users.stephen.enable {
       user = let
         user = builtins.getEnv "USER";
         name = if elem user [ "" "root" ] then "stephen" else user;
-      in { inherit name; };
-
-      users.users.stephen = {
+      in {
+        inherit name;
         isNormalUser = true;
         extraGroups = [ "wheel" "input" "audio" "video" "storage" ];
-        hashedPasswordFile = config.sops.secrets.stephen-password.path;
       };
+
+      users.users.${config.user.name} = mkAliasDefinitions options.user;
+    }
+
+    (mkIf cfg.users.stephen.enable {
+      users.users.stephen.hashedPasswordFile =
+        config.sops.secrets.stephen-password.path;
 
       sops.secrets.stephen-password = {
         sopsFile = ../sops/secrets.yaml;
