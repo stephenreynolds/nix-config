@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 with lib;
-let cfg = config.flake.cli.comma;
+let cfg = config.modules.shell.comma;
 in {
-  options.flake.cli.comma = {
+  options.modules.shell.comma = {
     enable = mkEnableOption "Enable comma";
     nix-index = {
       enable = mkEnableOption "Enable nix-index service";
@@ -27,7 +27,7 @@ in {
       enableZshIntegration = config.hm.programs.zsh.enable;
     };
 
-    systemd.user.services.nix-update-index = mkIf cfg.nix-index.enable {
+    hm.systemd.user.services.nix-update-index = mkIf cfg.nix-index.enable {
       Unit = { Description = "Update nix-index"; };
 
       Service = {
@@ -40,7 +40,7 @@ in {
           text = ''
             readonly filename="index-${pkgs.system}"
             readonly release="https://github.com/Mic92/nix-index-database/releases/latest/download/$filename"
-            readonly indexDir="${config.xdg.cacheHome}/nix-index"
+            readonly indexDir="${config.hm.xdg.cacheHome}/nix-index"
 
             mkdir -p "$indexDir"
 
@@ -58,7 +58,7 @@ in {
       };
     };
 
-    systemd.user.timers.nix-update-index = mkIf cfg.nix-index.timer.enable {
+    hm.systemd.user.timers.nix-update-index = mkIf cfg.nix-index.timer.enable {
       Unit = { Description = "Update nix-index"; };
 
       Timer = {

@@ -1,7 +1,7 @@
 { config, lib, ... }:
-let cfg = config.modules.cli.bat;
+let cfg = config.modules.shell.bat;
 in {
-  options.modules.cli.bat = {
+  options.modules.shell.bat = {
     enable = lib.mkEnableOption "Enable bat";
     theme = lib.mkOption {
       type = lib.types.str;

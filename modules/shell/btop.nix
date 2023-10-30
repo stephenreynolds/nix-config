@@ -1,8 +1,8 @@
 { config, lib, ... }:
 with lib;
-let cfg = config.modules.cli.btop;
+let cfg = config.modules.shell.btop;
 in {
-  options.modules.cli.btop = {
+  options.modules.shell.btop = {
     enable = mkEnableOption "Enable btop";
     theme = {
       theme = mkOption {

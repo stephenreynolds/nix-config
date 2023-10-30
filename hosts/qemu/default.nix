@@ -10,6 +10,12 @@
     };
     shell = {
       fish.enable = true;
+      bat.enable = true;
+      btop.enable = true;
+      comma = {
+        enable = true;
+        nix-index.enable = true;
+      };
     };
   };
 }
