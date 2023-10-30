@@ -20,7 +20,7 @@ in {
     {
       hm.programs.fish = {
         enable = true;
-        shellAbbrs = {
+        shellAbbrs = rec {
           jqless = "jq -C | less -r";
 
           n = "nix";
@@ -46,9 +46,13 @@ in {
           lsa = "lsd -a";
           tree = "lsd --tree";
 
-          e = lib.mkIf config.programs.neovim.enable "nvim";
+          e = lib.mkIf hm.programs.neovim.enable "nvim";
 
-          g = lib.mkIf config.programs.lazygit.enable "lazygit";
+          g = lib.mkIf hm.programs.lazygit.enable "lazygit";
+
+          cik = lib.mkIf hm.programs.kitty.enable
+            "clone-in-kitty --type os-window";
+          ck = cik;
         };
         shellAliases = {
           # Clear screen and scrollback
@@ -62,6 +66,13 @@ in {
           # Open command buffer in vim when alt+e is pressed
           ''
             bind \ee edit_command_buffer
+          '' +
+          # kitty integration
+          lib.optionalString config.programs.kitty.enable ''
+            set --global KITTY_INSTALLATION_DIR "${pkgs.kitty}/lib/kitty"
+            set --global KITTY_SHELL_INTEGRATION enabled
+            source "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish"
+            set --prepend fish_complete_path "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_completions.d"
           '' +
           # Use vim bindings and cursors
           ''
