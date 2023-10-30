@@ -16,6 +16,13 @@ in {
   };
 
   config = mkMerge [
+    {
+      assertions = [{
+        assertion = cfg.bootloader == "systemd-boot" -> cfg.efi;
+        message = "EFI mode is required to use systemd-boot";
+      }];
+    }
+
     { boot.loader.efi.canTouchEfiVariables = mkDefault cfg.efi; }
 
     (mkIf (cfg.bootloader == "grub") {
