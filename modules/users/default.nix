@@ -15,14 +15,14 @@ in {
 
   config = mkMerge [
     {
-      users.mutableUsers = false;
+      users.mutableUsers = cfg.mutableUsers;
     }
 
     (mkIf cfg.users.stephen.enable {
       users.users.stephen = {
         isNormalUser = true;
         extraGroups = [ "wheel" "input" "audio" "video" "storage" ];
-        initialPassword = "qemu";
+        initialPassword = "test";
       };
     })
   ];
