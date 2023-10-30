@@ -11,7 +11,13 @@
         bootloader = "systemd-boot";
         initrd.systemd.enable = true;
       };
-      networking = { networkManager.enable = true; };
+      networking = {
+        networkManager = {
+          enable = true;
+          backend = "iwd";
+          randomizeMac = true;
+        };
+      };
       locale = { time.timeZone = "America/Detroit"; };
       virtualisation = {
         guest = {
