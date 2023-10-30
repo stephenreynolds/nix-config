@@ -8,5 +8,8 @@
     users = {
       users.stephen.enable = true;
     };
+    shell = {
+      fish.enable = true;
+    };
   };
 }
