@@ -26,26 +26,39 @@ in {
         description = "Options to pass to the garbage collector";
       };
     };
+    lowPriority = mkEnableOption ''
+      Whether to set Nix builds to a low priority in order to improve 
+      system reponsiveness.
+    '';
   };
 
-  config = mkMerge [{
-    nix = {
-      settings = {
-        trusted-users = [ "root" "@wheel" ];
-        experimental-features = [ "nix-command flakes repl-flake" ];
-        warn-dirty = false;
-        inherit (cfg) auto-optimise-store;
+  config = mkMerge [
+    {
+      nix = {
+        settings = {
+          trusted-users = [ "root" "@wheel" ];
+          experimental-features = [ "nix-command flakes repl-flake" ];
+          warn-dirty = false;
+          inherit (cfg) auto-optimise-store;
+        };
+
+        inherit (cfg) gc;
+
+        # Add each flake input as a registry
+        # To make nix3 commands consistent with the flake
+        registry = mapAttrs (_: value: { flake = value; }) inputs;
+
+        # Add nixpkgs input to NIX_PATH
+        # This lets nix2 commands still use <nixpkgs>
+        nixPath = [ "nixpkgs=${inputs.nixpkgs.outPath}" ];
       };
+    }
 
-      inherit (cfg) gc;
-
-      # Add each flake input as a registry
-      # To make nix3 commands consistent with the flake
-      registry = mapAttrs (_: value: { flake = value; }) inputs;
-
-      # Add nixpkgs input to NIX_PATH
-      # This lets nix2 commands still use <nixpkgs>
-      nixPath = [ "nixpkgs=${inputs.nixpkgs.outPath}" ];
-    };
-  }];
+    (mkIf cfg.lowPriority {
+      nix = {
+        daemonCPUSchedPolicy = "idle";
+        daemonIOSchedClass = "idle";
+      };
+    })
+  ];
 }

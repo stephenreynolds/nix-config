@@ -2,6 +2,9 @@
   imports = [ ./hardware.nix ];
 
   modules = {
+    nix = {
+      lowPriority = true;
+    };
     system = {
       boot = {
         bootloader = "systemd-boot";
