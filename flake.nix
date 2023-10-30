@@ -21,6 +21,7 @@
 
   outputs = inputs@{ self, nixpkgs, ... }:
     let
+      inherit (self) outputs;
       inherit (lib.my) mapModulesRec mapHosts;
       system = "x86_64-linux";
 
@@ -34,7 +35,7 @@
 
       lib = nixpkgs.lib.extend (final: prev: {
         my = import ./lib {
-          inherit pkgs inputs;
+          inherit pkgs inputs outputs;
           lib = final;
         };
       });

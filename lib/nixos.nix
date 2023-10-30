@@ -1,4 +1,4 @@
-{ inputs, lib, pkgs, self, ... }:
+{ inputs, outputs, lib, pkgs, self, ... }:
 let
   inherit (inputs.nixpkgs.lib) nixosSystem;
   inherit (builtins) baseNameOf elem;
@@ -12,7 +12,7 @@ in rec {
     nixosSystem {
       inherit system;
 
-      specialArgs = { inherit lib inputs system; };
+      specialArgs = { inherit lib inputs outputs system; };
 
       modules = [
         {

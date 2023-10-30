@@ -25,6 +25,7 @@
     services = {
       gpg.enable = true;
       keyring.enable = true;
+      openssh.enable = true;
     };
     cli = {
       shell = {
