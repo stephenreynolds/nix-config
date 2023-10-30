@@ -30,7 +30,12 @@ in {
       users.users.stephen = {
         isNormalUser = true;
         extraGroups = [ "wheel" "input" "audio" "video" "storage" ];
-        initialPassword = "test";
+        hashedPasswordFile = config.sops.secrets.stephen-password.path;
+      };
+
+      sops.secrets.stephen-password = {
+        sopsFile = ../sops/secrets.yaml;
+        neededForUsers = true;
       };
     })
   ];
