@@ -2,6 +2,11 @@
 with lib;
 let cfg = config.modules.users;
 in {
+  options.user = mkOption {
+    type = types.attrs;
+    default = { };
+  };
+
   options.modules.users = {
     users = {
       stephen = { enable = mkEnableOption "Enable Stephen's user account"; };
@@ -14,11 +19,14 @@ in {
   };
 
   config = mkMerge [
-    {
-      users.mutableUsers = cfg.mutableUsers;
-    }
+    { users.mutableUsers = cfg.mutableUsers; }
 
     (mkIf cfg.users.stephen.enable {
+      user = let
+        user = builtins.getEnv "USER";
+        name = if elem user [ "" "root" ] then "stephen" else user;
+      in { inherit name; };
+
       users.users.stephen = {
         isNormalUser = true;
         extraGroups = [ "wheel" "input" "audio" "video" "storage" ];
