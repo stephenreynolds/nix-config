@@ -43,7 +43,7 @@ in {
         enable = mkDefault true;
         wifi = {
           backend = cfg.networkManager.backend;
-          macAddress = if cfg.randomizeMac then "random" else "preserve";
+          macAddress = if cfg.networkManager.randomizeMac then "random" else "preserve";
         };
       };
     })
