@@ -17,7 +17,7 @@
       fsType = "ext4";
       options = [ "noatime" ];
     };
-    "boot" = {
+    "/boot" = {
       device = "/dev/disk/by-uuid/0C2D-B51C";
       fsType = "vfat";
     };
