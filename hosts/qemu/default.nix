@@ -13,6 +13,13 @@
       };
       networking = { networkManager.enable = true; };
       locale = { time.timeZone = "America/Detroit"; };
+      virtualisation = {
+        guest = {
+          spice = true;
+          qemu = true;
+          qxl = true;
+        };
+      };
     };
     users = { users.stephen.enable = true; };
     services = {
