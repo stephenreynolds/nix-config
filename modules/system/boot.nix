@@ -13,6 +13,11 @@ in {
       default = true;
       description = "Whether the system is booted in EFI mode";
     };
+    initrd = {
+      systemd = {
+        enable = mkEnableOption "Whether to enable systemd in initrd";
+      };
+    };
   };
 
   config = mkMerge [
@@ -37,5 +42,7 @@ in {
         useOSProber = mkDefault true;
       };
     })
+
+    (mkIf cfg.initrd.systemd.enable { boot.initrd.systemd.enable = true; })
   ];
 }

@@ -3,7 +3,10 @@
 
   modules = {
     system = {
-      boot = { bootloader = "systemd-boot"; };
+      boot = {
+        bootloader = "systemd-boot";
+        initrd.systemd.enable = true;
+      };
       networking = { networkManager.enable = true; };
       locale = { time.timeZone = "America/Detroit"; };
     };
