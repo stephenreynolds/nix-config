@@ -1,5 +1,4 @@
-{ inputs, lib, ...}:
-{
+{ inputs, lib, ... }: {
   nix = {
     settings = {
       trusted-users = [ "root" "@wheel" ];
@@ -13,6 +12,9 @@
       dates = "weekly";
       options = "--delete-older-than 2d";
     };
+
+    daemonCPUSchedPolicy = "idle";
+    daemonIOSchedClass = "idle";
 
     # Add each flake input as a registry
     # To make nix3 commands consistent with the flake
