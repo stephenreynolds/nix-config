@@ -1,10 +1,9 @@
 { config, lib, pkgs, ... }:
 with lib;
-let
-  cfg = config.modules.shell.fish;
+let cfg = config.modules.cli.shell.fish;
 in {
-  options.modules.shell.fish = {
-    enable = mkEnableOption "Whether to enable fish shell";
+  options.modules.cli.shell.fish = {
+    enable = mkEnableOption "Whether to enable fish";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -51,7 +50,8 @@ in {
 
           g = mkIf config.hm.programs.lazygit.enable "lazygit";
 
-          cik = mkIf config.hm.programs.kitty.enable "clone-in-kitty --type os-window";
+          cik = mkIf config.hm.programs.kitty.enable
+            "clone-in-kitty --type os-window";
           ck = cik;
         };
         shellAliases = {

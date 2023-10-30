@@ -53,10 +53,27 @@
         "type": "github"
       }
     },
+    "nvim-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1698487660,
+        "narHash": "sha256-9OddgmwvE2y4IAucf+nmz8c0516PH7dqYl6RMxTYxe8=",
+        "owner": "stephenreynolds",
+        "repo": "nvim",
+        "rev": "459fbb588ef88ba85ecf972cd3b6b7a577d5cfa2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stephenreynolds",
+        "repo": "nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "nvim-config": "nvim-config",
         "sops-nix": "sops-nix"
       }
     },

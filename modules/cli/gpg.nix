@@ -1,0 +1,66 @@
+# TODO: figure out where to put this
+{ config, lib, pkgs, ... }:
+with lib;
+let
+  cfg = config.modules.cli.gpg;
+
+  pinentry = if config.hm.gtk.enable then {
+    packages = [ pkgs.pinentry-gnome pkgs.gcr ];
+    name = "gnome3";
+  } else {
+    packages = [ pkgs.pinentry-curses ];
+    name = "curses";
+  };
+in {
+  options.modules.cli.gpg = {
+    enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Enable GPG agent";
+    };
+  };
+
+  config = mkIf cfg.enable {
+    hm.home.packages = pinentry.packages;
+
+    hm.services.gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+      pinentryFlavor = pinentry.name;
+      enableExtraSocket = true;
+    };
+
+    hm.programs = let
+      fixGpg = ''
+        gpgconf --launch gpg-agent
+      '';
+    in {
+      # Start gpg-agent if it's not running or tunneled in
+      # SSH does not start it automatically, so this is needed to avoid having to use a gpg command at startup
+      # https://www.gnupg.org/faq/whats-new-in-2.1.html#autostart
+      bash.profileExtra = fixGpg;
+      fish.loginShellInit = fixGpg;
+      zsh.loginExtra = fixGpg;
+
+      gpg = {
+        enable = true;
+        homedir = "${config.hm.xdg.dataHome}/gnupg";
+        settings = { trust-model = "tofu+pgp"; };
+      };
+    };
+
+    hm.systemd.user.services = {
+      link-gnupg-sockets = {
+        Unit = { Description = "Link gnupg sockets from /run to /home"; };
+        Service = {
+          Type = "oneshot";
+          ExecStart =
+            "${pkgs.coreutils}/bin/ln -Tfs /run/user/%U/gnupg %h/.gnupg-socket";
+          ExecStop = "${pkgs.coreutils}/bin/rm $HOME/.gnupg-sockets";
+          RemainAfterExit = true;
+        };
+        Install.WantedBy = [ "default.target" ];
+      };
+    };
+  };
+}

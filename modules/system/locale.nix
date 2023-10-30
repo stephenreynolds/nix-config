@@ -1,14 +1,14 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.modules.locale;
+  cfg = config.modules.system.locale;
 
   nospace = str: filter (c: c == " ") (stringToCharacters str) == [ ];
   timezone = types.nullOr (types.addCheck types.str nospace) // {
     description = "null or string without spaces";
   };
 in {
-  options.modules.locale = {
+  options.modules.system.locale = {
     time = {
       timeZone = mkOption {
         type = timezone;

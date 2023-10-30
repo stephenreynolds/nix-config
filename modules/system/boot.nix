@@ -1,11 +1,11 @@
 { config, lib, ... }:
 with lib;
-let cfg = config.modules.boot;
+let cfg = config.modules.system.boot;
 in {
-  options.modules.boot = {
+  options.modules.system.boot = {
     bootloader = mkOption {
       type = types.enum [ "grub" "systemd-boot" ];
-      default = "grub";
+      default = "systemd-boot";
       description = "The booloader to use";
     };
     efi = mkOption {
@@ -16,27 +16,25 @@ in {
   };
 
   config = mkMerge [
-    {
+    { boot.loader.efi.canTouchEfiVariables = mkDefault cfg.efi; }
+
+    (mkIf (cfg.bootloader == "systemd-boot") {
       assertions = [{
-        assertion = cfg.bootloader == "systemd-boot" -> cfg.efi;
+        assertion = cfg.efi;
         message = "EFI mode is required to use systemd-boot";
       }];
-    }
 
-    { boot.loader.efi.canTouchEfiVariables = mkDefault cfg.efi; }
+      boot.loader.systemd-boot = {
+        enable = true;
+        consoleMode = "max";
+      };
+    })
 
     (mkIf (cfg.bootloader == "grub") {
       boot.loader.grub = {
         enable = true;
         efiSupport = mkDefault cfg.efi;
         useOSProber = mkDefault true;
-      };
-    })
-
-    (mkIf (cfg.bootloader == "systemd-boot") {
-      boot.loader.systemd-boot = {
-        enable = true;
-        consoleMode = "max";
       };
     })
   ];
