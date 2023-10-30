@@ -14,7 +14,9 @@ in {
   };
 
   config = mkMerge [
-    { users.mutableUsers = false; }
+    {
+      users.mutableUsers = false;
+    }
 
     (mkIf cfg.users.stephen.enable {
       users.users.stephen = {
