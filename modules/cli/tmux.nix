@@ -13,7 +13,7 @@ in {
           owner = "ofirgall";
           repo = "tmux-window-name";
           rev = "bc6c5cfb6fd2d37f87515d4aa1977822e4fda2cc";
-          sha256 = "";
+          sha256 = "NZR/jMd75wOsAgzqDW36fsmffbR7CCr0wMk59xbcS+o=";
         };
       };
     in {
