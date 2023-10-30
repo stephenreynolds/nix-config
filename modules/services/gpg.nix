@@ -2,7 +2,7 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  cfg = config.modules.cli.gpg;
+  cfg = config.modules.services.gpg;
 
   pinentry = if config.hm.gtk.enable then {
     packages = [ pkgs.pinentry-gnome pkgs.gcr ];
@@ -12,12 +12,8 @@ let
     name = "curses";
   };
 in {
-  options.modules.cli.gpg = {
-    enable = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Enable GPG agent";
-    };
+  options.modules.services.gpg = {
+    enable = mkEnableOption "Enable GPG agent";
   };
 
   config = mkIf cfg.enable {

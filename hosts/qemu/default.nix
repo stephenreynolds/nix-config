@@ -8,6 +8,10 @@
       locale = { time.timeZone = "America/Detroit"; };
     };
     users = { users.stephen.enable = true; };
+    services = {
+      gpg.enable = true;
+      keyring.enable = true;
+    };
     cli = {
       shell = {
         fish.enable = true;
