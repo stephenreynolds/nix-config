@@ -68,7 +68,7 @@ in {
             bind \ee edit_command_buffer
           '' +
           # kitty integration
-          lib.optionalString config.programs.kitty.enable ''
+          lib.optionalString hm.programs.kitty.enable ''
             set --global KITTY_INSTALLATION_DIR "${pkgs.kitty}/lib/kitty"
             set --global KITTY_SHELL_INTEGRATION enabled
             source "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish"
