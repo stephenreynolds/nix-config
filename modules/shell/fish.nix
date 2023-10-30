@@ -1,6 +1,7 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
-let cfg = config.modules.shell.fish;
+let
+  cfg = config.modules.shell.fish;
 in {
   options.modules.shell.fish = {
     enable = mkEnableOption "Whether to enable fish shell";
@@ -46,11 +47,11 @@ in {
           lsa = "${pkgs.lsd}/bin/lsd -a";
           tree = "${pkgs.lsd}/bin/lsd --tree";
 
-          e = mkIf hm.programs.neovim.enable "nvim";
+          e = mkIf config.hm.programs.neovim.enable "nvim";
 
-          g = mkIf hm.programs.lazygit.enable "lazygit";
+          g = mkIf config.hm.programs.lazygit.enable "lazygit";
 
-          cik = mkIf hm.programs.kitty.enable "clone-in-kitty --type os-window";
+          cik = mkIf config.hm.programs.kitty.enable "clone-in-kitty --type os-window";
           ck = cik;
         };
         shellAliases = {
@@ -67,7 +68,7 @@ in {
             bind \ee edit_command_buffer
           '' +
           # kitty integration
-          optionalString hm.programs.kitty.enable ''
+          optionalString config.hm.programs.kitty.enable ''
             set --global KITTY_INSTALLATION_DIR "${pkgs.kitty}/lib/kitty"
             set --global KITTY_SHELL_INTEGRATION enabled
             source "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish"
