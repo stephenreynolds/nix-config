@@ -22,7 +22,7 @@ in {
       users.users.stephen = {
         isNormalUser = true;
         extraGroups = [ "wheel" "input" "audio" "video" "storage" ];
-        hashedPasswordFile = config.sops.secrets.stephen-password.path;
+        initialPassword = "qemu";
       };
     })
   ];
