@@ -5,7 +5,10 @@
     ./sddm.nix
   ];
 
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    enableNvidiaPatches = true;
+  };
 
   xdg.portal = {
     enable = true;
