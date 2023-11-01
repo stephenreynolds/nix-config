@@ -2,12 +2,9 @@
 let
   inherit (inputs.nix-colors) colorSchemes;
   colorscheme = colorSchemes.rose-pine;
-in
-{
-  imports = [
-    inputs.nix-colors.homeManagerModule
-    ../features/cli
-  ] ++ (builtins.attrValues outputs.homeManagerModules);
+in {
+  imports = [ inputs.nix-colors.homeManagerModule ../features/cli ]
+    ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
     overlays = builtins.attrValues outputs.overlays;
@@ -24,7 +21,8 @@ in
       warn-dirty = false;
       trusted-users = [ "@wheel" ];
       trusted-substituters = [ "https://cache.nixos.org" ];
-      trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+      trusted-public-keys =
+        [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
     };
   };
 
