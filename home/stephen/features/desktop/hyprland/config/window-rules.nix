@@ -4,8 +4,7 @@
     windowrule = float, ^(com.github.Aylur.ags)$
 
     # XDG Portal
-    windowrule = float, ^(xdg-desktop-portal)$
-    windowrule = float, ^(xdg-desktop-portal-gnome)$
+    windowrule = float, ^(xdg-desktop-portal.*)$
 
     # wofi
     windowrule = dimaround, ^(wofi)$
@@ -40,10 +39,8 @@
     windowrulev2 = noshadow,title:^(Picture-in-Picture)$
 
     # pavucontrol
-    windowrulev2 = float,class:^(pavucontrol)$
-    windowrulev2 = center,class:^(pavucontrol)$
-    windowrulev2 = float,class:^(pavucontrol-qt)$
-    windowrulev2 = center,class:^(pavucontrol-qt)$
+    windowrulev2 = float,class:^(pavucontrol.*)$
+    windowrulev2 = center,class:^(pavucontrol.*)$
 
     # Bluetooth Manager
     windowrulev2 = float, class:^(.blueman-manager-wrapped)$
