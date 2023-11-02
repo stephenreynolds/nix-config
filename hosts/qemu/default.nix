@@ -21,6 +21,7 @@
           enable = true;
           backend = "iwd";
           randomizeMac = true;
+          wireguard-vpn.enable = true;
         };
       };
       pipewire = {
