@@ -15,6 +15,7 @@
         bootloader = "systemd-boot";
         initrd.systemd.enable = true;
       };
+      locale = { time.timeZone = "America/Detroit"; };
       networking = {
         networkManager = {
           enable = true;
@@ -22,7 +23,10 @@
           randomizeMac = true;
         };
       };
-      locale = { time.timeZone = "America/Detroit"; };
+      pipewire = {
+        enable = true;
+        lowLatency = true;
+      };
       virtualisation = {
         guest = {
           spice = true;
