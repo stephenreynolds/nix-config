@@ -89,5 +89,6 @@
       tmux.enable = true;
       zoxide.enable = true;
     };
+    desktop = { ime.enable = true; };
   };
 }
