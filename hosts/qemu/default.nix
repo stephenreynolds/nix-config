@@ -37,7 +37,13 @@
       };
     };
     users = { users.stephen.enable = true; };
-    devices = { xboxController.enable = true; };
+    devices = {
+      tablet = {
+        enable = true;
+        digimend.enable = true;
+      };
+      xboxController.enable = true;
+    };
     services = {
       gpg.enable = true;
       keyring.enable = true;
