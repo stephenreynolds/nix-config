@@ -53,6 +53,7 @@
         enable = true;
         drivers = [ pkgs.hplip ];
       };
+      system76-scheduler.enable = true;
     };
     cli = {
       shell = {
