@@ -46,9 +46,7 @@
       };
       xboxController.enable = true;
     };
-    gaming = {
-      memory-fix.enable = true;
-    };
+    gaming.enable = true;
     services = {
       gpg.enable = true;
       keyring.enable = true;
