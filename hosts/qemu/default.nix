@@ -7,6 +7,10 @@
       lowPriority = true;
     };
     system = {
+      bluetooth = {
+        enable = true;
+        blueman.enable = true;
+      };
       boot = {
         bootloader = "systemd-boot";
         initrd.systemd.enable = true;
