@@ -51,6 +51,10 @@
       gpg.enable = true;
       keyring.enable = true;
       nextdns.enable = true;
+      onedrive = {
+        enable = true;
+        symlinkUserDirs.enable = true;
+      };
       openssh.enable = true;
       printing = {
         enable = true;
