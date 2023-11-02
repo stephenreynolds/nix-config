@@ -1,4 +1,4 @@
-{ inputs, ... }: {
+{ inputs, pkgs, ... }: {
   imports = [ ./hardware.nix ];
 
   modules = {
@@ -32,6 +32,10 @@
       gpg.enable = true;
       keyring.enable = true;
       openssh.enable = true;
+      printing = {
+        enable = true;
+        drivers = [ pkgs.hplip ];
+      };
     };
     cli = {
       shell = {
