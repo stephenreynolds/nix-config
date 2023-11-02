@@ -28,6 +28,7 @@
         lowLatency = true;
       };
       plymouth.enable = true;
+      secure-boot.enable = true;
       virtualisation = {
         guest = {
           spice = true;
