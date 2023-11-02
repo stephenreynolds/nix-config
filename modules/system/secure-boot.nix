@@ -1,3 +1,6 @@
+# NOTE: Follow the following article to configure secure boot:
+# https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md
+
 { config, lib, pkgs, inputs, ... }:
 with lib;
 let cfg = config.modules.system.secure-boot;
@@ -13,6 +16,8 @@ in {
     };
   };
 
+  # TODO: See if it possible to provide the keys declaratively instead of 
+  # using sbctl to create and enroll them.
   config = mkIf cfg.enable {
     environment.systemPackages = mkIf cfg.sbctl.enable [ pkgs.sbctl ];
 
