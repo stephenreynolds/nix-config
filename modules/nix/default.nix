@@ -52,6 +52,8 @@ in {
         # This lets nix2 commands still use <nixpkgs>
         nixPath = [ "nixpkgs=${inputs.nixpkgs.outPath}" ];
       };
+
+      hardware.enableRedistributableFirmware = true;
     }
 
     (mkIf cfg.lowPriority {
