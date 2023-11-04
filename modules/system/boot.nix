@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let cfg = config.modules.system.boot;
 in {
@@ -19,10 +19,18 @@ in {
       };
     };
     iommu = { enable = mkEnableOption "Whether to enable IOMMU"; };
+    kernelPackages = mkOption {
+      type = types.raw;
+      default = pkgs.linuxPackages_latest;
+      description = "The package of the Linux kernel";
+    };
   };
 
   config = mkMerge [
-    { boot.loader.efi.canTouchEfiVariables = mkDefault cfg.efi; }
+    {
+      boot.loader.efi.canTouchEfiVariables = mkDefault cfg.efi;
+      boot.kernelPackages = cfg.kernelPackages;
+    }
 
     (mkIf (cfg.bootloader == "systemd-boot") {
       assertions = [{
