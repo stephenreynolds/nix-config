@@ -9,7 +9,7 @@ in {
       default = config.boot.kernelPackages.nvidiaPackages.stable;
       description = "The Nvidia driver package to install";
     };
-    open = mkEnabletoption "Whether to install the open kernel modules";
+    open = mkEnableOption "Whether to install the open kernel modules";
     extraPackages = mkOption {
       type = types.listOf types.package;
       default = with pkgs; [ vaapiVdpau nvidia-vaapi-driver ];
