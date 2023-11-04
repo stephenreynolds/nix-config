@@ -29,7 +29,10 @@
         lowLatency = true;
       };
       plymouth.enable = true;
-      secure-boot.enable = true;
+      security = {
+        mitigations.enable = false;
+        secure-boot.enable = true;
+      };
       virtualisation = {
         guest = {
           spice = true;

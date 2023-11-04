@@ -3,11 +3,11 @@
 
 { config, lib, pkgs, inputs, ... }:
 with lib;
-let cfg = config.modules.system.secure-boot;
+let cfg = config.modules.system.security.secure-boot;
 in {
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
-  options.modules.system.secure-boot = {
+  options.modules.system.security.secure-boot = {
     enable = mkEnableOption "Whether to enable support for secure boot";
     sbctl = {
       enable = mkEnableOption ''

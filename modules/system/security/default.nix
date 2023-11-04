@@ -12,6 +12,15 @@ in {
         '';
       };
     };
+    mitigations = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Whether to enable mitigations for known CPU vulnerabilities
+        '';
+      };
+    };
   };
 
   config = mkMerge [
@@ -22,6 +31,10 @@ in {
           cleanOnBoot = !config.boot.tmp.useTmpfs;
         };
       };
+    })
+
+    (mkIf (!cfg.mitigations.enable) {
+      boot.kernelParams = [ "mitigations=off" ];
     })
   ];
 }
