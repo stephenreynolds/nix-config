@@ -1,0 +1,14 @@
+{ config, lib, ... }:
+with lib;
+let cfg = config.modules.system.cpu.intel.kaby-lake;
+in {
+  options.modules.system.cpu.intel.kaby-lake = {
+    enable =
+      mkEnableOption "Whether to enable options for Intel Kaby Lake CPUs";
+  };
+
+  config = mkIf cfg.enable {
+    # Obtained from github:nixos-hardware/common/cpu/intel
+    boot.kernelParams = [ "i915.enable_fbc=1" "i915.enable_psr=2" ];
+  };
+}
