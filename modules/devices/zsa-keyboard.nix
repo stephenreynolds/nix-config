@@ -11,7 +11,7 @@ in {
     };
   };
 
-  config = mktif cfg.enable (mkMerge [
+  config = mkIf cfg.enable (mkMerge [
     { hardware.keyboard.zsa.enable = true; }
     (mkIf cfg.wally-cli.enable {
       environment.systemPackages = [ pkgs.wally-cli ];
