@@ -15,7 +15,11 @@ in {
       default = with pkgs; [ vaapiVdpau nvidia-vaapi-driver ];
       description = "Extra packages to install with the Nvidia drivers";
     };
-    nvidiaSettings = mkEnableOption "Whether to enable nvidia-settings";
+    nvidiaSettings = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Whether to enable nvidia-settings";
+    };
   };
 
   config = mkIf cfg.enable {
