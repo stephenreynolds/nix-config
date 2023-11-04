@@ -7,6 +7,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    services.gnome.gnome-keyring.enable = true;
+
     hm.services.gnome-keyring = {
       enable = true;
       components = [ "pkcs11" "secrets" "ssh" ];
