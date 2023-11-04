@@ -14,6 +14,7 @@
       boot = {
         bootloader = "systemd-boot";
         initrd.systemd.enable = true;
+        iommu.enable = true;
       };
       locale = { time.timeZone = "America/Detroit"; };
       networking = {

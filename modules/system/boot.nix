@@ -18,6 +18,7 @@ in {
         enable = mkEnableOption "Whether to enable systemd in initrd";
       };
     };
+    iommu = { enable = mkEnableOption "Whether to enable IOMMU"; };
   };
 
   config = mkMerge [
@@ -44,5 +45,9 @@ in {
     })
 
     (mkIf cfg.initrd.systemd.enable { boot.initrd.systemd.enable = true; })
+
+    (mkIf cfg.iommu.enable {
+      boot.kernelParams = [ "intel_iommu=on" "iommu=pt" ];
+    })
   ];
 }
