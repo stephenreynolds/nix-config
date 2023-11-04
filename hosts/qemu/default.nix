@@ -48,6 +48,7 @@
         digimend.enable = true;
       };
       xboxController.enable = true;
+      zsa-keyboard.enable = true;
     };
     gaming.enable = true;
     services = {
