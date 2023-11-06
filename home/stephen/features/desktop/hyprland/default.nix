@@ -1,4 +1,8 @@
-{ inputs, ... }: {
+{ lib, inputs, outputs, ... }:
+let
+  nvidia = builtins.elem "nvidia"
+    outputs.nixosConfigurations.nixie.config.services.xserver.videoDrivers;
+in {
   imports = [
     inputs.hyprland.homeManagerModules.default
 
@@ -14,11 +18,11 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    enableNvidiaPatches = true;
+    enableNvidiaPatches = nvidia;
     recommendedEnvironment = true;
   };
 
-  home.sessionVariables = {
+  home.sessionVariables = lib.mkIf nvidia {
     # Nvidia: https://wiki.hyprland.org/Nvidia
     "LIBVA_DRIVER_NAME" = "nvidia";
     "GBM_BACKEND" = "nvidia-drm";
