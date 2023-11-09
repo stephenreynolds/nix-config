@@ -1,12 +1,8 @@
 [![Flake](https://github.com/stephenreynolds/nix-config/actions/workflows/flake-check.yml/badge.svg)](https://github.com/stephenreynolds/nix-config/actions/workflows/flake-check.yml)
 
-# My Nix Configurations
+# My NixOS Configuration
 
 This is my modularized Nix config for [NixOS](https://nixos.org) and [Home Manager](https://github.com/nix-community/home-manager), as a [flake](https://nixos.wiki/wiki/Flakes).
-
-## Features
-
-TODO: add features
 
 ## Resources
 
