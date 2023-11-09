@@ -101,10 +101,8 @@ in mkIf config.modules.desktop.hyprland.enable {
     }
   '' + optionalString (colorscheme != null) ''
     general {
-      col.active = 0xff${colorscheme.colors.base0A}
-      col.inactive = 0xff${colorscheme.colors.base03}
-      col.locked_active = 0xff${colorscheme.colors.base08}
-      col.locked_inactive = 0xff${colorscheme.colors.base03}
+      col.active_border = 0xff${colorscheme.colors.base0A}
+      col.inactive_border = 0xff${colorscheme.colors.base03}
     }
 
     group {

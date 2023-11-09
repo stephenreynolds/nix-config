@@ -54,7 +54,7 @@ lib.mkIf config.modules.desktop.hyprland.enable {
     windowrulev2 = float, class:^(org.gnome.Calculator)$
 
     # mpv
-    windowrulesv2 = keepaspectratio, class:^(mpv)$
+    windowrulev2 = keepaspectratio, class:^(mpv)$
 
     # piavpn
     windowrulev2 = nofullscreenrequest,class:^(piavpn)$
