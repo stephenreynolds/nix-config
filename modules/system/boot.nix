@@ -24,12 +24,18 @@ in {
       default = pkgs.linuxPackages_latest;
       description = "The package of the Linux kernel";
     };
+    extraKernelParams = mkOption {
+      type = types.listOf types.str;
+      default = [];
+      description = "Extra kernel parameters";
+    };
   };
 
   config = mkMerge [
     {
       boot.loader.efi.canTouchEfiVariables = mkDefault cfg.efi;
       boot.kernelPackages = cfg.kernelPackages;
+      boot.kernelParams = cfg.extraKernelParams;
     }
 
     (mkIf (cfg.bootloader == "systemd-boot") {

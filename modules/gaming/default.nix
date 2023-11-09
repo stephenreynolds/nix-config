@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let cfg = config.modules.gaming;
 in {
@@ -23,6 +23,13 @@ in {
         type = types.bool;
         default = cfg.enable;
         description = "Whether to enable Gamescope";
+      };
+    };
+    mangohud = {
+      enable = mkOption {
+        type = types.bool;
+        default = cfg.enable;
+        description = "Whether to install MangoHud";
       };
     };
   };
@@ -52,5 +59,7 @@ in {
         capSysNice = true;
       };
     })
+
+    (mkIf cfg.mangohud.enable { hm.home.packages = [ pkgs.mangohud ]; })
   ];
 }

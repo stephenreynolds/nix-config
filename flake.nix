@@ -1,12 +1,23 @@
 {
   description = "My Nix configuration";
 
+  nixConfig = {
+    extra-substituters =
+      [ "https://hyprland.cachix.org" "https://nix-gaming.cachix.org" ];
+    extra-trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-colors.url = "github:misterio77/nix-colors";
 
     sops-nix = {
       url = "github:mic92/sops-nix";
@@ -18,10 +29,34 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    firefox-onebar = {
+      url = "git+https://codeberg.org/Freeplay/Firefox-Onebar";
+      flake = false;
+    };
+
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ags-config.url = "github:stephenreynolds/ags-config";
 
     nvim-config = {
       url = "github:stephenreynolds/nvim";
@@ -32,16 +67,16 @@
   outputs = inputs@{ self, nixpkgs, ... }:
     let
       inherit (self) outputs;
-      inherit (lib.my) mapModulesRec mapHosts;
+      inherit (lib.my) mapModules mapModulesRec mapHosts;
       system = "x86_64-linux";
 
       mkPkgs = pkgs: extraOverlays:
         import pkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = extraOverlays;
+          overlays = extraOverlays ++ (lib.attrValues self.overlays);
         };
-      pkgs = mkPkgs nixpkgs [ ];
+      pkgs = mkPkgs nixpkgs [ self.overlays.default ];
 
       lib = nixpkgs.lib.extend (final: prev: {
         my = import ./lib {
@@ -51,6 +86,12 @@
       });
     in {
       lib = lib.my;
+
+      overlays = (mapModules ./overlays import) // {
+        default = final: prev: { my = self.packages.${system}; };
+      };
+
+      packages."${system}" = mapModules ./pkgs (p: pkgs.callPackage p { });
 
       nixosModules = { flake = import ./.; } // mapModulesRec ./modules import;
 
