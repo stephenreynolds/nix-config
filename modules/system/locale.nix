@@ -16,6 +16,12 @@ in {
         example = "America/New_York";
         description = "The time zone used when displaying time and dates.";
       };
+      automatic-timezoned = {
+        enable = mkEnableOption ''
+          Whether to enable automatic-timezoned to keep the timezone up-to-date 
+          based on the current location.
+        '';
+      };
     };
 
     i18n = {
@@ -40,5 +46,7 @@ in {
       defaultLocale = mkDefault cfg.i18n.defaultLocale;
       supportedLocales = mkDefault cfg.i18n.supportedLocales;
     };
+
+    services.automatic-timezoned.enable = cfg.time.automatic-timezoned.enable;
   };
 }

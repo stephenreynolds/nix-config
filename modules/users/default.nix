@@ -1,4 +1,4 @@
-{ config, lib, options, ... }:
+{ config, lib, options, pkgs, ... }:
 with lib;
 let cfg = config.modules.users;
 in {
@@ -25,10 +25,25 @@ in {
       user = let
         user = builtins.getEnv "USER";
         name = if elem user [ "" "root" ] then "stephen" else user;
+        ifTheyExist = groups:
+          builtins.filter (group: builtins.hasAttr group config.users.groups)
+          groups;
       in {
         inherit name;
         isNormalUser = true;
-        extraGroups = [ "wheel" "input" "audio" "video" "storage" ];
+        shell = pkgs.fish;
+        extraGroups = [ "wheel" "input" "audio" "video" "storage" ]
+          ++ ifTheyExist [
+            "i2c"
+            "docker"
+            "podman"
+            "git"
+            "libvirtd"
+            "mlocate"
+            "flatpak"
+            "tss"
+            "libvirtd"
+          ];
       };
 
       users.users.${config.user.name} = mkAliasDefinitions options.user;

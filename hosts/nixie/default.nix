@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }: {
   imports = [ ./hardware.nix ];
 
   modules = {
@@ -104,6 +104,7 @@
           source = ./corsair-virtuoso-wireless-headset/autoload.json;
         };
       };
+      geoclue.enable = true;
       gpg.enable = true;
       gvfs.enable = true;
       keyring.enable = true;
