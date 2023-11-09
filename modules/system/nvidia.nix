@@ -41,9 +41,7 @@ in {
       };
     };
 
-    boot.kernelParams = [
-      "nvidia.NVreg_TemporaryFilePath=/var/tmp"
-      "nvidia-drm.fbdev=1"
-    ];
+    boot.kernelParams =
+      [ "nvidia.NVreg_TemporaryFilePath=/var/tmp" "nvidia-drm.fbdev=1" ];
   };
 }
