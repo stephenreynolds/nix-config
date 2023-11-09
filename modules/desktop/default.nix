@@ -5,7 +5,11 @@ in {
   options.modules.desktop = {
     enable = mkEnableOption "Enable a desktop environment";
     cursor = {
-      enable = mkEnableOption "Whether to enable a cursor theme";
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Whether to enable a cursor theme";
+      };
       package = mkOption {
         type = types.package;
         default = pkgs.apple-cursor;

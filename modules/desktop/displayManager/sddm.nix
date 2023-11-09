@@ -5,7 +5,11 @@ in {
   options.modules.desktop.displayManager.sddm = {
     enable = mkEnableOption "Whether to enable SDDM";
     theme = {
-      enable = mkEnableOption "Whether to enable a custom SDDM theme";
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Whether to enable a custom SDDM theme";
+      };
       name = mkOption {
         type = types.str;
         default = "chili";
@@ -18,7 +22,11 @@ in {
       };
     };
     cursor = {
-      enable = mkEnableOption "Whether to enable a custom cursor theme";
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Whether to enable a custom cursor theme";
+      };
       name = mkOption {
         type = types.str;
         default = "macOS-BigSur-White";
@@ -35,7 +43,11 @@ in {
         description = "The name of the package to install";
       };
     };
-    autoNumlock = mkEnableOption "Whether to enable numlock on boot";
+    autoNumlock = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Whether to enable numlock on boot";
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
