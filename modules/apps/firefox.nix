@@ -230,7 +230,7 @@ in {
                     }];
                   }];
                   iconUpdateURL =
-                    "https://cdn.search.brave.com/serp/v2/_app/immutable/assets/brave-logo-dark.62301cdf.svg";
+                    "https://cdn.search.brave.com/serp/v2/_app/immutable/assets/brave-logo-small.bae4361b.svg";
                   updateInterval = 24 * 60 * 60 * 1000; # every day
                   definedAliases = [ "@b" ];
                 };
