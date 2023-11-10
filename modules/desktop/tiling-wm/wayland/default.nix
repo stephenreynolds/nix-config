@@ -25,10 +25,11 @@ in {
         MOZ_ENABLE_WAYLAND = 1;
         QT_QPA_PLATFORM = "wayland";
         LIBSEAT_BACKEND = "logind";
-        #SDL_VIDEODRIVER = "wayland"; # TODO: see if this works now
         GDK_BACKEND = "wayland,x11";
         _JAVA_AWT_WM_NONREPARENTING = 1;
       };
+      
+      modules.desktop.tiling-wm.wayland.gtklock.enable = true;
     }
 
     (mkIf cfg.ags.enable {
