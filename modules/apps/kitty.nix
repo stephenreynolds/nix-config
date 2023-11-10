@@ -18,9 +18,9 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      hm.home = {
+      hm.home = mkIf cfg.default {
         packages = [ kitty-xterm ];
-        sessionVariables = mkIf cfg.default { TERMINAL = "kitty -1"; };
+        sessionVariables = { TERMINAL = "kitty -1"; };
       };
 
       hm.programs.kitty = {

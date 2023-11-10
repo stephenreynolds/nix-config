@@ -1,10 +1,9 @@
-# TODO: add nix-colors
 { config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.modules.apps.wezterm;
   wezterm-xterm = pkgs.writeShellScriptBin "xterm" ''
-    ${config.programs.wezterm.package}/bin/wezterm -1 "$@"
+    ${config.hm.programs.wezterm.package}/bin/wezterm -1 "$@"
   '';
 
   colorscheme = config.modules.desktop.theme.colorscheme;
@@ -18,15 +17,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    hm.home = {
+    hm.home = mkIf cfg.default {
       packages = [ wezterm-xterm ];
-      sessionVariables = mkIf cfg.default { TERMINAL = "wezterm -1"; };
+      sessionVariables = { TERMINAL = "wezterm -1"; };
     };
 
     hm.programs.wezterm = {
       enable = true;
-      enableBashIntegration = config.programs.bash.enable;
-      enableZshIntegration = config.programs.zsh.enable;
+      enableBashIntegration = config.hm.programs.bash.enable;
+      enableZshIntegration = config.hm.programs.zsh.enable;
       colorSchemes =
         let inherit (colorscheme) colors;
         in mkIf (colorscheme != null) {
