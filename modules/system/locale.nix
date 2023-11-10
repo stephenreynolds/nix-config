@@ -7,7 +7,8 @@ let
   timezone = types.nullOr (types.addCheck types.str nospace) // {
     description = "null or string without spaces";
   };
-in {
+in
+{
   options.modules.system.locale = {
     time = {
       timeZone = mkOption {

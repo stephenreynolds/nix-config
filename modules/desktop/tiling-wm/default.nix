@@ -63,13 +63,15 @@ in {
     }
 
     (mkIf config.modules.apps.firefox.enable {
-      hm.programs.firefox.profiles = (mapAttrs (_: profile: {
-        userChrome = ''
-          /* Hide the close button */
-          .titlebar-buttonbox-container { display:none }
-          .titlebar-spacer[type="post-tabs"] { display:none }
-        '';
-      }) config.modules.apps.firefox.extraProfileConfig);
+      hm.programs.firefox.profiles = (mapAttrs
+        (_: profile: {
+          userChrome = ''
+            /* Hide the close button */
+            .titlebar-buttonbox-container { display:none }
+            .titlebar-spacer[type="post-tabs"] { display:none }
+          '';
+        })
+        config.modules.apps.firefox.extraProfileConfig);
     })
   ]);
 }

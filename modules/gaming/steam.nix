@@ -21,7 +21,8 @@ let
         inputs.nix-gaming.packages.${pkgs.system}.proton-ge
       }'";
   };
-in {
+in
+{
   options.modules.gaming.steam = {
     enable = mkOption {
       type = types.bool;

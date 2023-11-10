@@ -3,7 +3,8 @@ with lib;
 let
   cfg = config.modules.nix.auto-upgrade;
   isClean = inputs.self ? rev;
-in {
+in
+{
   options.modules.nix.auto-upgrade = {
     enable = mkEnableOption "Whether to automatically upgrade NixOS";
     dates = mkOption {
@@ -21,12 +22,12 @@ in {
       flake = "github:stephenreynolds/nix-config";
     };
 
-    systemd.services.nixos-upgrade = lib.mkIf config.system.autoUpgrade.enable {
-      serviceConfig.ExecCondition = lib.getExe
+    systemd.services.nixos-upgrade = mkIf config.system.autoUpgrade.enable {
+      serviceConfig.ExecCondition = getExe
         (pkgs.writeShellScriptBin "check-date" ''
           lastModified() {
             nix flake metadata "$1" --refresh --json | ${
-              lib.getExe pkgs.jq
+              getExe pkgs.jq
             } '.lastModified'
             test "$(lastModified "${config.system.autoUpgrade.flake}")" -gt "$(lastModified "self")"
           }

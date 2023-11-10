@@ -1,5 +1,14 @@
-{ fetchFromGitHub, lib, stdenv, meson, ninja, pkg-config, libpulseaudio, wayland
-, wayland-protocols, ... }:
+{ fetchFromGitHub
+, lib
+, stdenv
+, meson
+, ninja
+, pkg-config
+, libpulseaudio
+, wayland
+, wayland-protocols
+, ...
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "SwayAudioIdleInhibit";

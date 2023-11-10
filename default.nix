@@ -2,7 +2,8 @@
 let
   inherit (lib.my) mapModulesRec';
   inherit (lib.modules) mkAliasOptionModule;
-in {
+in
+{
   imports = [
     inputs.home-manager.nixosModules.home-manager
     (mkAliasOptionModule [ "hm" ] [ "home-manager" "users" config.user.name ])

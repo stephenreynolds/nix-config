@@ -26,7 +26,7 @@ in {
     };
     extraKernelParams = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = "Extra kernel parameters";
     };
   };
@@ -47,6 +47,7 @@ in {
       boot.loader.systemd-boot = {
         enable = true;
         consoleMode = "max";
+        configurationLimit = 42;
       };
     })
 

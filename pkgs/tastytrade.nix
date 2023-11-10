@@ -1,9 +1,34 @@
 # From https://github.com/NixOS/nixpkgs/pull/260108
 # Waiting to be merged into nixpkgs
 
-{ lib, stdenv, fetchurl, autoPatchelfHook, dpkg, makeBinaryWrapper, alsa-lib
-, atk, at-spi2-atk, cairo, cups, dbus, expat, freetype, glib, glibc, gtk3
-, libdrm, libGL, libxkbcommon, mesa, nspr, nss, pango, xdg-utils, xorg, zlib }:
+{ lib
+, stdenv
+, fetchurl
+, autoPatchelfHook
+, dpkg
+, makeBinaryWrapper
+, alsa-lib
+, atk
+, at-spi2-atk
+, cairo
+, cups
+, dbus
+, expat
+, freetype
+, glib
+, glibc
+, gtk3
+, libdrm
+, libGL
+, libxkbcommon
+, mesa
+, nspr
+, nss
+, pango
+, xdg-utils
+, xorg
+, zlib
+}:
 
 stdenv.mkDerivation rec {
   pname = "tastytrade";

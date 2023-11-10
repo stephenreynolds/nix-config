@@ -14,4 +14,5 @@ let
   };
   mylib = makeExtensible (self:
     mapModules ./. (file: import file { inherit self lib pkgs inputs outputs; }));
-in mylib.extend (self: super: foldr (a: b: a // b) { } (attrValues super))
+in
+mylib.extend (self: super: foldr (a: b: a // b) { } (attrValues super))

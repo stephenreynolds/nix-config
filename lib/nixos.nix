@@ -6,7 +6,8 @@ let
   inherit (lib.modules) mkDefault;
   inherit (lib.strings) removeSuffix;
   inherit (self.modules) mapModules;
-in rec {
+in
+rec {
   mkHost = path:
     attrs@{ system ? "x86_64-linux", ... }:
     nixosSystem {

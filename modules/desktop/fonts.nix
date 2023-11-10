@@ -17,7 +17,8 @@ let
     };
   };
   cfg = config.modules.desktop.fonts;
-in {
+in
+{
   options.modules.desktop.fonts = {
     profiles = {
       enable = mkEnableOption "Whether to enable font profiles";

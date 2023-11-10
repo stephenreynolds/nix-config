@@ -33,7 +33,8 @@ let
       };
     };
   };
-in {
+in
+{
   options.modules.desktop.theme.gtk = {
     enable = mkEnableOption "Whether to use a custom gtk theme";
     dark = mkOption {

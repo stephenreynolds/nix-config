@@ -22,18 +22,20 @@ in {
     {
       users.mutableUsers = cfg.mutableUsers;
 
-      user = let
-        user = builtins.getEnv "USER";
-        name = if elem user [ "" "root" ] then "stephen" else user;
-        ifTheyExist = groups:
-          builtins.filter (group: builtins.hasAttr group config.users.groups)
-          groups;
-      in {
-        inherit name;
-        isNormalUser = true;
-        shell = pkgs.fish;
-        extraGroups = [ "wheel" "input" "audio" "video" "storage" ]
-          ++ ifTheyExist [
+      user =
+        let
+          user = builtins.getEnv "USER";
+          name = if elem user [ "" "root" ] then "stephen" else user;
+          ifTheyExist = groups:
+            builtins.filter (group: builtins.hasAttr group config.users.groups)
+              groups;
+        in
+        {
+          inherit name;
+          isNormalUser = true;
+          shell = pkgs.fish;
+          extraGroups = [ "wheel" "input" "audio" "video" "storage" ]
+            ++ ifTheyExist [
             "i2c"
             "docker"
             "podman"
@@ -44,7 +46,7 @@ in {
             "tss"
             "libvirtd"
           ];
-      };
+        };
 
       users.users.${config.user.name} = mkAliasDefinitions options.user;
     }

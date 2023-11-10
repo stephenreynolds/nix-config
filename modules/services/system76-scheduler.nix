@@ -1,4 +1,4 @@
-{ config, lib, ...}:
+{ config, lib, ... }:
 with lib;
 let cfg = config.modules.services.system76-scheduler;
 in {

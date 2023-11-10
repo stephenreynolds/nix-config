@@ -3,7 +3,8 @@ with lib;
 let
   cfg = config.modules.desktop.hyprland;
   nvidia = config.modules.system.nvidia.enable;
-in {
+in
+{
   imports = [ inputs.hyprland.nixosModules.default ];
 
   options.modules.desktop.hyprland = {
@@ -76,17 +77,17 @@ in {
 
     (mkIf cfg.tty {
       hm.programs = {
-        fish.loginShellInit = ''
+        fish.loginShellInit = /* fish */ ''
           if test (tty) = "/dev/tty1"
             exec Hyprland &> /dev/null
           end
         '';
-        zsh.loginExtra = ''
+        zsh.loginExtra = /* bash */ ''
           if [ "$(tty)" = "/dev/tty1" ]; then
             exec Hyprland &> /dev/null
           fi
         '';
-        zsh.profileExtra = ''
+        zsh.profileExtra = /* bash */ ''
           if [ "$(tty)" = "/dev/tty1" ]; then
             exec Hyprland &> /dev/null
           fi

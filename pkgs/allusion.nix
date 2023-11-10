@@ -11,7 +11,7 @@ appimageTools.wrapType2 rec {
 
   extraInstallCommands =
     let appimageContents = appimageTools.extract { inherit name src; };
-    in ''
+    in /* bash */ ''
       install -m 444 -D ${appimageContents}/${name}.desktop -t $out/share/applications
       substituteInPlace $out/share/applications/${name}.desktop \
         --replace 'Exec=AppRun' 'Exec=${name}'

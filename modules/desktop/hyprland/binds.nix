@@ -81,7 +81,8 @@ let
       hyprctl dispatch movetoworkspace $id
     fi
   '';
-in lib.mkIf config.modules.desktop.hyprland.enable {
+in
+lib.mkIf config.modules.desktop.hyprland.enable {
   hm.wayland.windowManager.hyprland.extraConfig = ''
     # Launch applications
     bind = ${modifier}, T, exec, ${terminal}

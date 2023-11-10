@@ -77,7 +77,8 @@ let
   cleaner = pkgs.writeShellScript "cleaner" ''
     kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
   '';
-in {
+in
+{
   options.modules.cli.lf = {
     enable = mkEnableOption "Enable lf file manager";
     enableIcons = mkEnableOption "Enable icons";

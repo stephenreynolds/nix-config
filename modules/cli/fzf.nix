@@ -3,7 +3,8 @@ with lib;
 let
   cfg = config.modules.cli.fzf;
   colorscheme = config.modules.desktop.theme.colorscheme;
-in {
+in
+{
   options.modules.cli.fzf = {
     enable = mkEnableOption "Enable fzf";
     colors = mkOption {
@@ -32,11 +33,12 @@ in {
     }
 
     (mkIf cfg.silver-searcher {
-      hm.programs.fzf = let ag = "${pkgs.silver-searcher}/bin/ag";
-      in {
-        defaultCommand = "${ag} -g ''";
-        fileWidgetCommand = "${ag} --hidden";
-      };
+      hm.programs.fzf =
+        let ag = "${pkgs.silver-searcher}/bin/ag";
+        in {
+          defaultCommand = "${ag} -g ''";
+          fileWidgetCommand = "${ag} --hidden";
+        };
     })
 
     (mkIf cfg.shellIntegrations {
@@ -49,21 +51,22 @@ in {
     })
 
     (mkIf (colorscheme != null) {
-      hm.programs.fzf.colors = let inherit (colorscheme) colors;
-      in {
-        "bg+" = "#${colors.base02}";
-        bg = "#${colors.base00}";
-        spinner = "#${colors.base06}";
-        hl = "#${colors.base08}";
-        fg = "#${colors.base05}";
-        header = "#${colors.base08}";
-        info = "#${colors.base0E}";
-        pointer = "#${colors.base06}";
-        marker = "#${colors.base06}";
-        "fg+" = "#${colors.base05}";
-        prompt = "#${colors.base0E}";
-        "hl+" = "#${colors.base08}";
-      };
+      hm.programs.fzf.colors =
+        let inherit (colorscheme) colors;
+        in {
+          "bg+" = "#${colors.base02}";
+          bg = "#${colors.base00}";
+          spinner = "#${colors.base06}";
+          hl = "#${colors.base08}";
+          fg = "#${colors.base05}";
+          header = "#${colors.base08}";
+          info = "#${colors.base0E}";
+          pointer = "#${colors.base06}";
+          marker = "#${colors.base06}";
+          "fg+" = "#${colors.base05}";
+          prompt = "#${colors.base0E}";
+          "hl+" = "#${colors.base08}";
+        };
     })
   ]);
 }

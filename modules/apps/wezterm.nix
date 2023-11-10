@@ -8,7 +8,8 @@ let
   '';
 
   colorscheme = config.modules.desktop.theme.colorscheme;
-in {
+in
+{
   options.modules.apps.wezterm = {
     enable = mkEnableOption "Whether to intall Wezterm";
     default = mkEnableOption ''
@@ -26,49 +27,50 @@ in {
       enable = true;
       enableBashIntegration = config.programs.bash.enable;
       enableZshIntegration = config.programs.zsh.enable;
-      colorSchemes = let inherit (colorscheme) colors;
-      in mkIf (colorscheme != null) {
-        base16 = {
-          ansi = [
-            "#${colors.base00}"
-            "#${colors.base08}"
-            "#${colors.base0B}"
-            "#${colors.base0A}"
-            "#${colors.base0D}"
-            "#${colors.base0E}"
-            "#${colors.base0C}"
-            "#${colors.base05}"
-          ];
-          brights = [
-            "#${colors.base03}"
-            "#${colors.base08}"
-            "#${colors.base0B}"
-            "#${colors.base0A}"
-            "#${colors.base0D}"
-            "#${colors.base0E}"
-            "#${colors.base0C}"
-            "#${colors.base07}"
-          ];
-          background = "#${colors.base00}";
-          foreground = "#${colors.base05}";
-          cursor_bg = "#${colors.base05}";
-          cursor_fg = "#${colors.base05}";
-          cursor_border = "#${colors.base05}";
-          selection_bg = "#${colors.base05}";
-          selection_fg = "#${colors.base00}";
-          tab_bar = {
-            background = "#${colors.base01}";
-            active_tab = {
-              bg_color = "#${colors.base00}";
-              fg_color = "#${colors.base05}";
-            };
-            inactive_tab = {
-              bg_color = "#${colors.base01}";
-              fg_color = "#${colors.base04}";
+      colorSchemes =
+        let inherit (colorscheme) colors;
+        in mkIf (colorscheme != null) {
+          base16 = {
+            ansi = [
+              "#${colors.base00}"
+              "#${colors.base08}"
+              "#${colors.base0B}"
+              "#${colors.base0A}"
+              "#${colors.base0D}"
+              "#${colors.base0E}"
+              "#${colors.base0C}"
+              "#${colors.base05}"
+            ];
+            brights = [
+              "#${colors.base03}"
+              "#${colors.base08}"
+              "#${colors.base0B}"
+              "#${colors.base0A}"
+              "#${colors.base0D}"
+              "#${colors.base0E}"
+              "#${colors.base0C}"
+              "#${colors.base07}"
+            ];
+            background = "#${colors.base00}";
+            foreground = "#${colors.base05}";
+            cursor_bg = "#${colors.base05}";
+            cursor_fg = "#${colors.base05}";
+            cursor_border = "#${colors.base05}";
+            selection_bg = "#${colors.base05}";
+            selection_fg = "#${colors.base00}";
+            tab_bar = {
+              background = "#${colors.base01}";
+              active_tab = {
+                bg_color = "#${colors.base00}";
+                fg_color = "#${colors.base05}";
+              };
+              inactive_tab = {
+                bg_color = "#${colors.base01}";
+                fg_color = "#${colors.base04}";
+              };
             };
           };
         };
-      };
       extraConfig = ''
         local config = {}
 

@@ -95,10 +95,6 @@ in mkIf config.modules.desktop.hyprland.enable {
       swallow_regex = ^(kitty)$
       new_window_takes_over_fullscreen = 1
     }
-
-    xwayland {
-      force_zero_scaling = true
-    }
   '' + optionalString (colorscheme != null) ''
     general {
       col.active_border = 0xff${colorscheme.colors.base0A}
