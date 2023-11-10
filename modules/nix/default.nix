@@ -22,7 +22,7 @@ in {
       };
       options = mkOption {
         type = types.str;
-        default = "--delete-older-than 2d";
+        default = "--delete-older-than +3";
         description = "Options to pass to the garbage collector";
       };
     };
