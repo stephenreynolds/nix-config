@@ -14,10 +14,6 @@ in {
           type = types.bool;
           default = false;
         };
-        noBar = mkOption {
-          type = types.bool;
-          default = false;
-        };
         width = mkOption {
           type = types.int;
           example = 1920;
@@ -30,10 +26,6 @@ in {
           type = types.int;
           default = 60;
         };
-        modeline = mkOption {
-          type = types.nullOr types.str;
-          default = null;
-        };
         x = mkOption {
           type = types.int;
           default = 0;
@@ -45,10 +37,6 @@ in {
         enabled = mkOption {
           type = types.bool;
           default = true;
-        };
-        workspace = mkOption {
-          type = types.nullOr types.str;
-          default = null;
         };
       };
     });
