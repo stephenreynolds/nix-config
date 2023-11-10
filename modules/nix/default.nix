@@ -25,6 +25,16 @@ in {
         default = "--delete-older-than +3";
         description = "Options to pass to the garbage collector";
       };
+      minFree = mkOption {
+        type = types.nullOr types.int;
+        default = 100 * 1024 * 1024; # 100 MiB
+        description = "Minimum free space to keep in the Nix store";
+      };
+      maxFree = mkOption {
+        type = types.nullOr types.int;
+        default = 1024 * 1024 * 1024; # 1 GiB
+        description = "Space to free up when the minimum is reached";
+      };
     };
     lowPriority = mkEnableOption ''
       Whether to set Nix builds to a low priority in order to improve 
@@ -42,7 +52,14 @@ in {
           inherit (cfg) auto-optimise-store;
         };
 
-        inherit (cfg) gc;
+        gc = {
+          inherit (cfg.gc) automatic dates options;
+        };
+
+        extraOptions = concatLines [
+          (optionalString (cfg.gc.minFree != null) "min-free = ${toString cfg.gc.minFree}")
+          (optionalString (cfg.gc.maxFree != null) "max-free = ${toString cfg.gc.maxFree}")
+        ];
 
         # Add each flake input as a registry
         # To make nix3 commands consistent with the flake
