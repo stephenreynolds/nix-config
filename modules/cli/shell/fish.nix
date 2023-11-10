@@ -31,6 +31,7 @@ in {
           nbn = "nix build nixpkgs#";
           nf = "nix flake";
           nfu = "nix flake update";
+          nfc = "nix flake check";
 
           nr = "nixos-rebuild --flake .";
           nrs = "nixos-rebuild --flake . switch";
