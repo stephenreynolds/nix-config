@@ -106,6 +106,6 @@ in
       };
     };
 
-    security.pam.services.greetd.enableGnomeKeyring = true;
+    security.pam.services.greetd.enableGnomeKeyring = config.modules.services.keyring.enable;
   };
 }
