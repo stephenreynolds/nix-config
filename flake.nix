@@ -84,7 +84,8 @@
           lib = final;
         };
       });
-    in {
+    in
+    {
       lib = lib.my;
 
       overlays = (mapModules ./overlays import) // {
@@ -98,5 +99,7 @@
       nixosConfigurations = mapHosts ./hosts { };
 
       devShells."${system}".default = import ./shell.nix { inherit pkgs; };
+
+      formatter."${system}" = pkgs.nixpkgs-fmt;
     };
 }

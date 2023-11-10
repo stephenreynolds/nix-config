@@ -63,7 +63,7 @@ in {
         marksman
         ocamlPackages.ocaml-lsp
         ocamlformat
-        nixfmt
+        nixpkgs-fmt
         rustfmt
         rust-analyzer
         shellcheck
@@ -74,8 +74,7 @@ in {
       ];
     };
 
-    hm.xdg.configFile.nvim.source =
-      mkIf (cfg.configSource != null) cfg.configSource;
+    hm.xdg.configFile.nvim.source = mkIf (cfg.configSource != null) cfg.configSource;
 
     hm.xdg.desktopEntries = {
       nvim = {
