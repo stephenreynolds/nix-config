@@ -33,7 +33,7 @@ in {
       security.polkit.enable = true;
 
       modules.desktop.hyprland.enable = mkDefault true;
-      modules.desktop.displayManager.sddm.enable = mkDefault true;
+      modules.desktop.displayManager.regreet.enable = mkDefault true;
     }
 
     (mkIf cfg.cursor.enable {
