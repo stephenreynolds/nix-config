@@ -22,10 +22,21 @@ in
     (mkIf cfg.betterdiscord.enable {
       hm.home.packages = [ pkgs.betterdiscordctl ];
 
+      # TODO: Replace rose-pine colors with colorscheme
       hm.xdg.configFile."BetterDiscord/themes/rose-pine.theme.css" = {
         enable = colorscheme != null;
         force = true;
         text = /* scss */ ''
+          /**
+          * @name Rosé Pine
+          * @author blueb
+          * @authorId 403390454273409028
+          * @version 3.0.9
+          * @description All natural pine, faux fur and a bit of soho vibes for the classy minimalist.
+          * @source https://github.com/rose-pine/discord
+          * @updateUrl https://github.com/rose-pine/discord/blob/rose-pine.theme.css
+          */
+
           @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
 
           .theme-dark {
