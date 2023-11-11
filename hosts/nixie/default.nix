@@ -100,7 +100,6 @@
         enable = true;
         drivers = [ pkgs.hplip ];
       };
-      protonmail-bridge.enable = true;
       system76-scheduler.enable = true;
     };
     cli = {
@@ -177,6 +176,7 @@
         enable = true;
         betterdiscord.enable = true;
       };
+      electron-mail.enable = true;
       firefox = {
         enable = true;
         defaultBrowser = true;
@@ -200,10 +200,6 @@
             nix-options = true;
           };
         };
-      };
-      thunderbird = {
-        enable = true;
-        profiles.stephen = { isDefault = true; };
       };
       wine = {
         enable = true;

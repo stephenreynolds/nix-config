@@ -217,7 +217,7 @@ lib.mkIf config.modules.desktop.hyprland.enable {
     bind = , D, submap, reset
     bind = , F, exec, ${fileBrowser}
     bind = , F, submap, reset
-    bind = , M, exec, ${pkgs.thunderbird}
+    bind = , M, exec, ${pkgs.electron-mail}
     bind = , M, submap, reset
     bind = , P, exec, ${pkgs.pavucontrol}
     bind = , P, submap, reset
