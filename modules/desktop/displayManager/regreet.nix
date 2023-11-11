@@ -10,6 +10,7 @@ let
   vars = ''XDG_DATA_DIRS="$XDG_DATA_DIRS:${extraDataPaths}"'';
 
   hyprland-kiosk = command: "${pkgs.hyprland}/bin/Hyprland --config ${pkgs.writeText "hyprland.conf" ''
+    general:cursor_inactive_timeout = 10
     animations:enabled = false
 
     decoration {
