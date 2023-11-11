@@ -59,6 +59,12 @@ in
           ];
         };
       };
+
+      hm.wayland.windowManager.hyprland.extraConfig = concatLines
+        (mapAttrsToList
+          (key: value:
+            "env = ${key}, ${toString value}")
+          config.modules.desktop.tiling-wm.wayland.sessionVariables);
     }
 
     (mkIf nvidia {
@@ -66,13 +72,20 @@ in
 
       hm.wayland.windowManager.hyprland.enableNvidiaPatches = true;
 
-      hm.home.sessionVariables = {
-        # Nvidia: https://wiki.hyprland.org/Nvidia
-        "LIBVA_DRIVER_NAME" = "nvidia";
-        "GBM_BACKEND" = "nvidia-drm";
-        "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
-        "WLR_NO_HARDWARE_CURSORS" = 1;
-      };
+      # Nvidia: https://wiki.hyprland.org/Nvidia
+      hm.wayland.windowManager.hyprland.extraConfig = concatLines
+        (mapAttrsToList
+          (key: value:
+            "env = ${key}, ${toString value}")
+          {
+            LIBVA_DRIVER_NAME = "nvidia";
+            GBM_BACKEND = "nvidia-drm";
+            __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+            WLR_NO_HARDWARE_CURSORS = 1;
+            NVD_BACKEND = "direct";
+            MOZ_DISABLE_RDD_SANDBOX = 1;
+            LIBSEAT_BACKEND = "logind";
+          });
     })
 
     (mkIf cfg.tty {

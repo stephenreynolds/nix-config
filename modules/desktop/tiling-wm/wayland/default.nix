@@ -10,6 +10,19 @@ in {
     swww = {
       enable = mkEnableOption "Whether to enable swww wallpaper daemon";
     };
+    sessionVariables = mkOption {
+      type = with types; lazyAttrsOf (oneOf [ str path int float ]);
+      default = {
+        MOZ_ENABLE_WAYLAND = 1;
+        QT_QPA_PLATFORM = "wayland";
+        GDK_BACKEND = "wayland,x11";
+        # SDL_VIDEODRIVER = "wayland";
+        CLUTTER_BACKEND = "wayland";
+        _JAVA_AWT_WM_NONREPARENTING = 1;
+        NIXOS_OZONE_WL = 1;
+      };
+      description = "Environment variables to set in all Wayland sessions";
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -21,14 +34,6 @@ in {
         my.primary-xwayland
       ];
 
-      hm.home.sessionVariables = {
-        MOZ_ENABLE_WAYLAND = 1;
-        QT_QPA_PLATFORM = "wayland";
-        LIBSEAT_BACKEND = "logind";
-        GDK_BACKEND = "wayland,x11";
-        _JAVA_AWT_WM_NONREPARENTING = 1;
-      };
-      
       modules.desktop.tiling-wm.wayland.gtklock.enable = true;
     }
 
