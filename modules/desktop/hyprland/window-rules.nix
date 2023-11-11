@@ -1,4 +1,3 @@
-# TODO: add colorscheme
 { config, lib, ... }:
 lib.mkIf config.modules.desktop.hyprland.enable {
   hm.wayland.windowManager.hyprland.extraConfig = ''
