@@ -178,7 +178,7 @@
     apps = {
       discord = {
         enable = true;
-        discocss.enable = true;
+        betterdiscord.enable = true;
       };
       firefox = {
         enable = true;
