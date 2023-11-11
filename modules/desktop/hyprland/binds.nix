@@ -213,15 +213,15 @@ lib.mkIf config.modules.desktop.hyprland.enable {
     # Run submap
     bind = ${modifier}, R, submap, run_submap
     submap = run_submap
-    bind = , D, exec, ${pkgs.discord}
+    bind = , D, exec, ${gtk-launch} discord.desktop
     bind = , D, submap, reset
     bind = , F, exec, ${fileBrowser}
     bind = , F, submap, reset
-    bind = , M, exec, ${pkgs.electron-mail}
+    bind = , M, exec, ${gtk-launch} electron-mail.desktop
     bind = , M, submap, reset
-    bind = , P, exec, ${pkgs.pavucontrol}
+    bind = , P, exec, ${gtk-launch} pavucontrol.desktop
     bind = , P, submap, reset
-    bind = , S, exec, ${pkgs.steam}
+    bind = , S, exec, ${gtk-launch} steam.desktop
     bind = , S, submap, reset
     bind = , Escape, submap, reset
     submap = reset
