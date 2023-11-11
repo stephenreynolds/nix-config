@@ -8,6 +8,11 @@ in
 {
   options.modules.apps.discord = {
     enable = mkEnableOption "Whether to install Discord";
+    autostart = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Whether to start Discord on login";
+    };
     discocss = {
       enable = mkEnableOption "Whether to theme Discord with discocss";
     };
@@ -18,6 +23,20 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     { hm.home.packages = [ pkgs.discord ]; }
+
+    (mkIf cfg.autostart {
+      hm.xdg.configFile."autostart/discord-stable.desktop".text = ''
+        [Desktop Entry]
+        Type=Application
+        Exec=Discord
+        Name=Discord
+        Icon=discord
+        MimeType=x-scheme-handler/discord
+        Version=1.4
+        Comment=All-in-one cross-platform voice and chat for gamers.
+        X-GNOME-Autostart-enabled=true
+      '';
+    })
 
     (mkIf cfg.betterdiscord.enable {
       hm.home.packages = [ pkgs.betterdiscordctl ];
