@@ -43,11 +43,13 @@ let
         "monitor = ${m.name}, ${if m.primary then "${resolution}, ${position}, 1" else "disable"}")
       config.modules.devices.monitors)}
 
-    env = GDK_BACKEND=wayland,x11
-    env = LIBVA_DRIVER_NAME,nvidia
-    env = GBM_BACKEND,nvidia-drm
-    env = __GLX_VENDOR_LIBRARY_NAME,nvidia
-    env = WLR_NO_HARDWARE_CURSORS,1
+    ${optionalString config.modules.system.nvidia.enable ''
+      env = GDK_BACKEND=wayland,x11
+      env = LIBVA_DRIVER_NAME,nvidia
+      env = GBM_BACKEND,nvidia-drm
+      env = __GLX_VENDOR_LIBRARY_NAME,nvidia
+      env = WLR_NO_HARDWARE_CURSORS,1
+    ''}
 
     exec = ${vars} ${command} -l debug; ${pkgs.hyprland}/bin/hyprctl dispatch exit
   ''}";
