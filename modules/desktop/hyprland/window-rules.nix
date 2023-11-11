@@ -15,9 +15,16 @@ lib.mkIf config.modules.desktop.hyprland.enable {
     windowrule = nofullscreenrequest, ^(tasty.javafx.launcher.LauncherFxApp)$
 
     # Steam
-    windowrule = nofullscreenrequest, ^(steam)$
+    windowrulev2 = nofullscreenrequest, class:^(steam)$
+    windowrulev2 = maximize, class:^(steam)$
     windowrulev2 = float, title:^(Steam Settings)$
     windowrulev2 = float, title:^(Friends List)$, class:^(steam)$
+
+    # ElectronMail
+    windowrulev2 = maximize, class:^(electron-mail)$
+
+    # Discord
+    windowrulev2 = maximize, class:^(discord)$
 
     # polkit agent
     windowrulev2 = float,class:^(lxqt-policykit-agent)$
