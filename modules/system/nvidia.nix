@@ -20,6 +20,7 @@ in {
       default = true;
       description = "Whether to enable nvidia-settings";
     };
+    support32Bit = mkEnableOption "Whether to enable 32-bit support";
   };
 
   config = mkIf cfg.enable {
@@ -29,7 +30,7 @@ in {
       opengl = {
         enable = true;
         driSupport = true;
-        driSupport32Bit = true;
+        driSupport32Bit = cfg.support32Bit;
         extraPackages = cfg.extraPackages;
       };
       nvidia = {

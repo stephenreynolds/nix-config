@@ -7,6 +7,7 @@ in {
   options.modules.system.pipewire = {
     enable = mkEnableOption "Enable PipeWire";
     lowLatency = mkEnableOption "Reduce audio latency";
+    support32Bit = mkEnableOption "Enable 32-bit alsa support";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -14,7 +15,7 @@ in {
       services.pipewire = {
         enable = true;
         alsa.enable = true;
-        alsa.support32Bit = true;
+        alsa.support32Bit = cfg.support32Bit;
         pulse.enable = true;
         jack.enable = true;
       };

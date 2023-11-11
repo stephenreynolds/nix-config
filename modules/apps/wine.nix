@@ -25,6 +25,9 @@ in {
       (mkIf cfg.bottles.enable bottles)
     ];
 
+    modules.system.pipewire.support32Bit = mkForce true;
+    modules.system.nvidia.support32Bit = mkForce true;
+
     environment.sessionVariables = { WINEDEBUG = "-all"; };
   };
 }
