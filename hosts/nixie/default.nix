@@ -31,10 +31,7 @@
         enable = true;
         open = false;
       };
-      pipewire = {
-        enable = true;
-        lowLatency = true;
-      };
+      pipewire.enable = true;
       plymouth.enable = true;
       security = {
         mitigations.enable = false;

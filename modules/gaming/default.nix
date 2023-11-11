@@ -35,6 +35,10 @@ in {
   };
 
   config = mkMerge [
+    {
+      modules.system.pipewire.lowLatency = mkDefault true;
+    }
+
     (mkIf cfg.memory-fix.enable {
       boot.kernel.sysctl = { "vm.max_map_count" = 2147483642; };
     })
