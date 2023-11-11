@@ -37,6 +37,10 @@ in {
   config = mkMerge [
     {
       modules.system.pipewire.lowLatency = mkDefault true;
+
+      systemd.extraConfig = "DefaultLimitNOFILE=1048576";
+
+      environment.sessionVariables = { WINEDEBUG = "-all"; };
     }
 
     (mkIf cfg.memory-fix.enable {

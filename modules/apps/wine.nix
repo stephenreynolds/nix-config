@@ -24,5 +24,7 @@ in {
 
       (mkIf cfg.bottles.enable bottles)
     ];
+
+    environment.sessionVariables = { WINEDEBUG = "-all"; };
   };
 }
