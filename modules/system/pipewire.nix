@@ -19,11 +19,12 @@ in {
         jack.enable = true;
       };
 
-      security.rtkit.enable = true;
-
       hardware.pulseaudio.enable = false;
     }
 
-    (mkIf cfg.lowLatency { services.pipewire.lowLatency.enable = true; })
+    (mkIf cfg.lowLatency {
+      services.pipewire.lowLatency.enable = true;
+      security.rtkit.enable = true;
+    })
   ]);
 }
