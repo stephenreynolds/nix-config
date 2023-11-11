@@ -172,6 +172,11 @@ in {
               settings = { "browser.toolbars.bookmarks.visibility" = "never"; };
             })
 
+            # Enable VAAPI
+            (mkIf config.modules.system.nvidia.enable {
+              settings = { "media.ffmpeg.vaapi.enabled" = "true"; };
+            })
+
             # Enable Pocket
             {
               settings = {
