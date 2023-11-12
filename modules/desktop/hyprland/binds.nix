@@ -156,6 +156,7 @@ mkIf cfg.enable {
     bind = ${modifier}, 6, workspace, m+1
     bind = ${modifier} SHIFT, 5, movetoworkspace, m-1
     bind = ${modifier} SHIFT, 6, movetoworkspace, m+1
+    bind = ${modifier} CTRL, 5, movetoworkspace, r-1
 
     # Next empty workspace on monitor
     bind = ${modifier}, 4, exec, ${focusempty}
