@@ -20,7 +20,7 @@ mkIf cfg.enable {
 
     # Steam
     windowrulev2 = nofullscreenrequest, class:^(steam)$
-    windowrulev2 = maximize, class:^(steam)$
+    windowrulev2 = maximize, title:^(Steam)$
     windowrulev2 = float, title:^(Steam Settings)$
     windowrulev2 = float, title:^(Friends List)$, class:^(steam)$
 
