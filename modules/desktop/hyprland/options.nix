@@ -1,8 +1,12 @@
 { config, lib, ... }:
 with lib;
-let colorscheme = config.modules.desktop.theme.colorscheme;
-in mkIf config.modules.desktop.hyprland.enable {
-  hm.wayland.windowManager.hyprland.extraConfig = ''
+let
+  cfg = config.modules.desktop.hyprland;
+  configPath = "${cfg.configPath}/20-options.conf";
+  colorscheme = config.modules.desktop.theme.colorscheme;
+in
+mkIf cfg.enable {
+  hm.home.file."${configPath}".text = ''
     input {
       kb_layout = us
 

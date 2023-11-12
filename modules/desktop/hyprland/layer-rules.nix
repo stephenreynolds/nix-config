@@ -1,6 +1,11 @@
 { config, lib, ... }:
-lib.mkIf config.modules.desktop.hyprland.enable {
-  hm.wayland.windowManager.hyprland.extraConfig = ''
+with lib;
+let
+  cfg = config.modules.desktop.hyprland;
+  configPath = "${cfg.configPath}/60-layer-rules.conf";
+in
+mkIf cfg.enable {
+  hm.home.file."${configPath}".text = ''
     layerrule = blur, notifications
     layerrule = ignorezero, notifications
 

@@ -1,6 +1,11 @@
 { config, lib, ... }:
-lib.mkIf config.modules.desktop.hyprland.enable {
-  hm.wayland.windowManager.hyprland.extraConfig = ''
+with lib;
+let
+  cfg = config.modules.desktop.hyprland;
+  configPath = "${cfg.configPath}/50-window-rules.conf";
+in
+mkIf cfg.enable {
+  hm.home.file."${configPath}".text = ''
     # ags
     windowrule = float, ^(com.github.Aylur.ags)$
 

@@ -1,5 +1,9 @@
 { config, lib, pkgs, inputs, ... }:
+with lib;
 let
+  cfg = config.modules.desktop.hyprland;
+  configPath = "${cfg.configPath}/70-binds.conf";
+
   modifier = "SUPER";
 
   grimblast = "${
@@ -7,7 +11,7 @@ let
     }/bin/grimblast";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   playerctl = "${config.hm.services.playerctld.package}/bin/playerctl";
-  swappy = lib.getExe pkgs.swappy;
+  swappy = getExe pkgs.swappy;
   ags = "${inputs.ags.packages.${pkgs.system}.default}/bin/ags";
 
   gtk-launch = "${pkgs.gtk3}/bin/gtk-launch";
@@ -18,7 +22,7 @@ let
   browser = defaultApp "x-scheme-handler/https";
   fileBrowser = defaultApp "inode/directory";
 
-  jq = lib.getExe pkgs.jq;
+  jq = getExe pkgs.jq;
 
   killandswitch = pkgs.writeShellScript "killandswitch" ''
     killactive() {
@@ -82,8 +86,8 @@ let
     fi
   '';
 in
-lib.mkIf config.modules.desktop.hyprland.enable {
-  hm.wayland.windowManager.hyprland.extraConfig = ''
+mkIf cfg.enable {
+  hm.home.file."${configPath}".text = ''
     # Launch applications
     bind = ${modifier}, T, exec, ${terminal}
     bind = ${modifier}, W, exec, ${browser}

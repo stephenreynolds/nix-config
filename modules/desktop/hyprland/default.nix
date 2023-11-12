@@ -3,6 +3,7 @@ with lib;
 let
   cfg = config.modules.desktop.hyprland;
   nvidia = config.modules.system.nvidia.enable;
+  configPath = cfg.configPath;
 in
 {
   imports = [ inputs.hyprland.nixosModules.default ];
@@ -15,6 +16,11 @@ in
       description = "Whether to autostart programs that ask for it";
     };
     tty = mkEnableOption "Whether to start Hyprland on login from tty1";
+    configPath = mkOption {
+      type = types.str;
+      default = "${config.hm.xdg.configHome}/hypr/conf.d";
+      description = "Path to Hyprland configuration files";
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -40,6 +46,10 @@ in
 
       hm.wayland.windowManager.hyprland.enable = true;
 
+      hm.wayland.windowManager.hyprland.extraConfig = ''
+        source = ${configPath}/*.conf
+      '';
+
       # Stolen from https://github.com/alebastr/sway-systemd/commit/0fdb2c4b10beb6079acd6073c5b3014bd58d3b74
       hm.systemd.user.targets.hyprland-session-shutdown = {
         Unit = {
@@ -59,33 +69,11 @@ in
           ];
         };
       };
-
-      hm.wayland.windowManager.hyprland.extraConfig = concatLines
-        (mapAttrsToList
-          (key: value:
-            "env = ${key}, ${toString value}")
-          config.modules.desktop.tiling-wm.wayland.sessionVariables);
     }
 
     (mkIf nvidia {
       programs.hyprland.enableNvidiaPatches = true;
-
       hm.wayland.windowManager.hyprland.enableNvidiaPatches = true;
-
-      # Nvidia: https://wiki.hyprland.org/Nvidia
-      hm.wayland.windowManager.hyprland.extraConfig = concatLines
-        (mapAttrsToList
-          (key: value:
-            "env = ${key}, ${toString value}")
-          {
-            LIBVA_DRIVER_NAME = "nvidia";
-            GBM_BACKEND = "nvidia-drm";
-            __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-            WLR_NO_HARDWARE_CURSORS = 1;
-            NVD_BACKEND = "direct";
-            MOZ_DISABLE_RDD_SANDBOX = 1;
-            LIBSEAT_BACKEND = "logind";
-          });
     })
 
     (mkIf cfg.tty {
