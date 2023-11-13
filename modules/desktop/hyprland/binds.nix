@@ -63,27 +63,39 @@ let
   '';
 
   focusempty = pkgs.writeShellScript "focusempty" ''
-    active=$(hyprctl activeworkspace -j)
+    # Get the active workspace
+    active=$(hyprctl activeworkspace -j)    
+    # Get the current monitor
+    monitor=$(echo "$active" | ${jq} -r ".monitor")
+    # Get all workspaces on the monitor
     workspaces=$(hyprctl workspaces -j)
+    workspaces_on_monitor=$(echo "$workspaces" | ${jq} -r ".[] | select(.monitor == $monitor and .id != -99)")
+    # Check if the active workspace is empty
     empty=$(echo "$active" | ${jq} -r ".windows == 0")
     if [[ $empty == "true" ]]; then
-      monitor=$(echo "$active" | ${jq} -r ".monitor")
-      single=$(echo "$workspaces" | ${jq} -r --arg m "$monitor" '[.[] | select(.monitor == $m and .id != -99)] | length == 1')
-      if [[ $single == "false" ]]; then
+      # Check if there is only one workspace on the monitor
+      only_workspace=$(echo "$workspaces_on_monitor" | ${jq} -r --arg m "$monitor" '[.[] | length == 1')
+      if [[ $only_workspace == "false" ]]; then
         hyprctl dispatch workspace previous
       fi
     else
-      id=$(echo "$workspaces" | ${jq} -r "max_by(.id).id + 1")
-      hyprctl dispatch workspace $id
+      # Get the last workspace on the monitor
+      id=$(echo "$workspaces_on_monitor" | ${jq} -r "max_by(.id).id")
+      hyprctl --batch "dispatch workspace $id ; dispatch workspace r+1"
     fi
   '';
 
   movetoempty = pkgs.writeShellScript "movetoempty" ''
-    multiple=$(hyprctl activeworkspace -j | jq -r ".windows > 1")
-    if [[ $multiple == "true" ]]; then
-      id=$(hyprctl workspaces -j | ${jq} -r "max_by(.id).id + 1")
-      hyprctl dispatch movetoworkspace $id
-    fi
+    # Get the active workspace
+    active=$(hyprctl activeworkspace -j)    
+    # Get the current monitor
+    monitor=$(echo "$active" | ${jq} -r ".monitor")
+    # Get all workspaces on the monitor
+    workspaces=$(hyprctl workspaces -j)
+    workspaces_on_monitor=$(echo "$workspaces" | ${jq} -r ".[] | select(.monitor == $monitor and .id != -99)")
+    # Get the last workspace on the monitor
+    id=$(echo "$workspaces_on_monitor" | ${jq} -r "max_by(.id).id")
+    hyprctl --batch "dispatch movetoworkspace $id ; dispatch movetoworkspace r+1"
   '';
 in
 mkIf cfg.enable {
