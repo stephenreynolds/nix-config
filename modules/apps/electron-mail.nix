@@ -19,7 +19,7 @@ in {
       text = ''
         [Desktop Entry]
         Type=Application
-        Exec=electron-mail --js-flags="--max-old-space-size=12288" %U
+        Exec=gtk-launch electron-mail
         Terminal=false
         StartupWMClass=electron-mail
         X-AppImage-Version=5.1.8
