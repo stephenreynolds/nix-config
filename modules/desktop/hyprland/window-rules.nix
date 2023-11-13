@@ -17,6 +17,7 @@ mkIf cfg.enable {
 
     # TastyTrade
     windowrule = nofullscreenrequest, ^(tasty.javafx.launcher.LauncherFxApp)$
+    windowrule = maximize, ^(tasty.javafx.launcher.LauncherFxApp)$
 
     # Steam
     windowrulev2 = nofullscreenrequest, class:^(steam)$
