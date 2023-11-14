@@ -27,14 +27,14 @@ in
     (mkIf cfg.autostart {
       hm.xdg.configFile."autostart/discord-stable.desktop".text = ''
         [Desktop Entry]
-        Type=Application
-        Exec=Discord
-        Name=Discord
+        Categories=Network;InstantMessaging
+        Exec=Discord --start-minimized
+        GenericName=All-in-one cross-platform voice and text chat for gamers
         Icon=discord
         MimeType=x-scheme-handler/discord
+        Name=Discord
+        Type=Application
         Version=1.4
-        Comment=All-in-one cross-platform voice and chat for gamers.
-        X-GNOME-Autostart-enabled=true
       '';
     })
 

@@ -34,6 +34,11 @@ in
       default = steam-with-pkgs;
       description = "Steam package to use";
     };
+    autostart = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Whether to start Steam on login";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -41,5 +46,59 @@ in
 
     modules.system.pipewire.support32Bit = mkForce true;
     modules.system.nvidia.support32Bit = mkForce true;
+
+    hm.xdg.configFile."autostart/steam.desktop" = {
+      enable = cfg.autostart;
+      text = ''
+        [Desktop Entry]
+        Name=Steam
+        Comment=Application for managing and playing games on Steam
+        Exec=steam -silent %U
+        Icon=steam
+        Terminal=false
+        Type=Application
+        Categories=Network;FileTransfer;Game;
+        MimeType=x-scheme-handler/steam;x-scheme-handler/steamlink;
+        Actions=Store;Community;Library;Servers;Screenshots;News;Settings;BigPicture;Friends;
+        PrefersNonDefaultGPU=true
+        X-KDE-RunOnDiscreteGpu=true
+
+        [Desktop Action Store]
+        Name=Store
+        Exec=steam steam://store
+
+        [Desktop Action Community]
+        Name=Community
+        Exec=steam steam://url/SteamIDControlPage
+
+        [Desktop Action Library]
+        Name=Library
+        Exec=steam steam://open/games
+
+        [Desktop Action Servers]
+        Name=Servers
+        Exec=steam steam://open/servers
+
+        [Desktop Action Screenshots]
+        Name=Screenshots
+        Exec=steam steam://open/screenshots
+
+        [Desktop Action News]
+        Name=News
+        Exec=steam steam://open/news
+
+        [Desktop Action Settings]
+        Name=Settings
+        Exec=steam steam://open/settings
+
+        [Desktop Action BigPicture]
+        Name=Big Picture
+        Exec=steam steam://open/bigpicture
+
+        [Desktop Action Friends]
+        Name=Friends
+        Exec=steam steam://open/friends
+      '';
+    };
   };
 }
