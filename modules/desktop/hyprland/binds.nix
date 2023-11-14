@@ -97,6 +97,102 @@ let
     id=$(echo "$workspaces_on_monitor" | ${jq} -r "max_by(.id).id")
     hyprctl --batch "dispatch movetoworkspace $id ; dispatch movetoworkspace r+1"
   '';
+
+  volumehelper = pkgs.writeShellScript "volumehelper" ''
+    if ! command -v ${pactl} >/dev/null; then
+    	exit 0
+    fi
+
+    DEFAULT_STEP=5
+    LIMIT=''${LIMIT:-100}
+    SINK="@DEFAULT_SINK@"
+
+    clamp() {
+    	if [ "$1" -lt 0 ]; then
+    		echo "0"
+    	elif [ "$1" -gt "$LIMIT" ]; then
+    		echo "$LIMIT"
+    	else
+    		echo "$1"
+    	fi
+    }
+
+    get_sink_volume() {
+    	ret=$(${pactl} get-sink-volume "$1")
+    	ret=''${ret%%%*}
+    	ret=''${ret##* }
+    	echo "$ret"
+    	unset ret
+    }
+
+    CHANGE=0
+    VOLUME=-1
+
+    while true; do
+    	case $1 in
+    	--sink)
+    		SINK=''${2:-$SINK}
+    		shift
+    		;;
+    	-l | --limit)
+    		LIMIT=$((''${2:-$LIMIT}))
+    		shift
+    		;;
+    	--set-volume)
+    		VOLUME=$(($2))
+    		shift
+    		;;
+    	-i | --increase)
+    		CHANGE=$((''${2:-$DEFAULT_STEP}))
+    		shift
+    		;;
+    	-d | --decrease)
+    		CHANGE=$((-''${2:-$DEFAULT_STEP}))
+    		shift
+    		;;
+    	*)
+    		break
+    		;;
+    	esac
+    	shift
+    done
+  
+    GTK_PLAY=${pkgs.libcanberra-gtk3}/bin/canberra-gtk-play
+    VOLUME_CHANGE_SOUND=${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+    if [ "$CHANGE" -ne 0 ]; then
+    	VOLUME=$(get_sink_volume "$SINK")
+    	VOLUME=$((VOLUME + CHANGE))
+    	${pactl} set-sink-volume "$SINK" "$(clamp "$VOLUME")%"
+    	$GTK_PLAY -f $VOLUME_CHANGE_SOUND
+    elif [ "$VOLUME" -ge 0 ]; then
+    	${pactl} set-sink-volume "$SINK" "$(clamp "$VOLUME")%"
+    	$GTK_PLAY -f $VOLUME_CHANGE_SOUND
+    fi
+
+    # Display desktop notification
+
+    if ! command -v notify-send >/dev/null; then
+    	exit 0
+    fi
+
+    VOLUME=$(get_sink_volume "$SINK")
+    TEXT="Volume: ''${VOLUME}%"
+    case $(${pactl} get-sink-mute "$SINK") in
+    *yes)
+    	TEXT="Volume: muted"
+    	VOLUME=0
+    	;;
+    esac
+
+    ${getExe pkgs.libnotify} \
+    	--app-name Audio \
+    	--expire-time 2000 \
+    	--hint string:x-canonical-private-synchronous:volume \
+    	--hint "int:value:$VOLUME" \
+    	--transient \
+    	--replace-id 777 \
+    	"''${TEXT}"
+  '';
 in
 mkIf cfg.enable {
   hm.home.file."${configPath}".text = ''
@@ -200,8 +296,8 @@ mkIf cfg.enable {
 
     # Volume keys
     $volume_helper_cmd = ~/.config/hypr/scripts/volume-helper
-    bindle = , XF86AudioRaiseVolume, exec, $volume_helper_cmd --limit "$volume_limit" --increase "$volume_step"
-    bindle = , XF86AudioLowerVolume, exec, $volume_helper_cmd --limit "$volume_limit" --decrease "$volume_step"
+    bindle = , XF86AudioRaiseVolume, exec, ${volumehelper} --limit "100" --increase "2"
+    bindle = , XF86AudioLowerVolume, exec, ${volumehelper} --limit "100" --decrease "2"
     bindl = , XF86AudioMute, exec, ${pactl} set-sink-mute @DEFAULT_SINK@ toggle && $volume_helper_cmd
     bindl = , XF86AudioMicMute, exec, ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle
 
