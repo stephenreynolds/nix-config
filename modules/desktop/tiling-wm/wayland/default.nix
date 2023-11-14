@@ -50,7 +50,6 @@ in {
         inputs.ags.packages.${pkgs.system}.default
         sassc
         inotify-tools
-        wf-recorder
         swww
         swappy
         slurp
