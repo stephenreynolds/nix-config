@@ -63,39 +63,33 @@ let
   '';
 
   focusempty = pkgs.writeShellScript "focusempty" ''
-    # Get the active workspace
-    active=$(hyprctl activeworkspace -j)    
-    # Get the current monitor
-    monitor=$(echo "$active" | ${jq} -r ".monitor")
-    # Get all workspaces on the monitor
+    active=$(hyprctl activeworkspace -j)
+    monitor=$(echo "$active" | ${jq} -r ".monitorID")
     workspaces=$(hyprctl workspaces -j)
-    workspaces_on_monitor=$(echo "$workspaces" | ${jq} -r ".[] | select(.monitor == $monitor and .id != -99)")
-    # Check if the active workspace is empty
+    workspaces_on_monitor=$(echo "$workspaces" | ${jq} -r "map(select(.monitorID == $monitor and .id != -99))")
     empty=$(echo "$active" | ${jq} -r ".windows == 0")
     if [[ $empty == "true" ]]; then
-      # Check if there is only one workspace on the monitor
-      only_workspace=$(echo "$workspaces_on_monitor" | ${jq} -r --arg m "$monitor" '[.[] | length == 1')
+      only_workspace=$(echo "$workspaces_on_monitor" | ${jq} -r "length == 1")
       if [[ $only_workspace == "false" ]]; then
-        hyprctl dispatch workspace previous
+        hyprctl dispatch workspace m-1
       fi
     else
-      # Get the last workspace on the monitor
-      id=$(echo "$workspaces_on_monitor" | ${jq} -r "max_by(.id).id")
-      hyprctl --batch "dispatch workspace $id ; dispatch workspace r+1"
+      last_id=$(echo "$workspaces_on_monitor" | ${jq} -r "max_by(.id).id")
+      hyprctl --batch "dispatch workspace $last_id ; dispatch workspace r+1"
     fi
   '';
 
   movetoempty = pkgs.writeShellScript "movetoempty" ''
-    # Get the active workspace
-    active=$(hyprctl activeworkspace -j)    
-    # Get the current monitor
-    monitor=$(echo "$active" | ${jq} -r ".monitor")
-    # Get all workspaces on the monitor
+    active=$(hyprctl activeworkspace -j) 
+    monitor=$(echo "$active" | ${jq} -r ".monitorID")
     workspaces=$(hyprctl workspaces -j)
-    workspaces_on_monitor=$(echo "$workspaces" | ${jq} -r ".[] | select(.monitor == $monitor and .id != -99)")
-    # Get the last workspace on the monitor
-    id=$(echo "$workspaces_on_monitor" | ${jq} -r "max_by(.id).id")
-    hyprctl --batch "dispatch movetoworkspace $id ; dispatch movetoworkspace r+1"
+    workspaces_on_monitor=$(echo "$workspaces" | ${jq} -r "map(select(.monitorID == $monitor and .id != -99))")
+
+    last_id=$(echo "$workspaces_on_monitor" | ${jq} -r "max_by(.id).id")
+    should_move=$(echo "$active" | ${jq} -r ".id != $last_id or .windows > 1")
+    if [[ $should_move == "true" ]]; then
+      hyprctl --batch "dispatch movetoworkspace $last_id ; dispatch movetoworkspace r+1"
+    fi
   '';
 
   volumehelper = pkgs.writeShellScript "volumehelper" ''
