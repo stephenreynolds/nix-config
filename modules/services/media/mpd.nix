@@ -1,26 +1,26 @@
 { config, lib, ... }:
-with lib;
+
 let cfg = config.modules.services.media.mpd;
 in {
   options.modules.services.media.mpd = {
-    enable = mkOption {
-      type = types.bool;
+    enable = lib.mkOption {
+      type = lib.types.bool;
       default = config.modules.services.media.enable;
       description = "Whether to enable mpd";
     };
-    musicDirectory = mkOption {
-      type = types.str;
+    musicDirectory = lib.mkOption {
+      type = lib.types.str;
       default = "${config.hm.xdg.userDirs.music}";
       description = "The directory where mpd will look for music";
     };
-    playlistDirectory = mkOption {
-      type = types.str;
+    playlistDirectory = lib.mkOption {
+      type = lib.types.str;
       default = "${config.hm.xdg.userDirs.music}/Playlists";
       description = "The directory where mpd will look for playlists";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.services.mpd = {
       enable = true;
       musicDirectory = "${cfg.musicDirectory}";

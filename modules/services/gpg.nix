@@ -1,6 +1,6 @@
 # TODO: figure out where to put this
 { config, lib, pkgs, ... }:
-with lib;
+
 let
   cfg = config.modules.services.gpg;
 
@@ -15,10 +15,10 @@ let
 in
 {
   options.modules.services.gpg = {
-    enable = mkEnableOption "Enable GPG agent";
+    enable = lib.mkEnableOption "Enable GPG agent";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.home.packages = pinentry.packages;
 
     hm.services.gpg-agent = {

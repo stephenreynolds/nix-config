@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.cli.ncmpcpp;
 in {
   options.modules.cli.ncmpcpp = {
-    enable = mkEnableOption "Whether to enable ncmpcpp";
+    enable = lib.mkEnableOption "Whether to enable ncmpcpp";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.programs.ncmpcpp = {
       enable = true;
       package = pkgs.ncmpcpp.override { visualizerSupport = true; };

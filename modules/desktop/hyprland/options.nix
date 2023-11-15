@@ -1,11 +1,11 @@
 { config, lib, ... }:
-with lib;
+
 let
   cfg = config.modules.desktop.hyprland;
   configPath = "${cfg.configPath}/20-options.conf";
   colorscheme = config.modules.desktop.theme.colorscheme;
 in
-mkIf cfg.enable {
+lib.mkIf cfg.enable {
   hm.home.file."${configPath}".text = ''
     input {
       kb_layout = us
@@ -101,7 +101,7 @@ mkIf cfg.enable {
       swallow_regex = ^(kitty)$
       new_window_takes_over_fullscreen = 1
     }
-  '' + optionalString (colorscheme != null) ''
+  '' + lib.optionalString (colorscheme != null) ''
     general {
       col.active_border = 0xff${colorscheme.colors.base0A}
       col.inactive_border = 0xff${colorscheme.colors.base03}
@@ -119,6 +119,10 @@ mkIf cfg.enable {
         col.locked_active = 0xff${colorscheme.colors.base08}
         col.locked_inactive = 0xff${colorscheme.colors.base03}
       }
+    }
+
+    debug {
+      disable_logs = false
     }
   '';
 }

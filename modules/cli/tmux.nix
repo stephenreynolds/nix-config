@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.cli.tmux;
 in {
-  options.modules.cli.tmux = { enable = mkEnableOption "Enable tmux"; };
+  options.modules.cli.tmux = { enable = lib.mkEnableOption "Enable tmux"; };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.programs.tmux =
       let
         tmux-window-name = pkgs.tmuxPlugins.mkTmuxPlugin {

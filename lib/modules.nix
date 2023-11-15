@@ -1,45 +1,39 @@
 { lib, self, ... }:
-let
-  inherit (builtins) attrValues readDir pathExists concatLists;
-  inherit (lib.attrsets) mapAttrsToList filterAttrs nameValuePair;
-  inherit (lib.strings) hasPrefix hasSuffix removeSuffix;
-  inherit (lib.trivial) id;
-  inherit (self.attrs) mapFilterAttrs;
-in
+
 rec {
   mapModules = dir: fn:
-    mapFilterAttrs (n: v: v != null && !(hasPrefix "_" n))
+    self.attrs.mapFilterAttrs (n: v: v != null && !(lib.hasPrefix "_" n))
       (n: v:
         let path = "${toString dir}/${n}";
-        in if v == "directory" && pathExists "${path}/default.nix" then
-          nameValuePair n (fn path)
-        else if v == "regular" && n != "default.nix" && hasSuffix ".nix" n then
-          nameValuePair (removeSuffix ".nix" n) (fn path)
+        in if v == "directory" && builtins.pathExists "${path}/default.nix" then
+          lib.nameValuePair n (fn path)
+        else if v == "regular" && n != "default.nix" && lib.hasSuffix ".nix" n then
+          lib.nameValuePair (lib.removeSuffix ".nix" n) (fn path)
         else
-          nameValuePair "" null)
-      (readDir dir);
+          lib.nameValuePair "" null)
+      (builtins.readDir dir);
 
-  mapModules' = dir: fn: attrValues (mapModules dir fn);
+  mapModules' = dir: fn: builtins.attrValues (mapModules dir fn);
 
   mapModulesRec = dir: fn:
-    mapFilterAttrs (n: v: v != null && !(hasPrefix "_" n))
+    self.mapFilterAttrs (n: v: v != null && !(lib.hasPrefix "_" n))
       (n: v:
         let path = "${toString dir}/${n}";
         in if v == "directory" then
-          nameValuePair n (mapModulesRec path fn)
-        else if v == "regular" && n != "default.nix" && hasSuffix ".nix" n then
-          nameValuePair (removeSuffix ".nix" n) (fn path)
+          lib.nameValuePair n (mapModulesRec path fn)
+        else if v == "regular" && n != "default.nix" && lib.hasSuffix ".nix" n then
+          lib.nameValuePair (lib.removeSuffix ".nix" n) (fn path)
         else
-          nameValuePair "" null)
-      (readDir dir);
+          lib.nameValuePair "" null)
+      (builtins.readDir dir);
 
   mapModulesRec' = dir: fn:
     let
-      dirs = mapAttrsToList (k: _: "${dir}/${k}")
-        (filterAttrs (n: v: v == "directory" && !(hasPrefix "_" n))
-          (readDir dir));
-      files = attrValues (mapModules dir id);
-      paths = files ++ concatLists (map (d: mapModulesRec' d id) dirs);
+      dirs = lib.mapAttrsToList (k: _: "${dir}/${k}")
+        (lib.filterAttrs (n: v: v == "directory" && !(lib.hasPrefix "_" n))
+          (builtins.readDir dir));
+      files = builtins.attrValues (mapModules dir lib.id);
+      paths = files ++ builtins.concatLists (map (d: mapModulesRec' d lib.id) dirs);
     in
     map fn paths;
 }

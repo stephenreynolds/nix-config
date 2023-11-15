@@ -1,10 +1,10 @@
 { config, lib, ... }:
-with lib;
+
 let cfg = config.modules.services.envfs;
 in {
   options.modules.services.envfs = {
-    enable = mkOption {
-      type = types.bool;
+    enable = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Enable the envfs service";
     };

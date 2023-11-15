@@ -1,18 +1,18 @@
-{ config, lib, pkgs, ... }:
-with lib;
+{ config, lib, ... }:
+
 let cfg = config.modules.services.printing;
 in {
   options.modules.services.printing = {
-    enable = mkEnableOption "Enable printing service";
-    drivers = mkOption {
-      type = types.listOf types.package;
+    enable = lib.mkEnableOption "Enable printing service";
+    drivers = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
       default = [ ];
-      example = literalExpression "[ pkgs.hplip ]";
+      example = "[ pkgs.hplip ]";
       description = "List of printer drivers to install";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.printing = {
       enable = true;
       drivers = cfg.drivers;

@@ -1,19 +1,19 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let
   cfg = config.modules.desktop.tiling-wm.wayland.gtklock;
 
   baseConfig = ''
     [main]
-    ${optionalString (cfg.config.gtk-theme != "") "gtk-theme=${cfg.config.gtk-theme}"}
-    ${optionalString (cfg.config.style != "") "style=${cfg.config.style}"}
-    ${optionalString (cfg.config.modules != []) "modules=${concatStringsSep ";" cfg.config.modules}"}
+    ${lib.optionalString (cfg.config.gtk-theme != "") "gtk-theme=${cfg.config.gtk-theme}"}
+    ${lib.optionalString (cfg.config.style != "") "style=${cfg.config.style}"}
+    ${lib.optionalString (cfg.config.modules != []) "modules=${lib.concatStringsSep ";" cfg.config.modules}"}
   '';
 
-  finalConfig = baseConfig + optionals (cfg.extraConfig != null) (generators.toINI { } cfg.extraConfig);
+  finalConfig = baseConfig + lib.optionals (cfg.extraConfig != null) (lib.generators.toINI { } cfg.extraConfig);
 
   lockCommand = pkgs.writeShellScriptBin "lock" /* bash */ ''
-    wallpaper=$(${getExe pkgs.swww} query | awk -F'image: ' 'NR==1 {print $2}')
+    wallpaper=$(${lib.getExe pkgs.swww} query | awk -F'image: ' 'NR==1 {print $2}')
     bg="$XDG_CACHE_HOME/gtklock/$(basename "$wallpaper").jpg"
 
     if [ ! -f "$bg" ]; then
@@ -21,30 +21,30 @@ let
       ${pkgs.imagemagick}/bin/convert "$wallpaper" -blur 0x50 "$bg"
     fi
 
-    ${getExe pkgs.gtklock} -b $bg
+    ${lib.getExe pkgs.gtklock} -b $bg
   '';
 in
 {
   options.modules.desktop.tiling-wm.wayland.gtklock = {
-    enable = mkEnableOption "Whether to enable gtklock";
+    enable = lib.mkEnableOption "Whether to enable gtklock";
 
-    package = mkOption {
-      type = types.package;
+    package = lib.mkOption {
+      type = lib.types.package;
       default = pkgs.gtklock;
-      defaultText = literalExample "pkgs.gtklock";
+      defaultText = "pkgs.gtklock";
       description = "gtklock package to use";
     };
 
     config = {
-      gtk-theme = mkOption {
-        type = types.str;
+      gtk-theme = lib.mkOption {
+        type = lib.types.str;
         default = config.modules.desktop.theme.gtk.theme.name;
         description = "GTK theme to use";
         example = "Adwaita-dark";
       };
 
-      style = mkOption {
-        type = with types; oneOf [ str path ];
+      style = lib.mkOption {
+        type = with lib.types; oneOf [ str path ];
         default = pkgs.writeText "gtklock-style.css" /* scss */ ''
           window {
             background-size: cover;
@@ -86,7 +86,7 @@ in
           }
         '';
         description = "The css file to be used for gtklock";
-        example = literalExpression ''
+        example = ''
           pkgs.writeText "gtklock-style.css" '''
               window {
                 background-size: cover;
@@ -97,13 +97,13 @@ in
         '';
       };
 
-      modules = mkOption {
-        type = with types; listOf (either package str);
+      modules = lib.mkOption {
+        type = with lib.types; listOf (either package str);
         default = [ "${pkgs.gtklock-powerbar-module.outPath}/lib/gtklock/powerbar-module.so" ];
-        description = mdDoc ''
+        description = ''
           A list of gtklock modules to use. Can either be packages, absolute paths, or strings."
         '';
-        example = literalExpression ''
+        example = ''
           [
             "${pkgs.gtklock-powerbar-module.outPath}/lib/gtklock/powerbar-module.so"
             "${pkgs.gtklock-playerctl-module.outPath}/lib/gtklock/playerctl-module.so"
@@ -112,8 +112,8 @@ in
       };
     };
 
-    extraConfig = mkOption {
-      type = with types; nullOr attrs;
+    extraConfig = lib.mkOption {
+      type = with lib.types; nullOr attrs;
       default = {
         main = {
           time-format = "%-I:%M %p";
@@ -127,11 +127,11 @@ in
           countdown = 20;
         };
       };
-      description = mdDoc ''
+      description = ''
         Extra configuration to append to gtklock configuration file.
         Mostly used for appending module configurations.
       '';
-      example = literalExpression ''
+      example = ''
         countdown = {
           countdown-position = "top-right";
           justify = "right";
@@ -141,7 +141,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.home.packages = [ cfg.package lockCommand ];
 
     hm.xdg.configFile."gtklock/config.ini".source = pkgs.writeText "gtklock-config.ini" finalConfig;

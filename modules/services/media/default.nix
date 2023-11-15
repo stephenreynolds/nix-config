@@ -1,6 +1,7 @@
-{ config, lib, ... }:
-with lib; {
+{ lib, ... }:
+
+{
   options.modules.services.media = {
-    enable = mkEnableOption "Whether to enable media services";
+    enable = lib.mkEnableOption "Whether to enable media services";
   };
 }

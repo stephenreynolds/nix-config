@@ -1,32 +1,32 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.apps.wine;
 in {
   options.modules.apps.wine = {
-    enable = mkEnableOption "Whether to enable Wine";
-    waylandSupport = mkOption {
-      type = types.bool;
+    enable = lib.mkEnableOption "Whether to enable Wine";
+    waylandSupport = lib.mkOption {
+      type = lib.types.bool;
       default = config.modules.desktop.tiling-wm.wayland.enable;
       description = "Whether to enable Wayland support";
     };
-    winetricks.enable = mkEnableOption "Whether to install Winetricks";
-    bottles.enable = mkEnableOption "Whether to install bottles";
+    winetricks.enable = lib.mkEnableOption "Whether to install Winetricks";
+    bottles.enable = lib.mkEnableOption "Whether to install bottles";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.home.packages = with pkgs; [
       (if cfg.waylandSupport then
         wineWowPackages.waylandFull
       else
         wineWowPackages.full)
 
-      (mkIf cfg.winetricks.enable winetricks)
+      (lib.mkIf cfg.winetricks.enable winetricks)
 
-      (mkIf cfg.bottles.enable bottles)
+      (lib.mkIf cfg.bottles.enable bottles)
     ];
 
-    modules.system.pipewire.support32Bit = mkForce true;
-    modules.system.nvidia.support32Bit = mkForce true;
+    modules.system.pipewire.support32Bit = lib.mkForce true;
+    modules.system.nvidia.support32Bit = lib.mkForce true;
 
     environment.sessionVariables = { WINEDEBUG = "-all"; };
   };

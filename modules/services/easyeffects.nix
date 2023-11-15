@@ -1,31 +1,31 @@
 { config, lib, ... }:
-with lib;
+
 let cfg = config.modules.services.easyeffects;
 in {
   options.modules.services.easyeffects = {
-    enable = mkEnableOption "Enable EasyEffects";
+    enable = lib.mkEnableOption "Enable EasyEffects";
     preset = {
-      enable = mkEnableOption "Enable preset";
-      source = mkOption {
-        type = types.path;
+      enable = lib.mkEnableOption "Enable preset";
+      source = lib.mkOption {
+        type = lib.types.path;
         default = null;
         description = "Path to the preset file";
       };
     };
     autoload = {
-      enable = mkEnableOption "Enable output autoload";
-      source = mkOption {
-        type = types.path;
+      enable = lib.mkEnableOption "Enable output autoload";
+      source = lib.mkOption {
+        type = lib.types.path;
         default = null;
         description = "Path to the autoload file";
       };
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.services.easyeffects = {
       enable = true;
-      preset = mkIf cfg.preset.enable "Preset";
+      preset = lib.mkIf cfg.preset.enable "Preset";
     };
 
     hm.xdg.configFile."Preset.json" = {

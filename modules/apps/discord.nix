@@ -1,30 +1,30 @@
-# TODO: add font and colors
 { config, lib, pkgs, ... }:
-with lib;
+
 let
   cfg = config.modules.apps.discord;
+
   colorscheme = config.modules.desktop.theme.colorscheme;
 in
 {
   options.modules.apps.discord = {
-    enable = mkEnableOption "Whether to install Discord";
-    autostart = mkOption {
-      type = types.bool;
+    enable = lib.mkEnableOption "Whether to install Discord";
+    autostart = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Whether to start Discord on login";
     };
     discocss = {
-      enable = mkEnableOption "Whether to theme Discord with discocss";
+      enable = lib.mkEnableOption "Whether to theme Discord with discocss";
     };
     betterdiscord = {
-      enable = mkEnableOption "Whether to install BetterDiscord";
+      enable = lib.mkEnableOption "Whether to install BetterDiscord";
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     { hm.home.packages = [ pkgs.discord ]; }
 
-    (mkIf cfg.autostart {
+    (lib.mkIf cfg.autostart {
       hm.xdg.configFile."autostart/discord-stable.desktop".text = ''
         [Desktop Entry]
         Categories=Network;InstantMessaging
@@ -38,7 +38,7 @@ in
       '';
     })
 
-    (mkIf cfg.betterdiscord.enable {
+    (lib.mkIf cfg.betterdiscord.enable {
       hm.home.packages = [ pkgs.betterdiscordctl ];
 
       # TODO: Replace rose-pine colors with colorscheme
@@ -165,7 +165,7 @@ in
       };
     })
 
-    (mkIf cfg.discocss.enable {
+    (lib.mkIf cfg.discocss.enable {
       hm.home.packages = [ pkgs.discocss ];
 
       hm.xdg.configFile."discocss/custom.css" = {

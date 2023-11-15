@@ -1,20 +1,19 @@
 # Source: https://github.com/nix-community/home-manager/issues/3019
 { config, lib, pkgs, ... }:
 
-with lib;
 let cfg = config.modules.services.protonmail-bridge;
 in {
   options.modules.services.protonmail-bridge = {
-    enable = mkEnableOption "Whether to enable protonmail-bridge";
+    enable = lib.mkEnableOption "Whether to enable protonmail-bridge";
 
-    nonInteractive = mkOption {
-      type = types.bool;
+    nonInteractive = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Start Bridge entirely noninteractively";
     };
 
-    logLevel = mkOption {
-      type = types.enum [
+    logLevel = lib.mkOption {
+      type = lib.types.enum [
         "panic"
         "fatal"
         "error"
@@ -29,7 +28,7 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.home.packages = [ pkgs.protonmail-bridge ];
 
     hm.systemd.user.services.protonmail-bridge = {
@@ -42,7 +41,7 @@ in {
         Restart = "always";
         ExecStart =
           "${pkgs.protonmail-bridge}/bin/protonmail-bridge --log-level ${cfg.logLevel}"
-          + optionalString (cfg.nonInteractive) " --noninteractive";
+          + lib.optionalString (cfg.nonInteractive) " --noninteractive";
       };
 
       Install = { WantedBy = [ "default.target" ]; };

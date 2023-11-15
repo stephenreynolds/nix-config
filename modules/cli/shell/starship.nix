@@ -1,12 +1,12 @@
 { config, lib, ... }:
-with lib;
+
 let cfg = config.modules.cli.shell.starship;
 in {
   options.modules.cli.shell.starship = {
-    enable = mkEnableOption "Enable Starship";
+    enable = lib.mkEnableOption "Enable Starship";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.programs.starship = {
       enable = true;
       enableTransience = true;

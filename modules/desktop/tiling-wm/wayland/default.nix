@@ -1,17 +1,17 @@
 { config, lib, pkgs, inputs, ... }:
-with lib;
+
 let cfg = config.modules.desktop.tiling-wm.wayland;
 in {
   options.modules.desktop.tiling-wm.wayland = {
-    enable = mkEnableOption ''
+    enable = lib.mkEnableOption ''
       Whether to enable configuration for Wayland compositors
     '';
-    ags = { enable = mkEnableOption "Whether to enable ags widgets"; };
+    ags = { enable = lib.mkEnableOption "Whether to enable ags widgets"; };
     swww = {
-      enable = mkEnableOption "Whether to enable swww wallpaper daemon";
+      enable = lib.mkEnableOption "Whether to enable swww wallpaper daemon";
     };
-    sessionVariables = mkOption {
-      type = with types; lazyAttrsOf (oneOf [ str path int float ]);
+    sessionVariables = lib.mkOption {
+      type = with lib.types; lazyAttrsOf (oneOf [ str path int float ]);
       default = {
         MOZ_ENABLE_WAYLAND = 1;
         QT_QPA_PLATFORM = "wayland";
@@ -26,7 +26,7 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       hm.home.packages = with pkgs; [
         qt6.qtwayland
@@ -38,7 +38,7 @@ in {
       modules.desktop.tiling-wm.wayland.gtklock.enable = true;
     }
 
-    (mkIf cfg.ags.enable {
+    (lib.mkIf cfg.ags.enable {
       hm.imports = [ inputs.ags.homeManagerModules.default ];
 
       hm.programs.ags = {
@@ -58,7 +58,7 @@ in {
       ];
     })
 
-    (mkIf cfg.swww.enable {
+    (lib.mkIf cfg.swww.enable {
       hm.systemd.user.services.swww = {
         Unit = {
           Description = "Wayland wallpaper daemon";
@@ -69,7 +69,7 @@ in {
         Service = {
           Type = "simple";
           ExecStart = "${pkgs.swww}/bin/swww-daemon";
-          ExecStop = "${getExe pkgs.swww} kill";
+          ExecStop = "${lib.getExe pkgs.swww} kill";
           Restart = "on-failure";
         };
       };

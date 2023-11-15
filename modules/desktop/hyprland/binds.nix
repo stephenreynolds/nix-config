@@ -1,5 +1,5 @@
 { config, lib, pkgs, inputs, ... }:
-with lib;
+
 let
   cfg = config.modules.desktop.hyprland;
   configPath = "${cfg.configPath}/70-binds.conf";
@@ -11,7 +11,7 @@ let
     }/bin/grimblast";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   playerctl = "${config.hm.services.playerctld.package}/bin/playerctl";
-  swappy = getExe pkgs.swappy;
+  swappy = lib.getExe pkgs.swappy;
   ags = "${inputs.ags.packages.${pkgs.system}.default}/bin/ags";
 
   gtk-launch = "${pkgs.gtk3}/bin/gtk-launch";
@@ -22,7 +22,7 @@ let
   browser = defaultApp "x-scheme-handler/https";
   fileBrowser = defaultApp "inode/directory";
 
-  jq = getExe pkgs.jq;
+  jq = lib.getExe pkgs.jq;
 
   killandswitch = pkgs.writeShellScript "killandswitch" ''
     killactive() {
@@ -178,7 +178,7 @@ let
     	;;
     esac
 
-    ${getExe pkgs.libnotify} \
+    ${lib.getExe pkgs.libnotify} \
     	--app-name Audio \
     	--expire-time 2000 \
     	--hint string:x-canonical-private-synchronous:volume \
@@ -188,7 +188,7 @@ let
     	"''${TEXT}"
   '';
 in
-mkIf cfg.enable {
+lib.mkIf cfg.enable {
   hm.home.file."${configPath}".text = ''
     # Launch applications
     bind = ${modifier}, T, exec, ${terminal}

@@ -1,10 +1,10 @@
 { config, lib, ... }:
-with lib;
+
 let cfg = config.modules.cli.zoxide;
 in {
-  options.modules.cli.zoxide = { enable = mkEnableOption "Enable zoxide"; };
+  options.modules.cli.zoxide = { enable = lib.mkEnableOption "Enable zoxide"; };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.programs.zoxide = {
       enable = true;
       enableBashIntegration = true;

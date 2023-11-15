@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let
   cfg = config.modules.cli.lf;
 
@@ -59,7 +59,7 @@ let
 
     filetype="$(${pkgs.file}/bin/file -Lb --mime-type "$file")"
 
-    ${optionalString config.hm.programs.kitty.enable ''
+    ${lib.optionalString config.hm.programs.kitty.enable ''
       if [[ "$filetype" =~ ^image ]]; then
         ${config.hm.programs.kitty.package}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
         exit 1
@@ -80,24 +80,24 @@ let
 in
 {
   options.modules.cli.lf = {
-    enable = mkEnableOption "Enable lf file manager";
-    enableIcons = mkEnableOption "Enable icons";
+    enable = lib.mkEnableOption "Enable lf file manager";
+    enableIcons = lib.mkEnableOption "Enable icons";
     commands = {
       # TODO: Enable swww command when swww is installed
-      swww = mkOption {
-        type = types.bool;
+      swww = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = "Set wallpaper using swww.";
       };
-      zoxide = mkOption {
-        type = types.bool;
+      zoxide = lib.mkOption {
+        type = lib.types.bool;
         default = config.modules.cli.zoxide.enable;
         description = "Enable zoxide integration.";
       };
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.programs.lf = {
       enable = true;
       previewer = { source = previewer; };
@@ -123,17 +123,17 @@ in
           ''${{
                   ${pkgs.trash-cli}/bin/trash-put "$fx"
                 }}'';
-        setwallpaper = mkIf cfg.commands.swww ''
+        setwallpaper = lib.mkIf cfg.commands.swww ''
           ''${{
                   ln -sf "$f" /home/$USER/.config/wallpaper
                   ${pkgs.swww}/bin/swww img /home/$USER/.config/wallpaper --transition-type random --transition-step 90
                 }}'';
-        z = mkIf cfg.commands.zoxide ''
+        z = lib.mkIf cfg.commands.zoxide ''
           %{{
                   result="$(zoxide query --exclude $PWD $@ | sed 's/\\/\\\\/g;s/"/\\"/g')"
                   lf -remote "send $id cd \"$result\""
                 }}'';
-        zi = mkIf cfg.commands.zoxide ''
+        zi = lib.mkIf cfg.commands.zoxide ''
           ''${{
                   result="$(zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
                   lf -remote "send $id cd \"$result\""
@@ -172,7 +172,7 @@ in
         '';
     };
 
-    hm.home.sessionVariables = mkIf cfg.enableIcons {
+    hm.home.sessionVariables = lib.mkIf cfg.enableIcons {
       LF_ICONS = ''
         tw=:\
         st=:\

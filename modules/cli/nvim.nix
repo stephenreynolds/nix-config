@@ -1,33 +1,33 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.cli.nvim;
 in {
   options.modules.cli.nvim = {
-    enable = mkEnableOption "Enable Neovim";
-    defaultEditor = mkEnableOption "Set Neovim as default editor";
-    configSource = mkOption {
-      type = types.nullOr types.path;
+    enable = lib.mkEnableOption "Enable Neovim";
+    defaultEditor = lib.mkEnableOption "Set Neovim as default editor";
+    configSource = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
       default = null;
       description = "Source to use for Neovim configuration";
     };
-    viAlias = mkOption {
-      type = types.bool;
+    viAlias = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Create vi alias";
     };
-    vimAlias = mkOption {
-      type = types.bool;
+    vimAlias = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Create vim alias";
     };
-    vimdiffAlias = mkOption {
-      type = types.bool;
+    vimdiffAlias = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Create vimdiff alias";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.programs.neovim = {
       enable = true;
       defaultEditor = cfg.defaultEditor;
@@ -74,7 +74,7 @@ in {
       ];
     };
 
-    hm.xdg.configFile.nvim.source = mkIf (cfg.configSource != null) cfg.configSource;
+    hm.xdg.configFile.nvim.source = lib.mkIf (cfg.configSource != null) cfg.configSource;
 
     hm.xdg.desktopEntries = {
       nvim = {

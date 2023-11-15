@@ -1,12 +1,12 @@
 { config, lib, ... }:
-with lib;
+
 let cfg = config.modules.desktop.displayManager.gdm;
 in {
   options.modules.desktop.displayManager.gdm = {
-    enable = mkEnableOption "Whether to enable GDM";
+    enable = lib.mkEnableOption "Whether to enable GDM";
   };
 
-  config = mkIf cfg.enable (mkMerge [{
+  config = lib.mkIf cfg.enable (lib.mkMerge [{
     services.xserver.enable = true;
     services.xserver.displayManager.gdm.enable = true;
   }]);

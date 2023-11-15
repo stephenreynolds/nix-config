@@ -1,30 +1,30 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.system.virtualisation;
 in {
   options.modules.system.virtualisation = {
     host = {
-      enable = mkEnableOption "Enable libvirtd for hosting virtual machines";
-      swtpm = mkOption {
-        type = types.bool;
+      enable = lib.mkEnableOption "Enable libvirtd for hosting virtual machines";
+      swtpm = lib.mkOption {
+        type = lib.types.bool;
         default = cfg.host.enable;
         description = "Enable swtpm for QEMU";
       };
-      spiceUSBRedirection = mkOption {
-        type = types.bool;
+      spiceUSBRedirection = lib.mkOption {
+        type = lib.types.bool;
         default = cfg.host.enable;
         description = "Enable USB redirection for Spice";
       };
     };
     guest = {
-      spice = mkEnableOption "Enable the Spice agent";
-      qxl = mkEnableOption "Enable the QXL video driver";
-      qemu = mkEnableOption "Whethes the system is a QEMU guest";
+      spice = lib.mkEnableOption "Enable the Spice agent";
+      qxl = lib.mkEnableOption "Enable the QXL video driver";
+      qemu = lib.mkEnableOption "Whethes the system is a QEMU guest";
     };
   };
 
-  config = mkMerge [
-    (mkIf cfg.host.enable {
+  config = lib.mkMerge [
+    (lib.mkIf cfg.host.enable {
       virtualisation = {
         libvirtd = {
           enable = true;
@@ -54,10 +54,10 @@ in {
       programs.dconf.enable = true;
     })
 
-    (mkIf cfg.guest.spice { services.spice-vdagentd.enable = true; })
+    (lib.mkIf cfg.guest.spice { services.spice-vdagentd.enable = true; })
 
-    (mkIf cfg.guest.qxl { services.xserver.videoDrivers = [ "qxl" ]; })
+    (lib.mkIf cfg.guest.qxl { services.xserver.videoDrivers = [ "qxl" ]; })
 
-    (mkIf cfg.guest.qemu { services.qemuGuest.enable = true; })
+    (lib.mkIf cfg.guest.qemu { services.qemuGuest.enable = true; })
   ];
 }

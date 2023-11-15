@@ -7,7 +7,6 @@
 , libpulseaudio
 , wayland
 , wayland-protocols
-, ...
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -25,8 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [ libpulseaudio wayland wayland-protocols ];
 
   meta = {
-    description =
-      "Prevents swayidle from sleeping while any application is outputting or receiving audio";
+    description = "Prevents swayidle from sleeping while any application is outputting or receiving audio";
     license = lib.licenses.gpl3;
     homepage = "https://github.com/ErikReider/SwayAudioIdleInhibit";
     platforms = lib.platforms.linux;

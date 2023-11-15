@@ -1,11 +1,11 @@
 { config, lib, ... }:
-with lib;
+
 let cfg = config.modules.system.security;
 in {
   options.modules.system.security = {
     boot = {
-      tmpOnTmpfs = mkOption {
-        type = types.bool;
+      tmpOnTmpfs = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         description = ''
           Whether to mount a tmpfs on /tmp during boot.
@@ -13,8 +13,8 @@ in {
       };
     };
     mitigations = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         description = ''
           Whether to enable mitigations for known CPU vulnerabilities
@@ -23,8 +23,8 @@ in {
     };
   };
 
-  config = mkMerge [
-    (mkIf cfg.boot.tmpOnTmpfs {
+  config = lib.mkMerge [
+    (lib.mkIf cfg.boot.tmpOnTmpfs {
       boot = {
         tmp = {
           useTmpfs = true;
@@ -33,7 +33,7 @@ in {
       };
     })
 
-    (mkIf (!cfg.mitigations.enable) {
+    (lib.mkIf (!cfg.mitigations.enable) {
       boot.kernelParams = [ "mitigations=off" ];
     })
   ];

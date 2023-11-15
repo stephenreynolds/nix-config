@@ -1,44 +1,44 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.system.boot;
 in {
   options.modules.system.boot = {
-    bootloader = mkOption {
-      type = types.enum [ "grub" "systemd-boot" ];
+    bootloader = lib.mkOption {
+      type = lib.types.enum [ "grub" "systemd-boot" ];
       default = "systemd-boot";
       description = "The booloader to use";
     };
-    efi = mkOption {
-      type = types.bool;
+    efi = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Whether the system is booted in EFI mode";
     };
     initrd = {
       systemd = {
-        enable = mkEnableOption "Whether to enable systemd in initrd";
+        enable = lib.mkEnableOption "Whether to enable systemd in initrd";
       };
     };
-    iommu = { enable = mkEnableOption "Whether to enable IOMMU"; };
-    kernelPackages = mkOption {
-      type = types.raw;
+    iommu = { enable = lib.mkEnableOption "Whether to enable IOMMU"; };
+    kernelPackages = lib.mkOption {
+      type = lib.types.raw;
       default = pkgs.linuxPackages_latest;
       description = "The package of the Linux kernel";
     };
-    extraKernelParams = mkOption {
-      type = types.listOf types.str;
+    extraKernelParams = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
       default = [ ];
       description = "Extra kernel parameters";
     };
   };
 
-  config = mkMerge [
+  config = lib.mkMerge [
     {
-      boot.loader.efi.canTouchEfiVariables = mkDefault cfg.efi;
+      boot.loader.efi.canTouchEfiVariables = lib.mkDefault cfg.efi;
       boot.kernelPackages = cfg.kernelPackages;
       boot.kernelParams = cfg.extraKernelParams;
     }
 
-    (mkIf (cfg.bootloader == "systemd-boot") {
+    (lib.mkIf (cfg.bootloader == "systemd-boot") {
       assertions = [{
         assertion = cfg.efi;
         message = "EFI mode is required to use systemd-boot";
@@ -51,17 +51,17 @@ in {
       };
     })
 
-    (mkIf (cfg.bootloader == "grub") {
+    (lib.mkIf (cfg.bootloader == "grub") {
       boot.loader.grub = {
         enable = true;
-        efiSupport = mkDefault cfg.efi;
-        useOSProber = mkDefault true;
+        efiSupport = lib.mkDefault cfg.efi;
+        useOSProber = lib.mkDefault true;
       };
     })
 
-    (mkIf cfg.initrd.systemd.enable { boot.initrd.systemd.enable = true; })
+    (lib.mkIf cfg.initrd.systemd.enable { boot.initrd.systemd.enable = true; })
 
-    (mkIf cfg.iommu.enable {
+    (lib.mkIf cfg.iommu.enable {
       boot.kernelParams = [ "intel_iommu=on" "iommu=pt" ];
     })
   ];

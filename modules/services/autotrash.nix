@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.services.autotrash;
 in {
   options.modules.services.autotrash = {
     enable =
-      mkEnableOption "Whether to enable automatically emptying the trash";
-    frequency = mkOption {
-      type = types.str;
+      lib.mkEnableOption "Whether to enable automatically emptying the trash";
+    frequency = lib.mkOption {
+      type = lib.types.str;
       default = "daily";
       description = ''
         How often or when to empty the trash.
@@ -16,47 +16,47 @@ in {
       '';
     };
     settings = {
-      days = mkOption {
-        type = types.nullOr types.int;
+      days = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
         default = 30;
         description = "Delete files older than this many days";
       };
 
-      delete = mkOption {
-        type = types.nullOr types.int;
+      delete = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
         default = null;
         description = "Delete at least this many megabytes";
       };
 
-      limit = mkOption {
-        type = types.nullOr types.int;
+      limit = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
         default = null;
         description =
           "Make sure no more than this many megabytes of space are used by the trash";
       };
 
-      maxFree = mkOption {
-        type = types.nullOr types.int;
+      maxFree = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
         default = null;
         description =
           "Only run if less than this many megabytes of free space is left";
       };
 
-      minFree = mkOption {
-        type = types.nullOr types.int;
+      minFree = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
         default = 100000;
         description = "Make sure at least this many megabytes are available";
       };
 
-      deleteFirst = mkOption {
-        type = types.nullOr types.str;
+      deleteFirst = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
         default = null;
         description =
           "Push files matching this regular expression to the top of the deletion queue";
       };
 
-      trashMounts = mkOption {
-        type = types.bool;
+      trashMounts = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description =
           "Process all user trash directories instead of just the one in the home directory";
@@ -64,7 +64,7 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     assertions = [
       {
         assertion = cfg.settings.days != null || cfg.settings.delete != null
@@ -89,25 +89,25 @@ in {
       Service = {
         Type = "oneshot";
         ExecStart = "${pkgs.my.autotrash}/bin/autotrash"
-          + optionalString (cfg.settings.days != null)
+          + lib.optionalString (cfg.settings.days != null)
           " --days=${toString cfg.settings.days}"
 
-          + optionalString (cfg.settings.delete != null)
+          + lib.optionalString (cfg.settings.delete != null)
           " --delete=${toString cfg.settings.delete}"
 
-          + optionalString (cfg.settings.limit != null)
+          + lib.optionalString (cfg.settings.limit != null)
           " --trash_limit=${toString cfg.settings.limit}"
 
-          + optionalString (cfg.settings.maxFree != null)
+          + lib.optionalString (cfg.settings.maxFree != null)
           " --max-free=${toString cfg.settings.maxFree}"
 
-          + optionalString (cfg.settings.minFree != null)
+          + lib.optionalString (cfg.settings.minFree != null)
           " --min-free=${toString cfg.settings.minFree}"
 
-          + optionalString (cfg.settings.deleteFirst != null)
+          + lib.optionalString (cfg.settings.deleteFirst != null)
           " --delete-first=${cfg.settings.deleteFirst}"
 
-          + optionalString cfg.settings.trashMounts " --trash-mounts";
+          + lib.optionalString cfg.settings.trashMounts " --trash-mounts";
       };
     };
 

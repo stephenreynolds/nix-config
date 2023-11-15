@@ -1,17 +1,17 @@
 { config, lib, ... }:
-with lib;
+
 let cfg = config.modules.system.plymouth;
 in {
   options.modules.system.plymouth = {
-    enable = mkEnableOption "Enable Plymouth for boot splash screen";
-    theme = mkOption {
-      type = types.str;
+    enable = lib.mkEnableOption "Enable Plymouth for boot splash screen";
+    theme = lib.mkOption {
+      type = lib.types.str;
       default = "breeze";
       description = "Plymouth theme to use";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     console = {
       useXkbConfig = true;
       earlySetup = false;

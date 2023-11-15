@@ -1,29 +1,29 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.system.nvidia;
 in {
   options.modules.system.nvidia = {
-    enable = mkEnableOption "Whether to install Nvidia drivers";
-    package = mkOption {
-      type = types.package;
+    enable = lib.mkEnableOption "Whether to install Nvidia drivers";
+    package = lib.mkOption {
+      type = lib.types.package;
       default = config.boot.kernelPackages.nvidiaPackages.stable;
       description = "The Nvidia driver package to install";
     };
-    open = mkEnableOption "Whether to install the open kernel modules";
-    extraPackages = mkOption {
-      type = types.listOf types.package;
+    open = lib.mkEnableOption "Whether to install the open kernel modules";
+    extraPackages = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
       default = with pkgs; [ vaapiVdpau nvidia-vaapi-driver ];
       description = "Extra packages to install with the Nvidia drivers";
     };
-    nvidiaSettings = mkOption {
-      type = types.bool;
+    nvidiaSettings = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Whether to enable nvidia-settings";
     };
-    support32Bit = mkEnableOption "Whether to enable 32-bit support";
+    support32Bit = lib.mkEnableOption "Whether to enable 32-bit support";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.xserver.videoDrivers = [ "nvidia" ];
 
     hardware = {

@@ -1,18 +1,18 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.services.gnome-policykit-agent;
 in {
   options.modules.services.gnome-policykit-agent = {
-    enable = mkEnableOption "GNOME PolicyKit Agent";
-    package = mkOption {
-      type = types.package;
+    enable = lib.mkEnableOption "GNOME PolicyKit Agent";
+    package = lib.mkOption {
+      type = lib.types.package;
       default = pkgs.polkit_gnome;
-      defaultText = literalExample "pkgs.polkit-gnome";
+      defaultText = "pkgs.polkit-gnome";
       description = "GNOME PolicyKit Agent package to use";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.systemd.user.services.gnome-policykit-agent = {
       Unit = {
         Description = "GNOME PolicyKit Agent";

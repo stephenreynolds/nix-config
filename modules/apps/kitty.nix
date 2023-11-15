@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let
   cfg = config.modules.apps.kitty;
   kitty-xterm = pkgs.writeShellScriptBin "xterm" ''
@@ -10,15 +10,15 @@ let
 in
 {
   options.modules.apps.kitty = {
-    enable = mkEnableOption "Whether to enable Kitty";
-    default = mkEnableOption ''
+    enable = lib.mkEnableOption "Whether to enable Kitty";
+    default = lib.mkEnableOption ''
       Whether to make Kitty the default terminal emulator
     '';
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-      hm.home = mkIf cfg.default {
+      hm.home = lib.mkIf cfg.default {
         packages = [ kitty-xterm ];
         sessionVariables = { TERMINAL = "kitty -1"; };
       };
@@ -73,7 +73,7 @@ in
       };
     }
 
-    (mkIf (colorscheme != null) {
+    (lib.mkIf (colorscheme != null) {
       hm.programs.kitty.settings =
         let inherit (colorscheme) colors;
         in {

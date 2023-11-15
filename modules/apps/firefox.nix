@@ -1,112 +1,112 @@
 { config, lib, inputs, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.apps.firefox;
 in {
   options.modules.apps.firefox = {
-    enable = mkEnableOption "Whether to enable Mozilla Firefox";
-    profiles = mkOption {
-      type = types.attrs;
+    enable = lib.mkEnableOption "Whether to enable Mozilla Firefox";
+    profiles = lib.mkOption {
+      type = lib.types.attrs;
       default = { };
       description = "Attribute set of Firefox profiles.";
     };
     defaultBrowser =
-      mkEnableOption "Whether to set Firefox as the default browser";
-    speechSynthesisSupport = mkOption {
-      type = types.bool;
+      lib.mkEnableOption "Whether to set Firefox as the default browser";
+    speechSynthesisSupport = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Whether to enable speech synthesis support";
     };
-    extraProfileConfig = mkOption {
-      type = types.attrsOf (types.submodule ({ config, name, ... }: {
+    extraProfileConfig = lib.mkOption {
+      type = lib.types.attrsOf (lib.types.submodule ({ config, name, ... }: {
         options = {
-          name = mkOption {
-            type = types.str;
+          name = lib.mkOption {
+            type = lib.types.str;
             default = name;
             description = "Name of the Firefox profile";
           };
           userChrome = {
-            onebar = mkOption {
-              type = types.bool;
+            onebar = lib.mkOption {
+              type = lib.types.bool;
               default = false;
               description = "Whether to use the Firefox OneBar theme";
             };
-            hideBloat = mkOption {
-              type = types.bool;
+            hideBloat = lib.mkOption {
+              type = lib.types.bool;
               default = false;
-              description = "Whether to hide some UI elements";
+              description = "Whether to hide some UI builtins.elements";
             };
           };
           settings = {
-            hideBookmarksToolbar = mkOption {
-              type = types.bool;
+            hideBookmarksToolbar = lib.mkOption {
+              type = lib.types.bool;
               default = false;
               description = "Whether to hide the bookmarks toolbar";
             };
             tabManager = {
-              enable = mkOption {
-                type = types.bool;
+              enable = lib.mkOption {
+                type = lib.types.bool;
                 default = false;
                 description = "Whether to enable the tab manager";
               };
             };
             pocket = {
-              enable = mkOption {
-                type = types.bool;
+              enable = lib.mkOption {
+                type = lib.types.bool;
                 default = false;
                 description = "Whether to enable Pocket";
               };
             };
-            harden = mkOption {
-              type = types.bool;
+            harden = lib.mkOption {
+              type = lib.types.bool;
               default = false;
               description = "Whether to harden Firefox";
             };
             newTabPage = {
-              topSitesRows = mkOption {
-                type = types.int;
+              topSitesRows = lib.mkOption {
+                type = lib.types.int;
                 default = 3;
                 description = "Number of rows of top sites";
               };
             };
           };
           search = {
-            default = mkOption {
-              type = types.str;
+            default = lib.mkOption {
+              type = lib.types.str;
               default = "Google";
               description = "Default search engine";
             };
-            brave = mkOption {
-              type = types.bool;
+            brave = lib.mkOption {
+              type = lib.types.bool;
               default = false;
               description = "Whether to enable Brave Search";
             };
-            phind = mkOption {
-              type = types.bool;
+            phind = lib.mkOption {
+              type = lib.types.bool;
               default = false;
               description = "Whether to enable Phind";
             };
-            youtube = mkOption {
-              type = types.bool;
+            youtube = lib.mkOption {
+              type = lib.types.bool;
               default = false;
               description = "Whether to enable YouTube search";
             };
-            github = mkOption {
-              type = types.bool;
+            github = lib.mkOption {
+              type = lib.types.bool;
               default = false;
               description = "Whether to enable GitHub search";
             };
-            sourcegraph = mkOption {
-              type = types.bool;
+            sourcegraph = lib.mkOption {
+              type = lib.types.bool;
               default = false;
               description = "Whether to enable SourceGraph search";
             };
-            nix-packages = mkOption {
-              type = types.bool;
+            nix-packages = lib.mkOption {
+              type = lib.types.bool;
               default = false;
               description = "Whether to enable Nix Packages search";
             };
-            nix-options = mkOption {
-              type = types.bool;
+            nix-options = lib.mkOption {
+              type = lib.types.bool;
               default = false;
               description = "Whether to enable Nix Options search";
             };
@@ -119,14 +119,14 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     { hm.programs.firefox.enable = true; }
 
-    (mkIf (cfg.profiles != { }) {
+    (lib.mkIf (cfg.profiles != { }) {
       hm.programs.firefox.profiles = cfg.profiles;
     })
 
-    (mkIf cfg.defaultBrowser {
+    (lib.mkIf cfg.defaultBrowser {
       hm.xdg.mimeApps.defaultApplications = {
         "text/html" = [ "firefox.desktop" ];
         "text/xml" = [ "firefox.desktop" ];
@@ -136,11 +136,11 @@ in {
     })
 
     {
-      hm.programs.firefox.profiles = (mapAttrs
+      hm.programs.firefox.profiles = (lib.mapAttrs
         (_: profile:
-          mkMerge [
+          lib.mkMerge [
             # Use the Firefox OneBar theme
-            (mkIf profile.userChrome.onebar {
+            (lib.mkIf profile.userChrome.onebar {
               userChrome =
                 builtins.readFile "${inputs.firefox-onebar}/userChrome.css";
               settings = {
@@ -148,13 +148,13 @@ in {
               };
             })
 
-            # Hide some unnecessary UI elements
-            (mkIf profile.userChrome.hideBloat {
+            # Hide some unnecessary UI builtins.elements
+            (lib.mkIf profile.userChrome.hideBloat {
               userChrome = ''
                 /* Hide all tabs button */
                 #alltabs-button { display: none !important; }
 
-                /* Remove some elements from the bookmarks menu */
+                /* Remove some builtins.elements from the bookmarks menu */
                 .openintabs-menuseparator,
                 .openintabs-menuitem,
                 .bookmarks-actions-menuseparator {
@@ -168,12 +168,12 @@ in {
             })
 
             # Hide bookmarks toolbar
-            (mkIf profile.settings.hideBookmarksToolbar {
+            (lib.mkIf profile.settings.hideBookmarksToolbar {
               settings = { "browser.toolbars.bookmarks.visibility" = "never"; };
             })
 
             # Enable VAAPI
-            (mkIf config.modules.system.nvidia.enable {
+            (lib.mkIf config.modules.system.nvidia.enable {
               settings = { "media.ffmpeg.vaapi.enabled" = "true"; };
             })
 
@@ -192,8 +192,8 @@ in {
               };
             }
 
-            # Disable telemetry
-            (mkIf profile.settings.harden {
+            # Disable tbuiltins.elemetry
+            (lib.mkIf profile.settings.harden {
               settings = {
                 "browser.disableResetPrompt" = true;
                 "browser.newtabpage.activity-stream.showSponsored" = false;
@@ -208,7 +208,7 @@ in {
                 "privacy.trackingprotection.enabled" = true;
                 "browser.discovery.enabled" = false;
                 "app.shield.optoutstudies.enabled" = false;
-                "browser.newtabpage.activity-stream.telemetry" = false;
+                "browser.newtabpage.activity-stream.tbuiltins.elemetry" = false;
               };
             })
 
@@ -227,7 +227,7 @@ in {
                 force = true;
                 engines = {
                   "Google".metaData.alias = "@g";
-                  "Brave" = mkIf profile.search.brave {
+                  "Brave" = lib.mkIf profile.search.brave {
                     urls = [{
                       template = "https://search.brave.com/search";
                       params = [{
@@ -240,7 +240,7 @@ in {
                     updateInterval = 24 * 60 * 60 * 1000; # every day
                     definedAliases = [ "@b" ];
                   };
-                  "Phind" = mkIf profile.search.phind {
+                  "Phind" = lib.mkIf profile.search.phind {
                     urls = [{
                       template = "https://www.phind.com/search";
                       params = [{
@@ -252,7 +252,7 @@ in {
                     updateInterval = 24 * 60 * 60 * 1000; # every day
                     definedAliases = [ "@p" ];
                   };
-                  "YouTube" = mkIf profile.search.youtube {
+                  "YouTube" = lib.mkIf profile.search.youtube {
                     urls = [{
                       template = "https://www.youtube.com/results";
                       params = [{
@@ -265,7 +265,7 @@ in {
                     updateInterval = 24 * 60 * 60 * 1000; # every day
                     definedAliases = [ "@yt" ];
                   };
-                  "GitHub" = mkIf profile.search.github {
+                  "GitHub" = lib.mkIf profile.search.github {
                     urls = [{
                       template = "https://github.com/search";
                       params = [
@@ -284,7 +284,7 @@ in {
                     updateInterval = 24 * 60 * 60 * 1000; # every day
                     definedAliases = [ "@gh" ];
                   };
-                  "SourceGraph" = mkIf profile.search.sourcegraph {
+                  "SourceGraph" = lib.mkIf profile.search.sourcegraph {
                     urls = [{
                       template = "https://sourcegraph.com/search";
                       params = [{
@@ -296,7 +296,7 @@ in {
                     updateInterval = 24 * 60 * 60 * 1000; # every day
                     definedAliases = [ "@sg" ];
                   };
-                  "Nix Packages" = mkIf profile.search.nix-packages {
+                  "Nix Packages" = lib.mkIf profile.search.nix-packages {
                     urls = [{
                       template = "https://search.nixos.org/packages";
                       params = [
@@ -318,7 +318,7 @@ in {
                       "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
                     definedAliases = [ "@np" ];
                   };
-                  "Nix Options" = mkIf profile.search.nix-options {
+                  "Nix Options" = lib.mkIf profile.search.nix-options {
                     urls = [{
                       template = "https://search.nixos.org/options";
                       params = [

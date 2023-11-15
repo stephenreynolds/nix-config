@@ -1,10 +1,12 @@
 { config, lib, ... }:
-with lib;
-let cfg = config.modules.apps;
-in {
+
+let
+  cfg = config.modules.apps;
+in
+{
   options.modules.apps = {
-    extraPackages = mkOption {
-      type = types.listOf types.package;
+    extraPackages = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
       default = [ ];
       description = "Extra packages to install";
     };

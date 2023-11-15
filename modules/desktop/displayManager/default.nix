@@ -1,4 +1,5 @@
 { config, ... }:
+
 let cfg = config.modules.desktop.displayManager;
 in {
   config.assertions = [{

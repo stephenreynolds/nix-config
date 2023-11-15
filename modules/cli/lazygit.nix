@@ -1,15 +1,15 @@
 { config, lib, ... }:
-with lib;
+
 let
   cfg = config.modules.cli.lazygit;
   colorscheme = config.modules.desktop.theme.colorscheme;
 in
 {
   options.modules.cli.lazygit = {
-    enable = mkEnableOption "Enable LazyGit";
+    enable = lib.mkEnableOption "Enable LazyGit";
     colors = {
-      activeBorderColor = mkOption {
-        type = types.listOf types.str;
+      activeBorderColor = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then [
             "#${colorscheme.colors.base0B}"
@@ -18,8 +18,8 @@ in
             [ ];
         description = "Active border color";
       };
-      inactiveBorderColor = mkOption {
-        type = types.listOf types.str;
+      inactiveBorderColor = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then
             [ "#${colorscheme.colors.base05}" ]
@@ -27,8 +27,8 @@ in
             [ ];
         description = "Inactive border color";
       };
-      optionsTextColor = mkOption {
-        type = types.listOf types.str;
+      optionsTextColor = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then
             [ "#${colorscheme.colors.base0D}" ]
@@ -36,8 +36,8 @@ in
             [ ];
         description = "Options text color";
       };
-      selectedLineBgColor = mkOption {
-        type = types.listOf types.str;
+      selectedLineBgColor = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then
             [ "#${colorscheme.colors.base02}" ]
@@ -45,8 +45,8 @@ in
             [ ];
         description = "Selected line bg color";
       };
-      selectedRangeBgColor = mkOption {
-        type = types.listOf types.str;
+      selectedRangeBgColor = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then
             [ "#${colorscheme.colors.base02}" ]
@@ -54,8 +54,8 @@ in
             [ ];
         description = "Selected range bg color";
       };
-      cherryPickedCommitBgColor = mkOption {
-        type = types.listOf types.str;
+      cherryPickedCommitBgColor = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then
             [ "#${colorscheme.colors.base0C}" ]
@@ -63,8 +63,8 @@ in
             [ ];
         description = "Cherry-picked commit bg color";
       };
-      cherryPickedCommitFgColor = mkOption {
-        type = types.listOf types.str;
+      cherryPickedCommitFgColor = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then
             [ "#${colorscheme.colors.base0D}" ]
@@ -72,8 +72,8 @@ in
             [ ];
         description = "Cherry-picked commit fg color";
       };
-      unstagedChangesColor = mkOption {
-        type = types.listOf types.str;
+      unstagedChangesColor = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then
             [ "#${colorscheme.colors.base08}" ]
@@ -84,7 +84,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.programs.lazygit = {
       enable = true;
       settings = {

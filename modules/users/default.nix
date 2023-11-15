@@ -1,31 +1,31 @@
 { config, lib, options, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.users;
 in {
-  options.user = mkOption {
-    type = types.attrs;
+  options.user = lib.mkOption {
+    type = lib.types.attrs;
     default = { };
   };
 
   options.modules.users = {
     users = {
-      stephen = { enable = mkEnableOption "Enable Stephen's user account"; };
+      stephen = { enable = lib.mkEnableOption "Enable Stephen's user account"; };
     };
 
-    mutableUsers = mkEnableOption ''
+    mutableUsers = lib.mkEnableOption ''
       Allow adding new users and groups using `useradd` and `groupadd` commands.
       If set to false, users and groups will be replaced on system activation.
     '';
   };
 
-  config = mkMerge [
+  config = lib.mkMerge [
     {
       users.mutableUsers = cfg.mutableUsers;
 
       user =
         let
           user = builtins.getEnv "USER";
-          name = if elem user [ "" "root" ] then "stephen" else user;
+          name = if builtins.elem user [ "" "root" ] then "stephen" else user;
           ifTheyExist = groups:
             builtins.filter (group: builtins.hasAttr group config.users.groups)
               groups;
@@ -51,10 +51,10 @@ in {
           ];
         };
 
-      users.users.${config.user.name} = mkAliasDefinitions options.user;
+      users.users.${config.user.name} = lib.mkAliasDefinitions options.user;
     }
 
-    (mkIf cfg.users.stephen.enable {
+    (lib.mkIf cfg.users.stephen.enable {
       users.users.stephen.hashedPasswordFile =
         config.sops.secrets.stephen-password.path;
 

@@ -4,8 +4,7 @@ stdenv.mkDerivation rec {
   name = "ttf-ms-win11-auto";
 
   src = fetchurl {
-    url =
-      "https://software-static.download.prss.microsoft.com/dbazure/988969d5-f34g-4e03-ac9d-1f9786c66751/22621.525.220925-0207.ni_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso";
+    url = "https://software-static.download.prss.microsoft.com/dbazure/988969d5-f34g-4e03-ac9d-1f9786c66751/22621.525.220925-0207.ni_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso";
     sha256 = "sha256-67x5EGcV9E9QIPd72QchsXxah3y8FaNTW5kVVJOhuz8=";
   };
 
@@ -28,8 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Microsoft Windows 11 fonts";
-    homepage =
-      "https://www.microsoft.com/typography/fonts/product.aspx?PID=164";
+    homepage = "https://www.microsoft.com/typography/fonts/product.aspx?PID=164";
     license = lib.licenses.unfree;
   };
 }

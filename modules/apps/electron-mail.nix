@@ -1,17 +1,17 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.apps.electron-mail;
 in {
   options.modules.apps.electron-mail = {
-    enable = mkEnableOption "Whether to install ElectronMail";
-    autostart = mkOption {
-      type = types.bool;
+    enable = lib.mkEnableOption "Whether to install ElectronMail";
+    autostart = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Whether to start ElectronMail on login";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.home.packages = [ pkgs.electron-mail ];
 
     hm.xdg.configFile."autostart/electron-mail.desktop" = {

@@ -1,6 +1,7 @@
 # Source: https://github.com/Misterio77/nix-config/blob/main/pkgs/primary-xwayland/default.nix
 # Sets the largest monitor as primary xwayland display, or select one with slurp
 { lib, writeShellApplication, xrandr, slurp }:
+
 (writeShellApplication {
   name = "primary-xwayland";
   runtimeInputs = [ slurp xrandr ];
@@ -18,8 +19,8 @@
       xrandr --output "$output" --primary
     '';
 }) // {
-  meta = with lib; {
-    license = licenses.mit;
-    platforms = platforms.all;
+  meta = {
+    license = lib.licenses.mit;
+    platforms = lib.platforms.all;
   };
 }

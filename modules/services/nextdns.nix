@@ -1,12 +1,12 @@
 { config, lib, ... }:
-with lib;
+
 let cfg = config.modules.services.nextdns;
 in {
   options.modules.services.nextdns = {
-    enable = mkEnableOption "Enable NextDNS";
+    enable = lib.mkEnableOption "Enable NextDNS";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.nextdns = {
       enable = true;
       arguments =

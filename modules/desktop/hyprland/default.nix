@@ -1,5 +1,5 @@
 { config, lib, pkgs, inputs, ... }:
-with lib;
+
 let
   cfg = config.modules.desktop.hyprland;
   nvidia = config.modules.system.nvidia.enable;
@@ -9,21 +9,21 @@ in
   imports = [ inputs.hyprland.nixosModules.default ];
 
   options.modules.desktop.hyprland = {
-    enable = mkEnableOption "Whether to enable Hyprland";
-    xdg-autostart = mkOption {
-      type = types.bool;
+    enable = lib.mkEnableOption "Whether to enable Hyprland";
+    xdg-autostart = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Whether to autostart programs that ask for it";
     };
-    tty = mkEnableOption "Whether to start Hyprland on login from tty1";
-    configPath = mkOption {
-      type = types.str;
+    tty = lib.mkEnableOption "Whether to start Hyprland on login from tty1";
+    configPath = lib.mkOption {
+      type = lib.types.str;
       default = "${config.hm.xdg.configHome}/hypr/conf.d";
       description = "Path to Hyprland configuration files";
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       modules.desktop.tiling-wm = {
         enable = true;
@@ -71,12 +71,12 @@ in
       };
     }
 
-    (mkIf nvidia {
+    (lib.mkIf nvidia {
       programs.hyprland.enableNvidiaPatches = true;
       hm.wayland.windowManager.hyprland.enableNvidiaPatches = true;
     })
 
-    (mkIf cfg.tty {
+    (lib.mkIf cfg.tty {
       hm.programs = {
         fish.loginShellInit = /* fish */ ''
           if test (tty) = "/dev/tty1"
@@ -96,7 +96,7 @@ in
       };
     })
 
-    (mkIf cfg.xdg-autostart {
+    (lib.mkIf cfg.xdg-autostart {
       hm.systemd.user.targets.hyprland-session = {
         Unit = {
           Description = "Hyprland compositor session";

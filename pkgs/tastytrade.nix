@@ -1,6 +1,5 @@
 # From https://github.com/NixOS/nixpkgs/pull/260108
 # Waiting to be merged into nixpkgs
-
 { lib
 , stdenv
 , fetchurl
@@ -105,15 +104,14 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Options, futures and stock trading brokerage";
     homepage = "https://tastytrade.com/trading-platforms/#desktop";
-    changelog =
-      "https://support.tastyworks.com/support/solutions/articles/43000435186-tastytrade-desktop-release-notes";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    maintainers = with maintainers; [ prominentretail ];
-    platforms = [ "x86_64-linux" ];
+    changelog = "https://support.tastyworks.com/support/solutions/articles/43000435186-tastytrade-desktop-release-notes";
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    license = lib.licenses.unfree;
+    maintainers = with lib.maintainers; [ prominentretail ];
+    platforms = lib.platforms.linux;
     mainProgram = "tastytrade";
   };
 }

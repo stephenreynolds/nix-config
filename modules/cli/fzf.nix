@@ -1,30 +1,30 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let
   cfg = config.modules.cli.fzf;
   colorscheme = config.modules.desktop.theme.colorscheme;
 in
 {
   options.modules.cli.fzf = {
-    enable = mkEnableOption "Enable fzf";
-    colors = mkOption {
-      type = types.nullOr types.attrs;
+    enable = lib.mkEnableOption "Enable fzf";
+    colors = lib.mkOption {
+      type = lib.types.nullOr lib.types.attrs;
       default = { };
       description = "Color scheme to use";
     };
-    silver-searcher = mkOption {
-      type = types.bool;
+    silver-searcher = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Whether to use silver-searcher.";
     };
-    shellIntegrations = mkOption {
-      type = types.bool;
+    shellIntegrations = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Enable shell integrations";
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       hm.programs.fzf = {
         enable = true;
@@ -32,7 +32,7 @@ in
       };
     }
 
-    (mkIf cfg.silver-searcher {
+    (lib.mkIf cfg.silver-searcher {
       hm.programs.fzf =
         let ag = "${pkgs.silver-searcher}/bin/ag";
         in {
@@ -41,7 +41,7 @@ in
         };
     })
 
-    (mkIf cfg.shellIntegrations {
+    (lib.mkIf cfg.shellIntegrations {
       hm.programs.fzf = {
         enableBashIntegration = true;
         enableFishIntegration = config.modules.cli.shell.fish.enable;
@@ -50,7 +50,7 @@ in
       };
     })
 
-    (mkIf (colorscheme != null) {
+    (lib.mkIf (colorscheme != null) {
       hm.programs.fzf.colors =
         let inherit (colorscheme) colors;
         in {

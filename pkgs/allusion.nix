@@ -1,4 +1,5 @@
 { appimageTools, fetchurl }:
+
 appimageTools.wrapType2 rec {
   name = "allusion";
   version = "1.0.0-rc.10";

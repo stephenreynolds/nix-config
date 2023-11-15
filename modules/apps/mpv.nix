@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.apps.mpv;
 in {
   options.modules.apps.mpv = {
-    enable = mkEnableOption "Whether to install mpv";
+    enable = lib.mkEnableOption "Whether to install mpv";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.programs.mpv = {
       enable = true;
       package = pkgs.wrapMpv pkgs.mpv-unwrapped { youtubeSupport = true; };

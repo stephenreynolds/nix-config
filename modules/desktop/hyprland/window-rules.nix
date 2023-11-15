@@ -1,10 +1,10 @@
 { config, lib, ... }:
-with lib;
+
 let
   cfg = config.modules.desktop.hyprland;
   configPath = "${cfg.configPath}/50-window-rules.conf";
 in
-mkIf cfg.enable {
+lib.mkIf cfg.enable {
   hm.home.file."${configPath}".text = ''
     # ags
     windowrule = float, ^(com.github.Aylur.ags)$
@@ -17,19 +17,11 @@ mkIf cfg.enable {
 
     # TastyTrade
     windowrule = nofullscreenrequest, ^(tasty.javafx.launcher.LauncherFxApp)$
-    windowrule = maximize, ^(tasty.javafx.launcher.LauncherFxApp)$
 
     # Steam
     windowrulev2 = nofullscreenrequest, class:^(steam)$
-    windowrulev2 = maximize, title:^(Steam)$
     windowrulev2 = float, title:^(Steam Settings)$
     windowrulev2 = float, title:^(Friends List)$, class:^(steam)$
-
-    # ElectronMail
-    windowrulev2 = maximize, class:^(electron-mail)$
-
-    # Discord
-    windowrulev2 = maximize, class:^(discord)$
 
     # polkit agent
     windowrulev2 = float,class:^(lxqt-policykit-agent)$

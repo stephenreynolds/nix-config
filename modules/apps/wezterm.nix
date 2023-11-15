@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let
   cfg = config.modules.apps.wezterm;
   wezterm-xterm = pkgs.writeShellScriptBin "xterm" ''
@@ -10,14 +10,14 @@ let
 in
 {
   options.modules.apps.wezterm = {
-    enable = mkEnableOption "Whether to intall Wezterm";
-    default = mkEnableOption ''
+    enable = lib.mkEnableOption "Whether to intall Wezterm";
+    default = lib.mkEnableOption ''
       Whether to make Wezterm the default terminal emulator
     '';
   };
 
-  config = mkIf cfg.enable {
-    hm.home = mkIf cfg.default {
+  config = lib.mkIf cfg.enable {
+    hm.home = lib.mkIf cfg.default {
       packages = [ wezterm-xterm ];
       sessionVariables = { TERMINAL = "wezterm -1"; };
     };
@@ -28,7 +28,7 @@ in
       enableZshIntegration = config.hm.programs.zsh.enable;
       colorSchemes =
         let inherit (colorscheme) colors;
-        in mkIf (colorscheme != null) {
+        in lib.mkIf (colorscheme != null) {
           base16 = {
             ansi = [
               "#${colors.base00}"

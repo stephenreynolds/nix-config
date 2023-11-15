@@ -1,19 +1,19 @@
 { config, lib, ... }:
-with lib;
+
 let cfg = config.flake.cli.direnv;
 in {
   options.flake.cli.direnv = {
-    enable = mkOption {
-      type = types.bool;
+    enable = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Whether to enable direnv";
     };
     log = {
-      enable = mkEnableOption "Whether to enable logging";
+      enable = lib.mkEnableOption "Whether to enable logging";
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       hm.programs.direnv = {
         enable = true;
@@ -21,8 +21,8 @@ in {
       };
     }
 
-    (mkIf (!cfg.log.enable) {
-      hm.programs.fish.interactiveShellInit = optionalString
+    (lib.mkIf (!cfg.log.enable) {
+      hm.programs.fish.interactiveShellInit = lib.optionalString
         config.modules.cli.shell.fish.enable
         "set -x DIRENV_LOG_FORMAT ''";
     })

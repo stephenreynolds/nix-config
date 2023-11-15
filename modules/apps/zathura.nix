@@ -1,12 +1,12 @@
 # TODO: add option to make zathura default document viewer
 { config, lib, ... }:
-with lib;
+
 let cfg = config.modules.apps.zathura;
 in {
   options.modules.apps.zathura = {
-    enable = mkEnableOption "Whether to install the Zathura document viewer";
-    options = mkOption {
-      type = types.attrs;
+    enable = lib.mkEnableOption "Whether to install the Zathura document viewer";
+    options = lib.mkOption {
+      type = lib.types.attrs;
       default = {
         selection-clipboard = "clipboard";
         font = "${config.modules.desktop.fonts.profiles.regular.family} 12";
@@ -17,7 +17,7 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.programs.zathura = {
       enable = true;
       options = cfg.options;

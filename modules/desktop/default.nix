@@ -1,42 +1,42 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.desktop;
 in {
   options.modules.desktop = {
-    enable = mkEnableOption "Enable a desktop environment";
+    enable = lib.mkEnableOption "Enable a desktop environment";
     cursor = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         description = "Whether to enable a cursor theme";
       };
-      package = mkOption {
-        type = types.package;
+      package = lib.mkOption {
+        type = lib.types.package;
         default = pkgs.apple-cursor;
         description = "The cursor theme to use";
       };
-      name = mkOption {
-        type = types.str;
+      name = lib.mkOption {
+        type = lib.types.str;
         default = "macOS-BigSur-White";
         description = "The name of the cursor theme";
       };
-      size = mkOption {
-        type = types.int;
+      size = lib.mkOption {
+        type = lib.types.int;
         default = 24;
         description = "The size of the cursor";
       };
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       security.polkit.enable = true;
 
-      modules.desktop.hyprland.enable = mkDefault true;
-      modules.desktop.displayManager.regreet.enable = mkDefault true;
+      modules.desktop.hyprland.enable = lib.mkDefault true;
+      modules.desktop.displayManager.regreet.enable = lib.mkDefault true;
     }
 
-    (mkIf cfg.cursor.enable {
+    (lib.mkIf cfg.cursor.enable {
       hm.home.pointerCursor = {
         package = cfg.cursor.package;
         name = cfg.cursor.name;

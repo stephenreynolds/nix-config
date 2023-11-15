@@ -1,34 +1,34 @@
 { config, lib, ... }:
-with lib;
+
 let cfg = config.modules.system.networking;
 in {
   options.modules.system.networking = {
     networkManager = {
-      enable = mkEnableOption "Enable NetworkManager";
-      backend = mkOption {
-        type = types.enum [ "wpa_supplicant" "iwd" ];
+      enable = lib.mkEnableOption "Enable NetworkManager";
+      backend = lib.mkOption {
+        type = lib.types.enum [ "wpa_supplicant" "iwd" ];
         default = "iwd";
         description = "The backend to use for WiFi connections";
       };
-      randomizeMac = mkEnableOption "Whether to randomize MAC address";
+      randomizeMac = lib.mkEnableOption "Whether to randomize MAC address";
       wireguard-vpn = {
-        enable = mkEnableOption "Whether to enable WireGuard VPN";
+        enable = lib.mkEnableOption "Whether to enable WireGuard VPN";
       };
     };
-    firewall.enable = mkOption {
-      type = types.bool;
+    firewall.enable = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Whether to enable the firewall";
     };
     optimizations = {
       tcp = {
-        bbr = mkOption {
-          type = types.bool;
+        bbr = lib.mkOption {
+          type = lib.types.bool;
           default = true;
           description = "Enable TCP BBR congestion control";
         };
-        fastOpen = mkOption {
-          type = types.bool;
+        fastOpen = lib.mkOption {
+          type = lib.types.bool;
           default = true;
           description = "Enable TCP Fast Open";
         };
@@ -36,14 +36,14 @@ in {
     };
   };
 
-  config = mkMerge [
+  config = lib.mkMerge [
     { networking.firewall.enable = cfg.firewall.enable; }
 
-    (mkIf cfg.networkManager.enable {
+    (lib.mkIf cfg.networkManager.enable {
       systemd.services.NetworkManager-wait-online.enable = false;
 
       networking.networkmanager = {
-        enable = mkDefault true;
+        enable = lib.mkDefault true;
         wifi = {
           backend = cfg.networkManager.backend;
           macAddress =
@@ -52,7 +52,7 @@ in {
       };
     })
 
-    (mkIf cfg.networkManager.wireguard-vpn.enable {
+    (lib.mkIf cfg.networkManager.wireguard-vpn.enable {
       sops.secrets.vpn-wg-nm = {
         sopsFile = ../sops/secrets.yaml;
         path = "/etc/NetworkManager/system-connections/vpn-wg.nmconnection";
@@ -77,14 +77,14 @@ in {
       };
     })
 
-    (mkIf cfg.optimizations.tcp.bbr {
+    (lib.mkIf cfg.optimizations.tcp.bbr {
       boot.kernel.sysctl = {
         "net.core.default_qdisc" = "fq";
         "net.ipv4.tcp_congestion_control" = "bbr";
       };
     })
 
-    (mkIf cfg.optimizations.tcp.fastOpen {
+    (lib.mkIf cfg.optimizations.tcp.fastOpen {
       boot.kernel.sysctl = { "net.ipv4.tcp_fastopen" = 3; };
     })
   ];

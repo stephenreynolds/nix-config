@@ -1,5 +1,5 @@
 { config, lib, outputs, ... }:
-with lib;
+
 let
   cfg = config.modules.services.openssh;
   inherit (config.networking) hostName;
@@ -8,10 +8,10 @@ let
 in
 {
   options.modules.services.openssh = {
-    enable = mkEnableOption "Enable openssh service";
+    enable = lib.mkEnableOption "Enable openssh service";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.openssh = {
       enable = true;
       settings = {
@@ -27,7 +27,7 @@ in
     };
 
     programs.ssh = {
-      knownHosts = builtins.mapAttrs
+      knownHosts = lib.mapAttrs
         (name: _: {
           publicKeyFile = pubKey name;
           extraHostNames = (lib.optional (name == hostName) "localhost");

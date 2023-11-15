@@ -1,17 +1,17 @@
 { config, lib, ... }:
-with lib;
+
 let cfg = config.modules.devices.tablet;
 in {
   options.modules.devices.tablet = {
-    enable = mkEnableOption "Enable drivers for drawing tablets";
+    enable = lib.mkEnableOption "Enable drivers for drawing tablets";
     digimend = {
-      enable = mkEnableOption ''
+      enable = lib.mkEnableOption ''
         Whether to enable the digimend drivers for Huion/XP-Pen/etc. tablets
       '';
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       hardware.opentabletdriver = {
         enable = true;
@@ -19,6 +19,6 @@ in {
       };
     }
 
-    (mkIf cfg.digimend.enable { services.xserver.digimend.enable = true; })
+    (lib.mkIf cfg.digimend.enable { services.xserver.digimend.enable = true; })
   ]);
 }

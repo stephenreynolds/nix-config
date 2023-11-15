@@ -1,10 +1,10 @@
 { config, lib, ... }:
-with lib;
+
 let
   cfg = config.modules.desktop.hyprland;
   configPath = "${cfg.configPath}/60-layer-rules.conf";
 in
-mkIf cfg.enable {
+lib.mkIf cfg.enable {
   hm.home.file."${configPath}".text = ''
     layerrule = blur, notifications
     layerrule = ignorezero, notifications

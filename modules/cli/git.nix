@@ -1,45 +1,45 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.cli.git;
 in {
   options.modules.cli.git = {
-    enable = mkOption {
-      type = types.bool;
+    enable = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Enable Git";
     };
-    userName = mkOption {
-      type = types.nullOr types.str;
+    userName = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
       default = null;
       description = "The name to use for Git commits";
     };
-    userEmail = mkOption {
-      type = types.nullOr types.str;
+    userEmail = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
       default = null;
       description = "The email to use for Git commits";
     };
-    editor = mkOption {
-      type = types.str;
+    editor = lib.mkOption {
+      type = lib.types.str;
       default = "vim";
       description = "The editor to use for Git commits";
     };
-    aliases = { enable = mkEnableOption "Enable aliases"; };
+    aliases = { enable = lib.mkEnableOption "Enable aliases"; };
     signing = {
-      signByDefault = mkEnableOption "Sign commits by default";
-      key = mkOption {
-        type = types.nullOr types.str;
+      signByDefault = lib.mkEnableOption "Sign commits by default";
+      key = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
         default = null;
         description = "The GPG key to use for signing commits";
       };
-      gpg.format = mkOption {
-        type = types.enum [ null "openpgp" "x509" "ssh" ];
+      gpg.format = lib.mkOption {
+        type = lib.types.enum [ null "openpgp" "x509" "ssh" ];
         default = null;
         description = "The GPG format to use for signing commits";
       };
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.programs.git = {
       enable = true;
       package = pkgs.gitAndTools.gitFull;
@@ -59,7 +59,7 @@ in {
           features = "decorations interactive";
         };
       };
-      aliases = mkIf cfg.aliases.enable {
+      aliases = lib.mkIf cfg.aliases.enable {
         co = "checkout";
         ci = "commit";
         st = "status";

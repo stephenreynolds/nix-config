@@ -1,12 +1,12 @@
 { config, lib, ... }:
-with lib;
+
 let cfg = config.modules.services.keyring;
 in {
   options.modules.services.keyring = {
-    enable = mkEnableOption "Enable gnome-keyring service";
+    enable = lib.mkEnableOption "Enable gnome-keyring service";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.gnome.gnome-keyring.enable = true;
 
     hm.services.gnome-keyring = {

@@ -1,25 +1,25 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.services.openrgb;
 in {
   options.modules.services.openrgb = {
-    enable = mkEnableOption "Whether to enable OpenRGB service";
-    package = mkOption {
-      type = types.package;
+    enable = lib.mkEnableOption "Whether to enable OpenRGB service";
+    package = lib.mkOption {
+      type = lib.types.package;
       default = pkgs.openrgb;
       defaultText = "pkgs.openrgb";
       description = ''
         The package implementing OpenRGB.
       '';
     };
-    profile = mkOption {
-      type = types.nullOr types.path;
+    profile = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
       default = null;
       description = "The profile to load on startup";
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       boot.kernelModules = [ "v4l2loopback" "i2c-dev" "i2c-piix4" ];
       boot.kernelParams = [ "acpi_enforce_resources=lax" ];
@@ -29,7 +29,7 @@ in {
       users.groups.i2c = { };
     }
 
-    (mkIf (cfg.profile != null) {
+    (lib.mkIf (cfg.profile != null) {
       systemd.services.openrgb = {
         description = "OpenRGB Daemon";
         wantedBy = [ "multi-user.target" ];

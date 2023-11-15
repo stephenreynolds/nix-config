@@ -1,17 +1,17 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.desktop.theme;
 in {
   options.modules.desktop.theme = {
-    enable = mkEnableOption "Whether to use a custom theme";
-    colorscheme = mkOption {
-      type = types.nullOr types.attrs;
+    enable = lib.mkEnableOption "Whether to use a custom theme";
+    colorscheme = lib.mkOption {
+      type = lib.types.nullOr lib.types.attrs;
       default = null;
       description = "The colorscheme to use";
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [{
+  config = lib.mkIf cfg.enable (lib.mkMerge [{
     modules.desktop.theme.gtk.enable = true;
 
     hm.qt = {

@@ -1,14 +1,14 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.desktop.tiling-wm;
 in {
   options.modules.desktop.tiling-wm = {
-    enable = mkEnableOption ''
+    enable = lib.mkEnableOption ''
       Whether to enable configuration for tiling window managers.
     '';
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       hm.xdg = {
         enable = true;
@@ -22,7 +22,7 @@ in {
 
       modules = {
         services = {
-          autotrash = mkDefault {
+          autotrash = lib.mkDefault {
             enable = true;
             settings = {
               days = 365;
@@ -30,20 +30,20 @@ in {
               minFree = null;
             };
           };
-          gnome-policykit-agent.enable = mkDefault true;
-          playerctl.enable = mkDefault true;
+          gnome-policykit-agent.enable = lib.mkDefault true;
+          playerctl.enable = lib.mkDefault true;
         };
         apps = {
-          imv = mkDefault {
+          imv = lib.mkDefault {
             enable = true;
             default = true;
           };
-          kitty = mkDefault {
+          kitty = lib.mkDefault {
             enable = true;
             default = true;
           };
-          mpv.enable = mkDefault true;
-          nemo = mkDefault {
+          mpv.enable = lib.mkDefault true;
+          nemo = lib.mkDefault {
             enable = true;
             default = true;
           };
@@ -62,8 +62,8 @@ in {
       ];
     }
 
-    (mkIf config.modules.apps.firefox.enable {
-      hm.programs.firefox.profiles = (mapAttrs
+    (lib.mkIf config.modules.apps.firefox.enable {
+      hm.programs.firefox.profiles = (lib.mapAttrs
         (_: profile: {
           userChrome = ''
             /* Hide the close button */

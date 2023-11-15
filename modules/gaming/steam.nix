@@ -1,5 +1,5 @@
 { config, lib, pkgs, inputs, ... }:
-with lib;
+
 let
   cfg = config.modules.gaming.steam;
   steam-with-pkgs = pkgs.steam.override {
@@ -16,7 +16,7 @@ let
         libkrb5
         keyutils
       ];
-    extraProfile = optionalString config.modules.gaming.proton.proton-ge.enable
+    extraProfile = lib.optionalString config.modules.gaming.proton.proton-ge.enable
       "export STEAM_EXTRA_COMPAT_TOOLS_PATHS='${
         inputs.nix-gaming.packages.${pkgs.system}.proton-ge
       }'";
@@ -24,28 +24,28 @@ let
 in
 {
   options.modules.gaming.steam = {
-    enable = mkOption {
-      type = types.bool;
+    enable = lib.mkOption {
+      type = lib.types.bool;
       default = config.modules.gaming.enable;
       description = "Whether to install Steam";
     };
-    package = mkOption {
-      type = types.package;
+    package = lib.mkOption {
+      type = lib.types.package;
       default = steam-with-pkgs;
       description = "Steam package to use";
     };
-    autostart = mkOption {
-      type = types.bool;
+    autostart = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = "Whether to start Steam on login";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     hm.home.packages = [ steam-with-pkgs ];
 
-    modules.system.pipewire.support32Bit = mkForce true;
-    modules.system.nvidia.support32Bit = mkForce true;
+    modules.system.pipewire.support32Bit = lib.mkForce true;
+    modules.system.nvidia.support32Bit = lib.mkForce true;
 
     hm.xdg.configFile."autostart/steam.desktop" = {
       enable = cfg.autostart;

@@ -1,16 +1,16 @@
 { config, lib, ... }:
-with lib;
+
 let cfg = config.modules.apps.imv;
 in {
   options.modules.apps.imv = {
-    enable = mkEnableOption "Whether to install the imv image viewer";
-    default = mkEnableOption "Whether to set imv as the default image viewer";
+    enable = lib.mkEnableOption "Whether to install the imv image viewer";
+    default = lib.mkEnableOption "Whether to set imv as the default image viewer";
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     { hm.programs.imv.enable = true; }
 
-    (mkIf cfg.default {
+    (lib.mkIf cfg.default {
       hm.xdg.mimeApps.defaultApplications = {
         "image/avif" = "imv-folder;imv.desktop";
         "image/bmp" = "imv-folder;imv.desktop";

@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
-with lib;
+
 let cfg = config.modules.cli;
 in {
   options.modules.cli = {
-    extraPackages = mkOption {
-      type = types.listOf types.package;
+    extraPackages = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
       default = with pkgs; [
         distrobox
         ripgrep
