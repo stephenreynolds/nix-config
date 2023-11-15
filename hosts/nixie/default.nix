@@ -109,7 +109,6 @@
       };
       bat.enable = true;
       btop.enable = true;
-      comma.enable = true;
       fzf.enable = true;
       gh.enable = true;
       git = {
@@ -126,6 +125,10 @@
       };
       lsd.enable = true;
       ncmpcpp.enable = true;
+      nix-index = {
+        enable = true;
+        comma.enable = true;
+      };
       nvim = {
         enable = true;
         defaultEditor = true;
