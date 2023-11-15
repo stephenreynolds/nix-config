@@ -18,4 +18,3 @@ This is my modularized Nix config for [NixOS](https://nixos.org) and [Home Manag
 
 - [Misterio77/nix-config](https://github.com/Misterio77/nix-config)
 - [Icy-Thought/Snowflake](https://github.com/Icy-Thought/snowflake)
-- [hlissner/dotfiles](https://github.com/hlissner/dotfiles)
