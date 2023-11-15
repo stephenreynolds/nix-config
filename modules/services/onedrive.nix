@@ -112,7 +112,7 @@ in {
         enable = true;
         target = "onedrive/config";
         text = ''
-          sync_dir = ${cfg.syncDir}
+          sync_dir = "${cfg.syncDir}"
           enable_logging = "${if cfg.logging.enable then "true" else "false"}"
         '';
       };
