@@ -103,6 +103,7 @@ in
             unstagedChangesColor = cfg.colors.unstagedChangesColor;
           };
         };
+        git.overrideGpg = true;
       };
     };
   };
