@@ -45,8 +45,9 @@ in {
             "flatpak"
             "tss"
             "libvirtd"
-            "nix-access-tokens"
             "gamemode"
+            "nix-access-tokens"
+            "openai-api-key"
           ];
         };
 
