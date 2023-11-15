@@ -8,12 +8,23 @@ in {
       default = true;
       description = "Whether to enable direnv";
     };
-  };
-
-  config = mkIf cfg.enable {
-    programs.direnv = {
-      enable = true;
-      nix-direnv.enable = true;
+    log = {
+      enable = mkEnableOption "Whether to enable logging";
     };
   };
+
+  config = mkIf cfg.enable (mkMerge [
+    {
+      hm.programs.direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
+    }
+
+    (mkIf (!cfg.log.enable) {
+      hm.programs.fish.interactiveShellInit = optionalString
+        config.modules.cli.shell.fish.enable
+        "set -x DIRENV_LOG_FORMAT ''";
+    })
+  ]);
 }
