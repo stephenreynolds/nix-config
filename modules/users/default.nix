@@ -45,6 +45,7 @@ in {
             "flatpak"
             "tss"
             "libvirtd"
+            "nix-access-tokens"
           ];
         };
 

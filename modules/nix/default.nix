@@ -59,6 +59,7 @@ in {
         extraOptions = concatLines [
           (optionalString (cfg.gc.minFree != null) "min-free = ${toString cfg.gc.minFree}")
           (optionalString (cfg.gc.maxFree != null) "max-free = ${toString cfg.gc.maxFree}")
+          "!include ${config.sops.templates."nix-extra-config".path}"
         ];
 
         # Add each flake input as a registry
@@ -71,6 +72,17 @@ in {
       };
 
       hardware.enableRedistributableFirmware = true;
+
+      sops.templates."nix-extra-config" = {
+        content = "access-tokens = github.com=${config.sops.placeholder.github-access-token}";
+        group = config.users.groups.nix-access-tokens.name;
+        mode = "0440";
+      };
+      sops.secrets.github-access-token = {
+        sopsFile = ../sops/secrets.yaml;
+        restartUnits = [ "nix-daemon.service" ];
+      };
+      users.groups.nix-access-tokens = { };
     }
 
     (mkIf cfg.lowPriority {
