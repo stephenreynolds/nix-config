@@ -59,6 +59,8 @@ in {
           };
         };
       };
+
+      users.groups.gamemode = { };
     })
 
     (mkIf cfg.gamescope.enable {

@@ -6,5 +6,9 @@ in {
     enable = mkEnableOption "Whether to enable Flatpak";
   };
 
-  config = mkIf cfg.enable { services.flatpak.enable = true; };
+  config = mkIf cfg.enable {
+    services.flatpak.enable = true;
+
+    users.groups.flatpak = { };
+  };
 }

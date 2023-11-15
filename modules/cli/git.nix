@@ -87,5 +87,7 @@ in {
       };
       ignores = [ ".direnv" ];
     };
+
+    users.groups.git = { };
   };
 }

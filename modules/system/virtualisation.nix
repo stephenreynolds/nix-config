@@ -39,6 +39,8 @@ in {
         spiceUSBRedirection.enable = cfg.host.spiceUSBRedirection;
       };
 
+      users.groups.libvirtd = {};
+
       services.spice-vdagentd.enable = true;
 
       environment.systemPackages = with pkgs; [

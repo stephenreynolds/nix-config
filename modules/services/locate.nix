@@ -33,5 +33,9 @@ in {
     (mkIf (cfg.package == pkgs.mlocate || cfg.package == pkgs.plocate) {
       services.locate.localuser = null;
     })
+
+    (mkIf (cfg.package == pkgs.mlocate) {
+      users.groups.mlocate = { };
+    })
   ];
 }

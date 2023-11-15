@@ -25,6 +25,8 @@ in {
       boot.kernelParams = [ "acpi_enforce_resources=lax" ];
       environment.systemPackages = [ cfg.package ];
       services.udev.packages = [ cfg.package ];
+
+      users.groups.i2c = { };
     }
 
     (mkIf (cfg.profile != null) {

@@ -46,6 +46,7 @@ in {
             "tss"
             "libvirtd"
             "nix-access-tokens"
+            "gamemode"
           ];
         };
 
