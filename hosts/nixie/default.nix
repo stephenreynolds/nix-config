@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ config, inputs, pkgs, ... }: {
   imports = [ ./hardware.nix ];
 
   modules = {
@@ -116,6 +116,11 @@
         userEmail = "mail@stephenreynolds.dev";
         editor = "nvim";
         aliases.enable = true;
+        signing = {
+          key = "${config.hm.home.homeDirectory}/.ssh/id_ed25519";
+          gpg.format = "ssh";
+          signByDefault = true;
+        };
       };
       lazygit = { enable = true; };
       lf = {

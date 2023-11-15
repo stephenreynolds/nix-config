@@ -24,10 +24,18 @@ in {
       description = "The editor to use for Git commits";
     };
     aliases = { enable = mkEnableOption "Enable aliases"; };
-    wsl = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Whether this is a WSL environment";
+    signing = {
+      signByDefault = mkEnableOption "Sign commits by default";
+      key = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "The GPG key to use for signing commits";
+      };
+      gpg.format = mkOption {
+        type = types.enum [ null "openpgp" "x509" "ssh" ];
+        default = null;
+        description = "The GPG format to use for signing commits";
+      };
     };
   };
 
@@ -37,6 +45,10 @@ in {
       package = pkgs.gitAndTools.gitFull;
       userName = cfg.userName;
       userEmail = cfg.userEmail;
+      signing = {
+        key = cfg.signing.key;
+        signByDefault = cfg.signing.signByDefault;
+      };
       lfs.enable = true;
       delta = {
         enable = true;
@@ -58,18 +70,15 @@ in {
         amend = "commit --amend";
         unstage = "reset HEAD --";
         last = "log -1 HEAD";
-        lg =
-          "log --graph --pretty=format:'%C(yellow)%h%Creset %C(green)%ad%Creset | %s%Creset %C(red)%d%Creset %C(bold blue)[%an]%Creset' --date=relative";
-        lga =
-          "log --graph --pretty=format:'%C(yellow)%h%Creset %C(green)%ad%Creset | %s%Creset %C(red)%d%Creset %C(bold blue)[%an]%Creset' --date=relative --all";
+        lg = "log --graph --pretty=format:'%C(yellow)%h%Creset %C(green)%ad%Creset | %s%Creset %C(red)%d%Creset %C(bold blue)[%an]%Creset' --date=relative";
+        lga = "log --graph --pretty=format:'%C(yellow)%h%Creset %C(green)%ad%Creset | %s%Creset %C(red)%d%Creset %C(bold blue)[%an]%Creset' --date=relative --all";
         ls = "ls-files";
         prune = "remote prune origin";
         pristine = "reset --hard && clean -dfx";
         count = "shortlog -sn";
         cp = "cherry-pick";
         co-author = ''!f() { git commit --author "$1 <$2>" -m "$3"; }; f'';
-        amend-author =
-          ''!f() { git commit --amend --author "$1 <$2>" -m "$3"; }; f'';
+        amend-author = ''!f() { git commit --amend --author "$1 <$2>" -m "$3"; }; f'';
         authors = "!git log --format='%aN <%aE>' | sort -u";
       };
       extraConfig = {
@@ -82,8 +91,7 @@ in {
         merge.conflictStyle = "diff3";
         pull.rebase = true;
         diff.colorMoved = "default";
-        credential.helper = mkIf cfg.wsl
-          "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe";
+        gpg.format = cfg.signing.gpg.format;
       };
       ignores = [ ".direnv" ];
     };
