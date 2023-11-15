@@ -44,8 +44,8 @@ let
       lastwindow=$(echo "$active" | ${jq} -r ".windows == 1")
       killactive
       if [[ $lastwindow == "true" ]]; then
-        monitor=$(echo "$active" | ${jq} -r ".monitor")
-        lastworkspace=$(hyprctl workspaces -j | ${jq} -r --arg m "$monitor" '[.[] | select(.monitor == $m and .id != -99)] | length == 1')
+        monitor=$(echo "$active" | ${jq} -r ".monitorID")
+        lastworkspace=$(hyprctl workspaces -j | ${jq} -r "map(select(.monitorID == $monitor and .id != -99)) | length == 1")
         if [[ $lastworkspace == "false" ]]; then
           hyprctl dispatch workspace r-1
         fi
@@ -66,16 +66,16 @@ let
     active=$(hyprctl activeworkspace -j)
     monitor=$(echo "$active" | ${jq} -r ".monitorID")
     workspaces=$(hyprctl workspaces -j)
-    workspaces_on_monitor=$(echo "$workspaces" | ${jq} -r "map(select(.monitorID == $monitor and .id != -99))")
     empty=$(echo "$active" | ${jq} -r ".windows == 0")
     if [[ $empty == "true" ]]; then
+      workspaces_on_monitor=$(echo "$workspaces" | ${jq} -r "map(select(.monitorID == $monitor and .id != -99))")
       only_workspace=$(echo "$workspaces_on_monitor" | ${jq} -r "length == 1")
       if [[ $only_workspace == "false" ]]; then
-        hyprctl dispatch workspace m-1
+        hyprctl dispatch workspace previous
       fi
     else
-      last_id=$(echo "$workspaces_on_monitor" | ${jq} -r "max_by(.id).id")
-      hyprctl --batch "dispatch workspace $last_id ; dispatch workspace r+1"
+      id=$(echo "$workspaces" | ${jq} -r "max_by(.id).id + 1")
+      hyprctl dispatch workspace $id
     fi
   '';
 
