@@ -39,23 +39,12 @@ in {
     }
 
     (lib.mkIf cfg.ags.enable {
-      hm.imports = [ inputs.ags.homeManagerModules.default ];
-
-      hm.programs.ags = {
-        enable = true;
-        configDir = inputs.ags-config.configDir;
-      };
-
-      hm.home.packages = with pkgs; [
-        inputs.ags.packages.${pkgs.system}.default
-        sassc
-        inotify-tools
-        swww
-        swappy
-        slurp
-        imagemagick
-        inter
+      hm.imports = [
+        inputs.ags.homeManagerModules.default
+        inputs.ags-config.homeManagerModules.default
       ];
+
+      hm.programs.ags.enable = true;
     })
 
     (lib.mkIf cfg.swww.enable {
