@@ -57,10 +57,6 @@
           x = 3840;
         }
       ];
-      tablet = {
-        enable = true;
-        digimend.enable = true;
-      };
       xboxController.enable = true;
       zsa-keyboard.enable = true;
     };
