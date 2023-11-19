@@ -159,6 +159,7 @@
           noto-fonts-emoji
           corefonts
           font-awesome
+          inter
           my.apple-fonts
           my.segoe-fluent-icons
           my.ttf-ms-win11-auto
