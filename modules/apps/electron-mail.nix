@@ -12,7 +12,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    hm.home.packages = [ pkgs.electron-mail ];
+    hm.home.packages = [ pkgs.my.electron-mail ];
 
     hm.xdg.configFile."autostart/electron-mail.desktop" = {
       enable = cfg.autostart;
