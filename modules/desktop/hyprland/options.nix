@@ -34,18 +34,20 @@ lib.mkIf cfg.enable {
 
       blur {
         enabled = true
-        size = 8
-        passes = 2
+        size = 10
+        passes = 4
         new_optimizations = true
-        xray = false
-        noise = 0.1117
+        xray = true
+        noise = 0.0117
+        contrast = 1
         special = false
       }
 
-      drop_shadow = false
-      shadow_range = 30
-      shadow_render_power = 3
-      col.shadow = rgba(1a1a1aee)
+      drop_shadow = true
+      shadow_range = 15
+      shadow_render_power = 6
+      shadow_offset = 0 2
+      col.shadow = rgba(00000044)
       col.shadow_inactive = 0x66000000
     }
 
