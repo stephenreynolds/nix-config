@@ -36,10 +36,14 @@ in {
         description = "Space to free up when the minimum is reached";
       };
     };
-    lowPriority = lib.mkEnableOption ''
-      Whether to set Nix builds to a low priority in order to improve 
-      system reponsiveness.
-    '';
+    lowPriority = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = ''
+        Whether to set Nix builds to a low priority in order to improve 
+        system reponsiveness.
+      '';
+    };
     use-cgroups = lib.mkOption {
       type = lib.types.bool;
       default = true;
