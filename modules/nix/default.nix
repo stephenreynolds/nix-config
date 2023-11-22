@@ -56,7 +56,13 @@ in {
       nix = {
         settings = {
           trusted-users = [ "root" "@wheel" ];
-          experimental-features = [ "nix-command flakes repl-flake" ];
+          experimental-features = [
+            "auto-allocate-uids"
+            "ca-derivations"
+            "cgroups"
+            "flakes"
+            "nix-command"
+          ];
           warn-dirty = false;
           inherit (cfg) auto-optimise-store use-cgroups;
         };
