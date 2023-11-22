@@ -8,11 +8,7 @@ in
 {
   options.modules.apps.discord = {
     enable = lib.mkEnableOption "Whether to install Discord";
-    autostart = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Whether to start Discord on login";
-    };
+    autostart = lib.mkEnableOption "Whether to start Discord on login";
     discocss = {
       enable = lib.mkEnableOption "Whether to theme Discord with discocss";
     };
@@ -24,6 +20,7 @@ in
   config = lib.mkIf cfg.enable (lib.mkMerge [
     { hm.home.packages = [ pkgs.discord ]; }
 
+    # FIXME: Discord crashes on autostart
     (lib.mkIf cfg.autostart {
       hm.xdg.configFile."autostart/discord-stable.desktop".text = ''
         [Desktop Entry]
