@@ -177,11 +177,14 @@
       };
     };
     apps = {
+      celluloid.enable = true;
+      deluge.enable = true;
       discord = {
         enable = true;
         betterdiscord.enable = true;
       };
       electron-mail.enable = true;
+      nautilus.enable = true;
       firefox = {
         enable = true;
         defaultBrowser = true;
@@ -206,16 +209,14 @@
           };
         };
       };
+      gimp.enable = true;
+      krita.enable = true;
       wine = {
         enable = true;
         winetricks.enable = true;
         bottles.enable = true;
       };
       extraPackages = with pkgs; [
-        celluloid
-        deluge
-        gimp-with-plugins
-        krita
         obsidian
         my.allusion
         my.tastytrade

@@ -1,5 +1,5 @@
 # TODO: add option to make zathura default document viewer
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let cfg = config.modules.apps.zathura;
 in {
@@ -17,10 +17,19 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    hm.programs.zathura = {
-      enable = true;
-      options = cfg.options;
-    };
-  };
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    {
+      hm.programs.zathura = {
+        enable = true;
+        options = cfg.options;
+      };
+    }
+
+    (lib.mkIf config.modules.system.security.firejail.enable {
+      programs.firejail.wrappedBinaries.zathura = {
+        executable = "${config.hm.programs.zathura.package}/bin/zathura";
+        profile = "${pkgs.firejail}/etc/firejail/zathura.profile";
+      };
+    })
+  ]);
 }
