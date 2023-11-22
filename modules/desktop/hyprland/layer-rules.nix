@@ -6,18 +6,13 @@ let
 in
 lib.mkIf cfg.enable {
   hm.home.file."${configPath}".text = ''
-    layerrule = blur, notifications
-    layerrule = ignorezero, notifications
-
-    layerrule = blur, rofi
-    layerrule = ignorezero, rofi
-
     layerrule = blur, gtk-layer-shell
     layerrule = ignorezero, gtk-layer-shell
 
-    layerrule = blur, ^(bar-.)$
-    layerrule = ignorezero, ^(bar-.)$
-    layerrule = blur, ^(notifications-.)$
-    layerrule = ignorezero, ^(notifications-.)$
+    layerrule = blur, ^(notifications-.*)$
+    layerrule = ignorezero, ^(notifications-.*)$
+    layerrule = ignorealpha 0.69, ^(notifications-.*)$
+    layerrule = blur, ^(overview)$
+    layerrule = xray 0, ^(overview)$
   '';
 }
