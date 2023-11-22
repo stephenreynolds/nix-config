@@ -9,10 +9,9 @@
   import nixpkgs { overlays = [ ]; }
 }:
 pkgs.mkShell {
-  NIX_CONFIG = "experimental-features = nix-command flakes repl-flake";
+  NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
   nativeBuildInputs = with pkgs; [
     nix
-    home-manager
     git
 
     sops
@@ -21,4 +20,3 @@ pkgs.mkShell {
     age
   ];
 }
-
