@@ -21,9 +21,26 @@ in {
         '';
       };
     };
+    systemd = {
+      coredump = {
+        disable = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = ''
+            Whether to disable systemd core dumps
+          '';
+        };
+      };
+    };
   };
 
   config = lib.mkMerge [
+    {
+      systemd.coredump.enable = !cfg.systemd.coredump.disable;
+
+      security.chromiumSuidSandbox.enable = true;
+    }
+
     (lib.mkIf cfg.boot.tmpOnTmpfs {
       boot = {
         tmp = {
