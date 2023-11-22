@@ -15,19 +15,19 @@ in {
       device = "/dev/disk/by-label/${hostname}";
       fsType = "btrfs";
       options =
-        [ "subvol=root" "noatime" "compress-force=zstd:2" "space_cache=v2" ];
+        [ "subvol=root" "noatime" "compress-force=zstd" "space_cache=v2" ];
     };
     "/nix" = {
       device = "/dev/disk/by-label/${hostname}";
       fsType = "btrfs";
       options =
-        [ "subvol=nix" "noatime" "compress-force=zstd:2" "space_cache=v2" ];
+        [ "subvol=nix" "noatime" "compress-force=zstd" "space_cache=v2" "x-gvfs-hide" ];
     };
     "/home" = {
       device = "/dev/disk/by-label/${hostname}";
       fsType = "btrfs";
       options =
-        [ "subvol=home" "noatime" "compress-force=zstd:2" "space_cache=v2" ];
+        [ "subvol=home" "noatime" "compress-force=zstd" "space_cache=v2" "x-gvfs-hide" ];
       neededForBoot = true;
     };
     "/boot" = {
