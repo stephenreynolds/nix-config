@@ -91,10 +91,10 @@
         profile = ./openrgb-profile.orp;
       };
       openssh.enable = true;
-      printing = {
-        enable = true;
-        drivers = [ pkgs.hplip ];
-      };
+      # printing = {
+      #   enable = true;
+      #   drivers = [ pkgs.hplip ];
+      # };
       system76-scheduler.enable = true;
     };
     cli = {
