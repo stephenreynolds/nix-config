@@ -40,6 +40,11 @@ in {
       Whether to set Nix builds to a low priority in order to improve 
       system reponsiveness.
     '';
+    use-cgroups = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to execute builds inside cgroups";
+    };
   };
 
   config = lib.mkMerge [
@@ -49,7 +54,7 @@ in {
           trusted-users = [ "root" "@wheel" ];
           experimental-features = [ "nix-command flakes repl-flake" ];
           warn-dirty = false;
-          inherit (cfg) auto-optimise-store;
+          inherit (cfg) auto-optimise-store use-cgroups;
         };
 
         gc = {
