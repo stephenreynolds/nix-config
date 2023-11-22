@@ -34,8 +34,6 @@ in {
           playerctl.enable = lib.mkDefault true;
         };
         apps = {
-          gnome-calculator.enable = true;
-          gnome-clocks.enable = true;
           imv = lib.mkDefault {
             enable = true;
             default = true;
@@ -49,7 +47,6 @@ in {
             enable = true;
             default = true;
           };
-          pavucontrol.enable = true;
           zathura.enable = true;
         };
       };
@@ -58,6 +55,10 @@ in {
         gtk3
         xdg-utils
         pulseaudio
+
+        gnome.gnome-calculator
+        gnome.gnome-clocks
+        pavucontrol
       ];
     }
 

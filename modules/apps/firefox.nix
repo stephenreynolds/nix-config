@@ -352,12 +352,5 @@ in {
           ])
         cfg.extraProfileConfig);
     }
-
-    (lib.mkIf config.modules.system.security.firejail.enable {
-      programs.firejail.wrappedBinaries.firefox = {
-        executable = "${config.hm.programs.firefox.package}/bin/firefox";
-        profile = "${pkgs.firejail}/etc/firejail/firefox-wayland.profile";
-      };
-    })
   ]);
 }

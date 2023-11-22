@@ -8,11 +8,6 @@ in
 {
   options.modules.apps.discord = {
     enable = lib.mkEnableOption "Whether to install Discord";
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.discord;
-      description = "Discord package to install";
-    };
     autostart = lib.mkEnableOption "Whether to start Discord on login";
     discocss = {
       enable = lib.mkEnableOption "Whether to theme Discord with discocss";
@@ -23,18 +18,21 @@ in
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
-    { hm.home.packages = [ cfg.package ]; }
+    { hm.home.packages = [ pkgs.discord ]; }
 
     # FIXME: Discord crashes on autostart
     (lib.mkIf cfg.autostart {
-      hm.xdg.configFile."autostart/discord-stable.desktop".text = '' [Desktop Entry] Categories=Network;InstantMessaging Exec=Discord --start-minimized GenericName=All-in-one cross-platform voice and text chat for gamers Icon=discord MimeType=x-scheme-handler/discord Name=Discord Type=Application Version=1.4 '';
-    })
-
-    (lib.mkIf config.modules.system.security.firejail.enable {
-      programs.firejail.wrappedBinaries.discord = {
-        executable = "${cfg.package}/bin/discord";
-        profile = "${pkgs.firejail}/etc/firejail/discord.profile";
-      };
+      hm.xdg.configFile."autostart/discord-stable.desktop".text = ''
+        [Desktop Entry]
+        Categories=Network;InstantMessaging
+        Exec=Discord --start-minimized
+        GenericName=All-in-one cross-platform voice and text chat for gamers
+        Icon=discord
+        MimeType=x-scheme-handler/discord
+        Name=Discord
+        Type=Application
+        Version=1.4
+      '';
     })
 
     (lib.mkIf cfg.betterdiscord.enable {

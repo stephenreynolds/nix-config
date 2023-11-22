@@ -13,24 +13,5 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    { hm.home.packages = [ cfg.packages ]; }
-
-    (lib.mkIf config.modules.system.security.firejail.enable {
-      programs.firejail.wrappedBinaries = {
-        latex = {
-          executable = "${cfg.packages}/bin/latex";
-          profile = "${pkgs.firejail}/etc/firejail/latex.profile";
-        };
-        pdflatex = {
-          executable = "${cfg.packages}/bin/pdflatex";
-          profile = "${pkgs.firejail}/etc/firejail/pdflatex.profile";
-        };
-        tex = {
-          executable = "${cfg.packages}/bin/tex";
-          profile = "${pkgs.firejail}/etc/firejail/tex.profile";
-        };
-      };
-    })
-  ]);
+  config = lib.mkIf cfg.enable { hm.home.packages = [ cfg.packages ]; };
 }

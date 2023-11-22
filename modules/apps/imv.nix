@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let cfg = config.modules.apps.imv;
 in {
@@ -31,13 +31,6 @@ in {
         "image/x-portable-pixmap" = "imv-folder;imv.desktop";
         "image/x-tga" = "imv-folder;imv.desktop";
         "image/x-xbitmap" = "imv-folder;imv.desktop";
-      };
-    })
-
-    (lib.mkIf config.modules.system.security.firejail.enable {
-      programs.firejail.wrappedBinaries.imv = {
-        executable = "${config.hm.programs.imv.package}/bin/imv";
-        profile = "${pkgs.firejail}/etc/firejail/imv.profile";
       };
     })
   ]);
