@@ -16,9 +16,6 @@ in {
       enableUserServices = true;
       enableSystemSlice = true;
       enableRootSlice = true;
-      extraConfig = {
-        SwapUsedLimitPercent = "90%";
-      };
     };
 
     systemd.extraConfig = ''
