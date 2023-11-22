@@ -159,6 +159,7 @@
           corefonts
           font-awesome
           inter
+          material-symbols
           my.apple-fonts
           my.segoe-fluent-icons
           my.ttf-ms-win11-auto
