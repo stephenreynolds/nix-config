@@ -52,6 +52,21 @@ in {
         };
 
       users.users.${config.user.name} = lib.mkAliasDefinitions options.user;
+
+      security.pam.loginLimits = [
+        {
+          domain = "@wheel";
+          item = "nofile";
+          type = "soft";
+          value = "524288";
+        }
+        {
+          domain = "@wheel";
+          item = "nofile";
+          type = "hard";
+          value = "1048576";
+        }
+      ];
     }
 
     (lib.mkIf cfg.users.stephen.enable {
