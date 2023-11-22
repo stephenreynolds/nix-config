@@ -4,7 +4,6 @@
   modules = {
     nix = {
       auto-upgrade.enable = true;
-      lowPriority = true;
     };
     system = {
       bluetooth = {
