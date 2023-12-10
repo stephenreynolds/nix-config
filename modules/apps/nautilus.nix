@@ -12,5 +12,7 @@ in {
       gnome.sushi
       nautilus-open-any-terminal
     ];
+
+    programs.file-roller.enable = true;
   };
 }
