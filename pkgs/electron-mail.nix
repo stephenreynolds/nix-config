@@ -6,7 +6,7 @@ let
   name = "ElectronMail-${version}";
 
   src = fetchurl {
-    url = "https://github.com/vladimiry/ElectronMail/releases/download/v${version}/electron-mail-${version}-linux-x86_64.AppImage";
+    url = "https://github.com/vladimiry/ElectronMail/releases/download/v${version}/${pname}-${version}-linux-x86_64.AppImage";
     sha256 = "sha256-bGqTPP+djpr+RFS6X7jUlSbxl7UDUaZLWQ3D/R76zEI=";
   };
 
