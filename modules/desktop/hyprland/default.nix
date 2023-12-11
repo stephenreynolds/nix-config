@@ -2,7 +2,6 @@
 
 let
   cfg = config.modules.desktop.hyprland;
-  nvidia = config.modules.system.nvidia.enable;
   configPath = cfg.configPath;
 in
 {
@@ -70,11 +69,6 @@ in
         };
       };
     }
-
-    (lib.mkIf nvidia {
-      programs.hyprland.enableNvidiaPatches = true;
-      hm.wayland.windowManager.hyprland.enableNvidiaPatches = true;
-    })
 
     (lib.mkIf cfg.tty {
       hm.programs = {
