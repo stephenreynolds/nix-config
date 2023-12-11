@@ -122,9 +122,5 @@ lib.mkIf cfg.enable {
         col.locked_inactive = 0xff${colorscheme.colors.base03}
       }
     }
-
-    debug {
-      disable_logs = false
-    }
   '';
 }
