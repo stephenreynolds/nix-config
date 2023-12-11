@@ -1,7 +1,7 @@
 { appimageTools, fetchurl }:
 
 appimageTools.wrapType2 rec {
-  name = "allusion";
+  pname = "allusion";
   version = "1.0.0-rc.10";
 
   src = fetchurl {
@@ -11,11 +11,11 @@ appimageTools.wrapType2 rec {
   };
 
   extraInstallCommands =
-    let appimageContents = appimageTools.extract { inherit name src; };
+    let appimageContents = appimageTools.extract { inherit src; name = pname; };
     in /* bash */ ''
-      install -m 444 -D ${appimageContents}/${name}.desktop -t $out/share/applications
-      substituteInPlace $out/share/applications/${name}.desktop \
-        --replace 'Exec=AppRun' 'Exec=${name}'
+      install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
+      substituteInPlace $out/share/applications/${pname}.desktop \
+        --replace 'Exec=AppRun' 'Exec=${pname}'
       cp -r ${appimageContents}/usr/share/icons $out/share
     '';
 }
