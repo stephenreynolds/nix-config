@@ -37,8 +37,20 @@ in
 
       xdg.portal = {
         enable = true;
-        wlr.enable = true;
-        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        extraPortals = [
+          inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
+          pkgs.xdg-desktop-portal-gtk
+        ];
+        config = {
+          common = {
+            default = [ "gtk" ];
+            "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+          };
+          hyprland = {
+            default = [ "gtk" "hyprland" ];
+            "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+          };
+        };
       };
 
       hm.imports = [ inputs.hyprland.homeManagerModules.default ];
