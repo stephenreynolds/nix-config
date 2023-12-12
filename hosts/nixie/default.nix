@@ -170,8 +170,8 @@
         colorscheme = inputs.nix-colors.colorSchemes.rose-pine;
         gtk = {
           iconTheme = {
-            name = "la-capitaine-icon-theme";
-            package = pkgs.la-capitaine-icon-theme;
+            name = "Papirus";
+            package = pkgs.papirus-icon-theme;
           };
         };
       };
