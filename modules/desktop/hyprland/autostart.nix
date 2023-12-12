@@ -9,7 +9,7 @@ let
 in
 lib.mkIf cfg.enable {
   hm.home.file."${configPath}".text = ''
-    exec = ${ags} -q; sleep 0.5; ${ags}
+    exec = ${ags} -q; sleep 0.5; ${ags} -b hyprland
     exec-once = hyprctl dispatch focusmonitor ${primaryMonitor.name}
   '';
 }

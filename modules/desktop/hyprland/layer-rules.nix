@@ -12,6 +12,9 @@ lib.mkIf cfg.enable {
     layerrule = blur, ^(notifications-.*)$
     layerrule = ignorezero, ^(notifications-.*)$
     layerrule = ignorealpha 0.69, ^(notifications-.*)$
+    layerrule = blur, ^(indicator-.*)$
+    layerrule = ignorezero, ^(indicator-.*)$
+    layerrule = ignorealpha 0.69, ^(indicator-.*)$
     layerrule = blur, ^(overview)$
     layerrule = xray 0, ^(overview)$
   '';

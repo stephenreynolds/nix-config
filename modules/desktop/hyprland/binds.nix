@@ -12,7 +12,7 @@ let
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   playerctl = "${config.hm.services.playerctld.package}/bin/playerctl";
   swappy = lib.getExe pkgs.swappy;
-  ags = "${config.hm.programs.ags.package}/bin/ags";
+  ags = "${inputs.ags.packages.${pkgs.system}.default}/bin/ags";
 
   gtk-launch = "${pkgs.gtk3}/bin/gtk-launch";
   xdg-mime = "${pkgs.xdg-utils}/bin/xdg-mime";
@@ -178,14 +178,7 @@ let
     	;;
     esac
 
-    ${lib.getExe pkgs.libnotify} \
-    	--app-name Audio \
-    	--expire-time 2000 \
-    	--hint string:x-canonical-private-synchronous:volume \
-    	--hint "int:value:$VOLUME" \
-    	--transient \
-    	--replace-id 777 \
-    	"''${TEXT}"
+    ${ags} -b hyprland -r 'indicator.speaker()' 
   '';
 in
 lib.mkIf cfg.enable {
@@ -255,18 +248,27 @@ lib.mkIf cfg.enable {
 
     # Next/previous workspace on monitor
     bind = ${modifier}, 5, workspace, m-1
+    bind = ${modifier}, 5, exec, ags -b hyprland -r 'indicator.workspace()'
     bind = ${modifier}, 6, workspace, m+1
+    bind = ${modifier}, 6, exec, ags -b hyprland -r 'indicator.workspace()'
     bind = ${modifier} SHIFT, 5, movetoworkspace, m-1
+    bind = ${modifier} SHIFT, 5, exec, ags -b hyprland -r 'indicator.workspace()'
     bind = ${modifier} SHIFT, 6, movetoworkspace, m+1
+    bind = ${modifier} SHIFT, 6, exec, ags -b hyprland -r 'indicator.workspace()'
     bind = ${modifier} CTRL, 5, movetoworkspace, r-1
+    bind = ${modifier} CTRL, 5, exec, ags -b hyprland -r 'indicator.workspace()'
 
     # Next empty workspace on monitor
     bind = ${modifier}, 4, exec, ${focusempty}
+    bind = ${modifier}, 4, exec, ags -b hyprland -r 'indicator.workspace()'
     bind = ${modifier} SHIFT, 4, exec, ${movetoempty}
+    bind = ${modifier} SHIFT, 4, exec, ags -b hyprland -r 'indicator.workspace()'
 
     # Previous workspace
     bind = ${modifier}, 3, workspace, previous
+    bind = ${modifier}, 3, exec, ags -b hyprland -r 'indicator.workspace()'
     bind = ${modifier} SHIFT, 3, movetoworkspace, previous
+    bind = ${modifier} SHIFT, 3, exec, ags -b hyprland -r 'indicator.workspace()'
 
     # Special workspaces
     bind = ${modifier} SHIFT, 0, movetoworkspace, special
@@ -282,17 +284,18 @@ lib.mkIf cfg.enable {
 
     # Scroll through existing workspaces with {modifier} + scroll
     bind = ${modifier}, mouse_down, workspace, m+1
+    bind = ${modifier}, mouse_down, exec, ags -b hyprland -r 'indicator.workspace()'
     bind = ${modifier}, mouse_up, workspace, m-1
+    bind = ${modifier}, mouse_up, exec, ags -b hyprland -r 'indicator.workspace()'
 
     # Move/resize windows with modifier + LMB/RMB and dragging
     bindm = ${modifier}, mouse:272, movewindow
     bindm = ${modifier}, mouse:273, resizewindow
 
     # Volume keys
-    $volume_helper_cmd = ~/.config/hypr/scripts/volume-helper
     bindle = , XF86AudioRaiseVolume, exec, ${volumehelper} --limit "100" --increase "2"
     bindle = , XF86AudioLowerVolume, exec, ${volumehelper} --limit "100" --decrease "2"
-    bindl = , XF86AudioMute, exec, ${pactl} set-sink-mute @DEFAULT_SINK@ toggle && $volume_helper_cmd
+    bindl = , XF86AudioMute, exec, ${pactl} set-sink-mute @DEFAULT_SINK@ toggle && ${volumehelper}
     bindl = , XF86AudioMicMute, exec, ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle
 
     # Media keys
