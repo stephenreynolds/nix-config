@@ -16,9 +16,17 @@ lib.mkIf cfg.enable {
     windowrule = dimaround, ^(wofi)$
 
     # TastyTrade
+    windowrule = workspace empty, ^(tasty.javafx.launcher.LauncherFxApp)$
     windowrule = nofullscreenrequest, ^(tasty.javafx.launcher.LauncherFxApp)$
 
+    # Discord
+    windowrulev2 = workspace empty, class:^(discord)$
+
+    # ElectronMail
+    windowrulev2 = workspace empty, class:^(electron-mail)$
+
     # Steam
+    windowrulev2 = workspace empty, class:^(steam)$
     windowrulev2 = nofullscreenrequest, class:^(steam)$
     windowrulev2 = float, title:^(Steam Settings)$
     windowrulev2 = float, title:^(Friends List)$, class:^(steam)$
