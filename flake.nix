@@ -62,7 +62,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ags-config = {
-      url = "github:stephenreynolds/ags-config/overhaul";
+      url = "github:stephenreynolds/ags-config";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
