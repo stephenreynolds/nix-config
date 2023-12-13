@@ -88,6 +88,8 @@ lib.mkIf cfg.enable {
     }
 
     group {
+      insert_after_current = false
+
       groupbar {
         render_titles = false
       }
