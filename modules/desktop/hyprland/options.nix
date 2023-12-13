@@ -17,8 +17,9 @@ lib.mkIf cfg.enable {
     }
 
     general {
-      gaps_in = 0
-      gaps_out = 0
+      gaps_in = 4
+      gaps_out = 5
+      gaps_workspaces = 50
 
       border_size = 1
 
@@ -30,7 +31,7 @@ lib.mkIf cfg.enable {
     }
 
     decoration {
-      rounding = 0
+      rounding = 10
 
       blur {
         enabled = true
@@ -63,7 +64,7 @@ lib.mkIf cfg.enable {
 
     # https://wiki.hyprland.org/Configuring/Dwindle-Layout/#config
     dwindle {
-      no_gaps_when_only = 1
+      no_gaps_when_only = 0
       pseudotile = true
       preserve_split = true
       force_split = 2 # Split right
@@ -72,7 +73,7 @@ lib.mkIf cfg.enable {
 
     # https://wiki.hyprland.org/Configuring/Master-Layout/#config
     master {
-      no_gaps_when_only = 1
+      no_gaps_when_only = 0
       mfact = 0.5
       new_is_master = true
       new_on_top = true
