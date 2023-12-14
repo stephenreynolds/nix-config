@@ -186,6 +186,7 @@ lib.mkIf cfg.enable {
     # Launch applications
     bind = ${modifier}, T, exec, ${terminal}
     bind = ${modifier}, W, exec, ${browser}
+    bind = ${modifier} SHIFT, W, exec, firefox --private-window
     bind = ${modifier}, C, exec, ${killandswitch}
     bind = ${modifier}, Space, exec, ${ags} -t overview
 
