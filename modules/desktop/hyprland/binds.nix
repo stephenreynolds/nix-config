@@ -12,7 +12,7 @@ let
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   playerctl = "${config.hm.services.playerctld.package}/bin/playerctl";
   swappy = lib.getExe pkgs.swappy;
-  ags = "${inputs.ags.packages.${pkgs.system}.default}/bin/ags";
+  ags = "${inputs.ags.packages.${pkgs.system}.default}/bin/ags -b hyprland";
 
   gtk-launch = "${pkgs.gtk3}/bin/gtk-launch";
   xdg-mime = "${pkgs.xdg-utils}/bin/xdg-mime";
@@ -178,7 +178,7 @@ let
     	;;
     esac
 
-    ${ags} -b hyprland -r 'indicator.speaker()' 
+    ${ags} -r 'indicator.speaker()' 
   '';
 in
 lib.mkIf cfg.enable {
