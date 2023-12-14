@@ -231,7 +231,7 @@ lib.mkIf cfg.enable {
     binde = ${modifier} CTRL, left, resizeactive, -10 0
     binde = ${modifier} CTRL, right, resizeactive, 10 0
     binde = ${modifier} CTRL, up, resizeactive, 0 -10
-    binde = ${modifier} CTRL, down,resizeactive, 0 10
+    binde = ${modifier} CTRL, down, resizeactive, 0 10
 
     # Group window
     bind = ${modifier}, G, togglegroup
