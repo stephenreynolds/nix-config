@@ -86,6 +86,8 @@ in {
         nixPath = [ "nixpkgs=${inputs.nixpkgs.outPath}" ];
       };
 
+      environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
+
       hardware.enableRedistributableFirmware = true;
 
       sops.templates."nix-extra-config" = {
