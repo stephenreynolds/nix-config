@@ -15,6 +15,7 @@ in {
       default = {
         MOZ_ENABLE_WAYLAND = 1;
         QT_QPA_PLATFORM = "wayland";
+        QT_QPA_PLATFORMTHEME = "qt5ct";
         GDK_BACKEND = "wayland,x11";
         SDL_VIDEODRIVER = "wayland";
         CLUTTER_BACKEND = "wayland";

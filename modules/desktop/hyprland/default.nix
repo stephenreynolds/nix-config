@@ -2,11 +2,8 @@
 
 let
   cfg = config.modules.desktop.hyprland;
-  configPath = cfg.configPath;
 in
 {
-  imports = [ inputs.hyprland.nixosModules.default ];
-
   options.modules.desktop.hyprland = {
     enable = lib.mkEnableOption "Whether to enable Hyprland";
     xdg-autostart = lib.mkOption {
@@ -15,11 +12,6 @@ in
       description = "Whether to autostart programs that ask for it";
     };
     tty = lib.mkEnableOption "Whether to start Hyprland on login from tty1";
-    configPath = lib.mkOption {
-      type = lib.types.str;
-      default = "${config.hm.xdg.configHome}/hypr/conf.d";
-      description = "Path to Hyprland configuration files";
-    };
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
@@ -33,7 +25,16 @@ in
         };
       };
 
-      programs.hyprland.enable = true;
+      hm.imports = [ inputs.hyprland.homeManagerModules.default ];
+
+      hm.wayland.windowManager.hyprland = {
+        enable = true;
+        pacakge = pkgs.hyprland;
+        reloadConfig = true;
+        systemdIntegration = true;
+        recommendedEnvironment = true;
+        xwayland.enable = true;
+      };
 
       xdg.portal = {
         enable = true;
@@ -52,14 +53,6 @@ in
           };
         };
       };
-
-      hm.imports = [ inputs.hyprland.homeManagerModules.default ];
-
-      hm.wayland.windowManager.hyprland.enable = true;
-
-      hm.wayland.windowManager.hyprland.extraConfig = ''
-        source = ${configPath}/*.conf
-      '';
 
       # Stolen from https://github.com/alebastr/sway-systemd/commit/0fdb2c4b10beb6079acd6073c5b3014bd58d3b74
       hm.systemd.user.targets.hyprland-session-shutdown = {

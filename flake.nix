@@ -35,7 +35,7 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland";
+      url = "github:spikespaz/hyprland-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland-contrib = {
@@ -82,10 +82,6 @@
         import pkgs {
           inherit system;
           config.allowUnfree = true;
-          # HACK: fixes obsidian until its version of electron is updated
-          config.permittedInsecurePackages = [
-            "electron-25.9.0"
-          ];
           overlays = extraOverlays ++ (builtins.attrValues self.overlays);
         };
       pkgs = mkPkgs nixpkgs [ self.overlays.default ];

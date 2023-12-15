@@ -2,85 +2,82 @@
 
 let
   cfg = config.modules.desktop.hyprland;
-  configPath = "${cfg.configPath}/50-window-rules.conf";
 in
 lib.mkIf cfg.enable {
-  hm.home.file."${configPath}".text = ''
-    # ags
-    windowrule = float, ^(com.github.Aylur.ags)$
+  hm.windowManager.hyprland.windowRules = let 
+    rule = rules: attrs: attrs // { inherit rules; };
 
-    # XDG Portal
-    windowrule = float, ^(xdg-desktop-portal.*)$
+    ags.class = [ "com.github.Aylur.ags" ];
+    bluetoothManager.class = [ ".blueman-manager-wrapped" ];
+    firefoxModal = {
+      class = [ "firefox" ];
+      title = [ "Extension.+Mozilla Firefox.*" "Picture-in-Picture" ];
+    };
+    gnomeCalculator.class = [ "org.gnome.Calculator" ];
+    gnomeClocks.class = [ "org.gnome.clocks" ];
+    mpv.class = [ "mpv" ];
+    onedrivegui.title = [ "OneDriveGUI" ];
+    pavucontrol.class = [ "pavucontrol" ];
+    piavpn.class = [ "piavpn" ];
+    polkitAgent.class = [
+      "lxqt-policykit-agent"
+      "polkit-gnome-authentication-agent-1"
+      "polkit-mate-authentication-agent-1"
+    ];
+    riichiCity.class = [ "Mahjong-JP.x86_64" ];
+    steam.class = [ "steam" ];
+    steamApp.class = [ "steam_app_.*" ];
+    steamModal = {
+      class = steam.class;
+      title = [
+        "Steam Settings"
+        "Friends List"
+      ];
+    };
+    tastytrade.class = [ "tasty.javafx.launcher.LauncherFxApp" ];
+    xdgPortal.class = [
+      "xdg-desktop-portal.*"
+      "org.freedesktop.impl.portal.desktop.kde"
+    ];
+  in lib.concatLists [
+    [
+      (rule [ "size 600 600" ] pavucontrol)
+      (rule [ "move 78% 22%" ] onedrivegui)
+    ]
 
-    # wofi
-    windowrule = dimaround, ^(wofi)$
+    (map (rule [ "float" ]) [
+      ags
+      bluetoothManager
+      gnomeCalculator
+      gnomeClocks
+      onedrivegui
+      steamModal
+      xdgPortal
+    ])
 
-    # TastyTrade
-    windowrule = workspace empty, ^(tasty.javafx.launcher.LauncherFxApp)$
-    windowrule = nofullscreenrequest, ^(tasty.javafx.launcher.LauncherFxApp)$
+    (map (rule [ "nofullscreenrequest"]) [
+      piavpn
+      steam
+      tastytrade
+    ])
 
-    # Discord
-    windowrulev2 = workspace empty, class:^(discord)$
+    (map (rule [ "float" "center" ]) [
+      pavucontrol
+      polkitAgent
+    ])
 
-    # ElectronMail
-    windowrulev2 = workspace empty, class:^(electron-mail)$
+    (map (rule [ "float" "pin" "noborder" "noshadow" ]) [
+      firefoxModal
+    ])
 
-    # Steam
-    windowrulev2 = workspace empty, class:^(steam)$
-    windowrulev2 = nofullscreenrequest, class:^(steam)$
-    windowrulev2 = float, title:^(Steam Settings)$
-    windowrulev2 = float, title:^(Friends List)$, class:^(steam)$
+    (map (rule [ "fullscreen" ]) [
+      steamApp
+    ])
 
-    # polkit agent
-    windowrulev2 = float,class:^(lxqt-policykit-agent)$
-    windowrulev2 = center,class:^(lxqt-policykit-agent)$
-    windowrulev2 = float,class:^(polkit-gnome-authentication-agent-1)$
-    windowrulev2 = center,class:^(polkit-gnome-authentication-agent-1)$
-    windowrulev2 = float,class:^(polkit-mate-authentication-agent-1)$
-    windowrulev2 = center,class:^(polkit-mate-authentication-agent-1)$
-
-    # browser
-    windowrulev2 = idleinhibit fullscreen,class:^(Chromium-browser)$
-    windowrulev2 = idleinhibit fullscreen,class:^(Brave-browser)$
-    windowrulev2 = idleinhibit fullscreen,class:^(firefox)$
-    windowrulev2 = idleinhibit fullscreen,class:^(microsoft-edge)$
-    windowrulev2 = float,title:^(Firefox - Sharing Indicator)$
-
-    # picture-in-picture
-    windowrulev2 = float,title:^(Picture-in-Picture)$
-    windowrulev2 = pin,title:^(Picture-in-Picture)$
-    windowrulev2 = noborder,title:^(Picture-in-Picture)$
-    windowrulev2 = noshadow,title:^(Picture-in-Picture)$
-
-    # pavucontrol
-    windowrulev2 = float,class:^(pavucontrol.*)$
-    windowrulev2 = center,class:^(pavucontrol.*)$
-
-    # Bluetooth Manager
-    windowrulev2 = float, class:^(.blueman-manager-wrapped)$
-
-    # GNOME Clocks
-    windowrulev2 = float, class:^(org.gnome.clocks)$
-
-    # GNOME Calculator
-    windowrulev2 = float, class:^(org.gnome.Calculator)$
-
-    # mpv
-    windowrulev2 = keepaspectratio, class:^(mpv)$
-
-    # piavpn
-    windowrulev2 = nofullscreenrequest,class:^(piavpn)$
-
-    # onedrivegui
-    windowrulev2 = float, title:^(OneDriveGUI)$
-    windowrulev2 = move 78% 22%, title:^(OneDriveGUI)$
-
-    # Games
-    ## Riichi City
-    windowrulev2 = keepaspectratio, class:^(Mahjong-JP.x86_64)$
-    ## Steam games
-    windowrulev2 = keepaspectratio, class:^(steam_app_.*)$
-    windowrulev2 = keepaspectratio, class:^(steam_app_.*)$
-    windowrulev2 = fullscreen, class:^(steam_app_.*)$
-  '';
+    (map (rule [ "keepaspectratio" ]) [
+      mpv
+      steamApp
+      riichiCity
+    ])
+  ];
 }
