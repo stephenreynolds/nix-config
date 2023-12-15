@@ -65,5 +65,17 @@ in {
         locked_screen_width_part = 41;
       };
     };
+
+    modules.services.media.mpd = {
+      enable = true;
+      extraConfig = ''
+        audio_output {
+          type "fifo"
+          name "my_fifo"
+          path "/tmp/mpd.fifo"
+          format "44100:16:2"
+        }
+      '';
+    };
   };
 }

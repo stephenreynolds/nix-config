@@ -18,6 +18,11 @@ in {
       default = "${config.hm.xdg.userDirs.music}/Playlists";
       description = "The directory where mpd will look for playlists";
     };
+    extraConfig = lib.mkOption {
+      type = lib.types.lines;
+      default = "";
+      description = "Extra configuration for mpd";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -26,34 +31,23 @@ in {
       musicDirectory = "${cfg.musicDirectory}";
       playlistDirectory = "${cfg.playlistDirectory}";
       network.startWhenNeeded = true;
-      extraConfig = ''
-        log_file            "syslog"
+      extraConfig = 
+      ''
+        log_level           "warning"
 
+        # Put MPD into pause mode instead of starting playback after startup
+        restore_paused      "yes"
+
+        # Auto update the music database when files are changed in music_directory
         auto_update         "yes"
-        auto_update_depth   "0"
-
+      '' +
+      lib.optionalString config.services.pipewire.enable ''
         audio_output {
             type    "pipewire"
             name    "PipeWire Sound Server"
         }
-
-        playlist_plugin {
-            name "m3u"
-            enabled "true"
-        }
-
-        playlist_plugin {
-            name "pls"
-            enabled "true"
-        }
-
-        audio_output {
-            type                    "fifo"
-            name                    "my_fifo"
-            path                    "/tmp/mpd.fifo"
-            format                  "44100:16:2"
-        }
-      '';
+      '' +
+      cfg.extraConfig;
     };
   };
 }
