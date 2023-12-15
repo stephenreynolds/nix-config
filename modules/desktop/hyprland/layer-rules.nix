@@ -2,10 +2,10 @@
 
 let
   cfg = config.modules.desktop.hyprland;
+  configPath = "${cfg.configPath}/60-layer-rules.conf";
 in
 lib.mkIf cfg.enable {
-  hm.wayland.windowManager.hyprland.layerRules = [{
-    namespace = [ ".*" ];
-    rules = [ "xray 1" ];
-  }];
+  hm.home.file."${configPath}".text = ''
+    layerrule = xray 1, .*
+  '';
 }
