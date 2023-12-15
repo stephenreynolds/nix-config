@@ -64,6 +64,10 @@ in {
         startup_slave_screen_focus = true;
         locked_screen_width_part = 41;
       };
+      bindings = [
+        { key = "ctrl-u"; command = "page_up"; }
+        { key = "ctrl-d"; command = "page_down"; }
+      ];
     };
 
     modules.services.media.mpd = {
