@@ -2,7 +2,6 @@
 
 let
   cfg = config.modules.desktop.hyprland;
-  configPath = "${cfg.configPath}/00-environment.conf";
 
   nvidia = config.modules.system.nvidia.enable;
 
@@ -19,9 +18,9 @@ let
     };
 in
 lib.mkIf cfg.enable {
-  hm.home.file."${configPath}".text = lib.concatLines
-    (lib.mapAttrsToList
+  hm.wayland.windowManager.hyprland.settings.env =
+    lib.mapAttrsToList
       (key: value:
-        "env = ${key}, ${toString value}")
-      sessionVariables);
+        "${key}, ${toString value}")
+      sessionVariables;
 }
