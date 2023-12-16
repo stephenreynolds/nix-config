@@ -32,6 +32,7 @@ in {
           };
           gnome-policykit-agent.enable = lib.mkDefault true;
           playerctl.enable = lib.mkDefault true;
+          swayidle.enable = lib.mkDefault true;
         };
         apps = {
           imv = lib.mkDefault {

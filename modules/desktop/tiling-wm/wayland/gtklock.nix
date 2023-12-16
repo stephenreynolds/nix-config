@@ -1,3 +1,4 @@
+# BUG: gtklock is broken on Hyprland until it supports ext-session-lock-v1
 { config, lib, pkgs, ... }:
 
 let
@@ -13,15 +14,16 @@ let
   finalConfig = baseConfig + lib.optionals (cfg.extraConfig != null) (lib.generators.toINI { } cfg.extraConfig);
 
   lockCommand = pkgs.writeShellScriptBin "lock" /* bash */ ''
+    cacheDir="$XDG_CACHE_HOME/gtklock"
     wallpaper=$(${lib.getExe pkgs.swww} query | awk -F'image: ' 'NR==1 {print $2}')
-    bg="$XDG_CACHE_HOME/gtklock/$(basename "$wallpaper").jpg"
+    bg="$cacheDir/$(basename "$wallpaper").jpg"
 
     if [ ! -f "$bg" ]; then
-      mkdir "$XDG_CACHE_HOME/gtklock"
+      mkdir "$cacheDir"
       ${pkgs.imagemagick}/bin/convert "$wallpaper" -blur 0x50 "$bg"
     fi
 
-    ${lib.getExe pkgs.gtklock} -b $bg
+    ${lib.getExe pkgs.gtklock} --daemonize -b $bg
   '';
 in
 {
@@ -33,6 +35,12 @@ in
       default = pkgs.gtklock;
       defaultText = "pkgs.gtklock";
       description = "gtklock package to use";
+    };
+
+    lockCommand = lib.mkOption {
+      type = lib.types.package;
+      default = lockCommand;
+      description = "Command to run gtklock with";
     };
 
     config = {
@@ -142,7 +150,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    hm.home.packages = [ cfg.package lockCommand ];
+    hm.home.packages = [ cfg.package cfg.lockCommand ];
 
     hm.xdg.configFile."gtklock/config.ini".source = pkgs.writeText "gtklock-config.ini" finalConfig;
 

@@ -36,7 +36,7 @@ in {
         my.primary-xwayland
       ];
 
-      modules.desktop.tiling-wm.wayland.gtklock.enable = true;
+      modules.desktop.tiling-wm.wayland.swaylock.enable = true;
     }
 
     (lib.mkIf cfg.ags.enable {
