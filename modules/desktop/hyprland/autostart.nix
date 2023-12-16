@@ -9,7 +9,7 @@ in
 lib.mkIf cfg.enable {
   hm.wayland.windowManager.hyprland.settings = {
     exec = [
-      "${ags} -q; sleep 0.5; ${ags}"
+      "${ags} -q; ${ags}"
     ];
 
     "exec-once" = [
