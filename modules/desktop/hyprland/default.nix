@@ -5,8 +5,6 @@ let
   configPath = cfg.configPath;
 in
 {
-  imports = [ inputs.hyprland.nixosModules.default ];
-
   options.modules.desktop.hyprland = {
     enable = lib.mkEnableOption "Whether to enable Hyprland";
     xdg-autostart = lib.mkOption {
@@ -32,33 +30,28 @@ in
         };
       };
 
-      programs.hyprland.enable = true;
+      programs.hyprland = {
+        enable = true;
+        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+      };
+
+      hm.wayland.windowManager.hyprland = {
+        enable = true;
+        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+        extraConfig = ''
+          source = ${configPath}/*.conf
+        '';
+      };
 
       xdg.portal = {
         enable = true;
         extraPortals = [
-          inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
           pkgs.xdg-desktop-portal-gtk
         ];
-        config = {
-          common = {
-            default = [ "gtk" ];
-            "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-          };
-          hyprland = {
-            default = [ "gtk" "hyprland" ];
-            "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-          };
-        };
+        configPackages = [
+          inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
+        ];
       };
-
-      hm.imports = [ inputs.hyprland.homeManagerModules.default ];
-
-      hm.wayland.windowManager.hyprland.enable = true;
-
-      hm.wayland.windowManager.hyprland.extraConfig = ''
-        source = ${configPath}/*.conf
-      '';
 
       # Stolen from https://github.com/alebastr/sway-systemd/commit/0fdb2c4b10beb6079acd6073c5b3014bd58d3b74
       hm.systemd.user.targets.hyprland-session-shutdown = {
