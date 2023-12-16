@@ -18,6 +18,9 @@ in {
       enable = true;
       extensions =
         lib.mkIf cfg.extensions.markdown-preview [ pkgs.gh-markdown-preview ];
+      settings = {
+        version = 1;
+      };
     };
   };
 }
