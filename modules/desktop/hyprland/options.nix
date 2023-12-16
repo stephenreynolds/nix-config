@@ -55,11 +55,15 @@ lib.mkIf cfg.enable {
     # https://wiki.hyprland.org/Configuring/Animations/
     animations = {
       animation = [
-        "windows, 1, 2, default, slide"
-        "windowsOut, 1, 2, default, slide"
-        "fade, 0, 1, default"
-        "workspaces, 1, 1, default"
-        "specialWorkspace, 1, 1, default, slidevert"
+        "windows, 1, 3, md3_decel, popin 60%"
+        "border, 1, 10, default"
+        "fade, 1, 2.5, md3_decel"
+        "workspaces, 1, 3.5, easeOutExpo, slide"
+        "specialWorkspace, 1, 3, md3_decel, slidevert"
+      ];
+      bezier = [
+        "md3_decel, 0.05, 0.7, 0.1, 1"
+        "easeOutExpo, 0.16, 1, 0.3, 1"
       ];
     };
 
@@ -68,18 +72,20 @@ lib.mkIf cfg.enable {
       no_gaps_when_only = 1;
       pseudotile = true;
       preserve_split = true;
+      permanent_direction_override = true;
       force_split = 2; # Split right
       special_scale_factor = 0.95;
     };
 
     # https://wiki.hyprland.org/Configuring/Master-Layout/#config
     master = {
-      no_gaps_when_only = 1;
+      no_gaps_when_only = 0;
       mfact = 0.5;
       new_is_master = true;
       new_on_top = true;
       orientation = "left";
       inherit_fullscreen = true;
+      always_center_master = true;
       special_scale_factor = 0.95;
     };
 
