@@ -19,46 +19,46 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    {
-      hm.services.swayidle = {
-        enable = true;
-        timeouts = 
-          # Turn off displays
-          (lib.optionals hyprland.enable ([{
-            timeout = screenOffTime;
-            command = "${hyprctl} dispatch dpms off";
-            resumeCommand = "${hyprctl} dispatch dpms on";
-          }])) ++
-          # Lock screen
-          [{
-            timeout = lockTime;
-            command = "${cfg.lockCommand}";
-          }] ++
-          # Mute mic
-          [{
-            timeout = lockTime;
-            command = "${pactl} set-source-mute @DEFAULT_SOURCE@ yes";
-            resumeCommand = "${pactl} set-source-mute @DEFAULT_SOURCE@ no";
-          }];
-        events = [
-          # Before sleep
-          {
-            event = "before-sleep";
-            command = "${cfg.lockCommand}";
-          }
-          # Lock
-          {
-            event = "lock";
-            command = "${cfg.lockCommand}";
-          }
-          # Unlock
-          {
-            event = "unlock";
-            command = "pkill -xu '$USER' ${cfg.lockCommand}";
-          }
-        ];
-      };
-    }
-  ]);
+  config = lib.mkIf cfg.enable {
+    hm.services.swayidle = {
+      enable = true;
+      timeouts = 
+        # Turn off displays
+        (lib.optionals hyprland.enable ([{
+          timeout = screenOffTime;
+          command = "${hyprctl} dispatch dpms off";
+          resumeCommand = "${hyprctl} dispatch dpms on";
+        }])) ++
+        # Lock screen
+        [{
+          timeout = lockTime;
+          command = "${cfg.lockCommand}";
+        }] ++
+        # Mute mic
+        [{
+          timeout = lockTime;
+          command = "${pactl} set-source-mute @DEFAULT_SOURCE@ yes";
+          resumeCommand = "${pactl} set-source-mute @DEFAULT_SOURCE@ no";
+        }];
+      events = [
+        # Before sleep
+        {
+          event = "before-sleep";
+          command = "${cfg.lockCommand}";
+        }
+        # Lock
+        {
+          event = "lock";
+          command = "${cfg.lockCommand}";
+        }
+        # Unlock
+        {
+          event = "unlock";
+          command = "pkill -xu '$USER' ${cfg.lockCommand}";
+        }
+      ];
+    };
+
+    modules.services.sway-audio-idle-inhibit.enable = lib.mkDefault true;
+  };
 }
