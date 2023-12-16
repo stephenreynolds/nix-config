@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let cfg = config.modules.cli.gh;
 in {
@@ -16,8 +16,6 @@ in {
   config = lib.mkIf cfg.enable {
     hm.programs.gh = {
       enable = true;
-      extensions =
-        lib.mkIf cfg.extensions.markdown-preview [ pkgs.gh-markdown-preview ];
       settings = {
         version = 1;
         git_protocol = "ssh";
