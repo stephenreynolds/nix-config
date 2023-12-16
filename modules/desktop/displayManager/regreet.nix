@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   cfg = config.modules.desktop.displayManager.regreet;
@@ -9,7 +9,9 @@ let
     homeCfgs);
   vars = ''XDG_DATA_DIRS="$XDG_DATA_DIRS:${extraDataPaths}"'';
 
-  hyprland-kiosk = command: "${pkgs.hyprland}/bin/Hyprland --config ${pkgs.writeText "hyprland.conf" ''
+  hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
+
+  hyprland-kiosk = command: "${hyprland}/bin/Hyprland --config ${pkgs.writeText "hyprland.conf" ''
     general:cursor_inactive_timeout = 10
     animations:enabled = false
 
