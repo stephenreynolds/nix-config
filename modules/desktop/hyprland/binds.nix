@@ -310,10 +310,12 @@ lib.mkIf cfg.enable {
 
     # Capture the active output
     bind = , Print, exec, ${grimblast} save output - | ${swappy} -f -
+    # Capture all visible windows
+    bind = ALT, Print, exec, ${grimblast} save screen - | ${swappy} -f -
     # Capture the active window
-    bind = ALT, Print, exec, ${grimblast} save active - | ${swappy} -f -
-    # Capture the active window
-    bind = CTRL, Print, exec, ${grimblast} save area - | ${swappy} -f -
+    bind = CTRL, Print, exec, ${grimblast} save active - | ${swappy} -f -
+    # Capture an area selection
+    bind = SHIFT, Print, exec, ${grimblast} save area - | ${swappy} -f -
 
     # Passthrough submap
     bind = ${modifier}, Pause, submap, passthrough_submap
