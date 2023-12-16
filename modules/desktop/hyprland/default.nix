@@ -14,7 +14,6 @@ in
       default = true;
       description = "Whether to autostart programs that ask for it";
     };
-    tty = lib.mkEnableOption "Whether to start Hyprland on login from tty1";
     configPath = lib.mkOption {
       type = lib.types.str;
       default = "${config.hm.xdg.configHome}/hypr/conf.d";
@@ -81,26 +80,6 @@ in
         };
       };
     }
-
-    (lib.mkIf cfg.tty {
-      hm.programs = {
-        fish.loginShellInit = /* fish */ ''
-          if test (tty) = "/dev/tty1"
-            exec Hyprland &> /dev/null
-          end
-        '';
-        zsh.loginExtra = /* bash */ ''
-          if [ "$(tty)" = "/dev/tty1" ]; then
-            exec Hyprland &> /dev/null
-          fi
-        '';
-        zsh.profileExtra = /* bash */ ''
-          if [ "$(tty)" = "/dev/tty1" ]; then
-            exec Hyprland &> /dev/null
-          fi
-        '';
-      };
-    })
 
     (lib.mkIf cfg.xdg-autostart {
       hm.systemd.user.targets.hyprland-session = {
