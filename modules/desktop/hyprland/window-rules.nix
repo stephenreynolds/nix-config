@@ -2,77 +2,106 @@
 
 let
   cfg = config.modules.desktop.hyprland;
-  configPath = "${cfg.configPath}/50-window-rules.conf";
+
+  compileWindowRulePatterns = rule:
+    rule // {
+      class = lib.mapNullable (x: "class:^(${lib.concatStringsSep "|" x})$")
+        rule.class;
+      title = lib.mapNullable (x: "title:^(${lib.concatStringsSep "|" x})$")
+        rule.title;
+  };
+
+  expandRuleToList = rule2:
+      let rule1 = removeAttrs rule2 [ "rules" ];
+      in map (rule: rule1 // { inherit rule; }) rule2.rules;
+
+  windowRuleToString = rule:
+      lib.concatStringsSep ", " ([ rule.rule ]
+        ++ (lib.optional (rule.class != null) rule.class)
+        ++ (lib.optional (rule.title != null) rule.title));
+  
+  mapWindowRules = rules: lib.pipe rules [
+    (map compileWindowRulePatterns)
+    (map expandRuleToList)
+    lib.concatLists
+    (map windowRuleToString)
+  ];
+
+  rule = rules: { class ? null, title ? null}: { inherit rules class title; }; 
 in
 lib.mkIf cfg.enable {
-  hm.home.file."${configPath}".text = ''
-    # ags
-    windowrule = float, ^(com.github.Aylur.ags)$
+  hm.wayland.windowManager.hyprland.settings.windowrulev2 = let 
+    ags.class = [ "com.github.Aylur.ags" ];
+    bluetoothManager.class = [ ".blueman-manager-wrapped" ];
+    firefoxModal = {
+      class = [ "firefox" ];
+      title = [ "Extension.+Mozilla Firefox.*" "Picture-in-Picture" ];
+    };
+    gnomeCalculator.class = [ "org.gnome.Calculator" ];
+    gnomeClocks.class = [ "org.gnome.clocks" ];
+    mpv.class = [ "mpv" ];
+    onedrivegui.title = [ "OneDriveGUI" ];
+    pavucontrol.class = [ "pavucontrol" ];
+    piavpn.class = [ "piavpn" ];
+    polkitAgent.class = [
+      "lxqt-policykit-agent"
+      "polkit-gnome-authentication-agent-1"
+      "polkit-mate-authentication-agent-1"
+    ];
+    riichiCity.class = [ "Mahjong-JP.x86_64" ];
+    steam.class = [ "steam" ];
+    steamApp.class = [ "steam_app_.*" ];
+    steamModal = {
+      class = steam.class;
+      title = [
+        "Steam Settings"
+        "Friends List"
+      ];
+    };
+    tastytrade.class = [ "tasty.javafx.launcher.LauncherFxApp" ];
+    xdgPortal.class = [
+      "xdg-desktop-portal.*"
+      "org.freedesktop.impl.portal.desktop.kde"
+    ];
+  in mapWindowRules (lib.concatLists [
+    [
+      (rule [ "size 600 600" ] pavucontrol)
+      (rule [ "move 78% 22%" ] onedrivegui)
+    ]
 
-    # XDG Portal
-    windowrule = float, ^(xdg-desktop-portal.*)$
+    (map (rule [ "float" ]) [
+      ags
+      bluetoothManager
+      gnomeCalculator
+      gnomeClocks
+      onedrivegui
+      steamModal
+      xdgPortal
+    ])
 
-    # wofi
-    windowrule = dimaround, ^(wofi)$
+    (map (rule [ "nofullscreenrequest"]) [
+      piavpn
+      steam
+      tastytrade
+    ])
 
-    # TastyTrade
-    windowrule = nofullscreenrequest, ^(tasty.javafx.launcher.LauncherFxApp)$
+    (map (rule [ "float" "center" ]) [
+      pavucontrol
+      polkitAgent
+    ])
 
-    # Steam
-    windowrulev2 = nofullscreenrequest, class:^(steam)$
-    windowrulev2 = float, title:^(Steam Settings)$
-    windowrulev2 = float, title:^(Friends List)$, class:^(steam)$
+    (map (rule [ "float" "pin" "noborder" "noshadow" ]) [
+      firefoxModal
+    ])
 
-    # polkit agent
-    windowrulev2 = float,class:^(lxqt-policykit-agent)$
-    windowrulev2 = center,class:^(lxqt-policykit-agent)$
-    windowrulev2 = float,class:^(polkit-gnome-authentication-agent-1)$
-    windowrulev2 = center,class:^(polkit-gnome-authentication-agent-1)$
-    windowrulev2 = float,class:^(polkit-mate-authentication-agent-1)$
-    windowrulev2 = center,class:^(polkit-mate-authentication-agent-1)$
+    (map (rule [ "fullscreen" ]) [
+      steamApp
+    ])
 
-    # browser
-    windowrulev2 = idleinhibit fullscreen,class:^(Chromium-browser)$
-    windowrulev2 = idleinhibit fullscreen,class:^(Brave-browser)$
-    windowrulev2 = idleinhibit fullscreen,class:^(firefox)$
-    windowrulev2 = idleinhibit fullscreen,class:^(microsoft-edge)$
-    windowrulev2 = float,title:^(Firefox - Sharing Indicator)$
-
-    # picture-in-picture
-    windowrulev2 = float,title:^(Picture-in-Picture)$
-    windowrulev2 = pin,title:^(Picture-in-Picture)$
-    windowrulev2 = noborder,title:^(Picture-in-Picture)$
-    windowrulev2 = noshadow,title:^(Picture-in-Picture)$
-
-    # pavucontrol
-    windowrulev2 = float,class:^(pavucontrol.*)$
-    windowrulev2 = center,class:^(pavucontrol.*)$
-
-    # Bluetooth Manager
-    windowrulev2 = float, class:^(.blueman-manager-wrapped)$
-
-    # GNOME Clocks
-    windowrulev2 = float, class:^(org.gnome.clocks)$
-
-    # GNOME Calculator
-    windowrulev2 = float, class:^(org.gnome.Calculator)$
-
-    # mpv
-    windowrulev2 = keepaspectratio, class:^(mpv)$
-
-    # piavpn
-    windowrulev2 = nofullscreenrequest,class:^(piavpn)$
-
-    # onedrivegui
-    windowrulev2 = float, title:^(OneDriveGUI)$
-    windowrulev2 = move 78% 22%, title:^(OneDriveGUI)$
-
-    # Games
-    ## Riichi City
-    windowrulev2 = keepaspectratio, class:^(Mahjong-JP.x86_64)$
-    ## Steam games
-    windowrulev2 = keepaspectratio, class:^(steam_app_.*)$
-    windowrulev2 = keepaspectratio, class:^(steam_app_.*)$
-    windowrulev2 = fullscreen, class:^(steam_app_.*)$
-  '';
+    (map (rule [ "keepaspectratio" ]) [
+      mpv
+      steamApp
+      riichiCity
+    ])
+  ]);
 }
