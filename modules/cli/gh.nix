@@ -20,6 +20,7 @@ in {
         lib.mkIf cfg.extensions.markdown-preview [ pkgs.gh-markdown-preview ];
       settings = {
         version = 1;
+        git_protocol = "ssh";
       };
     };
   };
