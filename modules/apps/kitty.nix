@@ -39,7 +39,7 @@ in
           disable_ligatures = "cursor";
           copy_on_select = "yes";
           strip_trailing_spaces = "smart";
-          show_hyprlink_targets = "yes";
+          show_hyperlink_targets = "yes";
 
           enabled_layouts = "tall,grid";
 
