@@ -48,7 +48,7 @@ in {
             enable = true;
             default = true;
           };
-          zathura.enable = true;
+          sioyek.enable = lib.mkDefault true;
         };
       };
 

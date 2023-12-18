@@ -10,8 +10,15 @@ in {
     hm.programs.sioyek = {
       enable = true;
       config = {
-        ui_font = "${config.modules.desktop.fonts.profiles.regular.family}";
-        font_size = 12;
+        "ui_font" = "${config.modules.desktop.fonts.profiles.regular.family}";
+        "font_size" = "12";
+        "default_dark_mode" = lib.optionalString config.modules.desktop.theme.gtk.dark "1";
+        "super_fast_search" = "1";
+        "startup_commands" = "toggle_statusbar";
+      };
+      bindings = {
+        "next_page" = "<C-d>";
+        "previous_page" = "<C-u>";
       };
     };
 
