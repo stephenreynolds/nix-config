@@ -210,7 +210,7 @@ lib.mkIf cfg.enable {
     ## Master layout
     bind = ${modifier}, S, cyclenext
     bind = ${modifier}, S, layoutmsg, swapwithmaster
-    bind = ${modifier}, L, layoutmsg, orientationcycle center left
+    bind = ${modifier}, L, layoutmsg, orientationcycle right center left
 
     # Focus last window
     bind = ${modifier}, D, focuscurrentorlast
