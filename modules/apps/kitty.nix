@@ -47,10 +47,10 @@ in
           dynamic_background_opacity = "yes";
         };
         keybindings = {
-          "ctrl+left" = "neighboring_window left";
-          "ctrl+right" = "neighboring_window right";
-          "ctrl+up" = "neighboring_window up";
-          "ctrl+down" = "neighboring_window down";
+          "alt+left" = "neighboring_window left";
+          "alt+right" = "neighboring_window right";
+          "alt+up" = "neighboring_window up";
+          "alt+down" = "neighboring_window down";
 
           "shift+left" = "move_window left";
           "shift+right" = "move_window right";
