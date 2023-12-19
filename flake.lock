@@ -281,6 +281,26 @@
         "type": "github"
       }
     },
+    "hycov": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ]
+      },
+      "locked": {
+        "lastModified": 1702902689,
+        "narHash": "sha256-/Ek6Q18b2ujMM3U6ElTAGZ5D/NWaGwRzA29kVa02cVM=",
+        "owner": "DreamMaoMao",
+        "repo": "hycov",
+        "rev": "cb54bd789e9408a375205e738cea9bd3d2b136ba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DreamMaoMao",
+        "repo": "hycov",
+        "type": "github"
+      }
+    },
     "hyprland": {
       "inputs": {
         "hyprland-protocols": "hyprland-protocols",
@@ -572,6 +592,7 @@
         "firefox-addons": "firefox-addons",
         "firefox-onebar": "firefox-onebar",
         "home-manager": "home-manager",
+        "hycov": "hycov",
         "hyprland": "hyprland",
         "hyprland-contrib": "hyprland-contrib",
         "lanzaboote": "lanzaboote",

@@ -190,9 +190,6 @@ lib.mkIf cfg.enable {
     bind = ${modifier}, C, exec, ${killandswitch}
     bind = ${modifier}, Space, exec, ${ags} -t overview
 
-    # Cycle through windows
-    bind = ${modifier}, Tab, cyclenext
-
     # Window mode
     bind = ${modifier}, V, fullscreen, 1
     bind = ${modifier} SHIFT, V, fullscreen, 0
