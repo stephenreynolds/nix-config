@@ -132,7 +132,6 @@
       nvim = {
         enable = true;
         defaultEditor = true;
-        configSource = inputs.nvim-config;
       };
       tmux.enable = true;
       zoxide.enable = true;
