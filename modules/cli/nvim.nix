@@ -55,6 +55,7 @@ in {
         vscode-langservers-extracted
         nodePackages.typescript-language-server
         nodePackages.bash-language-server
+        haskell-language-server
         prettierd
         isort
         black
