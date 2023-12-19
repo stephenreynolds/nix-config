@@ -26,10 +26,6 @@ lib.mkIf cfg.enable {
     bindn = [
       ", return, hycov:leaveoverview"
       ", escape, hycov:leaveoverview"
-      ", up, hycov:movefocus, u"
-      ", down, hycov:movefocus, d"
-      ", left, hycov:movefocus, l"
-      ", right, hycov:movefocus, r"
     ];
   };
 }
