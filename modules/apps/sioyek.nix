@@ -53,8 +53,10 @@ in {
         "custom_text_color" = lib.pipe colorscheme.colors.base05 [ hexToRgb rgbToStr ];
       };
       bindings = {
-        "next_page" = "<C-d>";
-        "previous_page" = "<C-u>";
+        "next_page" = "<space>";
+        "previous_page" = "<S-<space>>";
+        "screen_down" = "<C-d>";
+        "screen_up" = "<C-u>";
       };
     };
 
