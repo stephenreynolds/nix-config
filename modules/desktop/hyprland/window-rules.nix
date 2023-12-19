@@ -49,6 +49,7 @@ lib.mkIf cfg.enable {
       "polkit-mate-authentication-agent-1"
     ];
     riichiCity.class = [ "Mahjong-JP.x86_64" ];
+    sioyek.class = [ "sioyek" ];
     steam.class = [ "steam" ];
     steamApp.class = [ "steam_app_.*" ];
     steamModal = {
@@ -102,6 +103,10 @@ lib.mkIf cfg.enable {
       mpv
       steamApp
       riichiCity
+    ])
+
+    (map (rule [ "opacity 0.8 override"]) [
+      sioyek 
     ])
   ]);
 }

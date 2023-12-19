@@ -37,6 +37,7 @@ lib.mkIf cfg.enable {
         enabled = true;
         size = 10;
         passes = 4;
+        ignore_opacity = true;
         new_optimizations = true;
         xray = true;
         noise = 0.0117;
