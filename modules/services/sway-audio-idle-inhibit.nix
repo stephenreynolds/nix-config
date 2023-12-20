@@ -18,6 +18,8 @@ in {
         ExecStart = "${pkgs.sway-audio-idle-inhibit}/bin/sway-audio-idle-inhibit";
         Restart = "on-failure";
       };
+
+      Install.WantedBy = [ "graphical-session.target" ];
     };
   };
 }
