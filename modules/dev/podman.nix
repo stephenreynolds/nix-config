@@ -25,7 +25,7 @@ in {
     virtualisation.podman = {
       enable = true;
       autoPrune.enable = cfg.autoPrune.enable;
-      enableNvida = cfg.enableNvidia;
+      enableNvidia = cfg.enableNvidia;
     };
 
     hm.home.packages = lib.mkIf cfg.distrobox.enable [
