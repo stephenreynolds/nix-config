@@ -56,11 +56,11 @@ lib.mkIf cfg.enable {
     # https://wiki.hyprland.org/Configuring/Animations/
     animations = {
       animation = [
-        "windows, 1, 3, md3_decel, popin 60%"
+        "windows, 1, 1, md3_decel, popin 60%"
         "border, 1, 10, default"
-        "fade, 1, 2.5, md3_decel"
-        "workspaces, 1, 3.5, easeOutExpo, slide"
-        "specialWorkspace, 1, 3, md3_decel, slidevert"
+        "fade, 1, 1, md3_decel"
+        "workspaces, 1, 1, easeOutExpo, slide"
+        "specialWorkspace, 1, 1, md3_decel, slidevert"
       ];
       bezier = [
         "md3_decel, 0.05, 0.7, 0.1, 1"
@@ -104,7 +104,7 @@ lib.mkIf cfg.enable {
         render_titles = false;
       };
     };
-    
+
     # https://wiki.hyprland.org/Configuring/Variables/#misc
     misc = {
       disable_hyprland_logo = true;
@@ -119,24 +119,24 @@ lib.mkIf cfg.enable {
     };
   }
 
-  (lib.mkIf (colorscheme != null) {
-    general = {
-      "col.active_border" = "0xff${colorscheme.colors.base0A}";
-      "col.inactive_border" = "0xff${colorscheme.colors.base03}";
-    };
-
-    group = {
-      "col.border_active" = "0xff${colorscheme.colors.base0A}";
-      "col.border_inactive" = "0xff${colorscheme.colors.base03}";
-      "col.border_locked_active" = "0xff${colorscheme.colors.base08}";
-      "col.border_locked_inactive" = "0xff${colorscheme.colors.base03}";
-
-      groupbar = {
-        "col.active" = "0xff${colorscheme.colors.base0A}";
-        "col.inactive" = "0xff${colorscheme.colors.base03}";
-        "col.locked_active" = "0xff${colorscheme.colors.base08}";
-        "col.locked_inactive" = "0xff${colorscheme.colors.base03}";
+    (lib.mkIf (colorscheme != null) {
+      general = {
+        "col.active_border" = "0xff${colorscheme.colors.base0A}";
+        "col.inactive_border" = "0xff${colorscheme.colors.base03}";
       };
-    };
-  })];
+
+      group = {
+        "col.border_active" = "0xff${colorscheme.colors.base0A}";
+        "col.border_inactive" = "0xff${colorscheme.colors.base03}";
+        "col.border_locked_active" = "0xff${colorscheme.colors.base08}";
+        "col.border_locked_inactive" = "0xff${colorscheme.colors.base03}";
+
+        groupbar = {
+          "col.active" = "0xff${colorscheme.colors.base0A}";
+          "col.inactive" = "0xff${colorscheme.colors.base03}";
+          "col.locked_active" = "0xff${colorscheme.colors.base08}";
+          "col.locked_inactive" = "0xff${colorscheme.colors.base03}";
+        };
+      };
+    })];
 }
