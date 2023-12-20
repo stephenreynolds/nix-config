@@ -6,7 +6,6 @@ in {
     extraPackages = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = with pkgs; [
-        distrobox
         ripgrep
         sad
         fd
