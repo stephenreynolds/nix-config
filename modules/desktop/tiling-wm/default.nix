@@ -57,8 +57,8 @@ in {
         xdg-utils
         pulseaudio
 
-        gnome.gnome-calculator
         gnome.gnome-clocks
+        qalculate-gtk
         pavucontrol
       ];
     }
