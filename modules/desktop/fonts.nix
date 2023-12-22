@@ -35,10 +35,18 @@ in
   config = lib.mkMerge [
     (lib.mkIf cfg.profiles.enable {
       hm.fonts.fontconfig.enable = true;
-      hm.home.packages =
-        [ cfg.profiles.monospace.package cfg.profiles.regular.package ];
+      hm.home.packages = [
+        cfg.profiles.monospace.package
+        cfg.profiles.regular.package
+      ];
     })
 
-    { hm.home.packages = cfg.extraPackages; }
+    {
+      hm.home.packages = cfg.extraPackages;
+
+      fonts.enableDefaultPackages = true;
+      fonts.fontconfig.subpixel.rgba = "rgb";
+      fonts.fontconfig.hinting.style = "full";
+    }
   ];
 }
