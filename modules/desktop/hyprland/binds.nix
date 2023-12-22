@@ -2,7 +2,6 @@
 
 let
   cfg = config.modules.desktop.hyprland;
-  configPath = "${cfg.configPath}/70-binds.conf";
 
   modifier = "SUPER";
 
@@ -182,7 +181,7 @@ let
   '';
 in
 lib.mkIf cfg.enable {
-  hm.home.file."${configPath}".text = ''
+  hm.wayland.windowManager.hyprland.extraConfig = ''
     # Launch applications
     bind = ${modifier}, T, exec, ${terminal}
     bind = ${modifier}, W, exec, ${browser}
@@ -335,9 +334,5 @@ lib.mkIf cfg.enable {
     bind = , S, submap, reset
     bind = , Escape, submap, reset
     submap = reset
-
-    # Global keybinds
-    bind = ${modifier} CTRL, E, pass, ^(ClickUp)$
-    bind = ${modifier} CTRL, N, pass, ^(ClickUp)$
   '';
 }

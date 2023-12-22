@@ -2,7 +2,6 @@
 
 let
   cfg = config.modules.desktop.hyprland;
-  configPath = cfg.configPath;
 in
 {
   options.modules.desktop.hyprland = {
@@ -38,9 +37,6 @@ in
       hm.wayland.windowManager.hyprland = {
         enable = true;
         package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-        extraConfig = ''
-          source = ${configPath}/*.conf
-        '';
       };
 
       xdg.portal = {
