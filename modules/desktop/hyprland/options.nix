@@ -123,6 +123,7 @@ lib.mkIf cfg.enable {
       general = {
         "col.active_border" = "0xff${colorscheme.colors.base0A}";
         "col.inactive_border" = "0xff${colorscheme.colors.base03}";
+        "col.nogroup_border_active" = "0xff${colorscheme.colors.base03}";
       };
 
       group = {
