@@ -56,11 +56,11 @@ lib.mkIf cfg.enable {
     # https://wiki.hyprland.org/Configuring/Animations/
     animations = {
       animation = [
-        "windows, 1, 1, md3_decel, popin 60%"
-        "border, 1, 10, default"
-        "fade, 1, 1, md3_decel"
-        "workspaces, 1, 1, easeOutExpo, slide"
-        "specialWorkspace, 1, 1, md3_decel, slidevert"
+        "windows, 0, 1, md3_decel, popin 60%"
+        "border, 0, 10, default"
+        "fade, 0, 1, md3_decel"
+        "workspaces, 0, 1, easeOutExpo, slide"
+        "specialWorkspace, 0, 1, md3_decel, slidevert"
       ];
       bezier = [
         "md3_decel, 0.05, 0.7, 0.1, 1"
