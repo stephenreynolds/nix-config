@@ -5,7 +5,10 @@
 
   my = {
     system = {
-      boot.enable = true;
+      boot = {
+        initrd.systemd.enable = true;
+        iommu.enable = true;
+      };
     };
     users = {
       users.stephen = {
