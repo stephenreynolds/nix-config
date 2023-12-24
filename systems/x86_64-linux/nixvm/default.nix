@@ -13,6 +13,7 @@
         enable = true;
         kaby-lake.enable = true;
       };
+      locale.time.timeZone = "America/Detroit";
     };
     users = {
       users.stephen = {
