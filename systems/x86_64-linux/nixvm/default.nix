@@ -9,6 +9,10 @@
         initrd.systemd.enable = true;
         iommu.enable = true;
       };
+      cpu.intel = {
+        enable = true;
+        kaby-lake.enable = true;
+      };
     };
     users = {
       users.stephen = {
