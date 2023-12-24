@@ -44,7 +44,7 @@ in {
 
           run = "nix run nixpkgs#";
 
-          lsa = "${pkgs.lsd}/bin/lsd -a";
+          lsa = "${pkgs.lsd}/bin/lsd -A";
           tree = "${pkgs.lsd}/bin/lsd --tree";
 
           e = lib.mkIf config.hm.programs.neovim.enable "nvim";
