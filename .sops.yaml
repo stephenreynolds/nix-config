@@ -1,0 +1,8 @@
+keys:
+  - &hosts '':
+      - &nixie age1r5wkdzdjzd7zjyflue5d78qkr8uhwcvjmcwjaz9cx04kqplu7f3smwqwwu
+creation_rules:
+  - path_regex: modules/sops/secrets.ya?ml$
+    key_groups:
+      - age:
+          - *nixie

@@ -7,7 +7,6 @@ let
 in
 {
   options.my.user = {
-    enable = lib.mkEnableOption "Whether to configure the user account.";
     name = lib.mkOption {
       type = lib.types.str;
       default = "stephen";
@@ -20,12 +19,10 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    {
-      home = {
-        username = lib.mkDefault cfg.name;
-        homeDirectory = lib.mkDefault cfg.home;
-      };
-    }
-  ]);
+  config = {
+    home = {
+      username = lib.mkDefault cfg.name;
+      homeDirectory = lib.mkDefault cfg.home;
+    };
+  };
 }

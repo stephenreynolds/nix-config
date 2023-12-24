@@ -6,7 +6,11 @@
       useUserPackages = true;
       useGlobalPkgs = true;
 
-      users.${config.my.user.name}.home.stateVersion = config.system.stateVersion;
+      users = builtins.mapAttrs
+        (_: _: {
+          home.stateVersion = config.system.stateVersion;
+        })
+        config.my.users.users;
     };
   };
 }

@@ -1,9 +1,5 @@
 { ... }:
 
 {
-  my = {
-    user = {
-      enable = true;
-    };
-  };
+  my = { };
 }

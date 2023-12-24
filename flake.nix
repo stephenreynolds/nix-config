@@ -15,6 +15,11 @@
     };
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    sops-nix = {
+      url = "github:mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
