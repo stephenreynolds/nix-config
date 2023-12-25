@@ -32,23 +32,29 @@
       security = {
         mitigations.disable = true;
         secure-boot.enable = true;
-        tpm = {
-          enable = true;
-          users = [ "stephen" ];
-        };
+        tpm.enable = true;
       };
       ssd.enable = true;
-      virtualisation = {
-        host = {
-          enable = true;
-          users = [ "stephen" ];
-        };
-      };
+      virtualisation.host.enable = true;
     };
     users = {
       users.stephen = {
         shell = pkgs.fish;
-        extraGroups = [ "wheel" ];
+        extraGroups = [ "wheel" "input" "audio" "video" "storage" ];
+        optionalGroups = [
+          "i2c"
+          "docker"
+          "podman"
+          "git"
+          "libvirtd"
+          "mlocate"
+          "flatpak"
+          "tss"
+          "libvirtd"
+          "gamemode"
+          "nix-access-tokens"
+          "openai-api-key"
+        ];
       };
     };
     cli = {

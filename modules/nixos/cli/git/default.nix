@@ -1,0 +1,5 @@
+{ ... }:
+
+{
+  config.users.groups.git = { };
+}

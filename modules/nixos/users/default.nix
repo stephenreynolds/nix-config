@@ -3,7 +3,6 @@
 let
   cfg = config.my.users;
 
-  mapUsers = fn: lib.mapAttrs fn cfg.users;
   hasUser = name: builtins.hasAttr name cfg.users;
 in
 {
@@ -36,6 +35,11 @@ in
             default = [ ];
             description = "Extra groups to add the user to.";
           };
+          optionalGroups = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+            default = [ ];
+            description = "Groups to add the user to, if they exist.";
+          };
         };
       }));
       default = { };
@@ -53,11 +57,20 @@ in
         mutableUsers = cfg.mutableUsers;
       };
 
-      users.users = mapUsers (_: user: lib.mkMerge [
-        {
-          inherit (user) name isNormalUser initialPassword shell extraGroups;
-        }
-      ]);
+      users.users =
+        let
+          mapUsers = fn: lib.mapAttrs fn cfg.users;
+
+          ifTheyExist = groups:
+            builtins.filter (group: builtins.hasAttr group config.users.groups)
+              groups;
+        in
+        mapUsers (_: user: lib.mkMerge [
+          {
+            inherit (user) name isNormalUser initialPassword shell;
+            extraGroups = user.extraGroups ++ ifTheyExist user.optionalGroups;
+          }
+        ]);
 
       security.pam.loginLimits = [
         {

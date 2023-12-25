@@ -17,11 +17,6 @@ in
         default = cfg.host.enable;
         description = "Enable USB redirection for Spice";
       };
-      users = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [ ];
-        description = "Users to add to the libvirtd group";
-      };
     };
     guest = {
       spice = lib.mkEnableOption "Enable the Spice agent";
@@ -46,7 +41,7 @@ in
         spiceUSBRedirection.enable = cfg.host.spiceUSBRedirection;
       };
 
-      users.groups.libvirtd.members = cfg.host.users;
+      users.groups.libvirtd = { };
 
       services.spice-vdagentd.enable = true;
 

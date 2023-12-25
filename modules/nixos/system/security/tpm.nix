@@ -9,11 +9,6 @@ in {
         Whether to enable tcsd, a Trusted Computing management service that provides TCG Software Stack (TSS).
       '';
     };
-    users = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ ];
-      description = "List of users to add to the tss group";
-    };
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
@@ -24,7 +19,7 @@ in {
         tctiEnvironment.enable = true;
       };
 
-      users.groups.tss.members = cfg.users;
+      users.groups.tss = { };
     }
 
     (lib.mkIf cfg.tcsd.enable {
