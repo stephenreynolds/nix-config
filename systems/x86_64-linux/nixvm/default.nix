@@ -14,6 +14,7 @@
         kaby-lake.enable = true;
       };
       locale.time.timeZone = "America/Detroit";
+      ssd.enable = true;
     };
     users = {
       users.stephen = {
