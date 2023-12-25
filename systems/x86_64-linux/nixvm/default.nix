@@ -27,6 +27,7 @@
         };
       };
       pipewire.enable = true;
+      plymouth.enable = true;
       ssd.enable = true;
       virtualisation = {
         host = {
