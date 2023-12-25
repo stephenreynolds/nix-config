@@ -4,6 +4,10 @@ let
   cfg = config.my.system.virtualisation;
 in
 {
+  imports = [
+    ./podman.nix
+  ];
+
   options.my.system.virtualisation = {
     host = {
       enable = lib.mkEnableOption "Enable libvirtd for hosting virtual machines";

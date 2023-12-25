@@ -35,7 +35,10 @@
         tpm.enable = true;
       };
       ssd.enable = true;
-      virtualisation.host.enable = true;
+      virtualisation = {
+        host.enable = true;
+        podman.enable = true;
+      };
     };
     users = {
       users.stephen = {
