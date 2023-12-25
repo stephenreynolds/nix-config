@@ -26,6 +26,7 @@
           wireguard-vpn.enable = true;
         };
       };
+      pipewire.enable = true;
       ssd.enable = true;
       virtualisation = {
         host = {
