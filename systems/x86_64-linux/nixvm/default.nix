@@ -4,6 +4,7 @@
   imports = [ ./hardware.nix ];
 
   my = {
+    nix.auto-upgrade.enable = true;
     system = {
       bluetooth = {
         enable = true;
