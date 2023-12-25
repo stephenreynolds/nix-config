@@ -14,6 +14,13 @@
         kaby-lake.enable = true;
       };
       locale.time.timeZone = "America/Detroit";
+      networking = {
+        networkManager = {
+          enable = true;
+          randomizeMac = true;
+          wireguard-vpn.enable = true;
+        };
+      };
       ssd.enable = true;
     };
     users = {
