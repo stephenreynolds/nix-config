@@ -32,7 +32,10 @@
       security = {
         mitigations.disable = true;
         secure-boot.enable = true;
-        tpm.enable = true;
+        tpm = {
+          enable = true;
+          users = [ "stephen" ];
+        };
       };
       ssd.enable = true;
       virtualisation = {
