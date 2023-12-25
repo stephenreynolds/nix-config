@@ -5,6 +5,11 @@
 
   my = {
     system = {
+      bluetooth = {
+        enable = true;
+        blueman.enable = true;
+        blueman.applet = true;
+      };
       boot = {
         initrd.systemd.enable = true;
         iommu.enable = true;
