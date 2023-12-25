@@ -27,6 +27,12 @@
         };
       };
       ssd.enable = true;
+      virtualisation = {
+        host = {
+          enable = true;
+          users = [ "stephen" ];
+        };
+      };
     };
     users = {
       users.stephen = {
