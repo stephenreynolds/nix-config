@@ -383,6 +383,26 @@
         "type": "github"
       }
     },
+    "nvim-config": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1703499163,
+        "narHash": "sha256-QoM5CQ4a9hWvDgAoYdxTLzC2r9X2sExlTSBx++8zs1c=",
+        "owner": "stephenreynolds",
+        "repo": "nvim",
+        "rev": "24a7ffae47442d578924172b69e53d9c9c95d791",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stephenreynolds",
+        "repo": "nvim",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -423,6 +443,7 @@
         "nix-gaming": "nix-gaming",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "nvim-config": "nvim-config",
         "snowfall-lib": "snowfall-lib",
         "sops-nix": "sops-nix"
       }

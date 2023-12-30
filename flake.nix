@@ -39,6 +39,11 @@
       url = "git+https://codeberg.org/Freeplay/Firefox-Onebar";
       flake = false;
     };
+
+    nvim-config = {
+      url = "github:stephenreynolds/nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:

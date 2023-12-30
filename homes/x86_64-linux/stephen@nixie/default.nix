@@ -41,6 +41,10 @@
           signByDefault = true;
         };
       };
+      neovim = {
+        enable = true;
+        defaultEditor = true;
+      };
       shell = {
       	fish.enable = true;
 	starship.enable = true;
@@ -55,7 +59,6 @@
   };
 
   home.packages = with pkgs; [
-    neovim
     blackbox-terminal
   ];
 }
