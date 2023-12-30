@@ -31,6 +31,7 @@
     };
     cli = {
       direnv.enable = true;
+      fzf.enable = true;
       git = {
         userName = "Stephen Reynolds";
         userEmail = "mail@stephenreynolds.dev";
