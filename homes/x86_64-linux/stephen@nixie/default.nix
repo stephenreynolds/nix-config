@@ -50,6 +50,7 @@
         fish.enable = true;
         starship.enable = true;
       };
+      zoxide.enable = true;
     };
     services = {
       onedrive = {
