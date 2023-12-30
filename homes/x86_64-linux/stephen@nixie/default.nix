@@ -1,12 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  my = { 
+  my = {
     apps = {
       firefox = {
         enable = true;
         defaultBrowser = true;
-	vaapi.enable = true;
+        vaapi.enable = true;
         extraProfileConfig.stephen = {
           userChrome = {
             onebar = true;
@@ -40,6 +40,15 @@
           gpg.format = "ssh";
           signByDefault = true;
         };
+      };
+      shell = {
+      	fish.enable = true;
+      };
+    };
+    services = {
+      onedrive = {
+        enable = true;
+        symlinkUserDirs.enable = false;
       };
     };
   };

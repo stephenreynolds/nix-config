@@ -64,13 +64,16 @@
     desktop = {
       gnome = {
         enable = true;
-	minimal = true;
+        minimal = true;
       };
     };
     cli = {
       shell = {
         fish.enable = true;
       };
+    };
+    services = {
+      onedrive.enable = true;
     };
   };
 

@@ -91,8 +91,6 @@ in
     (lib.mkIf (hasUser "stephen") {
       users.users.stephen.hashedPasswordFile = config.sops.secrets.stephen-password.path;
 
-      my.services.openssh.enable = true;
-
       sops.secrets.stephen-password = {
         sopsFile = ../../../secrets/stephen.yaml;
         neededForUsers = true;
