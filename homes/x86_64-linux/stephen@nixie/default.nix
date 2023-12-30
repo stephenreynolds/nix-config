@@ -30,6 +30,7 @@
       };
     };
     cli = {
+      direnv.enable = true;
       git = {
         userName = "Stephen Reynolds";
         userEmail = "mail@stephenreynolds.dev";
@@ -46,8 +47,8 @@
         defaultEditor = true;
       };
       shell = {
-      	fish.enable = true;
-	starship.enable = true;
+        fish.enable = true;
+        starship.enable = true;
       };
     };
     services = {
