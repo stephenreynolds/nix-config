@@ -48,6 +48,7 @@
       lazygit.enable = true;
       lf.enable = true;
       lsd.enable = true;
+      ncmpcpp.enable = true;
       neovim = {
         enable = true;
         defaultEditor = true;
