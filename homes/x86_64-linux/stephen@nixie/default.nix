@@ -45,6 +45,7 @@
         };
       };
       lazygit.enable = true;
+      lf.enable = true;
       neovim = {
         enable = true;
         defaultEditor = true;
