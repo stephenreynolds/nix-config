@@ -32,7 +32,7 @@
       plymouth.enable = true;
       security = {
         mitigations.disable = true;
-        secure-boot.enable = true;
+        secure-boot.enable = false; # TODO: enable this
         tpm.enable = true;
       };
       ssd.enable = true;
@@ -59,6 +59,12 @@
           "nix-access-tokens"
           "openai-api-key"
         ];
+      };
+    };
+    desktop = {
+      gnome = {
+        enable = true;
+	minimal = true;
       };
     };
     cli = {

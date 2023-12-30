@@ -30,6 +30,15 @@
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    firefox-onebar = {
+      url = "git+https://codeberg.org/Freeplay/Firefox-Onebar";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:

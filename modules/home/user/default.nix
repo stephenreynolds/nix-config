@@ -23,6 +23,7 @@ in
     home = {
       username = lib.mkDefault cfg.name;
       homeDirectory = lib.mkDefault cfg.home;
+      stateVersion = "24.05";
     };
   };
 }
