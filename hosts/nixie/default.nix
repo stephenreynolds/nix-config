@@ -22,6 +22,7 @@
       };
       nvidia.enable = true;
       pipewire.enable = true;
+      plymouth.enable = true;
       ssd.enable = true;
     };
     users = {
