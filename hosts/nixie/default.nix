@@ -9,6 +9,10 @@
         initrd.systemd.enable = true;
         iommu.enable = true;
       };
+      cpu.intel = {
+        enable = true;
+        gpu.blacklist = true;
+      };
       locale.time.timeZone = "America/Detroit";
       networking = {
         networkManager = {
