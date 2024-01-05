@@ -10,6 +10,12 @@
         iommu.enable = true;
       };
       locale.time.timeZone = "America/Detroit";
+      networking = {
+        networkManager = {
+          enable = true;
+          wireguard-vpn.enable = true;
+        };
+      };
     };
     users = {
       users.stephen = {
