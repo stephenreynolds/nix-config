@@ -1,13 +1,11 @@
-{ config, lib, ... }:
+{ config, lib, modulesPath, ... }:
 let hostname = config.networking.hostName;
 in {
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+
   boot = {
-    initrd = {
-      availableKernelModules =
-        [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
-    };
+    initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
     kernelModules = [ "kvm-intel" ];
-    swraid.enable = false;
   };
 
   fileSystems = {
@@ -32,10 +30,10 @@ in {
     };
     "/boot" = {
       device = "/dev/disk/by-label/ESP";
-      options = [ "noexec" "nosuid" "nodev" ];
+      options = [ "noexec" "nosuid" "nodev" "umask=0077" ];
       fsType = "vfat";
     };
   };
 
-  nixpkgs.hostPlatform = lib.lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
