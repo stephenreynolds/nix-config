@@ -21,6 +21,7 @@
         };
       };
       nvidia.enable = true;
+      pipewire.enable = true;
       ssd.enable = true;
     };
     users = {
