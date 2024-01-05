@@ -90,7 +90,7 @@ in
         nixPath = [ "nixpkgs=${inputs.nixpkgs.outPath}" ];
       };
 
-      environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
+      nixpkgs.config.allowUnfree = true;
 
       hardware.enableRedistributableFirmware = true;
     }
