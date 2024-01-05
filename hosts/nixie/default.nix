@@ -16,6 +16,7 @@
           wireguard-vpn.enable = true;
         };
       };
+      ssd.enable = true;
     };
     users = {
       users.stephen = {
