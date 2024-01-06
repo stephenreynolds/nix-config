@@ -46,18 +46,22 @@
         loader = haumea.lib.loaders.path;
       };
 
+      users = haumea.lib.load {
+        src = ./home;
+        loader = haumea.lib.loaders.path;
+      };
+
       mapModules = path: lib.attrsets.collect builtins.isPath (haumea.lib.load {
         src = path;
         loader = haumea.lib.loaders.path;
       });
 
       nixosModules = mapModules ./modules/nixos;
+      homeManagerModules = mapModules ./modules/home;
     in
     {
       devShells = forEachSystem (pkgs: { default = import ./shell.nix { inherit pkgs; }; });
       formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
-
-      # homeManagerModules = mapModules ./modules/home;
 
       nixosConfigurations =
         lib.mapAttrs
@@ -69,13 +73,15 @@
           )
           hosts;
 
-      #
-      # homeConfigurations = {
-      #   "stephen@nixie" = lib.homeManagerConfiguration {
-      #     modules = [ ./home/stephen/nixie ];
-      #     pkgs = pkgsFor.x86_64-linux;
-      #     extraSpecialArgs = { inherit inputs outputs; };
-      #   };
-      # };
+      homeConfigurations =
+        lib.mapAttrs
+          (userHome: home:
+            lib.homeManagerConfiguration {
+              modules = [ home.default ] ++ homeManagerModules;
+              pkgs = pkgsFor.x86_64-linux;
+              extraSpecialArgs = { inherit inputs outputs; };
+            }
+          )
+          users;
     };
 }
