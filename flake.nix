@@ -56,11 +56,26 @@
       inherit (self) outputs;
       lib = nixpkgs.lib // home-manager.lib;
 
-      pkgsFor = nixpkgs.legacyPackages;
+      mkPkgs = pkgs: system: extraOverlays:
+        import pkgs {
+          inherit system;
+          config.allowUnfree = true;
+          # HACK: fixes obsidian until its version of electron is updated
+          config.permittedInsecurePackages = [
+            "electron-25.9.0"
+          ];
+          overlays = extraOverlays ++ (builtins.attrValues self.overlays);
+        };
+      pkgsFor = lib.genAttrs systems (sys: mkPkgs nixpkgs sys [ self.overlays.default ]);
 
       systems = [ "x86_64-linux" ];
 
       forEachSystem = f: lib.genAttrs systems (sys: f pkgsFor.${sys});
+
+      packages = haumea.lib.load {
+        src = ./pkgs;
+        loader = haumea.lib.loaders.path;
+      };
 
       hosts = haumea.lib.load {
         src = ./hosts;
@@ -83,6 +98,12 @@
     {
       devShells = forEachSystem (pkgs: { default = import ./shell.nix { inherit pkgs; }; });
       formatter = forEachSystem (pkgs: pkgs.nixpkgs-fmt);
+
+      overlays = {
+        default = final: prev: { my = self.packages.x86_64-linux; };
+      };
+
+      packages = forEachSystem (pkgs: lib.mapAttrs (_: v: pkgs.callPackage v { }) packages);
 
       nixosConfigurations =
         lib.mapAttrs

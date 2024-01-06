@@ -68,13 +68,9 @@
             family = "CaskaydiaCove Nerd Font";
             package = pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; };
           };
-          # regular = {
-          #   family = "SF Pro Display";
-          #   package = pkgs.my.apple-fonts;
-          # };
           regular = {
-            family = "Inter";
-            package = pkgs.inter;
+            family = "SF Pro Display";
+            package = pkgs.my.apple-fonts;
           };
         };
         extraPackages = with pkgs; [
@@ -85,9 +81,9 @@
           font-awesome
           inter
           material-symbols
-          # my.apple-fonts
-          # my.segoe-fluent-icons
-          # my.ttf-ms-win11-auto
+          my.apple-fonts
+          my.segoe-fluent-icons
+          my.ttf-ms-win11-auto
         ];
       };
       theme = {
