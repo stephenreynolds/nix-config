@@ -4,6 +4,12 @@
   imports = [ ./hardware.nix ];
 
   my = {
+    desktop = {
+      gnome = {
+        enable = true;
+        minimal = true;
+      };
+    };
     services = {
       onedrive.enable = true;
     };
