@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   my = {
@@ -28,6 +28,7 @@
           };
         };
       };
+      kitty.enable = true;
     };
     cli = {
       bat.enable = true;
@@ -58,6 +59,47 @@
         starship.enable = true;
       };
       zoxide.enable = true;
+    };
+    desktop = {
+      fonts = {
+        profiles = {
+          enable = true;
+          monospace = {
+            family = "CaskaydiaCove Nerd Font";
+            package = pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; };
+          };
+          # regular = {
+          #   family = "SF Pro Display";
+          #   package = pkgs.my.apple-fonts;
+          # };
+          regular = {
+            family = "Inter";
+            package = pkgs.inter;
+          };
+        };
+        extraPackages = with pkgs; [
+          noto-fonts
+          noto-fonts-cjk
+          noto-fonts-emoji
+          corefonts
+          font-awesome
+          inter
+          material-symbols
+          # my.apple-fonts
+          # my.segoe-fluent-icons
+          # my.ttf-ms-win11-auto
+        ];
+      };
+      theme = {
+        enable = true;
+        colorscheme = inputs.nix-colors.colorSchemes.rose-pine;
+        gtk = {
+          iconTheme = {
+            name = "Papirus";
+            package = pkgs.papirus-icon-theme;
+          };
+        };
+      };
     };
     services = {
       onedrive.enable = true;
