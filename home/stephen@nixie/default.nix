@@ -3,6 +3,7 @@
 {
   my = {
     apps = {
+      electron-mail.enable = true;
       firefox = {
         enable = true;
         defaultBrowser = true;
