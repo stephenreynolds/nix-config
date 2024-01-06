@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -86,7 +86,10 @@
         lib.mapAttrs
           (hostName: host:
             lib.nixosSystem {
-              modules = [ host.default ] ++ nixosModules;
+              modules = [
+                { networking.hostName = lib.mkDefault hostName; }
+                host.default
+              ] ++ nixosModules;
               specialArgs = { inherit inputs outputs; };
             }
           )
