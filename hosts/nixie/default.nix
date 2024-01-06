@@ -27,6 +27,11 @@
       nvidia.enable = true;
       pipewire.enable = true;
       plymouth.enable = true;
+      security = {
+        mitigations.disable = true;
+        secure-boot.enable = true;
+        tpm.enable = true;
+      };
       ssd.enable = true;
     };
     users = {
