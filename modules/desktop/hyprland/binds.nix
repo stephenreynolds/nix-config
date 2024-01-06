@@ -204,8 +204,8 @@ lib.mkIf cfg.enable {
     bind = ${modifier}, J, togglesplit
 
     ## Master layout
-    bind = ${modifier}, S, cyclenext
-    bind = ${modifier}, S, layoutmsg, swapwithmaster
+    bind = ${modifier}, S, layoutmsg, rollnext
+    bind = ${modifier} SHIFT, S, layoutmsg, rollprev
     bind = ${modifier}, L, layoutmsg, orientationcycle right center left
 
     # Focus last window
