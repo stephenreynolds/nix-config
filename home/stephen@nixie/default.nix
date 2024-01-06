@@ -71,6 +71,7 @@
       zoxide.enable = true;
     };
     desktop = {
+      enable = true;
       fonts = {
         profiles = {
           enable = true;

@@ -5,10 +5,7 @@
 
   my = {
     desktop = {
-      gnome = {
-        enable = true;
-        minimal = true;
-      };
+      enable = true;
     };
     services = {
       onedrive.enable = true;
