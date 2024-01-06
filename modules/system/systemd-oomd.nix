@@ -13,7 +13,7 @@ in {
   config = lib.mkIf cfg.enable {
     systemd.oomd = {
       enable = true;
-      enableUserServices = true;
+      enableUserSlices = true;
       enableSystemSlice = true;
       enableRootSlice = true;
     };
