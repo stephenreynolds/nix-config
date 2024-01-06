@@ -29,6 +29,9 @@
         };
       };
     };
+    services = {
+      onedrive.enable = true;
+    };
     user = {
       name = "stephen";
     };
