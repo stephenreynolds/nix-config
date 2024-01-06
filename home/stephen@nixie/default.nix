@@ -89,12 +89,12 @@
       theme = {
         enable = true;
         colorscheme = inputs.nix-colors.colorSchemes.rose-pine;
-        gtk = {
-          iconTheme = {
-            name = "Papirus";
-            package = pkgs.papirus-icon-theme;
-          };
-        };
+        # gtk = {
+        #   iconTheme = {
+        #     name = "Papirus";
+        #     package = pkgs.papirus-icon-theme;
+        #   };
+        # };
       };
     };
     services = {
