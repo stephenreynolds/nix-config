@@ -19,6 +19,12 @@ in {
       default = "";
       description = "Extra configuration for mpd";
     };
+    # TODO: get pipewire from nixos config
+    pipewire = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to add Pipewire output";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -37,7 +43,7 @@ in {
           # Auto update the music database when files are changed in music_directory
           auto_update         "yes"
         '' +
-        lib.optionalString config.services.pipewire.enable ''
+        lib.optionalString cfg.pipewire ''
           audio_output {
               type    "pipewire"
               name    "PipeWire Sound Server"

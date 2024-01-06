@@ -33,6 +33,45 @@
         "type": "github"
       }
     },
+    "firefox-addons": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "pkgs/firefox-addons",
+        "lastModified": 1704384167,
+        "narHash": "sha256-3Bst0uAjpUMKwIoHsSDWBM+A1hz1orxd2jQVOaypvow=",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "rev": "99fefb12ae9cd2464591df3652709f513a20a89e",
+        "type": "gitlab"
+      },
+      "original": {
+        "dir": "pkgs/firefox-addons",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "type": "gitlab"
+      }
+    },
+    "firefox-onebar": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1701826422,
+        "narHash": "sha256-rKmxra9/uS5dQpzIMx851R6X8kXxz8U2qM+9FEYgpd8=",
+        "ref": "refs/heads/main",
+        "rev": "4058a7cf97d9f67aa65f4feba653254875a87263",
+        "revCount": 55,
+        "type": "git",
+        "url": "https://codeberg.org/Freeplay/Firefox-Onebar"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/Freeplay/Firefox-Onebar"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -89,6 +128,21 @@
       }
     },
     "flake-utils": {
+      "locked": {
+        "lastModified": 1629284811,
+        "narHash": "sha256-JHgasjPR0/J1J3DRm4KxM4zTyAj4IOJY8vIl75v/kPI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "c5d161cc0af116a2e17f54316f0bf43f0819785c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
       "inputs": {
         "systems": "systems"
       },
@@ -175,7 +229,7 @@
         "crane": "crane",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
-        "flake-utils": "flake-utils",
+        "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -215,6 +269,26 @@
       "original": {
         "owner": "fufexan",
         "repo": "nix-gaming",
+        "type": "github"
+      }
+    },
+    "nix-index-database": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1703992163,
+        "narHash": "sha256-709CGmwU34dxv8DjSpRBZ+HibVJIVaFcA4JH+GFnhyM=",
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "rev": "d6510ce144f5da7dd9bac667ba3d5a4946c00d11",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nix-index-database",
         "type": "github"
       }
     },
@@ -284,6 +358,26 @@
         "type": "github"
       }
     },
+    "nvim-config": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1703499163,
+        "narHash": "sha256-QoM5CQ4a9hWvDgAoYdxTLzC2r9X2sExlTSBx++8zs1c=",
+        "owner": "stephenreynolds",
+        "repo": "nvim",
+        "rev": "24a7ffae47442d578924172b69e53d9c9c95d791",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stephenreynolds",
+        "repo": "nvim",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -317,11 +411,15 @@
     },
     "root": {
       "inputs": {
+        "firefox-addons": "firefox-addons",
+        "firefox-onebar": "firefox-onebar",
         "haumea": "haumea",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
         "nix-gaming": "nix-gaming",
+        "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
+        "nvim-config": "nvim-config",
         "sops-nix": "sops-nix"
       }
     },
