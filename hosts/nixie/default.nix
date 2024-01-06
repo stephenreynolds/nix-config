@@ -221,7 +221,6 @@
       ];
     };
     dev = {
-      latex.enable = true;
       podman = {
         enable = true;
         distrobox.enable = true;
