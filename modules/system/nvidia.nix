@@ -42,7 +42,12 @@ in {
       };
     };
 
-    boot.kernelParams =
-      [ "nvidia.NVreg_TemporaryFilePath=/var/tmp" "nvidia-drm.fbdev=1" ];
+    boot.extraModprobeConfig = ''
+      options nvidia NVreg_TemporaryFilePath=/var/tmp NVreg_UsePageAttributeTable=1
+    '';
+
+    boot.kernelParams = [
+      "nvidia-drm.fbdev=1"
+    ];
   };
 }
