@@ -4,6 +4,9 @@
   imports = [ ./hardware.nix ];
 
   my = {
+    services = {
+      onedrive.enable = true;
+    };
     system = {
       bluetooth = {
         enable = true;
