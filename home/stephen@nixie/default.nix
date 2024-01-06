@@ -30,6 +30,15 @@
         };
       };
       kitty.enable = true;
+      extraPackages = with pkgs; [
+        celluloid
+        deluge
+        gimp-with-plugins
+        krita
+        obsidian
+        my.allusion
+        my.tastytrade
+      ];
     };
     cli = {
       bat.enable = true;
