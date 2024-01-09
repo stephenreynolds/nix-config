@@ -9,9 +9,6 @@ in {
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       security.polkit.enable = true;
-
-      my.desktop.hyprland.enable = lib.mkDefault true;
-      my.desktop.displayManager.regreet.enable = lib.mkDefault true;
     }
   ]);
 }

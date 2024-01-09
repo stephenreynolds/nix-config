@@ -1,3 +1,4 @@
+# Desktop system
 { config, pkgs, inputs, ... }:
 
 {

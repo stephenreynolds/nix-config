@@ -29,10 +29,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
-    {
-      my.desktop.hyprland.enable = lib.mkDefault true;
-    }
-
     (lib.mkIf cfg.cursor.enable {
       home.pointerCursor = {
         package = cfg.cursor.package;
