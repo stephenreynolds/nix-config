@@ -47,7 +47,7 @@ in {
       boot.loader.systemd-boot = {
         enable = true;
         consoleMode = "max";
-        configurationLimit = 42;
+        configurationLimit = 20;
       };
     })
 
