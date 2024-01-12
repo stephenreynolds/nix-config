@@ -146,7 +146,10 @@
       };
       gpg.enable = true;
       keyring.enable = true;
-      onedrive.enable = true;
+      onedrive = {
+        enable = true;
+        symlinkUserDirs.enable = true;
+      };
     };
     user = {
       name = "stephen";
