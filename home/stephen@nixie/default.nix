@@ -144,6 +144,7 @@
           source = ./corsair-virtuoso-wireless-headset/autoload.json;
         };
       };
+      gpg.enable = true;
       keyring.enable = true;
       onedrive.enable = true;
     };
