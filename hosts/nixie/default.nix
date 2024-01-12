@@ -58,6 +58,7 @@
     services = {
       keyring.enable = true;
       onedrive.enable = true;
+      system76-scheduler.enable = true;
     };
     system = {
       bluetooth = {
