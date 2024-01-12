@@ -57,6 +57,7 @@
     };
     services = {
       geoclue.enable = true;
+      gvfs.enable = true;
       keyring.enable = true;
       onedrive.enable = true;
       openrgb = {
