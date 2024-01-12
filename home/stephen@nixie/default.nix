@@ -73,6 +73,7 @@
     };
     desktop = {
       enable = true;
+      hyprland.enable = true;
       fonts = {
         profiles = {
           enable = true;
@@ -110,12 +111,11 @@
       };
     };
     services = {
+      keyring.enable = true;
       onedrive.enable = true;
     };
     user = {
       name = "stephen";
     };
   };
-
-  home.packages = [ pkgs.blackbox-terminal ];
 }

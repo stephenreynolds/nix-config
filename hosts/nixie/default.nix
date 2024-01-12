@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [ ./hardware.nix ];
@@ -6,8 +6,49 @@
   my = {
     desktop = {
       enable = true;
+      hyprland.enable = true;
+      displayManager.regreet.enable = true;
+      pam.swaylock = true;
+      ime.enable = true;
+      fonts.profiles = {
+        enable = true;
+        monospace = {
+          family = "CaskaydiaCove Nerd Font";
+          package = pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; };
+        };
+        regular = {
+          family = "SF Pro Display";
+          package = pkgs.my.apple-fonts;
+        };
+      };
+      theme = {
+        colorscheme = inputs.nix-colors.colorSchemes.rose-pine;
+        cursor.enable = true;
+        gtk.iconTheme = {
+          name = "Papirus";
+          package = pkgs.papirus-icon-theme;
+        };
+      };
+    };
+    devices = {
+      monitors = [
+        {
+          name = "DP-1";
+          x = 0;
+        }
+        {
+          name = "DP-2";
+          x = 1920;
+          primary = true;
+        }
+        {
+          name = "HDMI-A-1";
+          x = 3840;
+        }
+      ];
     };
     services = {
+      keyring.enable = true;
       onedrive.enable = true;
     };
     system = {

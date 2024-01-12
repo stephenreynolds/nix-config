@@ -3,11 +3,11 @@
 let
   cfg = config.my.desktop.displayManager.regreet;
 
-  homeCfgs = config.home-manager.users;
-  extraDataPaths = lib.concatStringsSep ":" (lib.mapAttrsToList
-    (n: _: "/nix/var/nix/profiles/per-user/${n}/${n}/home-path/share")
-    homeCfgs);
-  vars = ''XDG_DATA_DIRS="$XDG_DATA_DIRS:${extraDataPaths}"'';
+  # homeCfgs = config.home-manager.users;
+  # extraDataPaths = lib.concatStringsSep ":" (lib.mapAttrsToList
+  #   (n: _: "/nix/var/nix/profiles/per-user/${n}/${n}/home-path/share")
+  #   homeCfgs);
+  # vars = ''XDG_DATA_DIRS="$XDG_DATA_DIRS:${extraDataPaths}"'';
 
   hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
 
@@ -53,7 +53,7 @@ let
       env = WLR_NO_HARDWARE_CURSORS,1
     ''}
 
-    exec = ${vars} ${command} -l debug; ${pkgs.hyprland}/bin/hyprctl dispatch exit
+    exec = ${command} -l debug; ${pkgs.hyprland}/bin/hyprctl dispatch exit
   ''}";
 in
 {
@@ -76,20 +76,20 @@ in
 
   config = lib.mkIf cfg.enable {
     users.extraUsers.greeter.packages = [
-      config.modules.desktop.theme.gtk.theme.package
-      config.modules.desktop.theme.gtk.iconTheme.package
-      config.modules.desktop.cursor.package
-      config.modules.desktop.fonts.profiles.regular.package
+      config.my.desktop.theme.gtk.theme.package
+      config.my.desktop.theme.gtk.iconTheme.package
+      config.my.desktop.theme.cursor.package
+      config.my.desktop.fonts.profiles.regular.package
     ];
 
     programs.regreet = {
       enable = true;
       settings = {
         GTK = {
-          icon_theme_name = config.modules.desktop.theme.gtk.iconTheme.name;
-          theme_name = config.modules.desktop.theme.gtk.theme.name;
-          cursor_theme_name = config.modules.desktop.cursor.name;
-          font_name = "${config.modules.desktop.fonts.profiles.regular.family} 14";
+          icon_theme_name = config.my.desktop.theme.gtk.iconTheme.name;
+          theme_name = config.my.desktop.theme.gtk.theme.name;
+          cursor_theme_name = config.my.desktop.theme.cursor.name;
+          font_name = "${config.my.desktop.fonts.profiles.regular.family} 14";
         };
       };
     };

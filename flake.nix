@@ -36,6 +36,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,6 +52,15 @@
     firefox-onebar = {
       url = "git+https://codeberg.org/Freeplay/Firefox-Onebar";
       flake = false;
+    };
+
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ags-config = {
+      url = "github:stephenreynolds/ags-config";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nvim-config = {
@@ -56,6 +74,8 @@
       inherit (self) outputs;
       lib = nixpkgs.lib // home-manager.lib;
 
+      systems = [ "x86_64-linux" ];
+
       mkPkgs = pkgs: system: extraOverlays:
         import pkgs {
           inherit system;
@@ -64,24 +84,16 @@
         };
       pkgsFor = lib.genAttrs systems (sys: mkPkgs nixpkgs sys [ self.overlays.default ]);
 
-      systems = [ "x86_64-linux" ];
-
       forEachSystem = f: lib.genAttrs systems (sys: f pkgsFor.${sys});
 
-      packages = haumea.lib.load {
-        src = ./pkgs;
+      loadPath = src: haumea.lib.load {
+        inherit src;
         loader = haumea.lib.loaders.path;
       };
 
-      hosts = haumea.lib.load {
-        src = ./hosts;
-        loader = haumea.lib.loaders.path;
-      };
-
-      users = haumea.lib.load {
-        src = ./home;
-        loader = haumea.lib.loaders.path;
-      };
+      packages = loadPath ./pkgs;
+      hosts = loadPath ./hosts;
+      users = loadPath ./hosts;
 
       mapModules = path: lib.attrsets.collect builtins.isPath (haumea.lib.load {
         src = path;
@@ -109,6 +121,7 @@
                 { networking.hostName = lib.mkDefault hostName; }
                 host.default
               ] ++ nixosModules;
+              pkgs = pkgsFor.x86_64-linux;
               specialArgs = { inherit inputs outputs; };
             }
           )
