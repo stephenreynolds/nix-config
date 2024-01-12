@@ -6,7 +6,7 @@ let
   cfg = config.my.services.swayidle;
 
   pactl = "${pkgs.pulseaudio}/bin/pactl";
-  hyprland = config.hm.wayland.windowManager.hyprland;
+  hyprland = config.wayland.windowManager.hyprland;
   hyprctl = "${hyprland.package}/bin/hyprctl";
 
   screenOffTime = 10 * 60; # 10 minutes

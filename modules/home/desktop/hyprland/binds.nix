@@ -9,7 +9,7 @@ let
       inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     }/bin/grimblast";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
-  playerctl = "${config.hm.services.playerctld.package}/bin/playerctl";
+  playerctl = "${config.services.playerctld.package}/bin/playerctl";
   swappy = lib.getExe pkgs.swappy;
   ags = "${inputs.ags.packages.${pkgs.system}.default}/bin/ags -b hyprland";
 

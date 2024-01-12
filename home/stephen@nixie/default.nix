@@ -81,7 +81,10 @@
     };
     desktop = {
       enable = true;
-      hyprland.enable = true;
+      hyprland = {
+        enable = true;
+        nvidia = true;
+      };
       fonts = {
         profiles = {
           enable = true;
@@ -136,8 +139,9 @@
       ];
     };
     gaming = {
+      enable = true;
       mangohud.enable = true;
-      osu-lazer.enable = true;
+      # osu-lazer.enable = true;
       yuzu.enable = true;
     };
     services = {

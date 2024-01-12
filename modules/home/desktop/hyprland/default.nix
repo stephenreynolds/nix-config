@@ -16,6 +16,7 @@ in
       default = "${config.hm.xdg.configHome}/hypr/conf.d";
       description = "Path to Hyprland configuration files";
     };
+    nvidia = lib.mkEnableOption "Whether to enable options for Nvidia GPUs";
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [

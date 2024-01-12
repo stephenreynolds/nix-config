@@ -3,11 +3,9 @@
 let
   cfg = config.my.desktop.hyprland;
 
-  nvidia = config.my.system.nvidia.enable;
-
   sessionVariables =
     config.my.desktop.tiling-wm.wayland.sessionVariables
-    // lib.optionalAttrs nvidia {
+    // lib.optionalAttrs cfg.nvidia {
       # Nvidia: https://wiki.hyprland.org/Nvidia
       LIBVA_DRIVER_NAME = "nvidia";
       GBM_BACKEND = "nvidia-drm";
