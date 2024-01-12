@@ -2,10 +2,10 @@
 
 let
   inherit (lib) types mkOption mkEnableOption mkIf;
-  cfg = config.modules.services.gnome-policykit-agent;
+  cfg = config.my.services.gnome-policykit-agent;
 in
 {
-  options.modules.services.gnome-policykit-agent = {
+  options.my.services.gnome-policykit-agent = {
     enable = mkEnableOption "GNOME PolicyKit Agent";
     package = mkOption {
       type = types.package;
