@@ -58,6 +58,10 @@
     services = {
       keyring.enable = true;
       onedrive.enable = true;
+      openrgb = {
+        enable = true;
+        profile = ./openrgb-profile.orp;
+      };
       system76-scheduler.enable = true;
     };
     system = {
