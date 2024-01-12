@@ -93,7 +93,7 @@
 
       packages = loadPath ./pkgs;
       hosts = loadPath ./hosts;
-      users = loadPath ./hosts;
+      users = loadPath ./home;
 
       mapModules = path: lib.attrsets.collect builtins.isPath (haumea.lib.load {
         src = path;
