@@ -133,6 +133,17 @@
       yuzu.enable = true;
     };
     services = {
+      easyeffects = {
+        enable = true;
+        preset = {
+          enable = true;
+          source = ./corsair-virtuoso-wireless-headset/preset.json;
+        };
+        autoload = {
+          enable = true;
+          source = ./corsair-virtuoso-wireless-headset/autoload.json;
+        };
+      };
       keyring.enable = true;
       onedrive.enable = true;
     };
