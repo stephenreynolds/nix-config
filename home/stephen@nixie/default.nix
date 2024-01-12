@@ -146,6 +146,7 @@
       };
       gpg.enable = true;
       keyring.enable = true;
+      mpdris2.enable = true;
       onedrive = {
         enable = true;
         symlinkUserDirs.enable = true;
