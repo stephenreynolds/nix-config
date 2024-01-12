@@ -10,9 +10,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    hm.services.mpdris2 = {
+    services.mpdris2 = {
       enable = true;
-      mpd.musicDirectory = "${config.hm.xdg.userDirs.music}";
+      mpd.musicDirectory = "${config.xdg.userDirs.music}";
       multimediaKeys = true;
       notifications = true;
     };

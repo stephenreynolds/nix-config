@@ -23,7 +23,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    hm.services.swayidle = {
+    services.swayidle = {
       enable = true;
       timeouts =
         # Turn off displays
