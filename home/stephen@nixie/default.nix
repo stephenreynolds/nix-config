@@ -102,13 +102,35 @@
       theme = {
         enable = true;
         colorscheme = inputs.nix-colors.colorSchemes.rose-pine;
-        # gtk = {
-        #   iconTheme = {
-        #     name = "Papirus";
-        #     package = pkgs.papirus-icon-theme;
-        #   };
-        # };
+        gtk = {
+          iconTheme = {
+            name = "Papirus";
+            package = pkgs.papirus-icon-theme;
+          };
+        };
       };
+    };
+    devices = {
+      monitors = [
+        {
+          name = "DP-1";
+          x = 0;
+        }
+        {
+          name = "DP-2";
+          x = 1920;
+          primary = true;
+        }
+        {
+          name = "HDMI-A-1";
+          x = 3840;
+        }
+      ];
+    };
+    gaming = {
+      mangohud.enable = true;
+      osu-lazer.enable = true;
+      yuzu.enable = true;
     };
     services = {
       keyring.enable = true;

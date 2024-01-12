@@ -46,6 +46,14 @@
           x = 3840;
         }
       ];
+      xboxController.enable = true;
+      zsa-keyboard = {
+        enable = true;
+        keymapp.enable = true;
+      };
+    };
+    gaming = {
+      enable = true;
     };
     services = {
       keyring.enable = true;
