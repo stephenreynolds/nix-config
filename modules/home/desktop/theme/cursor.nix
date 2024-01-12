@@ -29,7 +29,7 @@ in
   };
 
   config = mkIf cfg.cursor.enable {
-    home.pointercursor = {
+    home.pointerCursor = {
       package = cfg.cursor.package;
       name = cfg.cursor.name;
       size = cfg.cursor.size;

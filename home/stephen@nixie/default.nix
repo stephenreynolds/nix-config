@@ -4,6 +4,10 @@
 {
   my = {
     apps = {
+      discord = {
+        enable = true;
+        betterdiscord.enable = true;
+      };
       electron-mail.enable = true;
       firefox = {
         enable = true;
@@ -30,7 +34,11 @@
           };
         };
       };
-      kitty.enable = true;
+      wine = {
+        enable = true;
+        winetricks.enable = true;
+        bottles.enable = true;
+      };
       extraPackages = with pkgs; [
         celluloid
         deluge

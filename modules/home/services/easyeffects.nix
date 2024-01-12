@@ -26,18 +26,18 @@ in
   };
 
   config = mkIf cfg.enable {
-    hm.services.easyeffects = {
+    services.easyeffects = {
       enable = true;
       preset = mkIf cfg.preset.enable "Preset";
     };
 
-    hm.xdg.configFile."Preset.json" = {
+    xdg.configFile."Preset.json" = {
       enable = cfg.preset.enable;
       source = cfg.preset.source;
       target = "easyeffects/output/Preset.json";
     };
 
-    hm.xdg.configFile."autoload.json" = {
+    xdg.configFile."autoload.json" = {
       enable = cfg.autoload.enable;
       source = cfg.autoload.source;
       target = "easyeffects/autoload/output/autoload.json";

@@ -95,6 +95,7 @@
         tpm.enable = true;
       };
       ssd.enable = true;
+      wine.enable = true;
     };
     users = {
       users.stephen = {

@@ -27,6 +27,11 @@ in {
     };
   };
 
+  imports = [
+    inputs.ags.homeManagerModules.default
+    inputs.ags-config.homeManagerModules.default
+  ];
+
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       home.packages = with pkgs; [
@@ -40,11 +45,6 @@ in {
     }
 
     (lib.mkIf cfg.ags.enable {
-      imports = [
-        inputs.ags.homeManagerModules.default
-        inputs.ags-config.homeManagerModules.default
-      ];
-
       programs.ags.enable = true;
     })
 
