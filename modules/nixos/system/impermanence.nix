@@ -67,25 +67,25 @@ in
               mount /dev/disk/by-label/${hostname} "$MNTPOINT"
               trap 'umount "$MNTPOINT"' EXIT
 
-              if [[ -e /tmp/root ]]; then
-                mkdir -p /tmp/old_roots
-                timestamp=$(date --date="@$(stat -c %Y /tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
-                mv /tmp/root "/tmp/old_roots/$timestamp"
+              if [[ -e "/$MNTPOINT/root" ]]; then
+                mkdir -p "/$MNTPOINT/old_roots"
+                timestamp=$(date --date="@$(stat -c %Y /$MNTPOINT/root)" "+%Y-%m-%-d_%H:%M:%S")
+                mv /$MNTPOINT/root "/$MNTPOINT/old_roots/$timestamp"
               fi
 
               delete_subvolume_recursively() {
                 IFS=$'\n'
                 for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-                  delete_subvolume_recursively "/tmp/$i"
+                  delete_subvolume_recursively "/$MNTPOINT/$i"
                 done
                 btrfs subvolume delete "$1"
               }
 
-              for i in $(find /tmp/old_roots/ -maxdepth 1 -mtime +30); do
+              for i in $(find "/$MNTPOINT/old_roots/" -maxdepth 1 -mtime +30); do
                 delete_subvolume_recursively "$i"
               done
 
-              btrfs subvolume create /tmp/root
+              btrfs subvolume create "/$MNTPOINT/root"
             )
           '';
           phase1Systemd = config.boot.initrd.systemd.enable;
