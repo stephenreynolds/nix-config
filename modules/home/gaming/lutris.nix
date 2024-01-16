@@ -14,6 +14,20 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.lutris ];
+    home.packages = [
+      (pkgs.lutris.override {
+        extraPkgs = p: [
+          p.wineWowPackages.staging
+          p.pixman
+          p.libjpeg
+          p.gnome.zenity
+        ];
+      })
+    ];
+
+    my.impermanence.persist.directories = [
+      ".config/lutris"
+      ".local/share/lutris"
+    ];
   };
 }

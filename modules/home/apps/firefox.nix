@@ -9,8 +9,7 @@ in {
       default = { };
       description = "Attribute set of Firefox profiles.";
     };
-    defaultBrowser =
-      lib.mkEnableOption "Whether to set Firefox as the default browser";
+    defaultBrowser = lib.mkEnableOption "Whether to set Firefox as the default browser";
     speechSynthesisSupport = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -123,7 +122,11 @@ in {
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
-    { programs.firefox.enable = true; }
+    {
+      programs.firefox.enable = true;
+
+      my.impermanence.persist.directories = [ ".mozilla/firefox" ];
+    }
 
     (lib.mkIf (cfg.profiles != { }) {
       programs.firefox.profiles = cfg.profiles;

@@ -9,7 +9,11 @@
       hyprland.enable = true;
       displayManager.regreet.enable = true;
       pam.swaylock = true;
-      ime.enable = true;
+      ime = {
+        enable = true;
+        method = "fcitx5";
+        fcitx5.wayland = true;
+      };
       fonts.profiles = {
         enable = true;
         monospace = {
@@ -78,6 +82,10 @@
       cpu.intel = {
         enable = true;
         gpu.blacklist = true;
+      };
+      impermanence = {
+        enable = true;
+        wipeMethod = "btrfs";
       };
       locale.time.timeZone = "America/Detroit";
       networking = {

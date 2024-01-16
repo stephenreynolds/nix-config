@@ -47,6 +47,13 @@ in
   config = mkIf cfg.enable {
     home.packages = [ steam-with-pkgs ];
 
+    my.impermanence.persist.directories = [
+      {
+        directory = ".local/share/Steam";
+        method = "symlink";
+      }
+    ];
+
     xdg.configFile."autostart/steam.desktop" = {
       enable = cfg.autostart;
       text = ''

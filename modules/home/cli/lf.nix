@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
+  inherit (lib) optionalString;
   cfg = config.my.cli.lf;
 
   vidthumb = pkgs.writeShellScript "vidthumb" ''
@@ -83,7 +84,6 @@ in
     enable = lib.mkEnableOption "Enable lf file manager";
     enableIcons = lib.mkEnableOption "Enable icons";
     commands = {
-      # TODO: Enable swww command when swww is installed
       swww = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -125,10 +125,10 @@ in
                 }}'';
         setwallpaper = lib.mkIf cfg.commands.swww ''
           ''${{
-                  ln -sf "$f" /home/$USER/.config/wallpaper
-                  ${pkgs.swww}/bin/swww img /home/$USER/.config/wallpaper --transition-type random --transition-step 90
+                  ln -sf "$f" ${config.xdg.cacheHome}/wallpaper
+                  ${pkgs.swww}/bin/swww img ${config.xdg.cacheHome}/wallpaper --transition-type random --transition-step 90
                 }}'';
-        z = lib.mkIf cfg.commands.zoxide ''
+        zz = lib.mkIf cfg.commands.zoxide ''
           %{{
                   result="$(zoxide query --exclude $PWD $@ | sed 's/\\/\\\\/g;s/"/\\"/g')"
                   lf -remote "send $id cd \"$result\""
@@ -162,9 +162,9 @@ in
 
           map DD trash
           map xx unarchive
-          map sw setwallpaper
-          map zz z
-          map zi zi
+          ${optionalString cfg.commands.swww "map sw setwallpaper"}
+          ${optionalString cfg.commands.zoxide "map zz zz"}
+          ${optionalString cfg.commands.zoxide "map zi zi"}
           map gb :git_branch
           map gp ''${{clear; git pull --rebase || true; echo "press ENTER"; read ENTER}}
           map gs ''${{clear; git status; echo "press ENTER"; read ENTER}}

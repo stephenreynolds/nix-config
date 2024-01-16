@@ -66,12 +66,20 @@
         };
       };
       lazygit.enable = true;
-      lf.enable = true;
+      lf = {
+        enable = true;
+        enableIcons = true;
+        commands = { swww = true; };
+      };
       lsd.enable = true;
       ncmpcpp.enable = true;
       neovim = {
         enable = true;
         defaultEditor = true;
+      };
+      nix-index = {
+        enable = true;
+        comma.enable = true;
       };
       shell = {
         fish.enable = true;
@@ -166,6 +174,12 @@
     };
     user = {
       name = "stephen";
+    };
+    impermanence = {
+      enable = true;
+      persist.directories = [
+        "src"
+      ];
     };
   };
 }

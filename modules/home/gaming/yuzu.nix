@@ -18,5 +18,10 @@ in
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
+
+    my.impermanence.persist.directories = [
+      ".config/yuzu"
+      ".local/share/yuzu"
+    ];
   };
 }

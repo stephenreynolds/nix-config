@@ -1,7 +1,10 @@
 { config, lib, ... }:
 
-let cfg = config.my.services.onedrive;
-in {
+let
+  inherit (lib.lists) subtractLists;
+  cfg = config.my.services.onedrive;
+in
+{
   options.my.services.onedrive = {
     enable = lib.mkEnableOption "Whether to enable the OneDrive client";
     syncDir = lib.mkOption {
@@ -114,6 +117,8 @@ in {
           enable_logging = "${if cfg.logging.enable then "true" else "false"}"
         '';
       };
+
+      my.impermanence.persist.directories = [ cfg.syncDir ];
     }
 
     (lib.mkIf cfg.symlinkUserDirs.enable {
@@ -162,6 +167,14 @@ in {
         videos = lib.mkIf cfg.symlinkUserDirs.videos.enable
           "${cfg.syncDir}/${cfg.symlinkUserDirs.videos.target}";
       };
+
+      # my.impermanence.persist.directories = subtractLists [
+      #   "Documents"
+      #   "Music"
+      #   "Pictures"
+      #   "Videos"
+      # ]
+      #   config.my.impermanence.persist.directories;
     })
   ]);
 }

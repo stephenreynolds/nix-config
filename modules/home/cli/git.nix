@@ -95,5 +95,7 @@ in {
       };
       ignores = [ ".direnv" ];
     };
+
+    my.impermanence.persist.directories = [ cfg.signing.key ];
   };
 }

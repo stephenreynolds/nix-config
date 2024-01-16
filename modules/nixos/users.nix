@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let
+  inherit (builtins) readFile;
+
   cfg = config.my.users;
 
   hasUser = name: builtins.hasAttr name cfg.users;
@@ -95,6 +97,14 @@ in
         sopsFile = ../../secrets/stephen.yaml;
         neededForUsers = true;
       };
+
+      sops.secrets.openai-api-key = {
+        sopsFile = ../../secrets/stephen.yaml;
+        group = config.users.groups.openai-api-key.name;
+        mode = "0440";
+      };
+
+      users.groups.openai-api-key = { };
     })
   ];
 }
