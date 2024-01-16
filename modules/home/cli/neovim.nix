@@ -32,5 +32,7 @@ in {
       vimAlias = cfg.vimAlias;
       vimdiffAlias = cfg.vimdiffAlias;
     };
+
+    my.impermanence.persist.directories = [ ".local/share/nvim" ];
   };
 }

@@ -1,7 +1,10 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.my.cli.git;
-in {
+let
+  inherit (lib.strings) removePrefix;
+  cfg = config.my.cli.git;
+in
+{
   options.my.cli.git = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -96,6 +99,8 @@ in {
       ignores = [ ".direnv" ];
     };
 
-    my.impermanence.persist.directories = [ cfg.signing.key ];
+    my.impermanence.persist.files = [
+      (removePrefix config.home.homeDirectory cfg.signing.key)
+    ];
   };
 }

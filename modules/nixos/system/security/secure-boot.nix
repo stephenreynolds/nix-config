@@ -31,5 +31,7 @@ in {
       enable = true;
       pkiBundle = "/etc/secureboot";
     };
+
+    my.system.impermanence.persist.directories = [ "/etc/secureboot" ];
   };
 }

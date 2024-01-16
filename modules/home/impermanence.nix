@@ -22,12 +22,18 @@ in
         default = [ "Downloads" ];
         description = "Directories to persist";
       };
+      files = mkOption {
+        type = with types; listOf (either str attrs);
+        default = [ ];
+        description = "Files to persist";
+      };
     };
   };
 
   config = mkIf cfg.enable {
-    home.persistence."${cfg.persist.path}/${config.home.homeDirectory}" = {
+    home.persistence."${cfg.persist.path}${config.home.homeDirectory}" = {
       directories = cfg.persist.directories;
+      files = cfg.persist.files;
       allowOther = true;
     };
   };

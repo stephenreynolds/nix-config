@@ -8,7 +8,7 @@ let
   pubKey = host: ../../../hosts/${host}/ssh_host_ed25519_key.pub;
 
   persistPath = config.my.system.impermanence.persist.path;
-  hasOptinPersistence = config.environment.persistence ? persistPath;
+  hasOptinPersistence = config.my.system.impermanence.enable;
 in
 {
   options.my.services.openssh = {
