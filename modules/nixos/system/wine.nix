@@ -2,10 +2,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf mkForce;
-  cfg = config.my.apps.wine;
+  cfg = config.my.system.wine;
 in
 {
-  options.my.apps.wine = {
+  options.my.system.wine = {
     enable = mkEnableOption "Whether to enable Wine";
   };
 
