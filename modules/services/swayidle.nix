@@ -9,7 +9,8 @@ let
 
   screenOffTime = 10 * 60; # 10 minutes
   lockTime = screenOffTime + 10; # 10 seconds
-in {
+in
+{
   options.modules.services.swayidle = {
     enable = lib.mkEnableOption "Whether to enable swayidle";
     lockCommand = lib.mkOption {
@@ -22,7 +23,7 @@ in {
   config = lib.mkIf cfg.enable {
     hm.services.swayidle = {
       enable = true;
-      timeouts = 
+      timeouts =
         # Turn off displays
         (lib.optionals hyprland.enable ([{
           timeout = screenOffTime;

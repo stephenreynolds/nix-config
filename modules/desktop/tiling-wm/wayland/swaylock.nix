@@ -15,14 +15,15 @@ let
 
     ${lib.getExe cfg.package} --daemonize --image $bg
   '';
-in  {
+in
+{
   options.modules.desktop.tiling-wm.wayland.swaylock = {
     enable = lib.mkEnableOption "Whether to enable swaylock";
     package = lib.mkOption {
       type = lib.types.package;
       default = pkgs.swaylock-effects;
       description = "The swaylock package to use";
-    };    
+    };
     lockCommand = lib.mkOption {
       type = lib.types.package;
       default = lockCommand;

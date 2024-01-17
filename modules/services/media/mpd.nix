@@ -31,23 +31,23 @@ in {
       musicDirectory = "${cfg.musicDirectory}";
       playlistDirectory = "${cfg.playlistDirectory}";
       network.startWhenNeeded = true;
-      extraConfig = 
-      ''
-        log_level           "warning"
+      extraConfig =
+        ''
+          log_level           "warning"
 
-        # Put MPD into pause mode instead of starting playback after startup
-        restore_paused      "yes"
+          # Put MPD into pause mode instead of starting playback after startup
+          restore_paused      "yes"
 
-        # Auto update the music database when files are changed in music_directory
-        auto_update         "yes"
-      '' +
-      lib.optionalString config.services.pipewire.enable ''
-        audio_output {
-            type    "pipewire"
-            name    "PipeWire Sound Server"
-        }
-      '' +
-      cfg.extraConfig;
+          # Auto update the music database when files are changed in music_directory
+          auto_update         "yes"
+        '' +
+        lib.optionalString config.services.pipewire.enable ''
+          audio_output {
+              type    "pipewire"
+              name    "PipeWire Sound Server"
+          }
+        '' +
+        cfg.extraConfig;
     };
   };
 }
