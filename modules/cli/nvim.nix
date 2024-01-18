@@ -35,6 +35,9 @@ in {
       vimdiffAlias = cfg.vimdiffAlias;
     };
 
-    modules.system.persist.state.home.directories = [ ".local/share/nvim" ];
+    modules.system.persist.state.home.directories = [
+      ".local/share/nvim"
+      ".config/github-copilot"
+    ];
   };
 }

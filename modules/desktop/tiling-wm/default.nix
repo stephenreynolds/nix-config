@@ -52,6 +52,8 @@ in {
         };
       };
 
+      modules.apps.pavucontrol.enable = lib.mkDefault true;
+
       hm.home.packages = with pkgs; [
         gtk3
         xdg-utils
@@ -59,7 +61,6 @@ in {
 
         gnome.gnome-clocks
         qalculate-gtk
-        pavucontrol
       ];
     }
 
