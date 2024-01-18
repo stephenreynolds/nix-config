@@ -95,7 +95,7 @@
         enable = true;
         profile = ./openrgb-profile.orp;
       };
-      openssh.enable = true;
+      openssh.enable = false;
       # printing = {
       #   enable = true;
       #   drivers = [ pkgs.hplip ];

@@ -1,7 +1,7 @@
 { config, lib, outputs, ... }:
 
 let
-  inherit (lib) mkEnableOption mkMerge mkIf mapAttrs optional optionalString;
+  inherit (lib) mkEnableOption mapAttrs optional optionalString;
   cfg = config.modules.services.openssh;
   inherit (config.networking) hostName;
   hosts = outputs.nixosConfigurations;
@@ -15,44 +15,41 @@ in
     enable = mkEnableOption "Enable openssh service";
   };
 
-  config = mkMerge [
-    {
-      services.openssh = {
-        settings = {
-          PasswordAuthentication = false;
-          PermitRootLogin = "no";
-          StreamLocalBindUnlink = "yes";
-          GatewayPorts = "clientspecified";
-        };
-        hostKeys = [{
-          path = "${optionalString hasOptinPersistence persistPath}/etc/ssh/ssh_host_ed25519_key";
-          type = "ed25519";
-        }];
+  config = {
+    services.openssh = {
+      enable = cfg.enable;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+        StreamLocalBindUnlink = "yes";
+        GatewayPorts = "clientspecified";
       };
+      hostKeys = [{
+        path = "${optionalString hasOptinPersistence persistPath}/etc/ssh/ssh_host_ed25519_key";
+        type = "ed25519";
+      }];
+    };
 
-      programs.ssh = {
-        knownHosts = mapAttrs
-          (name: _: {
-            publicKeyFile = pubKey name;
-            extraHostNames = (optional (name == hostName) "localhost");
-          })
-          hosts;
-      };
+    programs.ssh = {
+      knownHosts = mapAttrs
+        (name: _: {
+          publicKeyFile = pubKey name;
+          extraHostNames = (optional (name == hostName) "localhost");
+        })
+        hosts;
+    };
 
-      security.pam.sshAgentAuth.authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
+    security.pam.sshAgentAuth = {
+      enable = true;
+      authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
+    };
 
-      modules.system.persist.state.files = [
-        "/etc/ssh/ssh_host_ed25519_key"
-        "/etc/ssh/ssh_host_ed25519_key.pub"
-      ];
-      modules.system.persist.state.home.directories = [
-        { directory = ".ssh"; mode = "0700"; }
-      ];
-    }
-
-    (mkIf cfg.enable {
-      services.openssh.enable = true;
-      security.pam.sshAgentAuth.enable = true;
-    })
-  ];
+    modules.system.persist.state.files = [
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_ed25519_key.pub"
+    ];
+    modules.system.persist.state.home.directories = [
+      { directory = ".ssh"; mode = "0700"; }
+    ];
+  };
 }
