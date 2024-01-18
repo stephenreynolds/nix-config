@@ -80,6 +80,7 @@ in
         users.${config.user.name} = {
           directories = [
             ".cache"
+            ".config/dconf"
           ] ++ cfg.cache.home.directories;
           files = cfg.cache.home.files;
         };
