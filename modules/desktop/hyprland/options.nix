@@ -101,7 +101,9 @@ lib.mkIf cfg.enable {
       insert_after_current = false;
 
       groupbar = {
+        height = 0;
         render_titles = false;
+        gradients = false;
       };
     };
 
