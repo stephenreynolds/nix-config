@@ -44,7 +44,10 @@ in {
     }
 
     (lib.mkIf cfg.memory-fix.enable {
-      boot.kernel.sysctl = { "vm.max_map_count" = 2147483642; };
+      boot.kernel.sysctl = {
+        "vm.max_map_count" = 2147483642;
+        "kernel.split_lock_mitigate" = 0;
+      };
     })
 
     (lib.mkIf cfg.gamemode.enable {
