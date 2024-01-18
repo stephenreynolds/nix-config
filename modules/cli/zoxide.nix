@@ -9,8 +9,11 @@ in {
       enable = true;
       enableBashIntegration = true;
       enableFishIntegration = config.modules.cli.shell.fish.enable;
-      # TODO: Configure using flake config
       enableZshIntegration = config.programs.zsh.enable;
     };
+
+    modules.system.persist.state.home.files = [
+      ".local/share/zoxide/db.zo"
+    ];
   };
 }

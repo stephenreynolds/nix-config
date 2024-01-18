@@ -49,5 +49,9 @@ in {
         '' +
         cfg.extraConfig;
     };
+
+    modules.system.persist.state.home.directories = [
+      ".local/share/mpd"
+    ];
   };
 }

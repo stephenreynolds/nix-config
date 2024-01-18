@@ -17,6 +17,7 @@ in {
         };
       };
     }
+
     {
       hm.programs.fish = {
         enable = true;
@@ -111,6 +112,10 @@ in {
             set -U fish_pager_color_progress      'brwhite' '--background=cyan'
           '';
       };
+
+      modules.system.persist.state.home.files = [
+        ".local/share/fish/fish_history"
+      ];
     }
   ]);
 }

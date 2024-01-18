@@ -62,5 +62,9 @@ in
         Install.WantedBy = [ "default.target" ];
       };
     };
+
+    modules.system.persist.state.home.directories = [
+      ".local/share/gnupg"
+    ];
   };
 }

@@ -13,5 +13,9 @@ in {
       enable = true;
       components = [ "pkcs11" "secrets" "ssh" ];
     };
+
+    modules.system.persist.state.home.directories = [
+      ".local/share/keyrings"
+    ];
   };
 }

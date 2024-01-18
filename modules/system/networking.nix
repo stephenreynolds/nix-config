@@ -51,7 +51,10 @@ in {
         };
       };
 
-      modules.system.persist.state.directories = [ "/etc/NetworkManager/system-connections" ];
+      modules.system.persist.state.directories = [
+        "/etc/NetworkManager/system-connections"
+        "/var/lib/NetworkManager"
+      ];
     })
 
     (lib.mkIf cfg.networkManager.wireguard-vpn.enable {

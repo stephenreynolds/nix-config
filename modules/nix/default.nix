@@ -100,6 +100,10 @@ in {
         restartUnits = [ "nix-daemon.service" ];
       };
       users.groups.nix-access-tokens = { };
+
+      modules.system.persist.state.home.files = [
+        ".local/share/nix/trusted-settings.json"
+      ];
     }
 
     (lib.mkIf cfg.lowPriority {

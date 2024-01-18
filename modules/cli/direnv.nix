@@ -19,6 +19,10 @@ in {
         enable = true;
         nix-direnv.enable = true;
       };
+
+      modules.system.persist.state.home.directories = [
+        ".local/share/direnv"
+      ];
     }
 
     (lib.mkIf (!cfg.log.enable) {

@@ -106,5 +106,9 @@ in
         git.overrideGpg = true;
       };
     };
+
+    modules.system.persist.state.home.files = [
+      ".config/lazygit/state.yml"
+    ];
   };
 }
