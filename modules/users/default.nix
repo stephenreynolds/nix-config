@@ -1,7 +1,8 @@
 { config, lib, options, pkgs, ... }:
 
 let cfg = config.modules.users;
-in {
+in
+{
   options.user = lib.mkOption {
     type = lib.types.attrs;
     default = { };
@@ -48,6 +49,9 @@ in {
             "gamemode"
             "nix-access-tokens"
             "openai-api-key"
+          ];
+          openssh.authorizedKeys.keyFiles = [
+            ../../hosts/${config.networking.hostName}/ssh_host_ed25519_key.pub
           ];
         };
 
