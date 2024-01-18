@@ -31,7 +31,10 @@
         enable = true;
         open = false;
       };
-      persist.enable = true;
+      persist = {
+        enable = true;
+        state.home.directories = [ "src" ];
+      };
       pipewire.enable = true;
       plymouth.enable = true;
       security = {
