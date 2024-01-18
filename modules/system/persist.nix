@@ -59,12 +59,13 @@ in
       "${cfg.state.path}" = {
         hideMounts = true;
         directories = [
-          "/etc/machine-id"
           "/var/lib/systemd"
           "/var/lib/nixos"
           "/var/log"
         ] ++ cfg.state.directories;
-        files = cfg.state.files;
+        files = [
+          "/etc/machine-id"
+        ] ++ cfg.state.files;
         users.${config.user.name} = {
           directories = cfg.state.home.directories;
           files = cfg.state.home.files;
