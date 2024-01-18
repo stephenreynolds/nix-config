@@ -113,8 +113,8 @@ in {
           '';
       };
 
-      modules.system.persist.state.home.files = [
-        ".local/share/fish/fish_history"
+      modules.system.persist.state.home.directories = [
+        ".local/share/fish"
       ];
     }
   ]);
