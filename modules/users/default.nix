@@ -50,9 +50,6 @@ in
             "nix-access-tokens"
             "openai-api-key"
           ];
-          openssh.authorizedKeys.keyFiles = [
-            ../../hosts/${config.networking.hostName}/ssh_host_ed25519_key.pub
-          ];
         };
 
       users.users.${config.user.name} = lib.mkAliasDefinitions options.user;

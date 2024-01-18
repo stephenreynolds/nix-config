@@ -39,6 +39,8 @@ in
           hosts;
       };
 
+      security.pam.sshAgentAuth.authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
+
       modules.system.persist.state.files = [
         "/etc/ssh/ssh_host_ed25519_key"
         "/etc/ssh/ssh_host_ed25519_key.pub"
@@ -50,7 +52,7 @@ in
 
     (mkIf cfg.enable {
       services.openssh.enable = true;
-      security.pam.enableSSHAgentAuth = true;
+      security.pam.sshAgentAuth.enable = true;
     })
   ];
 }

@@ -1,7 +1,10 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.modules.dev.podman;
-in {
+let
+  cfg = config.modules.dev.podman;
+  dockerEnabled = config.virtualisation.docker.enable;
+in
+{
   options.modules.dev.podman = {
     enable = lib.mkEnableOption "Whether to enable Podman";
     autoPrune = {
@@ -26,10 +29,17 @@ in {
       enable = true;
       autoPrune.enable = cfg.autoPrune.enable;
       enableNvidia = cfg.enableNvidia;
+      dockerCompat = !dockerEnabled;
+      dockerSocket.enable = !dockerEnabled;
+      defaultNetwork.settings.dns_enabled = true;
     };
 
     hm.home.packages = lib.mkIf cfg.distrobox.enable [
       pkgs.distrobox
+    ];
+
+    modules.system.persist.state.directories = [
+      "/var/lib/containers"
     ];
   };
 }
