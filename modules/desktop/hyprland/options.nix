@@ -14,7 +14,7 @@ lib.mkIf cfg.enable {
 
       border_size = 1;
 
-      layout = "dwindle";
+      layout = "master";
 
       resize_on_border = true;
 
