@@ -15,7 +15,7 @@ in {
     };
 
     modules.system.persist.state.home.directories = [
-      ".local/share/keyrings"
+      { directory = ".local/share/keyrings"; mode = "0700"; }
     ];
   };
 }

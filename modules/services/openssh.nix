@@ -44,7 +44,7 @@ in
         "/etc/ssh/ssh_host_ed25519_key.pub"
       ];
       modules.system.persist.state.home.directories = [
-        ".ssh"
+        { directory = ".ssh"; mode = "0700"; }
       ];
     }
 

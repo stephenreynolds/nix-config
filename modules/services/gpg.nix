@@ -64,7 +64,7 @@ in
     };
 
     modules.system.persist.state.home.directories = [
-      ".local/share/gnupg"
+      { directory = ".local/share/gnupg"; mode = "0700"; }
     ];
   };
 }
