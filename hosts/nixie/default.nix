@@ -18,6 +18,7 @@
         enable = true;
         kaby-lake.enable = true;
       };
+      ephemeral-root.tmpfs.enable = true;
       locale = { time.timeZone = "America/Detroit"; };
       networking = {
         networkManager = {
@@ -30,6 +31,7 @@
         enable = true;
         open = false;
       };
+      persist.enable = true;
       pipewire.enable = true;
       plymouth.enable = true;
       security = {

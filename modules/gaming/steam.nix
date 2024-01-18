@@ -47,6 +47,8 @@ in
     modules.system.pipewire.support32Bit = lib.mkForce true;
     modules.system.nvidia.support32Bit = lib.mkForce true;
 
+    modules.system.persist.state.home.directories = [ ".local/share/Steam" ];
+
     hm.xdg.configFile."autostart/steam.desktop" = {
       enable = cfg.autostart;
       text = ''

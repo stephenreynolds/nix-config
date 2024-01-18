@@ -120,7 +120,11 @@ in {
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
-    { hm.programs.firefox.enable = true; }
+    {
+      hm.programs.firefox.enable = true;
+
+      modules.system.persist.state.home.directories = [ ".mozilla/firefox" ];
+    }
 
     (lib.mkIf (cfg.profiles != { }) {
       hm.programs.firefox.profiles = cfg.profiles;

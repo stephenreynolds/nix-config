@@ -26,6 +26,8 @@ in {
         settings = cfg.settings;
         powerOnBoot = cfg.powerOnBoot;
       };
+
+      modules.system.persist.state.directories = [ "/var/lib/bluetooth" ];
     }
 
     (lib.mkIf cfg.blueman.enable {

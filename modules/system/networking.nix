@@ -50,6 +50,8 @@ in {
             if cfg.networkManager.randomizeMac then "random" else "preserve";
         };
       };
+
+      modules.system.persist.state.directories = [ "/etc/NetworkManager/system-connections" ];
     })
 
     (lib.mkIf cfg.networkManager.wireguard-vpn.enable {

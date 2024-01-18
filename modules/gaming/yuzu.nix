@@ -13,5 +13,12 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable { hm.home.packages = [ cfg.package ]; };
+  config = lib.mkIf cfg.enable {
+    hm.home.packages = [ cfg.package ];
+
+    modules.system.persist.state.home.directories = [
+      ".config/yuzu"
+      ".local/share/yuzu"
+    ];
+  };
 }

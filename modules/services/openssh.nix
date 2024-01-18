@@ -1,6 +1,7 @@
 { config, lib, outputs, ... }:
 
 let
+  inherit (lib) mkEnableOption mkMerge mkIf mapAttrs optional;
   cfg = config.modules.services.openssh;
   inherit (config.networking) hostName;
   hosts = outputs.nixosConfigurations;
@@ -8,33 +9,45 @@ let
 in
 {
   options.modules.services.openssh = {
-    enable = lib.mkEnableOption "Enable openssh service";
+    enable = mkEnableOption "Enable openssh service";
   };
 
-  config = lib.mkIf cfg.enable {
-    services.openssh = {
-      enable = true;
-      settings = {
-        PasswordAuthentication = false;
-        PermitRootLogin = "no";
-        StreamLocalBindUnlink = "yes";
-        GatewayPorts = "clientspecified";
+  config = mkMerge [
+    {
+      services.openssh = {
+        settings = {
+          PasswordAuthentication = false;
+          PermitRootLogin = "no";
+          StreamLocalBindUnlink = "yes";
+          GatewayPorts = "clientspecified";
+        };
+        hostKeys = [{
+          path = "/etc/ssh/ssh_host_ed25519_key";
+          type = "ed25519";
+        }];
       };
-      hostKeys = [{
-        path = "/etc/ssh/ssh_host_ed25519_key";
-        type = "ed25519";
-      }];
-    };
 
-    programs.ssh = {
-      knownHosts = lib.mapAttrs
-        (name: _: {
-          publicKeyFile = pubKey name;
-          extraHostNames = (lib.optional (name == hostName) "localhost");
-        })
-        hosts;
-    };
+      programs.ssh = {
+        knownHosts = mapAttrs
+          (name: _: {
+            publicKeyFile = pubKey name;
+            extraHostNames = (optional (name == hostName) "localhost");
+          })
+          hosts;
+      };
 
-    security.pam.enableSSHAgentAuth = true;
-  };
+      modules.system.persist.state.files = [
+        "/etc/ssh/ssh_host_ed25519_key"
+        "/etc/ssh/ssh_host_ed25519_key.pub"
+      ];
+      modules.system.persist.state.home.directories = [
+        ".ssh"
+      ];
+    }
+
+    (mkIf cfg.enable {
+      services.openssh.enable = true;
+      security.pam.enableSSHAgentAuth = true;
+    })
+  ];
 }

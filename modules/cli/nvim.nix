@@ -34,5 +34,7 @@ in {
       vimAlias = cfg.vimAlias;
       vimdiffAlias = cfg.vimdiffAlias;
     };
+
+    modules.system.persist.state.home.directories = [ ".local/share/nvim" ];
   };
 }

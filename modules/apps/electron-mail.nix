@@ -30,5 +30,7 @@ in {
         X-GNOME-Autostart-enabled=true
       '';
     };
+
+    modules.system.persist.state.home.directories = [ ".config/electron-mail" ];
   };
 }

@@ -10,5 +10,8 @@ in {
     services.flatpak.enable = true;
 
     users.groups.flatpak = { };
+
+    modules.system.persist.state.directories = [ "/var/lib/flatpak" ];
+    modules.system.persist.state.home.directories = [ ".local/share/flatpak" ];
   };
 }

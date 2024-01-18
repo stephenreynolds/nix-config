@@ -31,5 +31,7 @@ in {
       enable = true;
       pkiBundle = "/etc/secureboot";
     };
+
+    modules.system.persist.state.directories = [ "/etc/secureboot" ];
   };
 }

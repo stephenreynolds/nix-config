@@ -116,6 +116,12 @@ in {
           enable_logging = "${if cfg.logging.enable then "true" else "false"}"
         '';
       };
+
+      modules.system.persist.state.home.directories = [ ".onedrive" ];
+      # let
+      #   inherit (lib.strings) removePrefix;
+      # in
+      # [ (removePrefix config.hm.home.homeDirectory cfg.syncDir) ];
     }
 
     (lib.mkIf cfg.logging.enable {

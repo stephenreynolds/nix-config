@@ -18,7 +18,11 @@ in
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
-    { hm.home.packages = [ pkgs.discord ]; }
+    {
+      hm.home.packages = [ pkgs.discord ];
+
+      modules.system.persist.state.home.directories = [ ".config/discord" ];
+    }
 
     # FIXME: Discord crashes on autostart
     (lib.mkIf cfg.autostart {

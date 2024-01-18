@@ -21,10 +21,10 @@ in {
       fsType = "btrfs";
       options = [ "subvol=nix" "noatime" "compress-force=zstd" "space_cache=v2" "x-gvfs-hide" ];
     };
-    "/home" = {
+    "/persist" = {
       device = "/dev/disk/by-label/${hostname}";
       fsType = "btrfs";
-      options = [ "subvol=home" "noatime" "compress-force=zstd" "space_cache=v2" "x-gvfs-hide" ];
+      options = [ "subvol=persist" "noatime" "compress-force=zstd" "space_cache=v2" "x-gvfs-hide" ];
       neededForBoot = true;
     };
     "/boot" = {
