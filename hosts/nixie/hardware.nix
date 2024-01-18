@@ -11,11 +11,6 @@ in {
   };
 
   fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/${hostname}";
-      fsType = "btrfs";
-      options = [ "subvol=root" "noatime" "compress-force=zstd" "space_cache=v2" ];
-    };
     "/nix" = {
       device = "/dev/disk/by-label/${hostname}";
       fsType = "btrfs";
@@ -27,9 +22,15 @@ in {
       options = [ "subvol=persist" "noatime" "compress-force=zstd" "space_cache=v2" "x-gvfs-hide" ];
       neededForBoot = true;
     };
+    "/cache" = {
+      device = "/dev/disk/by-label/${hostname}";
+      fsType = "btrfs";
+      options = [ "subvol=cache" "noatime" "compress-force=zstd" "space_cache=v2" "x-gvfs-hide" ];
+      neededForBoot = true;
+    };
     "/boot" = {
       device = "/dev/disk/by-label/ESP";
-      options = [ "noexec" "nosuid" "nodev" ];
+      options = [ "noexec" "nosuid" "nodev" "umask=0077" ];
       fsType = "vfat";
     };
   };
