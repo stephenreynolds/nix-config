@@ -10,5 +10,13 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable { hm.programs.bash.enable = true; };
+  config = lib.mkIf cfg.enable {
+    hm.programs.bash.enable = true;
+
+    hm.home.sessionVariables.HISTFILE = "${config.hm.xdg.stateHome}/bash/history";
+
+    modules.system.persist.state.home.directories = [
+      "${config.hm.xdg.stateHome}/bash"
+    ];
+  };
 }
