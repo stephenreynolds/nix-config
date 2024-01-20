@@ -46,6 +46,8 @@ in {
       ];
 
       hm.programs.ags.enable = true;
+
+      hardware.uinput.enable = true;
     })
 
     (lib.mkIf cfg.swww.enable {
