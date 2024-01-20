@@ -49,5 +49,7 @@ in {
     boot.kernelParams = [
       "nvidia-drm.fbdev=1"
     ];
+
+    hm.home.sessionVariables.CUDA_CACHE_PATH = "${config.hm.xdg.cacheHome}/nv";
   };
 }
