@@ -33,6 +33,7 @@ in {
           nf = "nix flake";
           nfu = "nix flake update";
           nfc = "nix flake check";
+          nflu = "nix flake lock --update-input";
 
           nr = "nixos-rebuild --flake .";
           nrs = "nixos-rebuild --flake . switch";
