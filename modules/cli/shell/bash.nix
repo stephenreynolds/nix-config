@@ -16,7 +16,7 @@ in {
     hm.home.sessionVariables.HISTFILE = "${config.hm.xdg.stateHome}/bash/history";
 
     modules.system.persist.state.home.directories = [
-      "${config.hm.xdg.stateHome}/bash"
+      ".local/state/bash"
     ];
   };
 }
