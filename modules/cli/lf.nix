@@ -172,6 +172,10 @@ in
         '';
     };
 
+    modules.system.persist.state.home.directories = [
+      ".local/share/lf"
+    ];
+
     hm.home.sessionVariables = lib.mkIf cfg.enableIcons {
       LF_ICONS = ''
         tw=:\
