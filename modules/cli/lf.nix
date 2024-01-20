@@ -125,26 +125,63 @@ in
                 }}'';
         setwallpaper = lib.mkIf cfg.commands.swww ''
           ''${{
-                  ln -sf "$f" /home/$USER/.config/wallpaper
-                  ${pkgs.swww}/bin/swww img /home/$USER/.config/wallpaper --transition-type random --transition-step 90
+                  ln -sf "$f" ${config.hm.xdg.configHome}/wallpaper
+                  ${pkgs.swww}/bin/swww img ${config.hm.xdg.configHome}/wallpaper --transition-type random --transition-step 90
                 }}'';
         z = lib.mkIf cfg.commands.zoxide ''
           %{{
-                  result="$(zoxide query --exclude $PWD $@ | sed 's/\\/\\\\/g;s/"/\\"/g')"
+                  result="$(${pkgs.zoxide}/bin/zoxide query --exclude $PWD $@ | sed 's/\\/\\\\/g;s/"/\\"/g')"
                   lf -remote "send $id cd \"$result\""
                 }}'';
         zi = lib.mkIf cfg.commands.zoxide ''
           ''${{
-                  result="$(zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
+                  result="$(${pkgs.zoxide}/bin/zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
                   lf -remote "send $id cd \"$result\""
                 }}'';
         git_branch = ''
           ''${{
-                    git branch | fzf | xargs git checkout
+                    git branch | ${pkgs.fzf}/bin/fzf | xargs git checkout
                     pwd_shell=$(pwd | sed 's/\\/\\\\/g;s/"/\\"/g')
                     lf -remote "send $id updir"
                     lf -remote "send $id cd \"$pwd_shell\""
                 }}'';
+        fzf_jump = ''
+          ''${{
+                    res="$(find . -maxdepth 1 | ${pkgs.fzf}/bin/fzf --reverse --header='Jump to location')"
+                    if [ -n "$res" ]; then
+                        if [ -d "$res" ]; then
+                            cmd="cd"
+                        else
+                            cmd="select"
+                        fi
+                        res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+                        lf -remote "send $id $cmd \"$res\""
+                    fi
+              }}'';
+        fzf_search = ''
+          ''${{
+                    RG_PREFIX="${pkgs.ripgrep}/bin/rg --column --line-number --no-heading --color=always --smart-case "
+                    res="$(
+                        FZF_DEFAULT_COMMAND="$RG_PREFIX '''" \
+                            ${pkgs.fzf}/bin/fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+                            --ansi --layout=reverse --header 'Search in files' \
+                            | cut -d':' -f1 | sed 's/\\/\\\\/g;s/"/\\"/g'
+                    )"
+                    [ -n "$res" ] && lf -remote "send $id select \"$res\""
+                }}'';
+      };
+      keybindings = {
+        DD = "trash";
+        xx = "unarchive";
+        sw = "setwallpaper";
+        zz = "z";
+        zi = "zi";
+        gb = "git_branch";
+        gp = "\${{clear; git pull --rebase || true; echo ' press ENTER '; read ENTER}}";
+        gs = "\${{clear; git status; echo ' press ENTER '; read ENTER}}";
+        gl = "\${{clear; git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit}}";
+        "<c-f>" = "push :fzf_jump<space>";
+        "<c-s>" = ":fzf_search";
       };
       extraConfig =
         # https://github.com/gokcehan/lf/wiki/Tips#dynamically-set-number-of-columns
@@ -159,16 +196,6 @@ in
                   lf -remote "send $id set ratios 1:2:3:5"
               fi
           }}
-
-          map DD trash
-          map xx unarchive
-          map sw setwallpaper
-          map zz z
-          map zi zi
-          map gb :git_branch
-          map gp ''${{clear; git pull --rebase || true; echo "press ENTER"; read ENTER}}
-          map gs ''${{clear; git status; echo "press ENTER"; read ENTER}}
-          map gl ''${{clear; git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit}}
         '';
     };
 
