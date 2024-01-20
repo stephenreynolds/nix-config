@@ -4,12 +4,27 @@ let cfg = config.modules.cli.ncmpcpp;
 in {
   options.modules.cli.ncmpcpp = {
     enable = lib.mkEnableOption "Whether to enable ncmpcpp";
+    clockSupport = lib.mkEnableOption "Whether to enable the clock";
+    taglibSupport = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to enable the tag library";
+    };
+    visualizerSupport = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to enable the visualizer";
+    };
   };
 
   config = lib.mkIf cfg.enable {
     hm.programs.ncmpcpp = {
       enable = true;
-      package = pkgs.ncmpcpp.override { visualizerSupport = true; };
+      package = pkgs.ncmpcpp.override {
+        clockSupport = cfg.clockSupport;
+        taglibSupport = cfg.taglibSupport;
+        visualizerSupport = cfg.visualizerSupport;
+      };
       settings = {
         ncmpcpp_directory = "${config.hm.xdg.configHome}/ncmpcpp";
 
