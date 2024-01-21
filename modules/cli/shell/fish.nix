@@ -22,7 +22,7 @@ in {
       hm.programs.fish = {
         enable = true;
         shellAbbrs = rec {
-          jqless = "${pkgs.jq}/bin/jq -C | less -r";
+          jqless = "jq -C | less -r";
 
           n = "nix";
           nd = "nix develop -c $SHELL";
@@ -46,8 +46,8 @@ in {
 
           run = "nix run nixpkgs#";
 
-          lsa = "${pkgs.lsd}/bin/lsd -A";
-          tree = "${pkgs.lsd}/bin/lsd --tree";
+          lsa = lib.mkIf config.hm.programs.lsd.enable "lsd -A";
+          tree = lib.mkIf config.hm.programs.lsd.enable "lsd --tree";
 
           e = lib.mkIf config.hm.programs.neovim.enable "nvim";
 
