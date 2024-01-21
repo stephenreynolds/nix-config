@@ -180,6 +180,7 @@
       };
     };
     apps = {
+      amberol.enable = true;
       discord = {
         enable = true;
         betterdiscord.enable = true;
