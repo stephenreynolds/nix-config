@@ -173,9 +173,10 @@
         colorscheme = inputs.nix-colors.colorSchemes.rose-pine;
         gtk = {
           iconTheme = {
-            name = "Papirus";
-            package = pkgs.papirus-icon-theme;
+            name = "Yaru-purple";
+            package = pkgs.yaru-theme;
           };
+          soundTheme = "Yaru";
         };
       };
     };

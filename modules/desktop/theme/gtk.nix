@@ -67,6 +67,11 @@ in
       default = null;
       description = "The icon theme to use for gtk applications";
     };
+    soundTheme = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "The sound theme to use";
+    };
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
@@ -102,6 +107,10 @@ in
         enable = true;
         settings = {
           "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
+          "org/gnome/desktop/sound" = lib.mkIf (cfg.soundTheme != null) {
+            event-sounds = true;
+            theme-name = cfg.soundTheme;
+          };
         };
       };
     })
