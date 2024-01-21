@@ -117,11 +117,10 @@ in {
         '';
       };
 
-      modules.system.persist.state.home.directories = [ ".onedrive" ];
-      # let
-      #   inherit (lib.strings) removePrefix;
-      # in
-      # [ (removePrefix config.hm.home.homeDirectory cfg.syncDir) ];
+      modules.system.persist.state.home.directories = [
+        ".onedrive"
+        ".config/onedrive"
+      ];
     }
 
     (lib.mkIf cfg.logging.enable {
