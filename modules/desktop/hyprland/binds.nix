@@ -46,6 +46,8 @@ let
         monitor=$(echo "$active" | ${jq} -r ".monitorID")
         lastworkspace=$(hyprctl workspaces -j | ${jq} -r "map(select(.monitorID == $monitor and .id != -99)) | length == 1")
         if [[ $lastworkspace == "false" ]]; then
+          hyprctl dispatch workspace m-1
+        else
           hyprctl dispatch workspace r-1
         fi
       fi
