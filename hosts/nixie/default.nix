@@ -143,7 +143,7 @@
     };
     desktop = {
       enable = true;
-      ime.enable = false; # NOTE: disabled until https://github.com/NixOS/nixpkgs/pull/281674 is merged
+      ime.enable = true;
       fonts = {
         profiles = {
           enable = true;
