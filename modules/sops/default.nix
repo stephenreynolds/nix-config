@@ -9,4 +9,8 @@ in
   imports = [ inputs.sops-nix.nixosModules.sops ];
 
   sops = { age.sshKeyPaths = map getKeyPath keys; };
+
+  modules.system.persist.state.home.directories = [
+    ".config/sops"
+  ];
 }
