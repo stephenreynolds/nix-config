@@ -44,7 +44,7 @@ in
 
           enabled_layouts = "tall,grid";
 
-          background_opacity = "1";
+          background_opacity = "0.9";
           dynamic_background_opacity = "yes";
         };
         keybindings = {
