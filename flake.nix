@@ -61,12 +61,8 @@
       flake = false;
     };
 
-    ags = {
-      url = "github:Aylur/ags/f681ba237a09bb0ad0c27d8792badcb4a4116e7a";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    ags-config = {
-      url = "github:stephenreynolds/ags-config";
+    desktop-flake = {
+      url = "github:stephenreynolds/desktop-flake/illogical";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

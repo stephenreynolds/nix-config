@@ -11,9 +11,5 @@ in
 
   config = mkIf cfg.enable {
     hm.home.packages = [ pkgs.pavucontrol ];
-
-    modules.system.persist.state.home.files = [
-      ".config/pavucontrol.ini"
-    ];
   };
 }

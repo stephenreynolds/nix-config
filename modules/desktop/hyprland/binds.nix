@@ -11,7 +11,7 @@ let
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   playerctl = "${config.hm.services.playerctld.package}/bin/playerctl";
   swappy = lib.getExe pkgs.swappy;
-  ags = "${inputs.ags.packages.${pkgs.system}.default}/bin/ags -b hyprland";
+  ags = "ags -b hyprland";
 
   gtk-launch = "${pkgs.gtk3}/bin/gtk-launch";
   xdg-mime = "${pkgs.xdg-utils}/bin/xdg-mime";
@@ -187,7 +187,6 @@ lib.mkIf cfg.enable {
     bind = ${modifier}, W, exec, ${browser}
     bind = ${modifier} SHIFT, W, exec, firefox --private-window
     bind = ${modifier}, C, exec, ${killandswitch}
-    bind = ${modifier}, Space, exec, ${ags} -t overview
 
     # Window mode
     bind = ${modifier}, V, fullscreen, 1

@@ -12,7 +12,7 @@ in
         type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then [
-            "#${colorscheme.colors.base0B}"
+            "#${colorscheme.palette.base0B}"
             "bold"
           ] else
             [ ];
@@ -22,7 +22,7 @@ in
         type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then
-            [ "#${colorscheme.colors.base05}" ]
+            [ "#${colorscheme.palette.base05}" ]
           else
             [ ];
         description = "Inactive border color";
@@ -31,7 +31,7 @@ in
         type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then
-            [ "#${colorscheme.colors.base0D}" ]
+            [ "#${colorscheme.palette.base0D}" ]
           else
             [ ];
         description = "Options text color";
@@ -40,7 +40,7 @@ in
         type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then
-            [ "#${colorscheme.colors.base02}" ]
+            [ "#${colorscheme.palette.base02}" ]
           else
             [ ];
         description = "Selected line bg color";
@@ -49,7 +49,7 @@ in
         type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then
-            [ "#${colorscheme.colors.base02}" ]
+            [ "#${colorscheme.palette.base02}" ]
           else
             [ ];
         description = "Selected range bg color";
@@ -58,7 +58,7 @@ in
         type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then
-            [ "#${colorscheme.colors.base0C}" ]
+            [ "#${colorscheme.palette.base0C}" ]
           else
             [ ];
         description = "Cherry-picked commit bg color";
@@ -67,7 +67,7 @@ in
         type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then
-            [ "#${colorscheme.colors.base0D}" ]
+            [ "#${colorscheme.palette.base0D}" ]
           else
             [ ];
         description = "Cherry-picked commit fg color";
@@ -76,7 +76,7 @@ in
         type = lib.types.listOf lib.types.str;
         default =
           if colorscheme != null then
-            [ "#${colorscheme.colors.base08}" ]
+            [ "#${colorscheme.palette.base08}" ]
           else
             [ ];
         description = "Unstaged changes color";

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 let cfg = config.modules.desktop.tiling-wm.wayland;
 in {
@@ -6,7 +6,6 @@ in {
     enable = lib.mkEnableOption ''
       Whether to enable configuration for Wayland compositors
     '';
-    ags = { enable = lib.mkEnableOption "Whether to enable ags widgets"; };
     swww = {
       enable = lib.mkEnableOption "Whether to enable swww wallpaper daemon";
     };
@@ -38,17 +37,6 @@ in {
 
       modules.desktop.tiling-wm.wayland.swaylock.enable = true;
     }
-
-    (lib.mkIf cfg.ags.enable {
-      hm.imports = [
-        inputs.ags.homeManagerModules.default
-        inputs.ags-config.homeManagerModules.default
-      ];
-
-      hm.programs.ags.enable = true;
-
-      hardware.uinput.enable = true;
-    })
 
     (lib.mkIf cfg.swww.enable {
       hm.systemd.user.services.swww = {

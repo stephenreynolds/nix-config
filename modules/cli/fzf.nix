@@ -52,20 +52,20 @@ in
 
     (lib.mkIf (colorscheme != null) {
       hm.programs.fzf.colors =
-        let inherit (colorscheme) colors;
+        let inherit (colorscheme) palette;
         in {
-          "bg+" = "#${colors.base02}";
-          bg = "#${colors.base00}";
-          spinner = "#${colors.base06}";
-          hl = "#${colors.base08}";
-          fg = "#${colors.base05}";
-          header = "#${colors.base08}";
-          info = "#${colors.base0E}";
-          pointer = "#${colors.base06}";
-          marker = "#${colors.base06}";
-          "fg+" = "#${colors.base05}";
-          prompt = "#${colors.base0E}";
-          "hl+" = "#${colors.base08}";
+          "bg+" = "#${palette.base02}";
+          bg = "#${palette.base00}";
+          spinner = "#${palette.base06}";
+          hl = "#${palette.base08}";
+          fg = "#${palette.base05}";
+          header = "#${palette.base08}";
+          info = "#${palette.base0E}";
+          pointer = "#${palette.base06}";
+          marker = "#${palette.base06}";
+          "fg+" = "#${palette.base05}";
+          prompt = "#${palette.base0E}";
+          "hl+" = "#${palette.base08}";
         };
     })
   ]);

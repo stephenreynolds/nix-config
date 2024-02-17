@@ -84,7 +84,7 @@ lib.mkIf cfg.enable {
         xdgPortal
       ])
 
-      (map (rule [ "nofullscreenrequest" ]) [
+      (map (rule [ "suppressevent fullscreen" ]) [
         piavpn
         steam
         tastytrade

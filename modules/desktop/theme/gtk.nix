@@ -82,7 +82,6 @@ in
           name = cfg.font.name;
           size = cfg.font.size;
         };
-        theme = cfg.theme;
         iconTheme = cfg.iconTheme;
         gtk2.configLocation = "${config.hm.xdg.configHome}/gtk-2.0/gtkrc";
       };

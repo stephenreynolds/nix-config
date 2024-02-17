@@ -60,8 +60,8 @@ in
         "default_dark_mode" = lib.optionalString config.modules.desktop.theme.gtk.dark "1";
         "super_fast_search" = "1";
         "startup_commands" = "toggle_custom_color;toggle_statusbar";
-        "custom_background_color" = lib.pipe colorscheme.colors.base00 [ hexToRgb rgbToStr ];
-        "custom_text_color" = lib.pipe colorscheme.colors.base05 [ hexToRgb rgbToStr ];
+        "custom_background_color" = lib.pipe colorscheme.palette.base00 [ hexToRgb rgbToStr ];
+        "custom_text_color" = lib.pipe colorscheme.palette.base05 [ hexToRgb rgbToStr ];
       };
       bindings = {
         "next_page" = "<space>";
