@@ -25,13 +25,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    virtualisation.podman = {
-      enable = true;
-      autoPrune.enable = cfg.autoPrune.enable;
-      enableNvidia = cfg.enableNvidia;
-      dockerCompat = !dockerEnabled;
-      dockerSocket.enable = !dockerEnabled;
-      defaultNetwork.settings.dns_enabled = true;
+    virtualisation = {
+      podman = {
+        enable = true;
+        autoPrune.enable = cfg.autoPrune.enable;
+        dockerCompat = !dockerEnabled;
+        dockerSocket.enable = !dockerEnabled;
+        defaultNetwork.settings.dns_enabled = true;
+      };
+
+      containers.cdi.dynamic.nvidia.enable = cfg.enableNvidia;
     };
 
     hm.home.packages = lib.mkIf cfg.distrobox.enable [
