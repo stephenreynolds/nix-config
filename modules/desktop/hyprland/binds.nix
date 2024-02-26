@@ -238,9 +238,10 @@ lib.mkIf cfg.enable {
     bind = ${modifier} ALT, down, moveintogroup, d
 
     # Switch to next window in group
-    bind = ${modifier}, 8, changegroupactive
-    bind = ${modifier}, 7, movegroupwindow, b
-    bind = ${modifier}, 9, movegroupwindow, f
+    bind = ${modifier}, 8, changegroupactive, b
+    bind = ${modifier}, 9, changegroupactive, f
+    bind = ${modifier} SHIFT, 8, movegroupwindow, b
+    bind = ${modifier} SHIFT, 9, movegroupwindow, f
 
     # Next/previous workspace on monitor
     bind = ${modifier}, 5, workspace, m-1
