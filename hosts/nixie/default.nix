@@ -216,6 +216,7 @@
         winetricks.enable = true;
         bottles.enable = true;
       };
+      zathura.enable = true;
       extraPackages = with pkgs; [
         celluloid
         deluge
