@@ -230,7 +230,7 @@
     dev = {
       podman = {
         enable = true;
-        distrobox.enable = true;
+        distrobox.enable = false;
       };
     };
   };
