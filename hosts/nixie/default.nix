@@ -211,6 +211,7 @@
           };
         };
       };
+      obsidian.enable = true;
       wine = {
         enable = true;
         winetricks.enable = true;
@@ -222,7 +223,6 @@
         deluge
         gimp-with-plugins
         krita
-        obsidian
         my.allusion
         my.tastytrade
       ];
