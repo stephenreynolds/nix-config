@@ -198,11 +198,11 @@ lib.mkIf cfg.enable {
     # Layout
     bind = ${modifier} SHIFT, L, exec, ${togglelayout}
 
-    ## Dwindle layout
+    # Dwindle layout
     bind = ${modifier}, U, pseudo
     bind = ${modifier}, J, togglesplit
 
-    ## Master layout
+    # Master layout
     bind = ${modifier}, S, layoutmsg, rollnext
     bind = ${modifier} SHIFT, S, layoutmsg, rollprev
     bind = ${modifier}, L, layoutmsg, orientationcycle right center left
