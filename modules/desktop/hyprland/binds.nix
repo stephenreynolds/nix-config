@@ -11,6 +11,9 @@ let
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   playerctl = "${config.hm.services.playerctld.package}/bin/playerctl";
   swappy = lib.getExe pkgs.swappy;
+  tesseract = "${pkgs.tesseract}/bin/tesseract";
+  notify-send = "${pkgs.libnotify}/bin/notify-send";
+  wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
   ags = "ags -b hyprland";
 
   gtk-launch = "${pkgs.gtk3}/bin/gtk-launch";
@@ -312,6 +315,8 @@ lib.mkIf cfg.enable {
     bind = CTRL, Print, exec, ${grimblast} save active - | ${swappy} -f -
     # Capture an area selection
     bind = SHIFT, Print, exec, ${grimblast} save area - | ${swappy} -f -
+    # Copy screenshot text using OCR
+    bind = SUPER, Print, exec, ${grimblast} --freeze save area - | ${tesseract} - - | ${wl-copy} && ${notify-send} -t 3000 "OCR result copied to clipboard"
 
     # Passthrough submap
     bind = ${modifier}, Pause, submap, passthrough_submap
