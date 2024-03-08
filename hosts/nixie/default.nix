@@ -67,7 +67,6 @@
     gaming = {
       enable = true;
       osu-lazer.enable = true;
-      yuzu.enable = true;
     };
     services = {
       easyeffects = {
