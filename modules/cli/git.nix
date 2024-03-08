@@ -88,9 +88,13 @@ in {
         };
         color.ui = true;
         init.defaultBranch = "main";
-        merge.conflictStyle = "diff3";
+        merge.conflictStyle = "zdiff3";
         pull.rebase = true;
         diff.colorMoved = "default";
+        commit.verbose = true;
+        log.date = "iso";
+        push.autoSetupRemote = true;
+        rerere.enable = true;
         gpg.format = cfg.signing.gpg.format;
       };
       ignores = [ ".direnv" ];
