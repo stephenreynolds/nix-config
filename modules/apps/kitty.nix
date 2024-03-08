@@ -3,7 +3,7 @@
 let
   cfg = config.modules.apps.kitty;
   kitty-xterm = pkgs.writeShellScriptBin "xterm" ''
-    ${config.hm.programs.kitty.package}/bin/kitty -1 "$@"
+    ${config.hm.programs.kitty.package}/bin/kitty "$@"
   '';
 
   colorscheme = config.modules.desktop.theme.colorscheme;
