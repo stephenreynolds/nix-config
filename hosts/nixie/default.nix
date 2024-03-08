@@ -181,10 +181,6 @@
     };
     apps = {
       amberol.enable = true;
-      discord = {
-        enable = true;
-        betterdiscord.enable = true;
-      };
       electron-mail.enable = true;
       firefox = {
         enable = true;
@@ -211,6 +207,7 @@
         };
       };
       obsidian.enable = true;
+      vesktop.enable = true;
       wine = {
         enable = true;
         winetricks.enable = true;

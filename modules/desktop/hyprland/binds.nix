@@ -322,7 +322,7 @@ lib.mkIf cfg.enable {
     # Run submap
     bind = ${modifier}, R, submap, run_submap
     submap = run_submap
-    bind = , D, exec, ${gtk-launch} discord.desktop
+    bind = , D, exec, ${gtk-launch} vesktop.desktop
     bind = , D, submap, reset
     bind = , F, exec, ${fileBrowser}
     bind = , F, submap, reset
