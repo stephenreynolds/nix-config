@@ -64,6 +64,7 @@
     desktop-flake = {
       url = "github:stephenreynolds/desktop-flake/illogical";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprland.follows = "hyprland";
     };
 
     nvim-config = {
