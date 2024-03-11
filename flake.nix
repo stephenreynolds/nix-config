@@ -62,7 +62,7 @@
     };
 
     desktop-flake = {
-      url = "github:stephenreynolds/desktop-flake/illogical";
+      url = "github:stephenreynolds/desktop-flake";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.hyprland.follows = "hyprland";
     };
