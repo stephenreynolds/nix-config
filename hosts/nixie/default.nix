@@ -218,7 +218,7 @@
       extraPackages = with pkgs; [
         celluloid
         deluge
-        gimp-with-plugins
+        gimp
         krita
         my.allusion
         my.tastytrade
