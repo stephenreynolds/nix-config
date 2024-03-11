@@ -50,6 +50,7 @@ in
     modules.system.persist.state.home.directories = [
       ".local/share/Steam"
       ".local/share/applications"
+      ".local/share/icons/hicolor"
     ];
 
     hm.xdg.configFile."autostart/steam.desktop" = {
