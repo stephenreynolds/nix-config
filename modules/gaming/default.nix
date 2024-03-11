@@ -14,7 +14,7 @@ in {
     gamemode = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = cfg.enable;
+        default = cfg.enable && !config.modules.services.system76-scheduler.enable;
         description = "Whether to enable GameMode";
       };
     };
