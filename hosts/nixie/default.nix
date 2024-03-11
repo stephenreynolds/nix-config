@@ -43,6 +43,7 @@
         tpm.enable = true;
       };
       ssd.enable = true;
+      virtualisation.host.enable = true;
     };
     users = { users.stephen.enable = true; };
     devices = {
