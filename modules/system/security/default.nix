@@ -21,6 +21,9 @@ in {
         '';
       };
     };
+    sysrq = {
+      enable = lib.mkEnableOption "Whether to enable all sysrq functions";
+    };
   };
 
   config = lib.mkMerge [
@@ -39,6 +42,10 @@ in {
 
     (lib.mkIf (!cfg.mitigations.enable) {
       boot.kernelParams = [ "mitigations=off" ];
+    })
+
+    (lib.mkIf cfg.sysrq.enable {
+      boot.kernel.sysctl."kernel.sysrq" = 1;
     })
   ];
 }
