@@ -17,9 +17,12 @@ in {
     hm.programs.gh = {
       enable = true;
       settings = {
-        version = 1;
         git_protocol = "ssh";
       };
     };
+
+    modules.system.persist.state.home.files = [
+      ".config/gh/hosts.yml"
+    ];
   };
 }
