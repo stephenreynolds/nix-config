@@ -34,8 +34,6 @@ in {
         wl-clipboard
         my.primary-xwayland
       ];
-
-      modules.desktop.tiling-wm.wayland.swaylock.enable = true;
     }
 
     (lib.mkIf cfg.swww.enable {

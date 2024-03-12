@@ -1,21 +1,22 @@
 { config, lib, inputs, ... }:
 
 let
+  inherit (lib) mkEnableOption mkOption mkIf mkMerge types findSingle;
   cfg = config.modules.desktop.hyprland;
 in
 {
   imports = [ inputs.desktop-flake.nixosModules.default ];
 
   options.modules.desktop.hyprland = {
-    enable = lib.mkEnableOption "Whether to enable Hyprland";
-    xdg-autostart = lib.mkOption {
-      type = lib.types.bool;
+    enable = mkEnableOption "Whether to enable Hyprland";
+    xdg-autostart = mkOption {
+      type = types.bool;
       default = true;
       description = "Whether to autostart programs that ask for it";
     };
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
+  config = mkIf cfg.enable (mkMerge [
     {
       modules.desktop.tiling-wm = {
         enable = true;
@@ -30,6 +31,8 @@ in
       hm.desktop-flake = {
         enable = true;
         xdg-autostart = cfg.xdg-autostart;
+        hyprlock.primaryMonitor =
+          (findSingle (m: m.primary) "DP-1" "DP-1" config.modules.devices.monitors).name;
       };
 
       modules.system.persist.cache.home.directories = [ ".cache/ags/user" ];
