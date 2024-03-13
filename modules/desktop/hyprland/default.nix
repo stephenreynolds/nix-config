@@ -32,6 +32,7 @@ in
         enable = true;
         xdg-autostart = cfg.xdg-autostart;
         primaryMonitor = (findSingle (m: m.primary) "DP-1" "DP-1" config.modules.devices.monitors).name;
+        hypridle.suspend.enable = false;
       };
 
       modules.system.persist.cache.home.directories = [ ".cache/ags/user" ];
