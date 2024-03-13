@@ -29,5 +29,9 @@ in {
     modules.system.nvidia.support32Bit = lib.mkForce true;
 
     environment.sessionVariables = { WINEDEBUG = "-all"; };
+
+    modules.system.persist.state.home.directories = [
+      ".local/share/bottles"
+    ];
   };
 }
