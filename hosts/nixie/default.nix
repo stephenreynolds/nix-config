@@ -217,7 +217,7 @@
       zathura.enable = true;
       extraPackages = with pkgs; [
         celluloid
-        deluge
+        deluge-gtk
         gimp
         krita
         my.allusion
