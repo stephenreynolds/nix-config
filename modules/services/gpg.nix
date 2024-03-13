@@ -6,7 +6,7 @@ let
 
   pinentry =
     if config.hm.gtk.enable then {
-      packages = [ pkgs.pinentry-gnome pkgs.gcr ];
+      packages = [ pkgs.pinentry-gnome3 pkgs.gcr ];
       name = "gnome3";
     } else {
       packages = [ pkgs.pinentry-curses ];
@@ -24,7 +24,7 @@ in
     hm.services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      pinentryFlavor = pinentry.name;
+      pinentryFlavor = null;
       enableExtraSocket = true;
     };
 
