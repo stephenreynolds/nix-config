@@ -101,8 +101,8 @@ in {
       };
       users.groups.nix-access-tokens = { };
 
-      modules.system.persist.state.home.files = [
-        ".local/share/nix/trusted-settings.json"
+      modules.system.persist.state.home.directories = [
+        ".local/share/nix"
       ];
     }
 
