@@ -31,8 +31,7 @@ in
       hm.desktop-flake = {
         enable = true;
         xdg-autostart = cfg.xdg-autostart;
-        hyprlock.primaryMonitor =
-          (findSingle (m: m.primary) "DP-1" "DP-1" config.modules.devices.monitors).name;
+        primaryMonitor = (findSingle (m: m.primary) "DP-1" "DP-1" config.modules.devices.monitors).name;
       };
 
       modules.system.persist.cache.home.directories = [ ".cache/ags/user" ];
