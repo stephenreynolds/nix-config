@@ -74,7 +74,7 @@ in {
         lga = "log --graph --pretty=format:'%C(yellow)%h%Creset %C(green)%ad%Creset | %s%Creset %C(red)%d%Creset %C(bold blue)[%an]%Creset' --date=relative --all";
         ls = "ls-files";
         prune = "remote prune origin";
-        pristine = "reset --hard && clean -dfx";
+        pristine = "!git reset --hard && git clean -dfx";
         count = "shortlog -sn";
         cp = "cherry-pick";
         co-author = ''!f() { git commit --author "$1 <$2>" -m "$3"; }; f'';
