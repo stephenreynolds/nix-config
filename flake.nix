@@ -101,13 +101,19 @@
       });
     in
     {
-      lib = lib.my;
-
       overlays = (mapModules ./overlays import) // {
         default = final: prev: { my = self.packages.${system}; };
       };
 
       packages."${system}" = mapModules ./pkgs (p: pkgs.callPackage p { });
+
+      templates = lib.pipe ./templates [
+        builtins.readDir
+        (builtins.mapAttrs (name: _: {
+          description = name;
+          path = ./templates/${name};
+        }))
+      ];
 
       nixosModules = { flake = import ./.; } // mapModulesRec ./modules import;
 
