@@ -13,5 +13,11 @@ in {
       enable = true;
       assignments.desktop-environment.matchers = [ "Hyprland" ];
     };
+
+    # system76-scheduler breaks suspend, stop it first
+    powerManagement = {
+      powerDownCommands = "systemctl stop system76-scheduler";
+      resumeCommands = "systemctl start system76-scheduler";
+    };
   };
 }
