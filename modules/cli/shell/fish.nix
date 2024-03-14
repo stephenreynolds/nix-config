@@ -34,6 +34,7 @@ in {
           nfu = "nix flake update";
           nfc = "nix flake check";
           nflu = "nix flake lock --update-input";
+          nfi = "nix flake init";
 
           nr = "nixos-rebuild --flake .";
           nrs = "nixos-rebuild --flake . switch";
@@ -64,11 +65,24 @@ in {
         functions = {
           # Disable gretting
           fish_greeting = "";
+          # mkdir and cd in one command
+          mkcd = "mkdir -p $argv && cd $argv";
         };
         interactiveShellInit =
           # Open command buffer in vim when alt+e is pressed
           ''
             bind \ee edit_command_buffer
+          '' +
+          # Add more abbreviations
+          /* fish */ ''
+            # Add a new abbreviation where L will be replaced with | less, placing the cursor before the pipe.
+            abbr -a L --position anywhere --set-cursor "% | less"
+
+            # Add a replacement for the !! history expansion feature of bash.
+            function last_history_item
+              echo $history[1]
+            end
+            abbr -a !! --position anywhere --function last_history_item
           '' +
           # kitty integration
           lib.optionalString config.hm.programs.kitty.enable /* fish */ ''
@@ -115,6 +129,7 @@ in {
       };
 
       modules.system.persist.state.home.directories = [
+        ".config/fish"
         ".local/share/fish"
       ];
     }
