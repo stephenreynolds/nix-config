@@ -1,12 +1,15 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.modules.cli.shell.fish;
-in {
+let
+  inherit (lib) mkEnableOption mkIf mkMerge optionalString;
+  cfg = config.modules.cli.shell.fish;
+in
+{
   options.modules.cli.shell.fish = {
-    enable = lib.mkEnableOption "Whether to enable fish";
+    enable = mkEnableOption "Whether to enable fish";
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
+  config = mkIf cfg.enable (mkMerge [
     {
       programs.fish = {
         enable = true;
@@ -47,14 +50,11 @@ in {
 
           run = "nix run nixpkgs#";
 
-          lsa = lib.mkIf config.hm.programs.lsd.enable "lsd -A";
-          tree = lib.mkIf config.hm.programs.lsd.enable "lsd --tree";
+          e = mkIf config.hm.programs.neovim.enable "nvim";
 
-          e = lib.mkIf config.hm.programs.neovim.enable "nvim";
+          g = mkIf config.hm.programs.lazygit.enable "lazygit";
 
-          g = lib.mkIf config.hm.programs.lazygit.enable "lazygit";
-
-          cik = lib.mkIf config.hm.programs.kitty.enable
+          cik = mkIf config.hm.programs.kitty.enable
             "clone-in-kitty --type os-window";
           ck = cik;
         };
@@ -85,7 +85,7 @@ in {
             abbr -a !! --position anywhere --function last_history_item
           '' +
           # kitty integration
-          lib.optionalString config.hm.programs.kitty.enable /* fish */ ''
+          optionalString config.hm.programs.kitty.enable /* fish */ ''
             set --global KITTY_INSTALLATION_DIR "${pkgs.kitty}/lib/kitty"
             set --global KITTY_SHELL_INTEGRATION enabled
             source "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish"
