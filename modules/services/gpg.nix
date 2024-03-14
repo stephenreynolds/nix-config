@@ -1,28 +1,33 @@
-# TODO: figure out where to put this
 { config, lib, pkgs, ... }:
 
 let
+  inherit (lib) mkOption mkEnableOption mkIf types;
   cfg = config.modules.services.gpg;
-
-  pinentry = if config.hm.gtk.enable then {
-    packages = [ pkgs.pinentry-gnome3 pkgs.gcr ];
-    name = "gnome3";
-  } else {
-    packages = [ pkgs.pinentry-curses ];
-    name = "curses";
-  };
 in {
   options.modules.services.gpg = {
-    enable = lib.mkEnableOption "Enable GPG agent";
+    enable = mkEnableOption "Enable GPG agent";
+    pinentry = {
+      package = mkOption {
+        type = types.package;
+        default = if config.hm.gtk.enable then
+          pkgs.pinentry-gnome3
+        else
+          pkgs.pinentry-curses;
+      };
+      extraPackages = mkOption {
+        type = types.listOf types.package;
+        default = if config.hm.gtk.enable then [ pkgs.gcr ] else [ ];
+      };
+    };
   };
 
-  config = lib.mkIf cfg.enable {
-    hm.home.packages = pinentry.packages;
+  config = mkIf cfg.enable {
+    hm.home.packages = [ cfg.pinentry.package ] ++ cfg.pinentry.extraPackages;
 
     hm.services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      pinentryFlavor = null;
+      pinentryPackage = cfg.pinentry.package;
       enableExtraSocket = true;
     };
 
