@@ -12,8 +12,6 @@ in {
       enableZshIntegration = config.programs.zsh.enable;
     };
 
-    modules.system.persist.state.home.directories = [
-      ".local/share/zoxide"
-    ];
+    modules.system.persist.state.home.directories = [ ".local/share/zoxide" ];
   };
 }

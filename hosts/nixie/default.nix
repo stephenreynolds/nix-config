@@ -2,9 +2,7 @@
   imports = [ ./hardware.nix ];
 
   modules = {
-    nix = {
-      auto-upgrade.enable = true;
-    };
+    nix = { auto-upgrade.enable = true; };
     system = {
       bluetooth = {
         enable = true;

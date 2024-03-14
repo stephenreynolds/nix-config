@@ -3,12 +3,12 @@
 let
   cfg = config.modules.system.locale;
 
-  nospace = str: builtins.filter (c: c == " ") (lib.stringToCharacters str) == [ ];
+  nospace = str:
+    builtins.filter (c: c == " ") (lib.stringToCharacters str) == [ ];
   timezone = lib.types.nullOr (lib.types.addCheck lib.types.str nospace) // {
     description = "null or string without spaces";
   };
-in
-{
+in {
   options.modules.system.locale = {
     time = {
       timeZone = lib.mkOption {

@@ -22,7 +22,8 @@ in {
 
       hardware.pulseaudio.enable = false;
 
-      modules.system.persist.state.home.directories = [ ".local/state/wireplumber" ];
+      modules.system.persist.state.home.directories =
+        [ ".local/state/wireplumber" ];
     }
 
     (lib.mkIf cfg.lowLatency {

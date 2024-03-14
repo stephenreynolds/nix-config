@@ -17,8 +17,7 @@ let
     };
   };
   cfg = config.modules.desktop.fonts;
-in
-{
+in {
   options.modules.desktop.fonts = {
     profiles = {
       enable = lib.mkEnableOption "Whether to enable font profiles";
@@ -35,10 +34,8 @@ in
   config = lib.mkMerge [
     (lib.mkIf cfg.profiles.enable {
       hm.fonts.fontconfig.enable = true;
-      hm.home.packages = [
-        cfg.profiles.monospace.package
-        cfg.profiles.regular.package
-      ];
+      hm.home.packages =
+        [ cfg.profiles.monospace.package cfg.profiles.regular.package ];
     })
 
     {

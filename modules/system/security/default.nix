@@ -27,9 +27,7 @@ in {
   };
 
   config = lib.mkMerge [
-    {
-      security.chromiumSuidSandbox.enable = true;
-    }
+    { security.chromiumSuidSandbox.enable = true; }
 
     (lib.mkIf cfg.boot.tmpOnTmpfs {
       boot = {
@@ -44,8 +42,6 @@ in {
       boot.kernelParams = [ "mitigations=off" ];
     })
 
-    (lib.mkIf cfg.sysrq.enable {
-      boot.kernel.sysctl."kernel.sysrq" = 1;
-    })
+    (lib.mkIf cfg.sysrq.enable { boot.kernel.sysctl."kernel.sysrq" = 1; })
   ];
 }

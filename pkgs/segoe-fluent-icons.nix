@@ -6,7 +6,8 @@ stdenv.mkDerivation {
   dontConfigure = true;
 
   src = fetchzip {
-    url = "https://download.microsoft.com/download/8/f/c/8fc7cbc3-177e-4a22-af48-2a85e1c5bffb/Segoe-Fluent-Icons.zip";
+    url =
+      "https://download.microsoft.com/download/8/f/c/8fc7cbc3-177e-4a22-af48-2a85e1c5bffb/Segoe-Fluent-Icons.zip";
     sha256 = "sha256-MgwkgbVN8vZdZAFwG+CVYu5igkzNcg4DKLInOL1ES9A=";
     stripRoot = false;
   };
@@ -18,7 +19,8 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Microsoft Segoe Fluent Icons font";
-    homepage = "https://learn.microsoft.com/en-us/windows/apps/design/downloads/#fonts";
+    homepage =
+      "https://learn.microsoft.com/en-us/windows/apps/design/downloads/#fonts";
     license = lib.licenses.unfree;
   };
 }

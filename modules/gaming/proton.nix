@@ -30,6 +30,8 @@ in {
       };
     }
 
-    (lib.mkIf cfg.protontricks.enable { hm.home.packages = [ pkgs.protontricks ]; })
+    (lib.mkIf cfg.protontricks.enable {
+      hm.home.packages = [ pkgs.protontricks ];
+    })
   ]);
 }

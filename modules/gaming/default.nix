@@ -3,7 +3,8 @@
 let cfg = config.modules.gaming;
 in {
   options.modules.gaming = {
-    enable = lib.mkEnableOption "Whether to enable gaming-related fixes and tools";
+    enable =
+      lib.mkEnableOption "Whether to enable gaming-related fixes and tools";
     memory-fix = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -14,7 +15,8 @@ in {
     gamemode = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = cfg.enable && !config.modules.services.system76-scheduler.enable;
+        default = cfg.enable
+          && !config.modules.services.system76-scheduler.enable;
         description = "Whether to enable GameMode";
       };
     };

@@ -3,20 +3,22 @@
 let
   cfg = config.modules.desktop.tiling-wm.wayland.swaylock;
 
-  lockCommand = pkgs.writeShellScriptBin "lock" /* bash */ ''
-    cacheDir="$XDG_CACHE_HOME/swaylock"
-    wallpaper=$(${lib.getExe pkgs.swww} query | awk -F'image: ' 'NR==1 {print $2}')
-    bg="$cacheDir/$(basename "$wallpaper").jpg"
+  lockCommand = pkgs.writeShellScriptBin "lock" # bash
+    ''
+      cacheDir="$XDG_CACHE_HOME/swaylock"
+      wallpaper=$(${
+        lib.getExe pkgs.swww
+      } query | awk -F'image: ' 'NR==1 {print $2}')
+      bg="$cacheDir/$(basename "$wallpaper").jpg"
 
-    if [ ! -f "$bg" ]; then
-      mkdir "$cacheDir"
-      ${pkgs.imagemagick}/bin/convert "$wallpaper" -blur 0x50 "$bg"
-    fi
+      if [ ! -f "$bg" ]; then
+        mkdir "$cacheDir"
+        ${pkgs.imagemagick}/bin/convert "$wallpaper" -blur 0x50 "$bg"
+      fi
 
-    ${lib.getExe cfg.package} --daemonize --image $bg
-  '';
-in
-{
+      ${lib.getExe cfg.package} --daemonize --image $bg
+    '';
+in {
   options.modules.desktop.tiling-wm.wayland.swaylock = {
     enable = lib.mkEnableOption "Whether to enable swaylock";
     package = lib.mkOption {

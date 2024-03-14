@@ -4,9 +4,7 @@ let cfg = config.modules.cli.nix-index;
 in {
   options.modules.cli.nix-index = {
     enable = lib.mkEnableOption "Enable nix-index";
-    comma = {
-      enable = lib.mkEnableOption "Install comma";
-    };
+    comma = { enable = lib.mkEnableOption "Install comma"; };
   };
 
   config = lib.mkIf cfg.enable {

@@ -67,13 +67,13 @@ in {
           inherit (cfg) auto-optimise-store use-cgroups;
         };
 
-        gc = {
-          inherit (cfg.gc) automatic dates options;
-        };
+        gc = { inherit (cfg.gc) automatic dates options; };
 
         extraOptions = lib.concatLines [
-          (lib.optionalString (cfg.gc.minFree != null) "min-free = ${toString cfg.gc.minFree}")
-          (lib.optionalString (cfg.gc.maxFree != null) "max-free = ${toString cfg.gc.maxFree}")
+          (lib.optionalString (cfg.gc.minFree != null)
+            "min-free = ${toString cfg.gc.minFree}")
+          (lib.optionalString (cfg.gc.maxFree != null)
+            "max-free = ${toString cfg.gc.maxFree}")
           "!include ${config.sops.templates."nix-extra-config".path}"
         ];
 
@@ -91,7 +91,8 @@ in {
       hardware.enableRedistributableFirmware = true;
 
       sops.templates."nix-extra-config" = {
-        content = "access-tokens = github.com=${config.sops.placeholder.github-access-token}";
+        content =
+          "access-tokens = github.com=${config.sops.placeholder.github-access-token}";
         group = config.users.groups.nix-access-tokens.name;
         mode = "0440";
       };
@@ -101,9 +102,7 @@ in {
       };
       users.groups.nix-access-tokens = { };
 
-      modules.system.persist.state.home.directories = [
-        ".local/share/nix"
-      ];
+      modules.system.persist.state.home.directories = [ ".local/share/nix" ];
     }
 
     (lib.mkIf cfg.lowPriority {

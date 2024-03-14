@@ -22,9 +22,7 @@ in {
       })
     ];
 
-    modules.system.persist.state.home.directories = [
-      ".config/lutris"
-      ".local/share/lutris"
-    ];
+    modules.system.persist.state.home.directories =
+      [ ".config/lutris" ".local/share/lutris" ];
   };
 }

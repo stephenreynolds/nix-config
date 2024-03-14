@@ -23,9 +23,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    hm.imports = [
-      inputs.nvim-config.homeManagerModules.default
-    ];
+    hm.imports = [ inputs.nvim-config.homeManagerModules.default ];
 
     hm.programs.neovim = {
       enable = true;
@@ -35,9 +33,7 @@ in {
       vimdiffAlias = cfg.vimdiffAlias;
     };
 
-    modules.system.persist.state.home.directories = [
-      ".local/share/nvim"
-      ".config/github-copilot"
-    ];
+    modules.system.persist.state.home.directories =
+      [ ".local/share/nvim" ".config/github-copilot" ];
   };
 }

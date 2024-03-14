@@ -1,9 +1,7 @@
 { config, lib, ... }:
 
-let
-  cfg = config.modules.apps;
-in
-{
+let cfg = config.modules.apps;
+in {
   options.modules.apps = {
     extraPackages = lib.mkOption {
       type = lib.types.listOf lib.types.package;

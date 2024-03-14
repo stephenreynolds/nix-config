@@ -9,8 +9,7 @@ let
 
   screenOffTime = 10 * 60; # 10 minutes
   lockTime = screenOffTime + 10; # 10 seconds
-in
-{
+in {
   options.modules.services.swayidle = {
     enable = lib.mkEnableOption "Whether to enable swayidle";
     lockCommand = lib.mkOption {

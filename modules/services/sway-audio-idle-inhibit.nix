@@ -15,7 +15,8 @@ in {
       };
 
       Service = {
-        ExecStart = "${pkgs.sway-audio-idle-inhibit}/bin/sway-audio-idle-inhibit";
+        ExecStart =
+          "${pkgs.sway-audio-idle-inhibit}/bin/sway-audio-idle-inhibit";
         Restart = "on-failure";
       };
 

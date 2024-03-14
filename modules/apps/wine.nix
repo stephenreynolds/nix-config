@@ -30,8 +30,6 @@ in {
 
     environment.sessionVariables = { WINEDEBUG = "-all"; };
 
-    modules.system.persist.state.home.directories = [
-      ".local/share/bottles"
-    ];
+    modules.system.persist.state.home.directories = [ ".local/share/bottles" ];
   };
 }

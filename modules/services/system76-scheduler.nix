@@ -6,7 +6,5 @@ in {
     enable = lib.mkEnableOption "Whether to enable system76-scheduler";
   };
 
-  config = lib.mkIf cfg.enable {
-    services.system76-scheduler.enable = true;
-  };
+  config = lib.mkIf cfg.enable { services.system76-scheduler.enable = true; };
 }

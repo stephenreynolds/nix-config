@@ -4,7 +4,8 @@ let cfg = config.modules.system.virtualisation;
 in {
   options.modules.system.virtualisation = {
     host = {
-      enable = lib.mkEnableOption "Enable libvirtd for hosting virtual machines";
+      enable =
+        lib.mkEnableOption "Enable libvirtd for hosting virtual machines";
       swtpm = lib.mkOption {
         type = lib.types.bool;
         default = cfg.host.enable;

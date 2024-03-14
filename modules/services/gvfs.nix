@@ -6,7 +6,5 @@ in {
     enable = lib.mkEnableOption "Whether to enable GVfs";
   };
 
-  config = lib.mkIf cfg.enable {
-    services.gvfs.enable = true;
-  };
+  config = lib.mkIf cfg.enable { services.gvfs.enable = true; };
 }

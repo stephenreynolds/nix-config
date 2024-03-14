@@ -1,33 +1,8 @@
 # From https://github.com/NixOS/nixpkgs/pull/260108
 # Waiting to be merged into nixpkgs
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, dpkg
-, makeBinaryWrapper
-, alsa-lib
-, atk
-, at-spi2-atk
-, cairo
-, cups
-, dbus
-, expat
-, freetype
-, glib
-, glibc
-, gtk3
-, libdrm
-, libGL
-, libxkbcommon
-, mesa
-, nspr
-, nss
-, pango
-, xdg-utils
-, xorg
-, zlib
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, dpkg, makeBinaryWrapper, alsa-lib
+, atk, at-spi2-atk, cairo, cups, dbus, expat, freetype, glib, glibc, gtk3
+, libdrm, libGL, libxkbcommon, mesa, nspr, nss, pango, xdg-utils, xorg, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "tastytrade";
@@ -107,7 +82,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Options, futures and stock trading brokerage";
     homepage = "https://tastytrade.com/trading-platforms/#desktop";
-    changelog = "https://support.tastyworks.com/support/solutions/articles/43000435186-tastytrade-desktop-release-notes";
+    changelog =
+      "https://support.tastyworks.com/support/solutions/articles/43000435186-tastytrade-desktop-release-notes";
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [ prominentretail ];

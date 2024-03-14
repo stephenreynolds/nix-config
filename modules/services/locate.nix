@@ -34,8 +34,6 @@ in {
       services.locate.localuser = null;
     })
 
-    (lib.mkIf (cfg.package == pkgs.mlocate) {
-      users.groups.mlocate = { };
-    })
+    (lib.mkIf (cfg.package == pkgs.mlocate) { users.groups.mlocate = { }; })
   ];
 }

@@ -1,8 +1,7 @@
 { config, lib, options, pkgs, ... }:
 
 let cfg = config.modules.users;
-in
-{
+in {
   options.user = lib.mkOption {
     type = lib.types.attrs;
     default = { };
@@ -10,7 +9,9 @@ in
 
   options.modules.users = {
     users = {
-      stephen = { enable = lib.mkEnableOption "Enable Stephen's user account"; };
+      stephen = {
+        enable = lib.mkEnableOption "Enable Stephen's user account";
+      };
     };
 
     mutableUsers = lib.mkEnableOption ''
@@ -23,20 +24,18 @@ in
     {
       users.mutableUsers = cfg.mutableUsers;
 
-      user =
-        let
-          user = builtins.getEnv "USER";
-          name = if builtins.elem user [ "" "root" ] then "stephen" else user;
-          ifTheyExist = groups:
-            builtins.filter (group: builtins.hasAttr group config.users.groups)
-              groups;
-        in
-        {
-          inherit name;
-          isNormalUser = true;
-          shell = pkgs.fish;
-          extraGroups = [ "wheel" "input" "audio" "video" "storage" ]
-            ++ ifTheyExist [
+      user = let
+        user = builtins.getEnv "USER";
+        name = if builtins.elem user [ "" "root" ] then "stephen" else user;
+        ifTheyExist = groups:
+          builtins.filter (group: builtins.hasAttr group config.users.groups)
+          groups;
+      in {
+        inherit name;
+        isNormalUser = true;
+        shell = pkgs.fish;
+        extraGroups = [ "wheel" "input" "audio" "video" "storage" ]
+          ++ ifTheyExist [
             "i2c"
             "docker"
             "podman"
@@ -50,7 +49,7 @@ in
             "nix-access-tokens"
             "openai-api-key"
           ];
-        };
+      };
 
       users.users.${config.user.name} = lib.mkAliasDefinitions options.user;
 

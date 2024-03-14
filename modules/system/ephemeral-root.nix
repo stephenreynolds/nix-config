@@ -3,8 +3,7 @@
 let
   inherit (lib) mkOption mkEnableOption mkIf mkMerge mkBefore mkForce types;
   cfg = config.modules.system.ephemeral-root;
-in
-{
+in {
   options.modules.system.ephemeral-root = {
     btrfs = {
       enable = mkEnableOption "Whether to use a btrfs subvolume as root";
@@ -36,10 +35,10 @@ in
     })
 
     (mkIf cfg.btrfs.enable {
-      boot.initrd =
-        let
-          hostname = config.networking.hostName;
-          wipeScript = /* bash */ ''
+      boot.initrd = let
+        hostname = config.networking.hostName;
+        wipeScript = # bash
+          ''
             mkdir -p /tmp
             MNTPOINT=$(mktemp -d)
             (
@@ -67,25 +66,24 @@ in
               btrfs subvolume create "/$MNTPOINT/root"
             )
           '';
-          phase1Systemd = config.boot.initrd.systemd.enable;
-        in
-        {
-          supportedFilesystems = [ "btrfs" ];
-          postDeviceCommands = mkIf (!phase1Systemd) (mkBefore wipeScript);
-          systemd.services.restore-root = mkIf phase1Systemd {
-            description = "Rollback btrfs root";
-            wantedBy = [ "initrd.target" ];
-            requires = [ "dev-disk-by\\x2dlabel-${hostname}.device" ];
-            after = [
-              "dev-disk-by\\x2dlabel-${hostname}.device"
-              "systemd-cryptsetup@${hostname}.service"
-            ];
-            before = [ "sysroot.mount" ];
-            unitConfig.DefaultDependencies = "no";
-            serviceConfig.Type = "oneshot";
-            script = wipeScript;
-          };
+        phase1Systemd = config.boot.initrd.systemd.enable;
+      in {
+        supportedFilesystems = [ "btrfs" ];
+        postDeviceCommands = mkIf (!phase1Systemd) (mkBefore wipeScript);
+        systemd.services.restore-root = mkIf phase1Systemd {
+          description = "Rollback btrfs root";
+          wantedBy = [ "initrd.target" ];
+          requires = [ "dev-disk-by\\x2dlabel-${hostname}.device" ];
+          after = [
+            "dev-disk-by\\x2dlabel-${hostname}.device"
+            "systemd-cryptsetup@${hostname}.service"
+          ];
+          before = [ "sysroot.mount" ];
+          unitConfig.DefaultDependencies = "no";
+          serviceConfig.Type = "oneshot";
+          script = wipeScript;
         };
+      };
     })
   ];
 }

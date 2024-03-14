@@ -6,17 +6,20 @@ stdenv.mkDerivation rec {
   version = "1";
 
   pro = fetchurl {
-    url = "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg";
+    url =
+      "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg";
     sha256 = "sha256-Mu0pmx3OWiKBmMEYLNg+u2MxFERK07BQGe3WAhEec5Q=";
   };
 
   compact = fetchurl {
-    url = "https://devimages-cdn.apple.com/design/resources/download/SF-Compact.dmg";
+    url =
+      "https://devimages-cdn.apple.com/design/resources/download/SF-Compact.dmg";
     sha256 = "sha256-Mkf+GK4iuUhZdUdzMW0VUOmXcXcISejhMeZVm0uaRwY=";
   };
 
   mono = fetchurl {
-    url = "https://devimages-cdn.apple.com/design/resources/download/SF-Mono.dmg";
+    url =
+      "https://devimages-cdn.apple.com/design/resources/download/SF-Mono.dmg";
     sha256 = "sha256-tZHV6g427zqYzrNf3wCwiCh5Vjo8PAai9uEvayYPsjM=";
   };
 

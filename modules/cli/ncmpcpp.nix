@@ -80,8 +80,14 @@ in {
         locked_screen_width_part = 41;
       };
       bindings = [
-        { key = "ctrl-u"; command = "page_up"; }
-        { key = "ctrl-d"; command = "page_down"; }
+        {
+          key = "ctrl-u";
+          command = "page_up";
+        }
+        {
+          key = "ctrl-d";
+          command = "page_down";
+        }
       ];
     };
 

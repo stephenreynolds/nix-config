@@ -14,8 +14,9 @@ in {
       components = [ "pkcs11" "secrets" "ssh" ];
     };
 
-    modules.system.persist.state.home.directories = [
-      { directory = ".local/share/keyrings"; mode = "0700"; }
-    ];
+    modules.system.persist.state.home.directories = [{
+      directory = ".local/share/keyrings";
+      mode = "0700";
+    }];
   };
 }

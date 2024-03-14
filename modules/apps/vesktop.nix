@@ -3,8 +3,7 @@
 let
   inherit (lib) mkOption mkEnableOption mkIf mkMerge types;
   cfg = config.modules.apps.vesktop;
-in
-{
+in {
   options.modules.apps.vesktop = {
     enable = mkEnableOption "Whether to install Vesktop, a Discord client";
     autostart = mkOption {

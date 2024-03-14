@@ -4,16 +4,14 @@
 let
   cfg = config.modules.services.gpg;
 
-  pinentry =
-    if config.hm.gtk.enable then {
-      packages = [ pkgs.pinentry-gnome3 pkgs.gcr ];
-      name = "gnome3";
-    } else {
-      packages = [ pkgs.pinentry-curses ];
-      name = "curses";
-    };
-in
-{
+  pinentry = if config.hm.gtk.enable then {
+    packages = [ pkgs.pinentry-gnome3 pkgs.gcr ];
+    name = "gnome3";
+  } else {
+    packages = [ pkgs.pinentry-curses ];
+    name = "curses";
+  };
+in {
   options.modules.services.gpg = {
     enable = lib.mkEnableOption "Enable GPG agent";
   };
@@ -28,26 +26,24 @@ in
       enableExtraSocket = true;
     };
 
-    hm.programs =
-      let
-        fixGpg = ''
-          gpgconf --launch gpg-agent
-        '';
-      in
-      {
-        # Start gpg-agent if it's not running or tunneled in
-        # SSH does not start it automatically, so this is needed to avoid having to use a gpg command at startup
-        # https://www.gnupg.org/faq/whats-new-in-2.1.html#autostart
-        bash.profileExtra = fixGpg;
-        fish.loginShellInit = fixGpg;
-        zsh.loginExtra = fixGpg;
+    hm.programs = let
+      fixGpg = ''
+        gpgconf --launch gpg-agent
+      '';
+    in {
+      # Start gpg-agent if it's not running or tunneled in
+      # SSH does not start it automatically, so this is needed to avoid having to use a gpg command at startup
+      # https://www.gnupg.org/faq/whats-new-in-2.1.html#autostart
+      bash.profileExtra = fixGpg;
+      fish.loginShellInit = fixGpg;
+      zsh.loginExtra = fixGpg;
 
-        gpg = {
-          enable = true;
-          homedir = "${config.hm.xdg.dataHome}/gnupg";
-          settings = { trust-model = "tofu+pgp"; };
-        };
+      gpg = {
+        enable = true;
+        homedir = "${config.hm.xdg.dataHome}/gnupg";
+        settings = { trust-model = "tofu+pgp"; };
       };
+    };
 
     hm.systemd.user.services = {
       link-gnupg-sockets = {
@@ -63,8 +59,9 @@ in
       };
     };
 
-    modules.system.persist.state.home.directories = [
-      { directory = ".local/share/gnupg"; mode = "0700"; }
-    ];
+    modules.system.persist.state.home.directories = [{
+      directory = ".local/share/gnupg";
+      mode = "0700";
+    }];
   };
 }

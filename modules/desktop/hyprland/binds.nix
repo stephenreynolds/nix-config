@@ -152,7 +152,7 @@ let
     	esac
     	shift
     done
-  
+
     GTK_PLAY=${pkgs.libcanberra-gtk3}/bin/canberra-gtk-play
     VOLUME_CHANGE_SOUND=${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
     if [ "$CHANGE" -ne 0 ]; then
@@ -182,8 +182,7 @@ let
 
     ${ags} -r 'indicator.speaker()' 
   '';
-in
-lib.mkIf cfg.enable {
+in lib.mkIf cfg.enable {
   hm.wayland.windowManager.hyprland.extraConfig = ''
     # Launch applications
     bind = ${modifier}, T, exec, ${terminal}

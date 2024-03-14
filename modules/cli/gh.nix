@@ -16,13 +16,9 @@ in {
   config = lib.mkIf cfg.enable {
     hm.programs.gh = {
       enable = true;
-      settings = {
-        git_protocol = "ssh";
-      };
+      settings = { git_protocol = "ssh"; };
     };
 
-    modules.system.persist.state.home.files = [
-      ".config/gh/hosts.yml"
-    ];
+    modules.system.persist.state.home.files = [ ".config/gh/hosts.yml" ];
   };
 }

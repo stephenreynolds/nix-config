@@ -3,8 +3,7 @@
 let
   inherit (lib) mkEnableOption mkIf mkMerge optionalString;
   cfg = config.modules.cli.shell.fish;
-in
-{
+in {
   options.modules.cli.shell.fish = {
     enable = mkEnableOption "Whether to enable fish";
   };
@@ -74,7 +73,8 @@ in
             bind \ee edit_command_buffer
           '' +
           # Add more abbreviations
-          /* fish */ ''
+          # fish
+          ''
             # Add a new abbreviation where L will be replaced with | less, placing the cursor before the pipe.
             abbr -a L --position anywhere --set-cursor "% | less"
 
@@ -85,20 +85,23 @@ in
             abbr -a !! --position anywhere --function last_history_item
           '' +
           # kitty integration
-          optionalString config.hm.programs.kitty.enable /* fish */ ''
+          optionalString config.hm.programs.kitty.enable # fish
+          ''
             set --global KITTY_INSTALLATION_DIR "${pkgs.kitty}/lib/kitty"
             set --global KITTY_SHELL_INTEGRATION enabled
             source "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish"
             set --prepend fish_complete_path "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_completions.d"
           '' +
           # Use vim bindings and cursors
-          /* fish */ ''
+          # fish
+          ''
             fish_vi_key_bindings
             set fish_cursor_default     block      blink
             set fish_cursor_insert      line       blink
             set fish_cursor_replace_one underscore blink
             set fish_cursor_visual      block
-          '' + /* fish */ ''
+          '' + # fish
+          ''
             set -U fish_color_autosuggestion      brblack
             set -U fish_color_cancel              -r
             set -U fish_color_command             brgreen
@@ -128,10 +131,8 @@ in
           '';
       };
 
-      modules.system.persist.state.home.directories = [
-        ".config/fish"
-        ".local/share/fish"
-      ];
+      modules.system.persist.state.home.directories =
+        [ ".config/fish" ".local/share/fish" ];
     }
   ]);
 }

@@ -3,8 +3,7 @@
 let
   inherit (lib) mkOption types;
   cfg = config.modules.system.firmware;
-in
-{
+in {
   options.modules.system.firmware = {
     enable = mkOption {
       type = types.bool;
@@ -13,7 +12,5 @@ in
     };
   };
 
-  config = {
-    services.fwupd.enable = cfg.enable;
-  };
+  config = { services.fwupd.enable = cfg.enable; };
 }

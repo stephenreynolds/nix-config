@@ -29,13 +29,8 @@ let
       };
       chars = lib.stringToCharacters v;
       charsLen = lib.length chars;
-    in
-    lib.foldl
-      (a: v: a + v)
-      0
-      (lib.imap0
-        (k: v: hexToFloat."${v}" * (pow 16 (charsLen - k - 1)))
-        chars);
+    in lib.foldl (a: v: a + v) 0
+    (lib.imap0 (k: v: hexToFloat."${v}" * (pow 16 (charsLen - k - 1))) chars);
 
   hexToRgb = hex: {
     r = hexToDec (builtins.substring 0 2 hex) / 255;
@@ -43,10 +38,8 @@ let
     b = hexToDec (builtins.substring 4 2 hex) / 255;
   };
 
-  rgbToStr = rgb:
-    "${toString rgb.r} ${toString rgb.g} ${toString rgb.b}";
-in
-{
+  rgbToStr = rgb: "${toString rgb.r} ${toString rgb.g} ${toString rgb.b}";
+in {
   options.modules.apps.sioyek = {
     enable = lib.mkEnableOption "Whether to install the Sioyek document viewer";
   };
@@ -57,11 +50,14 @@ in
       config = {
         "ui_font" = "${config.modules.desktop.fonts.profiles.regular.family}";
         "font_size" = "12";
-        "default_dark_mode" = lib.optionalString config.modules.desktop.theme.gtk.dark "1";
+        "default_dark_mode" =
+          lib.optionalString config.modules.desktop.theme.gtk.dark "1";
         "super_fast_search" = "1";
         "startup_commands" = "toggle_custom_color;toggle_statusbar";
-        "custom_background_color" = lib.pipe colorscheme.palette.base00 [ hexToRgb rgbToStr ];
-        "custom_text_color" = lib.pipe colorscheme.palette.base05 [ hexToRgb rgbToStr ];
+        "custom_background_color" =
+          lib.pipe colorscheme.palette.base00 [ hexToRgb rgbToStr ];
+        "custom_text_color" =
+          lib.pipe colorscheme.palette.base05 [ hexToRgb rgbToStr ];
       };
       bindings = {
         "next_page" = "<space>";

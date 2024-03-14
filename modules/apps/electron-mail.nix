@@ -3,8 +3,7 @@
 let
   inherit (lib) mkOption mkEnableOption mkIf types;
   cfg = config.modules.apps.electron-mail;
-in
-{
+in {
   options.modules.apps.electron-mail = {
     enable = mkEnableOption "Whether to install ElectronMail";
     autostart = mkOption {

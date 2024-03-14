@@ -16,13 +16,13 @@ let
         libkrb5
         keyutils
       ];
-    extraProfile = lib.optionalString config.modules.gaming.proton.proton-ge.enable
+    extraProfile =
+      lib.optionalString config.modules.gaming.proton.proton-ge.enable
       "export STEAM_EXTRA_COMPAT_TOOLS_PATHS='${
         inputs.nix-gaming.packages.${pkgs.system}.proton-ge
       }'";
   };
-in
-{
+in {
   options.modules.gaming.steam = {
     enable = lib.mkOption {
       type = lib.types.bool;

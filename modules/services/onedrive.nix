@@ -117,10 +117,8 @@ in {
         '';
       };
 
-      modules.system.persist.state.home.directories = [
-        ".onedrive"
-        ".config/onedrive"
-      ];
+      modules.system.persist.state.home.directories =
+        [ ".onedrive" ".config/onedrive" ];
     }
 
     (lib.mkIf cfg.logging.enable {

@@ -4,7 +4,8 @@ let cfg = config.modules.apps.imv;
 in {
   options.modules.apps.imv = {
     enable = lib.mkEnableOption "Whether to install the imv image viewer";
-    default = lib.mkEnableOption "Whether to set imv as the default image viewer";
+    default =
+      lib.mkEnableOption "Whether to set imv as the default image viewer";
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [

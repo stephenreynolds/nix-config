@@ -1,5 +1,4 @@
-{ inputs, outputs, lib, pkgs, self }:
-rec {
+{ inputs, outputs, lib, pkgs, self }: rec {
   mkHost = path:
     attrs@{ system ? "x86_64-linux", ... }:
     lib.nixosSystem {

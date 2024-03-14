@@ -77,8 +77,7 @@ let
   cleaner = pkgs.writeShellScript "cleaner" ''
     kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
   '';
-in
-{
+in {
   options.modules.cli.lf = {
     enable = lib.mkEnableOption "Enable lf file manager";
     enableIcons = lib.mkEnableOption "Enable icons";
@@ -177,9 +176,11 @@ in
         zz = "z";
         zi = "zi";
         gb = "git_branch";
-        gp = "\${{clear; git pull --rebase || true; echo ' press ENTER '; read ENTER}}";
+        gp =
+          "\${{clear; git pull --rebase || true; echo ' press ENTER '; read ENTER}}";
         gs = "\${{clear; git status; echo ' press ENTER '; read ENTER}}";
-        gl = "\${{clear; git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit}}";
+        gl =
+          "\${{clear; git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit}}";
         "<c-f>" = "push :fzf_jump<space>";
         "<c-s>" = ":fzf_search";
       };
@@ -199,9 +200,7 @@ in
         '';
     };
 
-    modules.system.persist.state.home.directories = [
-      ".local/share/lf"
-    ];
+    modules.system.persist.state.home.directories = [ ".local/share/lf" ];
 
     hm.home.sessionVariables = lib.mkIf cfg.enableIcons {
       LF_ICONS = ''

@@ -6,27 +6,32 @@ let
 
   baseConfig = ''
     [main]
-    ${lib.optionalString (cfg.config.gtk-theme != "") "gtk-theme=${cfg.config.gtk-theme}"}
+    ${lib.optionalString (cfg.config.gtk-theme != "")
+    "gtk-theme=${cfg.config.gtk-theme}"}
     ${lib.optionalString (cfg.config.style != "") "style=${cfg.config.style}"}
-    ${lib.optionalString (cfg.config.modules != []) "modules=${lib.concatStringsSep ";" cfg.config.modules}"}
+    ${lib.optionalString (cfg.config.modules != [ ])
+    "modules=${lib.concatStringsSep ";" cfg.config.modules}"}
   '';
 
-  finalConfig = baseConfig + lib.optionals (cfg.extraConfig != null) (lib.generators.toINI { } cfg.extraConfig);
+  finalConfig = baseConfig + lib.optionals (cfg.extraConfig != null)
+    (lib.generators.toINI { } cfg.extraConfig);
 
-  lockCommand = pkgs.writeShellScriptBin "lock" /* bash */ ''
-    cacheDir="$XDG_CACHE_HOME/gtklock"
-    wallpaper=$(${lib.getExe pkgs.swww} query | awk -F'image: ' 'NR==1 {print $2}')
-    bg="$cacheDir/$(basename "$wallpaper").jpg"
+  lockCommand = pkgs.writeShellScriptBin "lock" # bash
+    ''
+      cacheDir="$XDG_CACHE_HOME/gtklock"
+      wallpaper=$(${
+        lib.getExe pkgs.swww
+      } query | awk -F'image: ' 'NR==1 {print $2}')
+      bg="$cacheDir/$(basename "$wallpaper").jpg"
 
-    if [ ! -f "$bg" ]; then
-      mkdir "$cacheDir"
-      ${pkgs.imagemagick}/bin/convert "$wallpaper" -blur 0x50 "$bg"
-    fi
+      if [ ! -f "$bg" ]; then
+        mkdir "$cacheDir"
+        ${pkgs.imagemagick}/bin/convert "$wallpaper" -blur 0x50 "$bg"
+      fi
 
-    ${lib.getExe pkgs.gtklock} --daemonize -b $bg
-  '';
-in
-{
+      ${lib.getExe pkgs.gtklock} --daemonize -b $bg
+    '';
+in {
   options.modules.desktop.tiling-wm.wayland.gtklock = {
     enable = lib.mkEnableOption "Whether to enable gtklock";
 
@@ -53,46 +58,47 @@ in
 
       style = lib.mkOption {
         type = with lib.types; oneOf [ str path ];
-        default = pkgs.writeText "gtklock-style.css" /* scss */ ''
-          window {
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-          }
+        default = pkgs.writeText "gtklock-style.css" # scss
+          ''
+            window {
+              background-size: cover;
+              background-repeat: no-repeat;
+              background-position: center;
+            }
 
-          #clock-label {
-            margin-bottom: 30px;
-            font-size: 800%;
-            font-weight: bold;
-            color: white;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-          }
+            #clock-label {
+              margin-bottom: 30px;
+              font-size: 800%;
+              font-weight: bold;
+              color: white;
+              text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
 
-          #body {
-            margin-top: 50px;
-          }
+            #body {
+              margin-top: 50px;
+            }
 
-          #unlock-button {
-            all: unset;
-            color: transparent;
-          }
+            #unlock-button {
+              all: unset;
+              color: transparent;
+            }
 
-          entry {
-            border-radius: 12px;
-            margin: 1px;
-            box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
-          }
+            entry {
+              border-radius: 12px;
+              margin: 1px;
+              box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+            }
 
-          #input-label {
-            color: transparent;
-            margin: -20rem;
-          }
+            #input-label {
+              color: transparent;
+              margin: -20rem;
+            }
 
-          #powerbar-box * {
-            border-radius: 12px;
-            box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
-          }
-        '';
+            #powerbar-box * {
+              border-radius: 12px;
+              box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+            }
+          '';
         description = "The css file to be used for gtklock";
         example = ''
           pkgs.writeText "gtklock-style.css" '''
@@ -107,7 +113,9 @@ in
 
       modules = lib.mkOption {
         type = with lib.types; listOf (either package str);
-        default = [ "${pkgs.gtklock-powerbar-module.outPath}/lib/gtklock/powerbar-module.so" ];
+        default = [
+          "${pkgs.gtklock-powerbar-module.outPath}/lib/gtklock/powerbar-module.so"
+        ];
         description = ''
           A list of gtklock modules to use. Can either be packages, absolute paths, or strings."
         '';
@@ -152,7 +160,8 @@ in
   config = lib.mkIf cfg.enable {
     hm.home.packages = [ cfg.package cfg.lockCommand ];
 
-    hm.xdg.configFile."gtklock/config.ini".source = pkgs.writeText "gtklock-config.ini" finalConfig;
+    hm.xdg.configFile."gtklock/config.ini".source =
+      pkgs.writeText "gtklock-config.ini" finalConfig;
 
     security.pam.services.gtklock = { };
   };

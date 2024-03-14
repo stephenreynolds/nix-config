@@ -4,7 +4,8 @@ let cfg = config.modules.apps.nemo;
 in {
   options.modules.apps.nemo = {
     enable = lib.mkEnableOption "Whether to install the Nemo file manager";
-    default = lib.mkEnableOption "Whether Nemo should be the default file manager";
+    default =
+      lib.mkEnableOption "Whether Nemo should be the default file manager";
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [

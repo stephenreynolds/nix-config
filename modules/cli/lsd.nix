@@ -3,8 +3,7 @@
 let
   inherit (lib) mkEnableOption mkIf mkMerge;
   cfg = config.modules.cli.lsd;
-in
-{
+in {
   options.modules.cli.lsd = {
     enable = mkEnableOption "Enable lsd, an ls alternative";
   };
@@ -13,9 +12,7 @@ in
     {
       hm.programs.lsd = {
         enable = true;
-        settings = {
-          date = "relative";
-        };
+        settings = { date = "relative"; };
       };
     }
 

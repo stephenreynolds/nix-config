@@ -5,7 +5,8 @@
   text = builtins.readFile ./t.sh;
 }) // {
   meta = {
-    description = "A shell script that makes jumping into tmux session easy using zoxide.";
+    description =
+      "A shell script that makes jumping into tmux session easy using zoxide.";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ stephenreynolds ];

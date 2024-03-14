@@ -4,7 +4,8 @@
 let cfg = config.modules.apps.zathura;
 in {
   options.modules.apps.zathura = {
-    enable = lib.mkEnableOption "Whether to install the Zathura document viewer";
+    enable =
+      lib.mkEnableOption "Whether to install the Zathura document viewer";
     options = lib.mkOption {
       type = lib.types.attrs;
       default = {

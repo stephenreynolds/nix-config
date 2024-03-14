@@ -5,8 +5,7 @@ let
 
   nvidia = config.modules.system.nvidia.enable;
 
-  sessionVariables =
-    config.modules.desktop.tiling-wm.wayland.sessionVariables
+  sessionVariables = config.modules.desktop.tiling-wm.wayland.sessionVariables
     // lib.optionalAttrs nvidia {
       # Nvidia: https://wiki.hyprland.org/Nvidia
       LIBVA_DRIVER_NAME = "nvidia";
@@ -16,11 +15,8 @@ let
       NVD_BACKEND = "direct";
       MOZ_DISABLE_RDD_SANDBOX = 1;
     };
-in
-lib.mkIf cfg.enable {
+in lib.mkIf cfg.enable {
   hm.wayland.windowManager.hyprland.settings.env =
-    lib.mapAttrsToList
-      (key: value:
-        "${key}, ${toString value}")
-      sessionVariables;
+    lib.mapAttrsToList (key: value: "${key}, ${toString value}")
+    sessionVariables;
 }

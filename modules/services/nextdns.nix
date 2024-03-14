@@ -9,7 +9,8 @@ in {
   config = lib.mkIf cfg.enable {
     services.nextdns = {
       enable = true;
-      arguments = [ "-config-file" "${config.sops.templates."nextdns.conf".path}" ];
+      arguments =
+        [ "-config-file" "${config.sops.templates."nextdns.conf".path}" ];
     };
 
     sops.templates."nextdns.conf" = {

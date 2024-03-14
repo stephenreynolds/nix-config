@@ -2,10 +2,8 @@
   description = "My Nix configuration";
 
   nixConfig = {
-    extra-substituters = [
-      "https://hyprland.cachix.org"
-      "https://nix-gaming.cachix.org"
-    ];
+    extra-substituters =
+      [ "https://hyprland.cachix.org" "https://nix-gaming.cachix.org" ];
     extra-trusted-public-keys = [
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
@@ -99,8 +97,7 @@
           lib = final;
         };
       });
-    in
-    {
+    in {
       overlays = (mapModules ./overlays import) // {
         default = final: prev: { my = self.packages.${system}; };
       };
@@ -121,6 +118,6 @@
 
       devShells."${system}".default = import ./shell.nix { inherit pkgs; };
 
-      formatter."${system}" = pkgs.nixpkgs-fmt;
+      formatter."${system}" = pkgs.nixfmt;
     };
 }

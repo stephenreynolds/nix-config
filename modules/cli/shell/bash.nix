@@ -13,10 +13,9 @@ in {
   config = lib.mkIf cfg.enable {
     hm.programs.bash.enable = true;
 
-    hm.home.sessionVariables.HISTFILE = "${config.hm.xdg.stateHome}/bash/history";
+    hm.home.sessionVariables.HISTFILE =
+      "${config.hm.xdg.stateHome}/bash/history";
 
-    modules.system.persist.state.home.directories = [
-      ".local/state/bash"
-    ];
+    modules.system.persist.state.home.directories = [ ".local/state/bash" ];
   };
 }
