@@ -51,6 +51,7 @@ in {
       ".local/share/Steam"
       ".local/share/applications"
       ".local/share/icons/hicolor"
+      ".config/unity3d" # Rimworld
     ];
 
     hm.xdg.configFile."autostart/steam.desktop" = {
