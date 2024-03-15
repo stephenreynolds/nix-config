@@ -123,6 +123,8 @@ in {
     {
       hm.programs.firefox.enable = true;
 
+      hm.home.sessionVariables.MOZ_USE_XINPUT2 = 1;
+
       modules.system.persist.state.home.directories = [ ".mozilla/firefox" ];
     }
 
