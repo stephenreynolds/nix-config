@@ -22,7 +22,7 @@ in {
       };
       options = lib.mkOption {
         type = lib.types.str;
-        default = "--delete-older-than +3";
+        default = "--delete-older-than 30d";
         description = "Options to pass to the garbage collector";
       };
       minFree = lib.mkOption {
