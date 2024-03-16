@@ -150,8 +150,8 @@
             package = pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; };
           };
           regular = {
-            family = "SF Pro Display";
-            package = pkgs.my.apple-fonts;
+            family = "Ubuntu Regular";
+            package = pkgs.ubuntu_font_family;
           };
         };
         extraPackages = with pkgs; [
@@ -162,7 +162,6 @@
           font-awesome
           inter
           material-symbols
-          my.apple-fonts
           my.ttf-ms-win11-auto
         ];
       };
