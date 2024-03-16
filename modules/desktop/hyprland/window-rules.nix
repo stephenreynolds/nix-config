@@ -55,7 +55,7 @@ in lib.mkIf cfg.enable {
     steamApp.class = [ "steam_app_.*" ];
     steamModal = {
       class = steam.class;
-      title = [ "Steam Settings" "Friends List" ];
+      title = [ "Steam Settings" "Friends List" "^((?!Steam).)*$" ];
     };
     tastytrade.class = [ "tasty.javafx.launcher.LauncherFxApp" ];
     xdgPortal.class =
