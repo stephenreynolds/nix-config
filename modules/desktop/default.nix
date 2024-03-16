@@ -12,12 +12,12 @@ in {
       };
       package = lib.mkOption {
         type = lib.types.package;
-        default = pkgs.apple-cursor;
+        default = pkgs.bibata-cursors;
         description = "The cursor theme to use";
       };
       name = lib.mkOption {
         type = lib.types.str;
-        default = "macOS-BigSur-White";
+        default = "Bibata-Modern-Classic";
         description = "The name of the cursor theme";
       };
       size = lib.mkOption {
