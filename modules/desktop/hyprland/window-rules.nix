@@ -83,7 +83,7 @@ in lib.mkIf cfg.enable {
 
     (map (rule [ "float" "pin" "noborder" "noshadow" ]) [ firefoxModal ])
 
-    (map (rule [ "fullscreen" ]) [ steamApp ])
+    (map (rule [ "fullscreen" "immediate" ]) [ steamApp ])
 
     (map (rule [ "keepaspectratio" ]) [ mpv steamApp riichiCity ])
 

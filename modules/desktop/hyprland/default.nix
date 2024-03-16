@@ -1,4 +1,4 @@
-{ config, lib, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   inherit (lib) mkEnableOption mkOption mkIf mkMerge types findSingle;
@@ -28,9 +28,12 @@ in {
     hm.imports = [ inputs.desktop-flake.homeManagerModules.default ];
     hm.desktop-flake = {
       enable = true;
-      xdg-autostart = cfg.xdg-autostart;
       primaryMonitor = (findSingle (m: m.primary) "DP-1" "DP-1"
         config.modules.devices.monitors).name;
+      hyprland = {
+        tearing.enable = config.modules.gaming.enable;
+        xdg-autostart = cfg.xdg-autostart;
+      };
     };
 
     modules.system.persist.cache.home.directories = [ ".cache/ags/user" ];
