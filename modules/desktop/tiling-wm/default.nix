@@ -44,7 +44,7 @@ in {
             default = true;
           };
           mpv.enable = lib.mkDefault true;
-          nemo = lib.mkDefault {
+          nautilus = lib.mkDefault {
             enable = true;
             default = true;
           };

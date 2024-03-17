@@ -14,6 +14,7 @@ let
   tesseract = "${pkgs.tesseract}/bin/tesseract";
   notify-send = "${pkgs.libnotify}/bin/notify-send";
   wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
+  hyprpicker = "${pkgs.hyprpicker}/bin/hyprpicker";
   ags = "ags -b hyprland";
 
   gtk-launch = "${pkgs.gtk3}/bin/gtk-launch";
@@ -316,6 +317,9 @@ in lib.mkIf cfg.enable {
     bind = SHIFT, Print, exec, ${grimblast} save area - | ${swappy} -f -
     # Copy screenshot text using OCR
     bind = SUPER, Print, exec, ${grimblast} --freeze save area - | ${tesseract} - - | ${wl-copy} && ${notify-send} -t 3000 "OCR result copied to clipboard"
+
+    # Color picker
+    bind = ${modifier} SHIFT, C, exec, ${hyprpicker} --format=hex --autocopy
 
     # Passthrough submap
     bind = ${modifier}, Pause, submap, passthrough_submap
