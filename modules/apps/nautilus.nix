@@ -1,14 +1,15 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.modules.apps.nautilus;
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.modules.apps.nautilus;
 in {
   options.modules.apps.nautilus = {
-    enable = lib.mkEnableOption "Whether to install the Nautilus file manager";
-    default =
-      lib.mkEnableOption "Whether Nemo should be the default file manager";
+    enable = mkEnableOption "Whether to install the Nautilus file manager";
+    default = mkEnableOption "Whether Nemo should be the default file manager";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     hm.home.packages = with pkgs; [
       gnome.nautilus
       gnome.sushi
@@ -17,8 +18,11 @@ in {
 
     programs.file-roller.enable = true;
 
-    hm.xdg.mimeApps.defaultApplications."inode/directory" =
-      lib.optionalString cfg.default "nautilus.desktop";
+    hm.xdg.mimeApps = let nautilus = "org.gnome.Nautilus.desktop";
+    in {
+      associations.added."inode/directory" = [ nautilus ];
+      defaultApplications."inode/directory" = mkIf cfg.default nautilus;
+    };
 
     modules.system.persist.state.home.directories = [ ".local/share/nautilus" ];
   };
