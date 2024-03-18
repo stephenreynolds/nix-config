@@ -37,13 +37,13 @@ in {
             set -g @tokyo-night-tmux_window_id_style none
           '';
         }
-        {
-          plugin = pkgs.my.tmux-transient-status;
-          extraConfig = ''
-            set -g @transient-status-delay '0'
-            set -g @transient-status-stall '0.5'
-          '';
-        }
+        # {
+        #   plugin = pkgs.my.tmux-transient-status;
+        #   extraConfig = ''
+        #     set -g @transient-status-delay '0'
+        #     set -g @transient-status-stall '0.5'
+        #   '';
+        # }
         tmuxPlugins.vim-tmux-navigator
         tmuxPlugins.sensible
         tmuxPlugins.tmux-fzf
@@ -93,6 +93,9 @@ in {
 
         # Disable status bar
         # set -g status off
+
+        # Move the status bar to the top
+        set-option -g status-position top
       '';
     };
 

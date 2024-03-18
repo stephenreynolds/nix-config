@@ -1,23 +1,23 @@
 { config, lib, pkgs, ... }:
 
 let
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.modules.apps.wezterm;
-  wezterm-xterm = pkgs.writeShellScriptBin "xterm" ''
-    ${config.hm.programs.wezterm.package}/bin/wezterm -1 "$@"
-  '';
-
-  colorscheme = config.modules.desktop.theme.colorscheme;
 in {
   options.modules.apps.wezterm = {
-    enable = lib.mkEnableOption "Whether to intall Wezterm";
-    default = lib.mkEnableOption ''
+    enable = mkEnableOption "Whether to intall Wezterm";
+    default = mkEnableOption ''
       Whether to make Wezterm the default terminal emulator
     '';
   };
 
-  config = lib.mkIf cfg.enable {
-    hm.home = lib.mkIf cfg.default {
-      packages = [ wezterm-xterm ];
+  config = mkIf cfg.enable {
+    hm.home = mkIf cfg.default {
+      packages = [
+        (pkgs.writeShellScriptBin "xterm" ''
+          ${config.hm.programs.wezterm.package}/bin/wezterm "$@"
+        '')
+      ];
       sessionVariables = { TERMINAL = "wezterm -1"; };
     };
 
@@ -25,49 +25,6 @@ in {
       enable = true;
       enableBashIntegration = config.hm.programs.bash.enable;
       enableZshIntegration = config.hm.programs.zsh.enable;
-      colorSchemes = let inherit (colorscheme) colors;
-      in lib.mkIf (colorscheme != null) {
-        base16 = {
-          ansi = [
-            "#${colors.base00}"
-            "#${colors.base08}"
-            "#${colors.base0B}"
-            "#${colors.base0A}"
-            "#${colors.base0D}"
-            "#${colors.base0E}"
-            "#${colors.base0C}"
-            "#${colors.base05}"
-          ];
-          brights = [
-            "#${colors.base03}"
-            "#${colors.base08}"
-            "#${colors.base0B}"
-            "#${colors.base0A}"
-            "#${colors.base0D}"
-            "#${colors.base0E}"
-            "#${colors.base0C}"
-            "#${colors.base07}"
-          ];
-          background = "#${colors.base00}";
-          foreground = "#${colors.base05}";
-          cursor_bg = "#${colors.base05}";
-          cursor_fg = "#${colors.base05}";
-          cursor_border = "#${colors.base05}";
-          selection_bg = "#${colors.base05}";
-          selection_fg = "#${colors.base00}";
-          tab_bar = {
-            background = "#${colors.base01}";
-            active_tab = {
-              bg_color = "#${colors.base00}";
-              fg_color = "#${colors.base05}";
-            };
-            inactive_tab = {
-              bg_color = "#${colors.base01}";
-              fg_color = "#${colors.base04}";
-            };
-          };
-        };
-      };
       extraConfig = ''
         local config = {}
 
@@ -80,8 +37,6 @@ in {
         })
         config.font_size = 10
         config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
-
-        config.color_scheme = "base16"
 
         config.window_background_opacity = 0.85
 
@@ -96,11 +51,11 @@ in {
         config.window_padding = {
           left = padding,
           right = padding,
-          top = padding,
-          bottom = padding,
+          top = 0,
+          bottom = 0,
         }
 
-        config.scrollback_lines = 4000
+        config.scrollback_lines = 10000
 
         config.check_for_updates = false
 
