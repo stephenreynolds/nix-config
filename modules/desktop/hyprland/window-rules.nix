@@ -31,7 +31,6 @@ let
   rule = rules: { class ? null, title ? null }: { inherit rules class title; };
 in lib.mkIf cfg.enable {
   hm.wayland.windowManager.hyprland.settings.windowrulev2 = let
-    ags.class = [ "com.github.Aylur.ags" ];
     bluetoothManager.class = [ ".blueman-manager-wrapped" ];
     firefoxModal = {
       class = [ "firefox" ];
@@ -43,11 +42,6 @@ in lib.mkIf cfg.enable {
     onedrivegui.title = [ "OneDriveGUI" ];
     pavucontrol.class = [ "pavucontrol" ];
     piavpn.class = [ "piavpn" ];
-    polkitAgent.class = [
-      "lxqt-policykit-agent"
-      "polkit-gnome-authentication-agent-1"
-      "polkit-mate-authentication-agent-1"
-    ];
     qalculate-gtk.class = [ "qalculate-gtk" ];
     riichiCity.class = [ "Mahjong-JP.x86_64" ];
     sioyek.class = [ "sioyek" ];
@@ -58,8 +52,6 @@ in lib.mkIf cfg.enable {
       title = [ "Steam Settings" "Friends List" "^((?!Steam).)*$" ];
     };
     tastytrade.class = [ "tasty.javafx.launcher.LauncherFxApp" ];
-    xdgPortal.class =
-      [ "xdg-desktop-portal.*" "org.freedesktop.impl.portal.desktop.kde" ];
   in mapWindowRules (lib.concatLists [
     [
       (rule [ "size 600 600" ] pavucontrol)
@@ -67,19 +59,17 @@ in lib.mkIf cfg.enable {
     ]
 
     (map (rule [ "float" ]) [
-      ags
       bluetoothManager
       gnomeCalculator
       gnomeClocks
       onedrivegui
       qalculate-gtk
       steamModal
-      xdgPortal
     ])
 
     (map (rule [ "suppressevent fullscreen" ]) [ piavpn steam tastytrade ])
 
-    (map (rule [ "float" "center" ]) [ pavucontrol polkitAgent ])
+    (map (rule [ "float" "center" ]) [ pavucontrol ])
 
     (map (rule [ "float" "pin" "noborder" "noshadow" ]) [ firefoxModal ])
 

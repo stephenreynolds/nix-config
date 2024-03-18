@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, inputs, ... }:
 
 let
   inherit (lib) mkEnableOption mkOption mkIf mkMerge types findSingle;
@@ -28,9 +28,12 @@ in {
     hm.imports = [ inputs.desktop-flake.homeManagerModules.default ];
     hm.desktop-flake = {
       enable = true;
+      nvidia = config.modules.system.nvidia.enable;
       primaryMonitor = (findSingle (m: m.primary) "DP-1" "DP-1"
         config.modules.devices.monitors).name;
       hyprland = {
+        additionalSessionVariables =
+          config.modules.desktop.tiling-wm.wayland.sessionVariables;
         tearing.enable = config.modules.gaming.enable;
         xdg-autostart = cfg.xdg-autostart;
       };

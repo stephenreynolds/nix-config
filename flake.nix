@@ -67,6 +67,7 @@
       url = "github:stephenreynolds/desktop-flake";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.hyprland.follows = "hyprland";
+      inputs.hyprland-contrib.follows = "hyprland-contrib";
       inputs.hypridle.follows = "hypridle";
       inputs.hyprlock.follows = "hyprlock";
     };
