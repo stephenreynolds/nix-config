@@ -120,5 +120,7 @@
       devShells."${system}".default = import ./shell.nix { inherit pkgs; };
 
       formatter."${system}" = pkgs.nixfmt;
+
+      checks."${system}".statix = import ./checks/statix.nix { inherit pkgs; };
     };
 }
