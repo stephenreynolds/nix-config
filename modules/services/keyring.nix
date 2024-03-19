@@ -9,6 +9,11 @@ in {
   config = lib.mkIf cfg.enable {
     services.gnome.gnome-keyring.enable = true;
 
+    hm.services.gnome-keyring = {
+      enable = true;
+      components = [ "pkcs11" "secrets" "ssh" ];
+    };
+
     modules.system.persist.state.home.directories = [{
       directory = ".local/share/keyrings";
       mode = "0700";
