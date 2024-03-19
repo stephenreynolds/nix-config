@@ -34,7 +34,7 @@ in {
     programs.ssh = {
       knownHosts = mapAttrs (name: _: {
         publicKeyFile = pubKey name;
-        extraHostNames = (optional (name == hostName) "localhost");
+        extraHostNames = optional (name == hostName) "localhost";
       }) hosts;
     };
 

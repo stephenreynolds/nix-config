@@ -41,7 +41,7 @@ in {
         Restart = "always";
         ExecStart =
           "${pkgs.protonmail-bridge}/bin/protonmail-bridge --log-level ${cfg.logLevel}"
-          + lib.optionalString (cfg.nonInteractive) " --noninteractive";
+          + lib.optionalString cfg.nonInteractive " --noninteractive";
       };
 
       Install = { WantedBy = [ "default.target" ]; };

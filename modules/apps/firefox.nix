@@ -142,7 +142,7 @@ in {
     })
 
     {
-      hm.programs.firefox.profiles = (lib.mapAttrs (_: profile:
+      hm.programs.firefox.profiles = lib.mapAttrs (_: profile:
         lib.mkMerge [
           # Use the Firefox OneBar theme
           (lib.mkIf profile.userChrome.onebar {
@@ -354,7 +354,7 @@ in {
               };
             };
           }
-        ]) cfg.extraProfileConfig);
+        ]) cfg.extraProfileConfig;
     }
   ]);
 }

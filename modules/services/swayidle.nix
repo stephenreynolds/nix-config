@@ -24,11 +24,11 @@ in {
       enable = true;
       timeouts =
         # Turn off displays
-        (lib.optionals hyprland.enable ([{
+        (lib.optionals hyprland.enable [{
           timeout = screenOffTime;
           command = "${hyprctl} dispatch dpms off";
           resumeCommand = "${hyprctl} dispatch dpms on";
-        }])) ++
+        }]) ++
         # Lock screen
         [{
           timeout = lockTime;

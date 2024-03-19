@@ -65,13 +65,13 @@ in {
     }
 
     (lib.mkIf config.modules.apps.firefox.enable {
-      hm.programs.firefox.profiles = (lib.mapAttrs (_: profile: {
+      hm.programs.firefox.profiles = lib.mapAttrs (_: profile: {
         userChrome = ''
           /* Hide the close button */
           .titlebar-buttonbox-container { display:none }
           .titlebar-spacer[type="post-tabs"] { display:none }
         '';
-      }) config.modules.apps.firefox.extraProfileConfig);
+      }) config.modules.apps.firefox.extraProfileConfig;
     })
   ]);
 }
