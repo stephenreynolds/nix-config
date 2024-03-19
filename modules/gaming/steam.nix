@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.modules.gaming.steam;
@@ -18,9 +18,7 @@ let
       ];
     extraProfile =
       lib.optionalString config.modules.gaming.proton.proton-ge.enable
-      "export STEAM_EXTRA_COMPAT_TOOLS_PATHS='${
-        inputs.nix-gaming.packages.${pkgs.system}.proton-ge
-      }'";
+      "export STEAM_EXTRA_COMPAT_TOOLS_PATHS='${pkgs.proton-ge-bin.steamcompattool}'";
   };
 in {
   options.modules.gaming.steam = {
