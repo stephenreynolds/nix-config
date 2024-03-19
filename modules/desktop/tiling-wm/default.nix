@@ -30,7 +30,7 @@ in {
               minFree = null;
             };
           };
-          gnome-policykit-agent.enable = lib.mkDefault true;
+          kde-policykit-agent.enable = lib.mkDefault true;
           playerctl.enable = lib.mkDefault true;
           swayidle.enable = lib.mkDefault false;
         };
