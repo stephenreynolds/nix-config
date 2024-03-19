@@ -29,7 +29,7 @@ in {
         shell_integration = "no-rc";
         scrollback_lines = 10000;
         scrollback_pager_history_size = 2048;
-        window_padding_width = 0;
+        window_padding_width = 10;
         confirm_os_window_close = 0;
         allow_cloning = "yes";
         disable_ligatures = "cursor";
