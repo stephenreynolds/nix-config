@@ -121,6 +121,6 @@
 
       formatter."${system}" = pkgs.nixfmt;
 
-      checks."${system}" = import ./checks { inherit pkgs; };
+      checks."${system}".statix = import ./checks/statix.nix { inherit pkgs; };
     };
 }
