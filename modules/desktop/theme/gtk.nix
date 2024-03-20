@@ -33,6 +33,19 @@ let
       };
     };
   };
+  soundThemeType = lib.types.submodule {
+    options = {
+      name = lib.mkOption {
+        type = lib.types.str;
+        description = "The sound theme to use";
+      };
+      package = lib.mkOption {
+        type = lib.types.nullOr lib.types.package;
+        default = null;
+        description = "The package for the sound theme to use";
+      };
+    };
+  };
 in {
   options.modules.desktop.theme.gtk = {
     enable = lib.mkEnableOption "Whether to use a custom gtk theme";
@@ -67,7 +80,7 @@ in {
       description = "The icon theme to use for gtk applications";
     };
     soundTheme = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
+      type = lib.types.nullOr soundThemeType;
       default = null;
       description = "The sound theme to use";
     };
@@ -75,6 +88,8 @@ in {
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
+      hm.home.packages = [ cfg.soundTheme.package ];
+
       hm.gtk = {
         enable = true;
         font = {
@@ -107,7 +122,7 @@ in {
           "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
           "org/gnome/desktop/sound" = lib.mkIf (cfg.soundTheme != null) {
             event-sounds = true;
-            theme-name = cfg.soundTheme;
+            theme-name = cfg.soundTheme.name;
           };
         };
       };

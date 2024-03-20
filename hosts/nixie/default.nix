@@ -172,7 +172,10 @@
             name = "Yaru-purple";
             package = pkgs.yaru-theme;
           };
-          soundTheme = "Yaru";
+          soundTheme = {
+            name = "Yaru";
+            package = pkgs.yaru-theme;
+          };
         };
       };
     };
