@@ -1,26 +1,26 @@
 { config, lib, options, pkgs, ... }:
 
-let cfg = config.modules.users;
+let
+  inherit (lib) mkOption mkEnableOption mkIf mkMerge mkAliasDefinitions types;
+  cfg = config.modules.users;
 in {
-  options.user = lib.mkOption {
-    type = lib.types.attrs;
+  options.user = mkOption {
+    type = types.attrs;
     default = { };
   };
 
   options.modules.users = {
     users = {
-      stephen = {
-        enable = lib.mkEnableOption "Enable Stephen's user account";
-      };
+      stephen = { enable = mkEnableOption "Enable Stephen's user account"; };
     };
 
-    mutableUsers = lib.mkEnableOption ''
+    mutableUsers = mkEnableOption ''
       Allow adding new users and groups using `useradd` and `groupadd` commands.
       If set to false, users and groups will be replaced on system activation.
     '';
   };
 
-  config = lib.mkMerge [
+  config = mkMerge [
     {
       users.mutableUsers = cfg.mutableUsers;
 
@@ -33,7 +33,6 @@ in {
       in {
         inherit name;
         isNormalUser = true;
-        shell = pkgs.fish;
         extraGroups = [ "wheel" "input" "audio" "video" "storage" ]
           ++ ifTheyExist [
             "i2c"
@@ -51,7 +50,7 @@ in {
           ];
       };
 
-      users.users.${config.user.name} = lib.mkAliasDefinitions options.user;
+      users.users.${config.user.name} = mkAliasDefinitions options.user;
 
       security.pam.loginLimits = [
         {
@@ -69,7 +68,9 @@ in {
       ];
     }
 
-    (lib.mkIf cfg.users.stephen.enable {
+    (mkIf cfg.users.stephen.enable {
+      user.shell = pkgs.fish;
+
       users.users.stephen.hashedPasswordFile =
         config.sops.secrets.stephen-password.path;
 

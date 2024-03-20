@@ -1,48 +1,55 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.modules.cli.git;
+let
+  inherit (lib) mkOption mkEnableOption mkIf types;
+  cfg = config.modules.cli.git;
 in {
   options.modules.cli.git = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
+    enable = mkOption {
+      type = types.bool;
       default = true;
       description = "Enable Git";
     };
-    userName = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
+    package = mkOption {
+      type = types.package;
+      default = pkgs.gitAndTools.gitFull;
+      description = "The Git package to install";
+    };
+    userName = mkOption {
+      type = types.nullOr types.str;
       default = null;
       description = "The name to use for Git commits";
     };
-    userEmail = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
+    userEmail = mkOption {
+      type = types.nullOr types.str;
       default = null;
       description = "The email to use for Git commits";
     };
-    editor = lib.mkOption {
-      type = lib.types.str;
+    editor = mkOption {
+      type = types.str;
       default = "vim";
       description = "The editor to use for Git commits";
     };
-    aliases = { enable = lib.mkEnableOption "Enable aliases"; };
+    aliases = { enable = mkEnableOption "Enable aliases"; };
     signing = {
-      signByDefault = lib.mkEnableOption "Sign commits by default";
-      key = lib.mkOption {
-        type = lib.types.nullOr lib.types.str;
+      signByDefault = mkEnableOption "Sign commits by default";
+      key = mkOption {
+        type = types.nullOr types.str;
         default = null;
         description = "The GPG key to use for signing commits";
       };
-      gpg.format = lib.mkOption {
-        type = lib.types.enum [ null "openpgp" "x509" "ssh" ];
+      gpg.format = mkOption {
+        type = types.enum [ null "openpgp" "x509" "ssh" ];
         default = null;
         description = "The GPG format to use for signing commits";
       };
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     hm.programs.git = {
       enable = true;
-      package = pkgs.gitAndTools.gitFull;
+      package = cfg.package;
       userName = cfg.userName;
       userEmail = cfg.userEmail;
       signing = {
@@ -59,7 +66,7 @@ in {
           features = "decorations interactive";
         };
       };
-      aliases = lib.mkIf cfg.aliases.enable {
+      aliases = mkIf cfg.aliases.enable {
         co = "checkout";
         ci = "commit";
         st = "status";
@@ -98,7 +105,8 @@ in {
         log.date = "iso";
         push.autoSetupRemote = true;
         rerere.enable = true;
-        gpg.format = cfg.signing.gpg.format;
+        gpg.format =
+          mkIf (cfg.signing.gpg.format != null) cfg.signing.gpg.format;
       };
       ignores = [ ".direnv" ];
     };
