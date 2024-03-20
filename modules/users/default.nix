@@ -12,6 +12,21 @@ in {
   options.modules.users = {
     users = {
       stephen = { enable = mkEnableOption "Enable Stephen's user account"; };
+      generic = {
+        enable = mkEnableOption "Enable Stephen's user account";
+        name = mkOption {
+          type = types.str;
+          default = "nixos";
+        };
+        initialPassword = mkOption {
+          type = types.str;
+          default = "nixos";
+        };
+        shell = mkOption {
+          type = types.package;
+          default = pkgs.bash;
+        };
+      };
     };
 
     mutableUsers = mkEnableOption ''
@@ -25,13 +40,10 @@ in {
       users.mutableUsers = cfg.mutableUsers;
 
       user = let
-        user = builtins.getEnv "USER";
-        name = if builtins.elem user [ "" "root" ] then "stephen" else user;
         ifTheyExist = groups:
           builtins.filter (group: builtins.hasAttr group config.users.groups)
           groups;
       in {
-        inherit name;
         isNormalUser = true;
         extraGroups = [ "wheel" "input" "audio" "video" "storage" ]
           ++ ifTheyExist [
@@ -69,7 +81,10 @@ in {
     }
 
     (mkIf cfg.users.stephen.enable {
-      user.shell = pkgs.fish;
+      user = {
+        name = "stephen";
+        shell = pkgs.fish;
+      };
 
       users.users.stephen.hashedPasswordFile =
         config.sops.secrets.stephen-password.path;
@@ -77,6 +92,15 @@ in {
       sops.secrets.stephen-password = {
         sopsFile = ../sops/secrets.yaml;
         neededForUsers = true;
+      };
+    })
+
+    (mkIf cfg.users.generic.enable {
+      user = {
+        inherit (cfg.users.generic) name initialPassword;
+        isNormalUser = true;
+        shell = cfg.users.generic.shell;
+        extraGroups = [ "wheel" ];
       };
     })
   ];
