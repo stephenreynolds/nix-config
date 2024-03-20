@@ -95,7 +95,7 @@ in {
         # set -g status off
 
         # Move the status bar to the top
-        set-option -g status-position top
+        # set-option -g status-position top
       '';
     };
 
