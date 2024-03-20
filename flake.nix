@@ -72,9 +72,15 @@
       inputs.hyprlock.follows = "hyprlock";
     };
 
+    neovim = {
+      url = "github:neovim/neovim/nightly?dir=contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nvim-config = {
       url = "github:stephenreynolds/nvim";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.neovim.follows = "neovim";
     };
   };
 
@@ -121,6 +127,14 @@
 
       formatter."${system}" = pkgs.nixfmt;
 
-      checks."${system}".statix = import ./checks/statix.nix { inherit pkgs; };
+      checks."${system}" = let
+        inherit (lib) getExe;
+        mkCheck = linter:
+          pkgs.runCommand "lint" { } ''
+            cd ${self}
+            ${linter} 2>&1
+            touch $out
+          '';
+      in { statix = mkCheck "${getExe pkgs.statix} check ${self}"; };
     };
 }

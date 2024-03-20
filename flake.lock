@@ -91,11 +91,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1710855594,
-        "narHash": "sha256-GBQdh3fX2sSTdjPrNzrSIulCJLlXZFVPUYQCAJ9gT58=",
+        "lastModified": 1710928787,
+        "narHash": "sha256-Xs/a3ud3Kv17g1JCdD3EkOR0DBSM1jBcG7RLzQ4zhGw=",
         "owner": "stephenreynolds",
         "repo": "desktop-flake",
-        "rev": "5aa66034d3b97012f2f28ee3691c965c5d7d0584",
+        "rev": "042536972496494fd9987fdec1d202bb9f9beeb7",
         "type": "github"
       },
       "original": {
@@ -531,17 +531,16 @@
       "inputs": {
         "flake-utils": "flake-utils_2",
         "nixpkgs": [
-          "nvim-config",
           "nixpkgs"
         ]
       },
       "locked": {
         "dir": "contrib",
-        "lastModified": 1710211493,
-        "narHash": "sha256-1j2oxPxNUOT+NYMDg2P+uK1nBaQKGyqiNlC9YrFRsCs=",
+        "lastModified": 1710892970,
+        "narHash": "sha256-NN9Ii//Z+9DeycIVFA6QrYbxj/dPIxIsFB/HywAX+bM=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "ac8cd5368db83cced9bc049ceb50c21cb8a4f743",
+        "rev": "9765efb40f57b543d9fea610fb0d0f05b8387454",
         "type": "github"
       },
       "original": {
@@ -695,17 +694,19 @@
     },
     "nvim-config": {
       "inputs": {
-        "neovim": "neovim",
+        "neovim": [
+          "neovim"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1710906373,
-        "narHash": "sha256-41hTGazaHMMXqD23gyWGqOwtvU1eayOfKrJhJmmOJ3I=",
+        "lastModified": 1710933390,
+        "narHash": "sha256-zvFTdQ0IDkVvyQwJpmH7cZ826Li9eIkFOsdYiBAiuKc=",
         "owner": "stephenreynolds",
         "repo": "nvim",
-        "rev": "6f1fbe0a5ca0f01513ae9cb4de6c5fc39dbcf40d",
+        "rev": "e1c31f5170611c1529db8bc809fcd09243cf2c58",
         "type": "github"
       },
       "original": {
@@ -756,6 +757,7 @@
         "hyprlock": "hyprlock",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
+        "neovim": "neovim",
         "nix-colors": "nix-colors",
         "nix-gaming": "nix-gaming",
         "nix-index-database": "nix-index-database",
