@@ -20,7 +20,7 @@ in {
     guest = {
       spice = lib.mkEnableOption "Enable the Spice agent";
       qxl = lib.mkEnableOption "Enable the QXL video driver";
-      qemu = lib.mkEnableOption "Whethes the system is a QEMU guest";
+      qemu = lib.mkEnableOption "Whether the system is a QEMU guest";
     };
   };
 
