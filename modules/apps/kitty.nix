@@ -5,7 +5,8 @@ let
   kitty-xterm = pkgs.writeShellScriptBin "xterm" ''
     ${config.hm.programs.kitty.package}/bin/kitty "$@"
   '';
-in {
+in
+{
   options.modules.apps.kitty = {
     enable = lib.mkEnableOption "Whether to enable Kitty";
     default = lib.mkEnableOption ''
@@ -29,7 +30,7 @@ in {
         shell_integration = "no-rc";
         scrollback_lines = 10000;
         scrollback_pager_history_size = 2048;
-        window_padding_width = 10;
+        window_padding_width = 5;
         confirm_os_window_close = 0;
         allow_cloning = "yes";
         disable_ligatures = "cursor";
