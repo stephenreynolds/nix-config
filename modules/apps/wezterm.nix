@@ -3,7 +3,8 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.modules.apps.wezterm;
-in {
+in
+{
   options.modules.apps.wezterm = {
     enable = mkEnableOption "Whether to intall Wezterm";
     default = mkEnableOption ''
@@ -12,11 +13,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hm.home = mkIf cfg.default {
+    hm.home = cfg.mkIf cfg.default {
       packages = [
-        (pkgs.writeShellScriptBin "xterm" ''
+        (mkIf cfg.default (pkgs.writeShellScriptBin "xterm" ''
           ${config.hm.programs.wezterm.package}/bin/wezterm "$@"
-        '')
+        ''))
       ];
       sessionVariables = { TERMINAL = "wezterm -1"; };
     };
@@ -25,39 +26,59 @@ in {
       enable = true;
       enableBashIntegration = config.hm.programs.bash.enable;
       enableZshIntegration = config.hm.programs.zsh.enable;
-      extraConfig = ''
+      extraConfig = /* lua */ ''
         local config = {}
-
         if wezterm.config_builder then
-          config = wezterm.config_builder()
+        	config = wezterm.config_builder()
         end
 
-        config.font = wezterm.font({
-          family = "${config.modules.desktop.fonts.profiles.monospace.family}"
+        config.check_for_updates = false
+
+        -- https://github.com/wez/wezterm/issues/5103
+        config.enable_wayland = false
+
+        -- Font
+        config.font = wezterm.font_with_fallback({
+        	{ family = "CaskaydiaCove Nerd Font", weight = "DemiBold" },
+        	{ family = "JetBrains Mono", weight = "DemiBold" },
         })
         config.font_size = 10
-        config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
+        config.freetype_load_target = "HorizontalLcd"
 
-        config.window_background_opacity = 0.85
+        local enable_ligatures = true
+        if not enable_ligatures then
+        	config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
+        end
 
+        -- Tabs
+        config.tab_bar_at_bottom = true
+        config.use_fancy_tab_bar = false
+        config.hide_tab_bar_if_only_one_tab = true
+
+        -- Window
+        config.window_padding = {
+        	left = 0,
+        	right = 0,
+        	top = 0,
+        	bottom = 0,
+        }
+        config.window_background_opacity = 0.9
+        config.window_close_confirmation = "NeverPrompt"
+
+        -- Cursor
+        config.default_cursor_style = "BlinkingBar"
         config.cursor_blink_ease_in = "Constant"
         config.cursor_blink_ease_out = "Constant"
 
-        config.default_cursor_style = "BlinkingBar"
-
-        config.hide_tab_bar_if_only_one_tab = true
-
-        local padding = 10
-        config.window_padding = {
-          left = padding,
-          right = padding,
-          top = 0,
-          bottom = 0,
-        }
-
+        -- Scroll
         config.scrollback_lines = 10000
 
-        config.check_for_updates = false
+        config.use_ime = false
+
+        -- Load pywal theme
+        wezterm.on("window-config-reloaded", function()
+        	os.execute("wal -Rqnet")
+        end)
 
         return config
       '';
