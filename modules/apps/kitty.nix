@@ -49,11 +49,6 @@ in
         "alt+up" = "neighboring_window up";
         "alt+down" = "neighboring_window down";
 
-        "shift+left" = "move_window left";
-        "shift+right" = "move_window right";
-        "shift+up" = "move_window up";
-        "shift+down" = "move_window down";
-
         "ctrl+f2" = "detach_window";
         "ctrl+f3" = "detach_window new-tab";
         "ctrl+f4" = "detach_window tab-prev";
