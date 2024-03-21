@@ -13,7 +13,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    hm.home = cfg.mkIf cfg.default {
+    hm.home = mkIf cfg.default {
       packages = [
         (mkIf cfg.default (pkgs.writeShellScriptBin "xterm" ''
           ${config.hm.programs.wezterm.package}/bin/wezterm "$@"
