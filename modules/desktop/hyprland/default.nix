@@ -3,7 +3,8 @@
 let
   inherit (lib) mkEnableOption mkOption mkIf mkMerge types findSingle;
   cfg = config.modules.desktop.hyprland;
-in {
+in
+{
   imports = [ inputs.desktop-flake.nixosModules.default ];
 
   options.modules.desktop.hyprland = {
@@ -34,6 +35,13 @@ in {
       hyprland = {
         additionalSessionVariables =
           config.modules.desktop.tiling-wm.wayland.sessionVariables;
+        animations.enable = false;
+        gaps = {
+          inner = 0;
+          outer = 0;
+          workspaces = 0;
+        };
+        rounding = 0;
         tearing.enable = config.modules.gaming.enable;
         xdg-autostart = cfg.xdg-autostart;
       };
