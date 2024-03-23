@@ -3,7 +3,8 @@
 let
   inherit (lib) mkEnableOption mkIf mkMerge optionalString;
   cfg = config.modules.cli.shell.fish;
-in {
+in
+{
   options.modules.cli.shell.fish = {
     enable = mkEnableOption "Whether to enable fish";
   };
@@ -68,10 +69,6 @@ in {
           mkcd = "mkdir -p $argv && cd $argv";
         };
         interactiveShellInit =
-          # Open command buffer in vim when alt+e is pressed
-          ''
-            bind \ee edit_command_buffer
-          '' +
           # Add more abbreviations
           # fish
           ''
@@ -86,12 +83,12 @@ in {
           '' +
           # kitty integration
           optionalString config.hm.programs.kitty.enable # fish
-          ''
-            set --global KITTY_INSTALLATION_DIR "${pkgs.kitty}/lib/kitty"
-            set --global KITTY_SHELL_INTEGRATION enabled
-            source "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish"
-            set --prepend fish_complete_path "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_completions.d"
-          '' +
+            ''
+              set --global KITTY_INSTALLATION_DIR "${pkgs.kitty}/lib/kitty"
+              set --global KITTY_SHELL_INTEGRATION enabled
+              source "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish"
+              set --prepend fish_complete_path "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_completions.d"
+            '' +
           # Use vim bindings and cursors
           # fish
           ''
