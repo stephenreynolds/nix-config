@@ -217,6 +217,7 @@
       extraPackages = with pkgs; [
         celluloid
         deluge-gtk
+        galaxy-buds-client
         gimp
         krita
         my.allusion
