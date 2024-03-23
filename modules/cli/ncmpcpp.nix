@@ -88,6 +88,34 @@ in {
           key = "ctrl-d";
           command = "page_down";
         }
+        {
+          key = "h";
+          command = "previous_column";
+        }
+        {
+          key = "l";
+          command = "next_column";
+        }
+        {
+          key = "j";
+          command = "scroll_down";
+        }
+        {
+          key = "k";
+          command = "scroll_up";
+        }
+        {
+          key = "J";
+          command = "move_sort_order_down";
+        }
+        {
+          key = "K";
+          command = "move_sort_order_up";
+        }
+        {
+          key = "ctrl-l";
+          command = "show_lyrics";
+        }
       ];
     };
 
