@@ -19,7 +19,7 @@ in
           ${config.hm.programs.wezterm.package}/bin/wezterm "$@"
         ''))
       ];
-      sessionVariables = { TERMINAL = "wezterm -1"; };
+      sessionVariables = { TERMINAL = "wezterm"; };
     };
 
     hm.programs.wezterm = {
