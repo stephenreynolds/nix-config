@@ -6,6 +6,10 @@ in {
   options.modules.devices.monitors = lib.mkOption {
     type = lib.types.listOf (lib.types.submodule {
       options = {
+        enabled = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+        };
         name = lib.mkOption {
           type = lib.types.str;
           example = "DP-1";
@@ -34,9 +38,9 @@ in {
           type = lib.types.int;
           default = 0;
         };
-        enabled = lib.mkOption {
-          type = lib.types.bool;
-          default = true;
+        transform = lib.mkOption {
+          type = lib.types.int;
+          default = 0;
         };
       };
     });
