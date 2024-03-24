@@ -37,11 +37,11 @@ in
           config.modules.desktop.tiling-wm.wayland.sessionVariables;
         animations.enable = false;
         gaps = {
-          inner = 0;
-          outer = 0;
-          workspaces = 0;
+          inner = 5;
+          outer = 4;
+          workspaces = 50;
         };
-        rounding = 0;
+        rounding = 10;
         tearing.enable = config.modules.gaming.enable;
         xdg-autostart = cfg.xdg-autostart;
       };
