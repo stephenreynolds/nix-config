@@ -83,11 +83,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1711306089,
-        "narHash": "sha256-fe2nrAHQOT/cpUUIpgebW5OE3ZGc54E7gOsSDDdvqmk=",
+        "lastModified": 1711307057,
+        "narHash": "sha256-xK3kac/t9nr5bCDgRv1I/htsC9NJLB7HO2/ZUNJNKUM=",
         "owner": "stephenreynolds",
         "repo": "desktop-flake",
-        "rev": "f6fb65a43fea06a2677281bdb6b05c45dc6cf648",
+        "rev": "5c011063bda662f53ee0500a716f48f49665af86",
         "type": "github"
       },
       "original": {
