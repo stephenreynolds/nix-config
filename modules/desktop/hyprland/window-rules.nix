@@ -79,7 +79,7 @@ lib.mkIf cfg.enable {
 
       (map (rule [ "float" "pin" "noborder" "noshadow" ]) [ firefoxModal pictureInPicture ])
 
-      (map (rule [ "nofocus" ]) [ pictureInPicture ])
+      (map (rule [ "keepaspectratio" ]) [ pictureInPicture ])
 
       (map (rule [ "fullscreen" "immediate" ]) [ steamApp ])
 
