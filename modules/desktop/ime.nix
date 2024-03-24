@@ -13,9 +13,10 @@ in {
     };
 
     environment.sessionVariables = {
+      GLFW_IM_MODULE = "ibus";
       GTK_IM_MODULE = "ibus";
-      XMODIFIERS = "@im=ibus";
       QT_IM_MODULE = "ibus";
+      XMODIFIERS = "@im=ibus";
     };
   };
 }
