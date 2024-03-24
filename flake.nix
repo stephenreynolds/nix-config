@@ -38,19 +38,15 @@
 
     hyprland = {
       url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     hypridle = {
       url = "github:hyprwm/hypridle";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprlock = {
       url = "github:hyprwm/hyprlock";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-gaming = {
@@ -74,7 +70,6 @@
 
     neovim = {
       url = "github:neovim/neovim/nightly?dir=contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nvim-config = {
@@ -104,7 +99,8 @@
           lib = final;
         };
       });
-    in {
+    in
+    {
       overlays = (mapModules ./overlays import) // {
         default = final: prev: { my = self.packages.${system}; };
       };
@@ -127,14 +123,16 @@
 
       formatter."${system}" = pkgs.nixfmt;
 
-      checks."${system}" = let
-        inherit (lib) getExe;
-        mkCheck = linter:
-          pkgs.runCommand "lint" { } ''
-            cd ${self}
-            ${linter} 2>&1
-            touch $out
-          '';
-      in { statix = mkCheck "${getExe pkgs.statix} check ${self}"; };
+      checks."${system}" =
+        let
+          inherit (lib) getExe;
+          mkCheck = linter:
+            pkgs.runCommand "lint" { } ''
+              cd ${self}
+              ${linter} 2>&1
+              touch $out
+            '';
+        in
+        { statix = mkCheck "${getExe pkgs.statix} check ${self}"; };
     };
 }
