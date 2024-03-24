@@ -29,54 +29,62 @@ let
     ];
 
   rule = rules: { class ? null, title ? null }: { inherit rules class title; };
-in lib.mkIf cfg.enable {
-  hm.wayland.windowManager.hyprland.settings.windowrulev2 = let
-    bluetoothManager.class = [ ".blueman-manager-wrapped" ];
-    firefoxModal = {
-      class = [ "firefox" ];
-      title = [ "Extension.+Mozilla Firefox.*" "Picture-in-Picture" ];
-    };
-    gnomeCalculator.class = [ "org.gnome.Calculator" ];
-    gnomeClocks.class = [ "org.gnome.clocks" ];
-    mpv.class = [ "mpv" ];
-    onedrivegui.title = [ "OneDriveGUI" ];
-    pavucontrol.class = [ "pavucontrol" ];
-    piavpn.class = [ "piavpn" ];
-    qalculate-gtk.class = [ "qalculate-gtk" ];
-    riichiCity.class = [ "Mahjong-JP.x86_64" ];
-    sioyek.class = [ "sioyek" ];
-    steam.class = [ "steam" ];
-    steamApp.class = [ "steam_app_.*" ];
-    steamModal = {
-      class = steam.class;
-      title = [ "Steam Settings" "Friends List" "^((?!Steam).)*$" ];
-    };
-    tastytrade.class = [ "tasty.javafx.launcher.LauncherFxApp" ];
-  in mapWindowRules (lib.concatLists [
-    [
-      (rule [ "size 600 600" ] pavucontrol)
-      (rule [ "move 78% 22%" ] onedrivegui)
-    ]
+in
+lib.mkIf cfg.enable {
+  hm.wayland.windowManager.hyprland.settings.windowrulev2 =
+    let
+      bluetoothManager.class = [ ".blueman-manager-wrapped" ];
+      firefoxModal = {
+        class = [ "firefox" ];
+        title = [ "Extension.+Mozilla Firefox.*" ];
+      };
+      pictureInPicture = {
+        title = [ "Picture-in-Picture" ];
+      };
+      gnomeCalculator.class = [ "org.gnome.Calculator" ];
+      gnomeClocks.class = [ "org.gnome.clocks" ];
+      mpv.class = [ "mpv" ];
+      onedrivegui.title = [ "OneDriveGUI" ];
+      pavucontrol.class = [ "pavucontrol" ];
+      piavpn.class = [ "piavpn" ];
+      qalculate-gtk.class = [ "qalculate-gtk" ];
+      riichiCity.class = [ "Mahjong-JP.x86_64" ];
+      sioyek.class = [ "sioyek" ];
+      steam.class = [ "steam" ];
+      steamApp.class = [ "steam_app_.*" ];
+      steamModal = {
+        class = steam.class;
+        title = [ "Steam Settings" "Friends List" "^((?!Steam).)*$" ];
+      };
+      tastytrade.class = [ "tasty.javafx.launcher.LauncherFxApp" ];
+    in
+    mapWindowRules (lib.concatLists [
+      [
+        (rule [ "size 600 600" ] pavucontrol)
+        (rule [ "move 78% 22%" ] onedrivegui)
+      ]
 
-    (map (rule [ "float" ]) [
-      bluetoothManager
-      gnomeCalculator
-      gnomeClocks
-      onedrivegui
-      qalculate-gtk
-      steamModal
-    ])
+      (map (rule [ "float" ]) [
+        bluetoothManager
+        gnomeCalculator
+        gnomeClocks
+        onedrivegui
+        qalculate-gtk
+        steamModal
+      ])
 
-    (map (rule [ "suppressevent fullscreen" ]) [ piavpn steam tastytrade ])
+      (map (rule [ "suppressevent fullscreen" ]) [ piavpn steam tastytrade ])
 
-    (map (rule [ "float" "center" ]) [ pavucontrol ])
+      (map (rule [ "float" "center" ]) [ pavucontrol ])
 
-    (map (rule [ "float" "pin" "noborder" "noshadow" ]) [ firefoxModal ])
+      (map (rule [ "float" "pin" "noborder" "noshadow" ]) [ firefoxModal pictureInPicture ])
 
-    (map (rule [ "fullscreen" "immediate" ]) [ steamApp ])
+      (map (rule [ "nofocus" ]) [ pictureInPicture ])
 
-    (map (rule [ "keepaspectratio" ]) [ mpv steamApp riichiCity ])
+      (map (rule [ "fullscreen" "immediate" ]) [ steamApp ])
 
-    (map (rule [ "opacity 0.8 override" ]) [ sioyek ])
-  ]);
+      (map (rule [ "keepaspectratio" ]) [ mpv steamApp riichiCity ])
+
+      (map (rule [ "opacity 0.8 override" ]) [ sioyek ])
+    ]);
 }
