@@ -36,19 +36,6 @@
 
     nix-colors.url = "github:misterio77/nix-colors";
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-    };
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-    };
-    hypridle = {
-      url = "github:hyprwm/hypridle";
-    };
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
-    };
-
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -62,20 +49,11 @@
     desktop-flake = {
       url = "github:stephenreynolds/desktop-flake";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprland.follows = "hyprland";
-      inputs.hyprland-contrib.follows = "hyprland-contrib";
-      inputs.hypridle.follows = "hypridle";
-      inputs.hyprlock.follows = "hyprlock";
-    };
-
-    neovim = {
-      url = "github:neovim/neovim/nightly?dir=contrib";
     };
 
     nvim-config = {
       url = "github:stephenreynolds/nvim";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.neovim.follows = "neovim";
     };
   };
 

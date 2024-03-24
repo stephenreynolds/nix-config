@@ -9,7 +9,7 @@ let
     homeCfgs);
   vars = ''XDG_DATA_DIRS="$XDG_DATA_DIRS:${extraDataPaths}"'';
 
-  hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  hyprland = inputs.desktop-flake.inputs.hyprland.packages.${pkgs.system}.hyprland;
 
   hyprland-kiosk = command:
     "${hyprland}/bin/Hyprland --config ${
@@ -59,7 +59,8 @@ let
         exec = ${vars} ${command} -l debug; ${pkgs.hyprland}/bin/hyprctl dispatch exit
       ''
     }";
-in {
+in
+{
   options.modules.desktop.displayManager.regreet = {
     enable = lib.mkEnableOption "Whether to enable ReGreet";
     autologin = {
