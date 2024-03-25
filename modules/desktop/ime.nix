@@ -18,5 +18,7 @@ in {
       QT_IM_MODULE = "ibus";
       XMODIFIERS = "@im=ibus";
     };
+
+    modules.system.persist.state.home.directories = [ ".config/mozc" ];
   };
 }
