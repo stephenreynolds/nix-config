@@ -1,16 +1,18 @@
 { config, lib, ... }:
 
-let cfg = config.modules.services.nextdns;
-in {
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.modules.services.nextdns;
+in
+{
   options.modules.services.nextdns = {
-    enable = lib.mkEnableOption "Enable NextDNS";
+    enable = mkEnableOption "Enable NextDNS";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     services.nextdns = {
       enable = true;
-      arguments =
-        [ "-config-file" "${config.sops.templates."nextdns.conf".path}" ];
+      arguments = [ "-config-file" "${config.sops.templates."nextdns.conf".path}" ];
     };
 
     sops.templates."nextdns.conf" = {
