@@ -129,7 +129,6 @@
     };
     desktop = {
       enable = true;
-      ime.enable = true;
       fonts = {
         profiles = {
           enable = true;
