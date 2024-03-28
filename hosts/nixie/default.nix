@@ -65,7 +65,9 @@
     };
     gaming = {
       enable = true;
+      lutris.enable = true;
       osu-lazer.enable = true;
+      proton.protontricks.enable = true;
     };
     services = {
       geoclue.enable = true;
