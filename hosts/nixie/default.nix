@@ -217,7 +217,7 @@
     dev = {
       podman = {
         enable = true;
-        distrobox.enable = false;
+        distrobox.enable = true;
       };
     };
   };
