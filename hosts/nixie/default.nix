@@ -88,6 +88,10 @@
         enable = false;
         hostKey.enable = true;
       };
+      printing = {
+        enable = true;
+        drivers = [ pkgs.hplip ];
+      };
       system76-scheduler.enable = true;
     };
     cli = {
