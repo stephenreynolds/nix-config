@@ -10,16 +10,17 @@ appimageTools.wrapType2 rec {
     sha256 = "sha256-5bBQjjb2vs3+s1r7+GOSVQbRBc8eyWjQFAlI3/mUh/k=";
   };
 
-  extraInstallCommands = let
-    appimageContents = appimageTools.extract {
-      inherit src;
-      name = pname;
-    };
-    # bash
-  in ''
-    install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
-    substituteInPlace $out/share/applications/${pname}.desktop \
-      --replace 'Exec=AppRun' 'Exec=${pname}'
-    cp -r ${appimageContents}/usr/share/icons $out/share
-  '';
+  extraInstallCommands =
+    let
+      appimageContents = appimageTools.extract {
+        inherit src;
+        name = pname;
+      };
+    in
+      /* sh */ ''
+      install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
+      substituteInPlace $out/share/applications/${pname}.desktop \
+        --replace 'Exec=AppRun' 'Exec=${pname}'
+      cp -r ${appimageContents}/usr/share/icons $out/share
+    '';
 }
