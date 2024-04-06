@@ -8,7 +8,8 @@ let
   defaultApp = type: "${gtk-launch} $(${xdg-mime} query default ${type})";
 
   fileBrowser = defaultApp "inode/directory";
-in lib.mkIf cfg.enable {
+in
+lib.mkIf cfg.enable {
   hm.wayland.windowManager.hyprland.extraConfig = ''
     # Run submap
     bind = $mod, R, submap, run_submap
@@ -19,6 +20,8 @@ in lib.mkIf cfg.enable {
     bind = , F, submap, reset
     bind = , M, exec, ${gtk-launch} electron-mail.desktop
     bind = , M, submap, reset
+    bind = , O, exec, ${gtk-launch} obsidian.desktop
+    bind = , O, submap, reset
     bind = , P, exec, ${gtk-launch} pavucontrol.desktop
     bind = , P, submap, reset
     bind = , S, exec, ${gtk-launch} steam.desktop
