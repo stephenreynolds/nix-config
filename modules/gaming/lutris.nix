@@ -13,16 +13,19 @@ in {
   config = lib.mkIf cfg.enable {
     hm.home.packages = [
       (pkgs.lutris.override {
-        extraPkgs = p: [
-          p.wineWowPackages.staging
-          p.pixman
-          p.libjpeg
-          p.gnome.zenity
+        extraPkgs = p: with p; [
+          wineWowPackages.stable
+          wineWowPackages.waylandFull
+          pixman
+          libjpeg
+          gnome.zenity
         ];
       })
     ];
 
-    modules.system.persist.state.home.directories =
-      [ ".config/lutris" ".local/share/lutris" ];
+    modules.system.persist.state.home.directories = [
+      ".config/lutris"
+      ".local/share/lutris"
+    ];
   };
 }
