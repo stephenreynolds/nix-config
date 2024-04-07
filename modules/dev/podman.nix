@@ -3,7 +3,8 @@
 let
   cfg = config.modules.dev.podman;
   dockerEnabled = config.virtualisation.docker.enable;
-in {
+in
+{
   options.modules.dev.podman = {
     enable = lib.mkEnableOption "Whether to enable Podman";
     autoPrune = {
@@ -36,6 +37,9 @@ in {
 
     hm.home.packages = lib.mkIf cfg.distrobox.enable [ pkgs.distrobox ];
 
-    modules.system.persist.state.directories = [ "/var/lib/containers" ];
+    modules.system.persist.state = {
+      directories = [ "/var/lib/containers" ];
+      home.directories = [ ".local/share/containers" ];
+    };
   };
 }
