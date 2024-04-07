@@ -20,7 +20,8 @@ let
     extraProfile = optionalString config.modules.gaming.proton.proton-ge.enable
       "export STEAM_EXTRA_COMPAT_TOOLS_PATHS='${pkgs.proton-ge-bin.steamcompattool}'";
   };
-in {
+in
+{
   options.modules.gaming.steam = {
     enable = mkOption {
       type = types.bool;
@@ -50,6 +51,7 @@ in {
       ".local/share/applications"
       ".local/share/icons/hicolor"
       ".config/unity3d" # Rimworld
+      ".config/StardewValley" # Stardew Valley
     ];
 
     hm.xdg.configFile."autostart/steam.desktop" = {
