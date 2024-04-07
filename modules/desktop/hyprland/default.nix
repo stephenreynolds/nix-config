@@ -35,7 +35,6 @@ in
       hyprland = {
         additionalSessionVariables =
           config.modules.desktop.tiling-wm.wayland.sessionVariables;
-        animations.enable = false;
         gaps = {
           inner = 5;
           outer = 4;
