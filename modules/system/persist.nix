@@ -1,57 +1,60 @@
-{ config, lib, inputs, ... }:
+{ config, lib, inputs, pkgs, ... }:
 
 let
   inherit (lib)
     mkOption mkEnableOption mkIf types optionalString attrValues concatLines;
   cfg = config.modules.system.persist;
-in {
+in
+{
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
-  options.modules.system.persist = let
-    common = {
-      directories = mkOption {
-        type = with types; listOf (either str attrs);
-        default = [ ];
-        description = "Directories to persist";
-      };
-      files = mkOption {
-        type = with types; listOf (either str attrs);
-        default = [ ];
-        description = "Files to persist";
-      };
-    };
-  in {
-    enable = mkEnableOption "Whether to enable opt-in persistence";
-    state = {
-      path = mkOption {
-        type = types.str;
-        default = "/persist";
-        description = "The path where files are persisted to";
-      };
-      home = common;
-    } // common;
-    cache = {
-      path = mkOption {
-        type = types.str;
-        default = "/cache";
-        description = "The path where cache files are persisted to";
-      };
-      clean = {
-        enable = mkOption {
-          type = types.bool;
-          default = true;
-          description = "Whether to periodically clear cached files";
+  options.modules.system.persist =
+    let
+      common = {
+        directories = mkOption {
+          type = with types; listOf (either str attrs);
+          default = [ ];
+          description = "Directories to persist";
         };
-        dates = mkOption {
+        files = mkOption {
+          type = with types; listOf (either str attrs);
+          default = [ ];
+          description = "Files to persist";
+        };
+      };
+    in
+    {
+      enable = mkEnableOption "Whether to enable opt-in persistence";
+      state = {
+        path = mkOption {
           type = types.str;
-          default = "weekly";
-          description =
-            "A systemd.timer calendar description of when to clear the cache";
+          default = "/persist";
+          description = "The path where files are persisted to";
         };
-      };
-      home = common;
-    } // common;
-  };
+        home = common;
+      } // common;
+      cache = {
+        path = mkOption {
+          type = types.str;
+          default = "/cache";
+          description = "The path where cache files are persisted to";
+        };
+        clean = {
+          enable = mkOption {
+            type = types.bool;
+            default = true;
+            description = "Whether to periodically clear cached files";
+          };
+          dates = mkOption {
+            type = types.str;
+            default = "weekly";
+            description =
+              "A systemd.timer calendar description of when to clear the cache";
+          };
+        };
+        home = common;
+      } // common;
+    };
 
   config = mkIf cfg.enable {
     environment.persistence = {
@@ -79,36 +82,62 @@ in {
 
     programs.fuse.userAllowOther = true;
 
-    system.activationScripts.persistent-dirs.text = let
-      mkHomePersist = user:
-        optionalString user.createHome ''
-          mkdir -p ${cfg.state.path}/${user.home}
-          chown ${user.name}:${user.group} ${cfg.state.path}/${user.home}
-          chmod ${user.homeMode} ${cfg.state.path}/${user.home}
+    system.activationScripts.persistent-dirs.text =
+      let
+        mkHomePersist = user:
+          optionalString user.createHome ''
+            mkdir -p ${cfg.state.path}/${user.home}
+            chown ${user.name}:${user.group} ${cfg.state.path}/${user.home}
+            chmod ${user.homeMode} ${cfg.state.path}/${user.home}
 
-          mkdir -p ${cfg.cache.path}/${user.home}
-          chown ${user.name}:${user.group} ${cfg.cache.path}/${user.home}
-          chmod ${user.homeMode} ${cfg.cache.path}/${user.home}
-        '';
-      users = attrValues config.users.users;
-    in concatLines (map mkHomePersist users);
+            mkdir -p ${cfg.cache.path}/${user.home}
+            chown ${user.name}:${user.group} ${cfg.cache.path}/${user.home}
+            chmod ${user.homeMode} ${cfg.cache.path}/${user.home}
+          '';
+        users = attrValues config.users.users;
+      in
+      concatLines (map mkHomePersist users);
 
     systemd.services.persist-cache-cleanup = mkIf cfg.cache.clean.enable {
       description = "Cleaning up cache files and directories";
-      script = let
-        inherit (lib) escapeShellArg;
-        inherit (builtins) concatStringsSep;
-        absoluteHomeFiles = map (x: "${config.hm.home.homeDirectory}/${x}");
-      in ''
-        ${concatStringsSep "\n" (map (x: "rm ${escapeShellArg x}")
-          (cfg.cache.files ++ absoluteHomeFiles cfg.cache.home.files))}
+      script =
+        let
+          inherit (lib) escapeShellArg;
+          inherit (builtins) concatStringsSep;
+          absoluteHomeFiles = map (x: "${config.hm.home.homeDirectory}/${x}");
+        in
+        ''
+          ${concatStringsSep "\n" (map (x: "rm ${escapeShellArg x}")
+            (cfg.cache.files ++ absoluteHomeFiles cfg.cache.home.files))}
 
-        ${concatStringsSep "\n" (map (x: "rm -rf ${escapeShellArg x}")
-          (cfg.cache.directories
-            ++ absoluteHomeFiles cfg.cache.home.directories))}
-      '';
+          ${concatStringsSep "\n" (map (x: "rm -rf ${escapeShellArg x}")
+            (cfg.cache.directories
+              ++ absoluteHomeFiles cfg.cache.home.directories))}
+        '';
       startAt = cfg.cache.clean.dates;
     };
+
+    environment.systemPackages = [
+      (pkgs.writeShellScriptBin
+        "fs-diff" /* bash */
+        ''
+          if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+              echo "Must be run as root"
+              exit
+          fi
+
+          ${pkgs.rsync}/bin/rsync -amvxx \
+            --dry-run \
+            --no-links \
+            --exclude '/tmp/*' \
+            --exclude '/root/*' \
+            --exclude '/home/*/.local/share/Trash' \
+            / ${cfg.state.path} \
+            | ${pkgs.ripgrep}/bin/rg -v '^skipping|/$' \
+            | tail -n +2 \
+            | head -n -3
+        '')
+    ];
 
     security.sudo.extraConfig = ''
       # Rollback results in sudo lectures after each reboot
