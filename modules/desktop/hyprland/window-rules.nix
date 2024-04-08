@@ -44,7 +44,6 @@ lib.mkIf cfg.enable {
       gnomeCalculator.class = [ "org.gnome.Calculator" ];
       gnomeClocks.class = [ "org.gnome.clocks" ];
       mpv.class = [ "mpv" ];
-      obsidian.class = [ "obsidian" ];
       onedrivegui.title = [ "OneDriveGUI" ];
       pavucontrol.class = [ "pavucontrol" ];
       piavpn.class = [ "piavpn" ];
@@ -85,8 +84,6 @@ lib.mkIf cfg.enable {
       (map (rule [ "fullscreen" "immediate" ]) [ steamApp ])
 
       (map (rule [ "keepaspectratio" ]) [ mpv steamApp riichiCity ])
-
-      (map (rule [ "immediate" ]) [ obsidian ])
 
       (map (rule [ "opacity 0.8 override" ]) [ sioyek ])
     ]);
