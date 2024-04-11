@@ -20,6 +20,7 @@ in
       description = "Enable use of NVidia GPUs from within podman containers";
     };
     distrobox = { enable = lib.mkEnableOption "Whether to enable Distrobox"; };
+    docker-compose = { enable = lib.mkEnableOption "Whether to enable docker-compose"; };
   };
 
   config = lib.mkIf cfg.enable {
@@ -35,7 +36,10 @@ in
       containers.cdi.dynamic.nvidia.enable = cfg.enableNvidia;
     };
 
-    hm.home.packages = lib.mkIf cfg.distrobox.enable [ pkgs.distrobox ];
+    hm.home.packages = [
+      (lib.mkIf cfg.distrobox.enable pkgs.distrobox)
+      (lib.mkIf cfg.docker-compose.enable pkgs.docker-compose)
+    ];
 
     modules.system.persist.state = {
       directories = [ "/var/lib/containers" ];

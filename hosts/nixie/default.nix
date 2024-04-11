@@ -221,6 +221,7 @@
       podman = {
         enable = true;
         distrobox.enable = true;
+        docker-compose.enable = true;
       };
     };
   };
