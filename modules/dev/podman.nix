@@ -36,6 +36,8 @@ in
       containers.cdi.dynamic.nvidia.enable = cfg.enableNvidia;
     };
 
+    networking.firewall.trustedInterfaces = [ "podman1" ];
+
     hm.home.packages = [
       (lib.mkIf cfg.distrobox.enable pkgs.distrobox)
       (lib.mkIf cfg.docker-compose.enable pkgs.docker-compose)
