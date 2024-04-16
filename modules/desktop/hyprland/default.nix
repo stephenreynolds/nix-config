@@ -44,11 +44,8 @@ in
         tearing.enable = config.modules.gaming.enable;
         xdg-autostart = cfg.xdg-autostart;
       };
-      hyprlock.enable = false;
     };
 
-    modules.system.persist.cache.home.directories = [
-      ".cache/ags/user"
-    ];
+    modules.system.persist.cache.home.directories = [ ".cache/ags/user" ];
   }]);
 }
