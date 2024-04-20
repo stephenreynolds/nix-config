@@ -87,6 +87,8 @@ in {
         # Allow applications like Neovim to detect focus events
         set -g focus-events on
 
+        set -g allow-passthrough on
+
         set -g status-keys emacs
         set -g display-time 4000
         set -g status-interval 5
