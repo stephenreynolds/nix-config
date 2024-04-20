@@ -38,6 +38,11 @@ in
       default = true;
       description = "Whether to start Steam on login";
     };
+    fixDownloadSpeed = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Whether to fix slow Steam download speeds";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -53,6 +58,15 @@ in
       ".config/unity3d" # Rimworld
       ".config/StardewValley" # Stardew Valley
     ];
+
+    # Fix download speeds
+    hm.home.file.".local/share/Steam/steam_dev.cfg" = {
+      enable = cfg.fixDownloadSpeed;
+      text = ''
+        @nClientDownloadEnableHTTP2PlatformLinux 0
+        @fDownloadRateImprovementToAddAnotherConnection 1.0
+      '';
+    };
 
     hm.xdg.configFile."autostart/steam.desktop" = {
       enable = cfg.autostart;
