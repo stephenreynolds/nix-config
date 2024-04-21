@@ -37,6 +37,8 @@ in
       containers.cdi.dynamic.nvidia.enable = cfg.enableNvidia;
     };
 
+    networking.firewall.trustedInterfaces = [ "docker0" ];
+
     modules.system.persist.state = {
       directories = [ "/var/lib/containers" ];
       home.directories = [ ".local/share/containers" ];
