@@ -1,13 +1,12 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let
   inherit (lib) mkEnableOption mkOption mkIf types;
-  cfg = config.modules.dev.podman;
-  dockerEnabled = config.virtualisation.docker.enable;
+  cfg = config.modules.dev.docker;
 in
 {
-  options.modules.dev.podman = {
-    enable = mkEnableOption "Whether to enable Podman";
+  options.modules.dev.docker = {
+    enable = mkEnableOption "Whether to enable Docker";
     autoPrune = {
       enable = mkOption {
         type = types.bool;
@@ -20,29 +19,23 @@ in
       default = config.modules.system.nvidia.enable;
       description = "Enable use of NVidia GPUs from within podman containers";
     };
-    distrobox = { enable = mkEnableOption "Whether to enable Distrobox"; };
-    docker-compose = { enable = mkEnableOption "Whether to enable docker-compose"; };
+    enableOnBoot = mkEnableOption "Whether to start dockerd on boot";
   };
 
   config = mkIf cfg.enable {
     virtualisation = {
-      podman = {
+      docker = {
         enable = true;
+        enableOnBoot = cfg.enableOnBoot;
         autoPrune.enable = cfg.autoPrune.enable;
-        dockerCompat = !dockerEnabled;
-        dockerSocket.enable = !dockerEnabled;
-        defaultNetwork.settings.dns_enabled = true;
+        rootless = {
+          enable = true;
+          setSocketVariable = true;
+        };
       };
 
       containers.cdi.dynamic.nvidia.enable = cfg.enableNvidia;
     };
-
-    networking.firewall.trustedInterfaces = [ "podman1" ];
-
-    hm.home.packages = [
-      (mkIf cfg.distrobox.enable pkgs.distrobox)
-      (mkIf cfg.docker-compose.enable pkgs.docker-compose)
-    ];
 
     modules.system.persist.state = {
       directories = [ "/var/lib/containers" ];

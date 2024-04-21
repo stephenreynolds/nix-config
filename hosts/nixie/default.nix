@@ -219,11 +219,7 @@
       ];
     };
     dev = {
-      podman = {
-        enable = true;
-        distrobox.enable = true;
-        docker-compose.enable = true;
-      };
+      docker.enable = true;
     };
   };
 }
