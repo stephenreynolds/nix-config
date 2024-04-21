@@ -40,8 +40,7 @@ in
     networking.firewall.trustedInterfaces = [ "docker0" ];
 
     modules.system.persist.state = {
-      directories = [ "/var/lib/containers" ];
-      home.directories = [ ".local/share/containers" ];
+      directories = [ "/var/lib/docker" ];
     };
   };
 }
