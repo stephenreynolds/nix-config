@@ -83,11 +83,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1713228860,
-        "narHash": "sha256-Lf/IR4YYTYiqPXVOcYXPgkVophdfm3RV+LJ77SC1HKc=",
+        "lastModified": 1713827935,
+        "narHash": "sha256-3UxdWuUldy6OwTupFMInq5c1TjeziO8Okl2HMDSZ3+4=",
         "owner": "stephenreynolds",
         "repo": "desktop-flake",
-        "rev": "da6432f540ed504c564f4e38a1391bef5eb77a3d",
+        "rev": "4ae2a9d8573b41abccd974c71659c078de7caf7c",
         "type": "github"
       },
       "original": {
@@ -773,11 +773,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1713641768,
-        "narHash": "sha256-a3VX0nDLj+rYkQDLSLLxZtgIVypDa0U4KHI1QPWNkqA=",
+        "lastModified": 1713745019,
+        "narHash": "sha256-jo5lcPEYPocRwM7aeWPdYB8FWiO8SGNiMwjI/M9d9Cw=",
         "owner": "stephenreynolds",
         "repo": "nvim",
-        "rev": "e9e5601079c3724de7aa588a2b3142096f0f315f",
+        "rev": "1dc358e9c6f038e224b92eb281ba3353445ae418",
         "type": "github"
       },
       "original": {
