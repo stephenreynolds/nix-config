@@ -41,6 +41,7 @@ in
 
     modules.system.persist.state = {
       directories = [ "/var/lib/docker" ];
+      home.directories = [ ".local/share/docker" ];
     };
   };
 }
