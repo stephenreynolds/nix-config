@@ -8,7 +8,5 @@ in {
 
   config = lib.mkIf cfg.enable {
     services.gvfs.enable = true;
-
-    modules.system.persist.state.home.files = [ ".local/share/recently-used.xbel" ];
   };
 }
