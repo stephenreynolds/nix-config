@@ -22,6 +22,13 @@ in
     };
     distrobox = { enable = mkEnableOption "Whether to enable Distrobox"; };
     docker-compose = { enable = mkEnableOption "Whether to enable docker-compose"; };
+    completions = {
+      fish.enable = mkOption {
+        type = types.bool;
+        default = config.hm.programs.fish.enable;
+        description = "Whether to enable Fish shell completions for Podman";
+      };
+    };
   };
 
   config = mkIf cfg.enable {
@@ -33,16 +40,33 @@ in
         dockerSocket.enable = !dockerEnabled;
         defaultNetwork.settings.dns_enabled = true;
       };
-
-      containers.cdi.dynamic.nvidia.enable = cfg.enableNvidia;
     };
+
+    hardware.nvidia-container-toolkit.enable = cfg.enableNvidia;
 
     networking.firewall.trustedInterfaces = [ "podman1" ];
 
-    hm.home.packages = [
-      (mkIf cfg.distrobox.enable pkgs.distrobox)
-      (mkIf cfg.docker-compose.enable pkgs.docker-compose)
+    boot.kernel.sysctl = {
+      "net.ipv4.ip_unprivileged_port_start" = 80;
+    };
+
+    hm.home.packages = with pkgs; [
+      (mkIf cfg.distrobox.enable distrobox)
+      (mkIf cfg.docker-compose.enable docker-compose)
+      dive
+      podman-tui
     ];
+
+    hm.xdg.dataFile = {
+      "fish/vendor_completions.d/podman.fish" = {
+        enable = cfg.completions.fish.enable;
+        source = "${pkgs.podman}/share/fish/vendor_completions.d/podman.fish";
+      };
+      "fish/vendor_completions.d/podman-remote.fish" = {
+        enable = cfg.completions.fish.enable;
+        source = "${pkgs.podman}/share/fish/vendor_completions.d/podman-remote.fish";
+      };
+    };
 
     modules.system.persist.state = {
       directories = [ "/var/lib/containers" ];

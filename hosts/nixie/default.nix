@@ -213,13 +213,20 @@
         deluge-gtk
         galaxy-buds-client
         gimp
+        just
         krita
+        warp-terminal
         my.allusion
         my.tastytrade
       ];
     };
     dev = {
       docker.enable = true;
+      podman = {
+        enable = true;
+        docker-compose.enable = true;
+      };
+      distrobox.enable = true;
     };
   };
 }

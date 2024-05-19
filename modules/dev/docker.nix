@@ -32,10 +32,11 @@ in
           enable = true;
           setSocketVariable = true;
         };
+        storageDriver = "btrfs";
       };
-
-      containers.cdi.dynamic.nvidia.enable = cfg.enableNvidia;
     };
+
+    hardware.nvidia-container-toolkit.enable = cfg.enableNvidia;
 
     networking.firewall.trustedInterfaces = [ "docker0" ];
 
