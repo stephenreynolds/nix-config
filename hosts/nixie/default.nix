@@ -27,7 +27,8 @@
       };
       nvidia = {
         enable = true;
-        open = false;
+        open = true;
+        package = config.boot.kernelPackages.nvidiaPackages.beta;
       };
       persist = {
         enable = true;
