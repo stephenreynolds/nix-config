@@ -32,7 +32,10 @@
       };
       persist = {
         enable = true;
-        state.home.directories = [ "src" ];
+        state.home.directories = [
+          "src"
+          ".local/share/thinkorswim"
+        ];
       };
       pipewire.enable = true;
       plymouth.enable = true;
