@@ -44,7 +44,6 @@ in
         tearing.enable = config.modules.gaming.enable;
         xdg-autostart = cfg.xdg-autostart;
       };
-      hypridle.enable = true;
     };
 
     modules.system.persist.cache.home.directories = [ ".cache/ags/user" ];

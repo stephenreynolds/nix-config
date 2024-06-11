@@ -14,8 +14,12 @@ let
   hyprland-kiosk = command:
     "${hyprland}/bin/Hyprland --config ${
       pkgs.writeText "hyprland.conf" ''
-        general:cursor_inactive_timeout = 10
         animations:enabled = false
+
+        cursor {
+          inactive_timeout = 10
+          no_hardware_cursors = true
+        }
 
         decoration {
           blur:enabled = false
@@ -53,7 +57,6 @@ let
           env = LIBVA_DRIVER_NAME,nvidia
           env = GBM_BACKEND,nvidia-drm
           env = __GLX_VENDOR_LIBRARY_NAME,nvidia
-          env = WLR_NO_HARDWARE_CURSORS,1
         ''}
 
         exec = ${vars} ${command} -l debug; ${pkgs.hyprland}/bin/hyprctl dispatch exit
