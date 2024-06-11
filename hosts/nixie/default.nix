@@ -36,6 +36,10 @@
           "src"
           ".local/share/thinkorswim"
         ];
+        state.home.files = [
+          ".wakatime.bdb"
+          ".wakatime.cfg"
+        ];
       };
       pipewire.enable = true;
       plymouth.enable = true;
