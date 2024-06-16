@@ -35,6 +35,7 @@
         state.home.directories = [
           "src"
           ".local/share/thinkorswim"
+          ".ollama"
         ];
         state.home.files = [
           ".wakatime.bdb"
