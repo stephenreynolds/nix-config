@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (lib) mkEnableOption mkOption mkIf types;
@@ -27,10 +27,15 @@ in
       docker = {
         enable = true;
         enableOnBoot = cfg.enableOnBoot;
+        enableNvidia = cfg.enableNvidia;
         autoPrune.enable = cfg.autoPrune.enable;
         rootless = {
           enable = true;
           setSocketVariable = true;
+          daemon.settings = {
+            default-runtime = "nvidia";
+            runtimes.nvidia.path = "${pkgs.nvidia-docker}/bin/nvidia-container-runtime";
+          };
         };
         storageDriver = "btrfs";
       };
