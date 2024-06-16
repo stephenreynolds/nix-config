@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let cfg = config.modules.apps.mpv;
 in {
@@ -9,7 +9,6 @@ in {
   config = lib.mkIf cfg.enable {
     hm.programs.mpv = {
       enable = true;
-      package = pkgs.wrapMpv pkgs.mpv-unwrapped { youtubeSupport = true; };
       config = {
         profile = "gpu-hq";
         vo = "gpu";
