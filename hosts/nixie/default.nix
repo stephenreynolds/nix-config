@@ -183,7 +183,6 @@
       };
     };
     apps = {
-      amberol.enable = true;
       electron-mail.enable = true;
       firefox = {
         enable = true;
@@ -224,9 +223,7 @@
         gimp
         just
         krita
-        warp-terminal
         my.allusion
-        my.tastytrade
       ];
     };
     dev = {
