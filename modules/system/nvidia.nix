@@ -27,10 +27,8 @@ in {
     services.xserver.videoDrivers = [ "nvidia" ];
 
     hardware = {
-      opengl = {
-        enable = true;
-        driSupport = true;
-        driSupport32Bit = cfg.support32Bit;
+      graphics = {
+        enable32Bit = cfg.support32Bit;
         extraPackages = cfg.extraPackages;
       };
       nvidia = {
