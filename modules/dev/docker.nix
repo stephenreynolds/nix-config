@@ -32,10 +32,6 @@ in
         rootless = {
           enable = true;
           setSocketVariable = true;
-          daemon.settings = {
-            default-runtime = "nvidia";
-            runtimes.nvidia.path = "${pkgs.nvidia-docker}/bin/nvidia-container-runtime";
-          };
         };
         storageDriver = "btrfs";
       };
