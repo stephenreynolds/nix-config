@@ -10,7 +10,7 @@
         (final: prev: {
           php = prev."php${toString phpVersion}".buildEnv {
             extensions = ({ enabled, all }: enabled ++ (with all; [
-              # Extensions here
+              xdebug
             ]));
             extraConfig = ''
             '';
@@ -34,6 +34,7 @@
 
           shellHook = ''
             export PATH=$HOME/.config/composer/vendor/bin:$PATH
+            export XDEBUG_MODE=coverage
           '';
         };
       });
