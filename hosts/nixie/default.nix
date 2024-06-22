@@ -186,6 +186,7 @@
       };
     };
     apps = {
+      allusion.enable = true;
       electron-mail.enable = true;
       firefox = {
         enable = true;
@@ -225,7 +226,6 @@
         gimp
         just
         krita
-        my.allusion
       ];
     };
     dev = {
