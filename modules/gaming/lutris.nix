@@ -1,16 +1,19 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.modules.gaming.lutris;
-in {
+let
+  inherit (lib) mkEnableOption mkIf optional types;
+  cfg = config.modules.gaming.lutris;
+in
+{
   options.modules.gaming.lutris = {
-    enable = lib.mkEnableOption {
-      type = lib.types.bool;
+    enable = mkEnableOption {
+      type = types.bool;
       default = config.modules.gaming.enable;
       description = "Whether to install Lutris";
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     hm.home.packages = [
       (pkgs.lutris.override {
         extraPkgs = p: with p; [
@@ -19,7 +22,9 @@ in {
           pixman
           libjpeg
           gnome.zenity
-        ];
+        ] ++ (optional config.modules.gaming.proton.proton-ge.enable [
+          p.proton-ge-bin
+        ]);
       })
     ];
 

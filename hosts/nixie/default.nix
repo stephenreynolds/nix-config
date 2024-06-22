@@ -11,6 +11,7 @@
       boot = {
         initrd.systemd.enable = true;
         iommu.enable = true;
+        kernel.cachyos-kernel.enable = true;
       };
       cpu.intel = {
         enable = true;
@@ -79,6 +80,7 @@
       proton.protontricks.enable = true;
     };
     services = {
+      easyeffects.enable = true;
       geoclue.enable = true;
       gpg.enable = true;
       gvfs.enable = true;
@@ -199,7 +201,6 @@
           search = {
             default = "Brave";
             brave = true;
-            phind = true;
             youtube = true;
             github = true;
             sourcegraph = true;

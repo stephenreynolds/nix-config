@@ -42,9 +42,8 @@ in {
 
     boot.extraModprobeConfig = ''
       options nvidia NVreg_TemporaryFilePath=/var/tmp NVreg_UsePageAttributeTable=1
+      options nvidia_drm fbdev=1
     '';
-
-    boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
 
     hm.home.sessionVariables.CUDA_CACHE_PATH = "${config.hm.xdg.cacheHome}/nv";
   };

@@ -1,44 +1,81 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
-let cfg = config.modules.system.boot;
-in {
+let
+  inherit (lib) mkOption mkEnableOption mkMerge mkIf mkDefault mkForce optionalString types;
+  cfg = config.modules.system.boot;
+in
+{
+  imports = [ inputs.chaotic.nixosModules.default ];
+
   options.modules.system.boot = {
-    bootloader = lib.mkOption {
-      type = lib.types.enum [ "grub" "systemd-boot" ];
+    bootloader = mkOption {
+      type = types.enum [ "grub" "systemd-boot" ];
       default = "systemd-boot";
       description = "The booloader to use";
     };
-    efi = lib.mkOption {
-      type = lib.types.bool;
+    efi = mkOption {
+      type = types.bool;
       default = true;
       description = "Whether the system is booted in EFI mode";
     };
     initrd = {
       systemd = {
-        enable = lib.mkEnableOption "Whether to enable systemd in initrd";
+        enable = mkEnableOption "Whether to enable systemd in initrd";
       };
     };
-    iommu = { enable = lib.mkEnableOption "Whether to enable IOMMU"; };
-    kernelPackages = lib.mkOption {
-      type = lib.types.raw;
-      default = pkgs.linuxPackages_latest;
-      description = "The package of the Linux kernel";
-    };
-    extraKernelParams = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ ];
-      description = "Extra kernel parameters";
+    iommu = { enable = mkEnableOption "Whether to enable IOMMU"; };
+    watchdogs.enable = mkEnableOption "Whether to enable watchdog timers";
+    kernel = {
+      kernelPackages = mkOption {
+        type = types.raw;
+        default = pkgs.linuxPackages_latest;
+        description = "The package of the Linux kernel";
+      };
+      extraKernelParams = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        description = "Extra kernel parameters";
+      };
+      cachyos-kernel = {
+        enable = mkEnableOption "Whether to enable CachyOS's optimized kernel";
+        scheduler = mkOption {
+          type = types.enum [
+            "scx_central"
+            "scx_flatcg"
+            "scx_lavd"
+            "scx_layered"
+            "scx_nest"
+            "scx_pair"
+            "scx_qmap"
+            "scx_rlfifo"
+            "scx_rustland"
+            "scx_rusty"
+            "scx_simple"
+            "scx_userland"
+          ];
+          default = "scx_rusty";
+          description = "Which SCX scheduler to use";
+        };
+      };
     };
   };
 
-  config = lib.mkMerge [
+  config = mkMerge [
     {
-      boot.loader.efi.canTouchEfiVariables = lib.mkDefault cfg.efi;
-      boot.kernelPackages = cfg.kernelPackages;
-      boot.kernelParams = cfg.extraKernelParams;
+      boot.loader.efi.canTouchEfiVariables = mkDefault cfg.efi;
+      boot.kernelPackages = cfg.kernel.kernelPackages;
+      boot.kernelParams = cfg.kernel.extraKernelParams;
     }
 
-    (lib.mkIf (cfg.bootloader == "systemd-boot") {
+    (mkIf cfg.kernel.cachyos-kernel.enable {
+      boot.kernelPackages = mkForce pkgs.linuxPackages_cachyos;
+      chaotic.scx = {
+        enable = true;
+        scheduler = cfg.kernel.cachyos-kernel.scheduler;
+      };
+    })
+
+    (mkIf (cfg.bootloader == "systemd-boot") {
       assertions = [{
         assertion = cfg.efi;
         message = "EFI mode is required to use systemd-boot";
@@ -51,18 +88,25 @@ in {
       };
     })
 
-    (lib.mkIf (cfg.bootloader == "grub") {
+    (mkIf (cfg.bootloader == "grub") {
       boot.loader.grub = {
         enable = true;
-        efiSupport = lib.mkDefault cfg.efi;
-        useOSProber = lib.mkDefault true;
+        efiSupport = mkDefault cfg.efi;
+        useOSProber = mkDefault true;
       };
     })
 
-    (lib.mkIf cfg.initrd.systemd.enable { boot.initrd.systemd.enable = true; })
+    (mkIf cfg.initrd.systemd.enable { boot.initrd.systemd.enable = true; })
 
-    (lib.mkIf cfg.iommu.enable {
+    (mkIf cfg.iommu.enable {
       boot.kernelParams = [ "intel_iommu=on" "iommu=pt" ];
+    })
+
+    (mkIf (!cfg.watchdogs.enable) {
+      boot.kernelParams = [ "nowatchdog" ];
+      boot.extraModprobeConfig = optionalString config.modules.system.cpu.intel.enable ''
+        blacklist iTCO_wdt
+      '';
     })
   ];
 }

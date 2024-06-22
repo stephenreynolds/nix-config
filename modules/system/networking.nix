@@ -37,10 +37,19 @@ in
         };
       };
     };
+    bpftune.enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Whether to automatically tune network parameters depending on workload";
+    };
   };
 
   config = mkMerge [
-    { networking.firewall.enable = cfg.firewall.enable; }
+    {
+      networking.firewall.enable = cfg.firewall.enable;
+
+      services.bpftune.enable = cfg.bpftune.enable;
+    }
 
     (mkIf cfg.networkManager.enable {
       systemd.services.NetworkManager-wait-online.enable = false;
