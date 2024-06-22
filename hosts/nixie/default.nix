@@ -76,6 +76,7 @@
     gaming = {
       enable = true;
       lutris.enable = true;
+      melonDS.enable = true;
       osu-lazer.enable = true;
       proton.protontricks.enable = true;
     };
