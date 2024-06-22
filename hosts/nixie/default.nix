@@ -221,6 +221,9 @@
           };
         };
       };
+      nautilus.bookmarks = ''
+        file:///home/stephen/src Source
+      '';
       obsidian.enable = true;
       vesktop.enable = true;
       wine = {
