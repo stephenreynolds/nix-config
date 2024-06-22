@@ -48,6 +48,7 @@ lib.mkIf cfg.enable {
       pavucontrol.class = [ "pavucontrol" ];
       piavpn.class = [ "piavpn" ];
       qalculate-gtk.class = [ "qalculate-gtk" ];
+      mahjongsoul.class = [ "jantama_mahjongsoul.exe" ];
       riichiCity.class = [ "Mahjong-JP.x86_64" ];
       sioyek.class = [ "sioyek" ];
       steam.class = [ "steam" ];
@@ -83,7 +84,7 @@ lib.mkIf cfg.enable {
 
       (map (rule [ "fullscreen" "immediate" ]) [ steamApp ])
 
-      (map (rule [ "keepaspectratio" ]) [ mpv steamApp riichiCity ])
+      (map (rule [ "keepaspectratio" ]) [ mpv steamApp riichiCity mahjongsoul ])
 
       (map (rule [ "opacity 0.8 override" ]) [ sioyek ])
     ]);
