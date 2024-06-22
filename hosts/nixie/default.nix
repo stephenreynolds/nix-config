@@ -209,6 +209,7 @@
           settings = {
             hideBookmarksToolbar = true;
             harden = true;
+            devtools.keybindings = "vim";
           };
           search = {
             default = "Brave";

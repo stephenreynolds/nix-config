@@ -71,6 +71,16 @@ in
                 description = "Number of rows of top sites";
               };
             };
+            devtools = {
+              keybindings = mkOption {
+                type = types.enum [ "default" "emacs" "sublime" "vim" ];
+                default = "default";
+                description = "Keybindings to use in dev tools";
+              };
+              remoteDebugger = {
+                enable = mkEnableOption "Whether to enable remote debugging";
+              };
+            };
           };
           search = {
             default = mkOption {
@@ -148,6 +158,13 @@ in
       hm.programs.firefox.profiles = mapAttrs
         (_: profile:
           mkMerge [
+            {
+              settings = with profile.settings.devtools; {
+                "devtools.debugger.remote-enabled" = remoteDebugger.enable;
+                "devtools.editor.keymap" = keybindings;
+              };
+            }
+
             # Use the Firefox OneBar theme
             (mkIf profile.userChrome.onebar {
               userChrome =
@@ -170,7 +187,10 @@ in
                   display: none !important;
                 }
 
-                #BMB_searchBookmarks, #BMB_bookmarksShowAllTop, #BMB_viewBookmarksSidebar, #BMB_bookmarksShowAll, #BMB_bookmarksToolbar, html#main-window body box#navigator-toolbox-background toolbox#navigator-toolbox toolbar#nav-bar.browser-toolbar hbox#nav-bar-customization-target.customization-target toolbarbutton#bookmarks-menu-button.toolbarbutton-1.chromeclass-toolbar-additional.subviewbutton-nav menupopup#BMB_bookmarksPopup.cui-widget-panel.cui-widget-panelview.PanelUI-subView menuseparator {
+                #BMB_searchBookmarks, #BMB_bookmarksShowAllTop, #BMB_viewBookmarksSidebar, #BMB_bookmarksShowAll, #BMB_bookmarksToolbar,
+                html#main-window body box#navigator-toolbox-background toolbox#navigator-toolbox toolbar#nav-bar.browser-toolbar
+                hbox#nav-bar-customization-target.customization-target toolbarbutton#bookmarks-menu-button.toolbarbutton-1.chromeclass-toolbar-additional.subviewbutton-nav
+                menupopup#BMB_bookmarksPopup.cui-widget-panel.cui-widget-panelview.PanelUI-subView menuseparator {
                   display: none;
                 }
               '';
