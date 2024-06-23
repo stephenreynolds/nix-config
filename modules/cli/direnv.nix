@@ -1,8 +1,8 @@
 { config, lib, ... }:
 
-let cfg = config.flake.cli.direnv;
+let cfg = config.modules.cli.direnv;
 in {
-  options.flake.cli.direnv = {
+  options.modules.cli.direnv = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -24,7 +24,7 @@ in {
     (lib.mkIf (!cfg.log.enable) {
       hm.programs.fish.interactiveShellInit =
         lib.optionalString config.modules.cli.shell.fish.enable
-        "set -x DIRENV_LOG_FORMAT ''";
+          "set -x DIRENV_LOG_FORMAT ''";
     })
   ]);
 }
