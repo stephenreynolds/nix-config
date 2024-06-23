@@ -1,61 +1,69 @@
 { config, lib, inputs, ... }:
 
-let cfg = config.modules.nix;
-in {
+let
+  inherit (lib) mkOption mkMerge mkIf concatLines mapAttrs optionalString types;
+  cfg = config.modules.nix;
+in
+{
   options.modules.nix = {
-    auto-optimise-store = lib.mkOption {
-      type = lib.types.bool;
+    auto-optimise-store = mkOption {
+      type = types.bool;
       default = true;
       description = "Whether to automatically optimise the Nix store";
     };
     gc = {
-      automatic = lib.mkOption {
-        type = lib.types.bool;
+      automatic = mkOption {
+        type = types.bool;
         default = true;
         description =
           "Automatically run the garbage collector at a specific time";
       };
-      dates = lib.mkOption {
-        type = lib.types.str;
+      dates = mkOption {
+        type = types.str;
         default = "weekly";
         description = "How often or when garbage collection is performed";
       };
-      options = lib.mkOption {
-        type = lib.types.str;
+      options = mkOption {
+        type = types.str;
         default = "--delete-older-than 30d";
         description = "Options to pass to the garbage collector";
       };
-      minFree = lib.mkOption {
-        type = lib.types.nullOr lib.types.int;
+      minFree = mkOption {
+        type = types.nullOr types.int;
         default = 100 * 1024 * 1024; # 100 MiB
         description = "Minimum free space to keep in the Nix store";
       };
-      maxFree = lib.mkOption {
-        type = lib.types.nullOr lib.types.int;
+      maxFree = mkOption {
+        type = types.nullOr types.int;
         default = 1024 * 1024 * 1024; # 1 GiB
         description = "Space to free up when the minimum is reached";
       };
     };
-    lowPriority = lib.mkOption {
-      type = lib.types.bool;
+    lowPriority = mkOption {
+      type = types.bool;
       default = true;
       description = ''
         Whether to set Nix builds to a low priority in order to improve
         system reponsiveness.
       '';
     };
-    use-cgroups = lib.mkOption {
-      type = lib.types.bool;
+    use-cgroups = mkOption {
+      type = types.bool;
       default = true;
       description = "Whether to execute builds inside cgroups";
     };
   };
 
-  config = lib.mkMerge [
+  config = mkMerge [
     {
       nix = {
         settings = {
           trusted-users = [ "root" "@wheel" ];
+          substituters = [
+            "https://hyprland.cachix.org"
+            "https://nix-gaming.cachix.org"
+            "https://cuda-maintainers.cachix.org"
+          ];
           trusted-substituters = [
             "https://hyprland.cachix.org"
             "https://nix-gaming.cachix.org"
@@ -74,22 +82,23 @@ in {
             "nix-command"
           ];
           warn-dirty = false;
+          fallback = true;
           inherit (cfg) auto-optimise-store use-cgroups;
         };
 
         gc = { inherit (cfg.gc) automatic dates options; };
 
-        extraOptions = lib.concatLines [
-          (lib.optionalString (cfg.gc.minFree != null)
+        extraOptions = concatLines [
+          (optionalString (cfg.gc.minFree != null)
             "min-free = ${toString cfg.gc.minFree}")
-          (lib.optionalString (cfg.gc.maxFree != null)
+          (optionalString (cfg.gc.maxFree != null)
             "max-free = ${toString cfg.gc.maxFree}")
           "!include ${config.sops.templates."nix-extra-config".path}"
         ];
 
         # Add each flake input as a registry
         # To make nix3 commands consistent with the flake
-        registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+        registry = mapAttrs (_: value: { flake = value; }) inputs;
 
         # Add nixpkgs input to NIX_PATH
         # This lets nix2 commands still use <nixpkgs>
@@ -115,10 +124,17 @@ in {
       modules.system.persist.state.home.directories = [ ".local/share/nix" ];
     }
 
-    (lib.mkIf cfg.lowPriority {
+    (mkIf cfg.lowPriority {
       nix = {
         daemonCPUSchedPolicy = "idle";
         daemonIOSchedClass = "idle";
+      };
+    })
+
+    (mkIf config.modules.cli.direnv.enable {
+      nix.settings = {
+        keep-outputs = true;
+        keep-derivations = true;
       };
     })
   ];
