@@ -185,7 +185,7 @@
         colorscheme = inputs.nix-colors.colorSchemes.rose-pine;
         gtk = {
           iconTheme = {
-            name = "Yaru-purple";
+            name = "Yaru-blue";
             package = pkgs.yaru-theme;
           };
           soundTheme = {
