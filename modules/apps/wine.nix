@@ -1,35 +1,38 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.modules.apps.wine;
-in {
+let
+  inherit (lib) mkEnableOption mkOption mkIf mkForce types;
+  cfg = config.modules.apps.wine;
+in
+{
   options.modules.apps.wine = {
-    enable = lib.mkEnableOption "Whether to enable Wine";
-    waylandSupport = lib.mkOption {
-      type = lib.types.bool;
+    enable = mkEnableOption "Whether to enable Wine";
+    waylandSupport = mkOption {
+      type = types.bool;
       default = config.modules.desktop.tiling-wm.wayland.enable;
       description = "Whether to enable Wayland support";
     };
-    winetricks.enable = lib.mkEnableOption "Whether to install Winetricks";
-    bottles.enable = lib.mkEnableOption "Whether to install bottles";
+    winetricks.enable = mkEnableOption "Whether to install Winetricks";
+    bottles.enable = mkEnableOption "Whether to install bottles";
   };
 
-  config = lib.mkIf cfg.enable {
-    hm.home.packages = with pkgs; [
-      (if cfg.waylandSupport then
-        wineWowPackages.waylandFull
-      else
-        wineWowPackages.full)
+  config = mkIf cfg.enable {
+    hm.home.packages = [
+      pkgs.wineWowPackages.stagingFull
 
-      (lib.mkIf cfg.winetricks.enable winetricks)
+      (mkIf cfg.winetricks.enable pkgs.winetricks)
 
-      (lib.mkIf cfg.bottles.enable bottles)
+      (mkIf cfg.bottles.enable pkgs.bottles)
     ];
 
-    modules.system.pipewire.support32Bit = lib.mkForce true;
-    modules.system.nvidia.support32Bit = lib.mkForce true;
+    hm.home.sessionVariables = { WINEDEBUG = "-all"; };
 
-    environment.sessionVariables = { WINEDEBUG = "-all"; };
+    modules.system.pipewire.support32Bit = mkForce true;
+    modules.system.nvidia.support32Bit = mkForce true;
 
-    modules.system.persist.state.home.directories = [ ".local/share/bottles" ];
+    modules.system.persist.state.home.directories = [
+      ".local/share/bottles"
+      ".wine"
+    ];
   };
 }
