@@ -8,6 +8,17 @@ in {
   };
 
   fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-label/${hostname}";
+      fsType = "btrfs";
+      options = [
+        "subvol=root"
+        "noatime"
+        "compress-force=zstd"
+        "space_cache=v2"
+        "x-gvfs-hide"
+      ];
+    };
     "/nix" = {
       device = "/dev/disk/by-label/${hostname}";
       fsType = "btrfs";
@@ -19,29 +30,16 @@ in {
         "x-gvfs-hide"
       ];
     };
-    "/persist" = {
+    "/home" = {
       device = "/dev/disk/by-label/${hostname}";
       fsType = "btrfs";
       options = [
-        "subvol=persist"
+        "subvol=home"
         "noatime"
         "compress-force=zstd"
         "space_cache=v2"
         "x-gvfs-hide"
       ];
-      neededForBoot = true;
-    };
-    "/cache" = {
-      device = "/dev/disk/by-label/${hostname}";
-      fsType = "btrfs";
-      options = [
-        "subvol=cache"
-        "noatime"
-        "compress-force=zstd"
-        "space_cache=v2"
-        "x-gvfs-hide"
-      ];
-      neededForBoot = true;
     };
     "/boot" = {
       device = "/dev/disk/by-label/ESP";

@@ -17,7 +17,6 @@
         enable = true;
         kaby-lake.enable = true;
       };
-      ephemeral-root.tmpfs.enable = true;
       locale = { time.timeZone = "America/Detroit"; };
       networking = {
         networkManager = {
@@ -30,18 +29,6 @@
         enable = true;
         open = true;
         package = config.boot.kernelPackages.nvidiaPackages.beta;
-      };
-      persist = {
-        enable = true;
-        state.home.directories = [
-          "src"
-          ".local/share/thinkorswim"
-          ".ollama"
-        ];
-        state.home.files = [
-          ".wakatime.bdb"
-          ".wakatime.cfg"
-        ];
       };
       pipewire.enable = true;
       plymouth.enable = true;
