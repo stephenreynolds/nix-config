@@ -17,8 +17,8 @@ in
 
   config = mkIf cfg.enable {
     hm.home.packages = with pkgs; [
-      gnome.nautilus
-      gnome.sushi
+      nautilus
+      sushi
       nautilus-open-any-terminal
     ];
 

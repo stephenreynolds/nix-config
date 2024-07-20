@@ -21,7 +21,7 @@ in
           wineWowPackages.waylandFull
           pixman
           libjpeg
-          gnome.zenity
+          zenity
         ] ++ (optional config.modules.gaming.proton.proton-ge.enable [
           p.proton-ge-bin
         ]);
