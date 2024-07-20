@@ -6,7 +6,9 @@
       url = "https://github.com/nixos/nixpkgs/archive/${lock.rev}.tar.gz";
       sha256 = lock.narHash;
     };
-  in import nixpkgs { overlays = [ ]; } }:
+  in
+  import nixpkgs { overlays = [ ]; }
+}:
 pkgs.mkShell {
   NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
   nativeBuildInputs = with pkgs; [
@@ -18,5 +20,6 @@ pkgs.mkShell {
     ssh-to-age
     gnupg
     age
+    sbctl
   ];
 }
