@@ -27,7 +27,6 @@ in
       docker = {
         enable = true;
         enableOnBoot = cfg.enableOnBoot;
-        enableNvidia = cfg.enableNvidia;
         autoPrune.enable = cfg.autoPrune.enable;
         rootless = {
           enable = true;
