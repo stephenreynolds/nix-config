@@ -23,6 +23,11 @@ in
       default = true;
       description = "Whether to enable the firewall";
     };
+    nftables.enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Whether to use nftables instead of iptables";
+    };
     optimizations = {
       tcp = {
         bbr = mkOption {
@@ -46,7 +51,12 @@ in
 
   config = mkMerge [
     {
-      networking.firewall.enable = cfg.firewall.enable;
+      networking = {
+        firewall = {
+          enable = cfg.firewall.enable;
+        };
+        nftables.enable = cfg.nftables.enable;
+      };
 
       services.bpftune.enable = cfg.bpftune.enable;
     }
@@ -80,17 +90,47 @@ in
         restartUnits = [ "NetworkManager.service" ];
       };
 
-      networking.firewall = {
-        # if packets are still dropped, they will show up in dmesg
-        logReversePathDrops = true;
-        # wireguard trips rpfilter up
-        extraCommands = ''
-          ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
-          ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
-        '';
-        extraStopCommands = ''
-          ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
-          ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
+      networking = {
+        firewall = {
+          # if packets are still dropped, they will show up in dmesg
+          logReversePathDrops = true;
+          allowedUDPPorts = [ 51820 ];
+        };
+        nftables.ruleset = ''
+          flush ruleset
+
+          define pub_iface = "wlan0"
+          define wg_port = 51820
+
+          table inet filter {
+              chain input {
+                  type filter hook input priority 0; policy drop;
+
+                  # accept all loopback packets
+                  iif "lo" accept
+                  # accept all icmp/icmpv6 packets
+                  meta l4proto { icmp, ipv6-icmp } accept
+                  # accept all packets that are part of an already-established connection
+                  ct state vmap { invalid : drop, established : accept, related : accept }
+                  # drop new connections over rate limit
+                  ct state new limit rate over 1/second burst 10 packets drop
+
+                  # accept all DHCPv6 packets received at a link-local address
+                  ip6 daddr fe80::/64 udp dport dhcpv6-client accept
+                  # accept all SSH packets received on a public interface
+                  iifname $pub_iface tcp dport ssh accept
+                  # accept all WireGuard packets received on a public interface
+                  iifname $pub_iface udp dport $wg_port accept
+
+                  # reject with polite "port unreachable" icmp response
+                  reject
+              }
+
+              chain forward {
+                  type filter hook forward priority 0; policy drop;
+                  reject with icmpx type host-unreachable
+              }
+          }
         '';
       };
     })
