@@ -15,7 +15,6 @@ in {
         "subvol=root"
         "noatime"
         "compress-force=zstd"
-        "space_cache=v2"
         "x-gvfs-hide"
       ];
     };
@@ -26,7 +25,6 @@ in {
         "subvol=nix"
         "noatime"
         "compress-force=zstd"
-        "space_cache=v2"
         "x-gvfs-hide"
       ];
     };
@@ -37,7 +35,6 @@ in {
         "subvol=home"
         "noatime"
         "compress-force=zstd"
-        "space_cache=v2"
         "x-gvfs-hide"
       ];
     };
