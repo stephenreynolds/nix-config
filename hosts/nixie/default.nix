@@ -67,17 +67,6 @@
       proton.protontricks.enable = true;
     };
     services = {
-      easyeffects = {
-        enable = true;
-        preset = {
-          enable = true;
-          source = ./corsair-virtuoso-wireless-headset/preset.json;
-        };
-        autoload = {
-          enable = true;
-          source = ./corsair-virtuoso-wireless-headset/autoload.json;
-        };
-      };
       geoclue.enable = true;
       gpg.enable = true;
       gvfs.enable = true;
