@@ -8,7 +8,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "Zhengqbbb";
     repo = "cz-git";
     rev = "v${finalAttrs.version}";
-    sha256 = "imPgL7AZT1WsXPTz+0EwJFGeRWXITCneteAbwrDE2A4=";
+    sha256 = "sha256-imPgL7AZT1WsXPTz+0EwJFGeRWXITCneteAbwrDE2A4=";
   };
 
   pnpmDeps = stdenvNoCC.mkDerivation {
@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     dontBuild = true;
     dontFixup = true;
     outputHashMode = "recursive";
-    outputHash = "sha256-kIeeuRbNX4YhvxJHOXkPZ1Ri4KGIftuOTNQC7OnhnRI=";
+    outputHash = "sha256-0k4DumUBSaOuihZErFPA4kTupvLkGscOJJXI+YryzOU=";
   };
 
   nativeBuildInputs = [ nodePackages.pnpm ];
