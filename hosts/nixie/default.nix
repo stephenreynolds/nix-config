@@ -11,7 +11,6 @@
       boot = {
         initrd.systemd.enable = true;
         iommu.enable = true;
-        kernel.cachyos-kernel.enable = true;
       };
       cpu.intel = {
         enable = true;
