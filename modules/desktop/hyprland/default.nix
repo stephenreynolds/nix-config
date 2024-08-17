@@ -46,6 +46,8 @@ in
       };
     };
 
+    hm.wayland.windowManager.hyprland.settings.render.explicit_sync = false;
+
     modules.system.persist.cache.home.directories = [ ".cache/ags/user" ];
   }]);
 }
