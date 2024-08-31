@@ -1,10 +1,11 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
+  inherit (lib) mkEnableOption mkOption mkIf mkForce getExe concatLines concatStringsSep optionalString mapAttrsToList types;
   cfg = config.modules.desktop.displayManager.regreet;
 
   homeCfgs = config.home-manager.users;
-  extraDataPaths = lib.concatStringsSep ":" (lib.mapAttrsToList
+  extraDataPaths = concatStringsSep ":" (mapAttrsToList
     (n: _: "/nix/var/nix/profiles/per-user/${n}/${n}/home-path/share")
     homeCfgs);
   vars = ''XDG_DATA_DIRS="$XDG_DATA_DIRS:${extraDataPaths}"'';
@@ -42,7 +43,7 @@ let
           numlock_by_default = true
         }
 
-        ${lib.concatLines (map (m:
+        ${concatLines (map (m:
           let
             resolution = "${toString m.width}x${toString m.height}@${
                 toString m.refreshRate
@@ -52,7 +53,7 @@ let
             if m.primary then "${resolution}, ${position}, 1" else "disable"
           }") config.modules.devices.monitors)}
 
-        ${lib.optionalString config.modules.system.nvidia.enable ''
+        ${optionalString config.modules.system.nvidia.enable ''
           env = GDK_BACKEND=wayland,x11
           env = LIBVA_DRIVER_NAME,nvidia
           env = GBM_BACKEND,nvidia-drm
@@ -65,24 +66,24 @@ let
 in
 {
   options.modules.desktop.displayManager.regreet = {
-    enable = lib.mkEnableOption "Whether to enable ReGreet";
+    enable = mkEnableOption "Whether to enable ReGreet";
     autologin = {
-      enable = lib.mkEnableOption
+      enable = mkEnableOption
         "Whether to automatically login to a default session";
-      command = lib.mkOption {
-        type = lib.types.str;
+      command = mkOption {
+        type = types.str;
         default = "Hyprland";
         description = "The command to automatically login with";
       };
-      user = lib.mkOption {
-        type = lib.types.str;
+      user = mkOption {
+        type = types.str;
         default = "stephen";
         description = "The user to automatically login as";
       };
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     users.extraUsers.greeter.packages = [
       config.modules.desktop.theme.gtk.theme.package
       config.modules.desktop.theme.gtk.iconTheme.package
@@ -94,11 +95,10 @@ in
       enable = true;
       settings = {
         GTK = {
-          icon_theme_name = config.modules.desktop.theme.gtk.iconTheme.name;
-          theme_name = config.modules.desktop.theme.gtk.theme.name;
-          cursor_theme_name = config.modules.desktop.cursor.name;
-          font_name =
-            "${config.modules.desktop.fonts.profiles.regular.family} 14";
+          icon_theme_name = mkForce config.modules.desktop.theme.gtk.iconTheme.name;
+          theme_name = mkForce config.modules.desktop.theme.gtk.theme.name;
+          cursor_theme_name = mkForce config.modules.desktop.cursor.name;
+          font_name = mkForce "${config.modules.desktop.fonts.profiles.regular.family} 14";
         };
       };
     };
@@ -107,8 +107,8 @@ in
       enable = true;
       settings = {
         default_session.command =
-          hyprland-kiosk (lib.getExe config.programs.regreet.package);
-        initial_session = lib.mkIf cfg.autologin.enable {
+          hyprland-kiosk (getExe config.programs.regreet.package);
+        initial_session = mkIf cfg.autologin.enable {
           command = cfg.autologin.command;
           user = cfg.autologin.user;
         };
