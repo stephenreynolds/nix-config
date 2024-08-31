@@ -59,7 +59,7 @@ in {
         xdg-utils
         pulseaudio
 
-        gnome.gnome-clocks
+        gnome-clocks
         qalculate-gtk
       ];
     }
