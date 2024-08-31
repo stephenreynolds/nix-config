@@ -3,7 +3,8 @@
 let
   inherit (lib) mkOption mkEnableOption mkIf types;
   cfg = config.modules.cli.git;
-in {
+in
+{
   options.modules.cli.git = {
     enable = mkOption {
       type = types.bool;
