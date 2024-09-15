@@ -134,7 +134,13 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      hm.programs.firefox.enable = true;
+      hm.programs.firefox = {
+        enable = true;
+        package = pkgs.firefox-devedition-bin.override {
+          cfg.speechSynthesisSupport = true;
+          nativeMessagingHosts = [ pkgs.tridactyl-native ];
+        };
+      };
 
       hm.home.sessionVariables.MOZ_USE_XINPUT2 = 1;
 
@@ -159,10 +165,15 @@ in
         (_: profile:
           mkMerge [
             {
-              settings = with profile.settings.devtools; {
-                "devtools.debugger.remote-enabled" = remoteDebugger.enable;
-                "devtools.editor.keymap" = keybindings;
-              };
+              name = "dev-edition-default";
+            }
+
+            {
+              settings = with profile.settings.devtools;
+                {
+                  "devtools.debugger.remote-enabled" = remoteDebugger.enable;
+                  "devtools.editor.keymap" = keybindings;
+                };
             }
 
             # Use the Firefox OneBar theme
