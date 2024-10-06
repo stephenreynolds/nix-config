@@ -86,6 +86,8 @@ lib.mkIf cfg.enable {
 
       (map (rule [ "keepaspectratio" ]) [ mpv steamApp riichiCity mahjongsoul ])
 
+      (map (rule [ "renderunfocused" ]) [ steamApp riichiCity mahjongsoul ])
+
       (map (rule [ "opacity 0.8 override" ]) [ sioyek ])
     ]);
 }
