@@ -49,8 +49,10 @@ let
                 toString m.refreshRate
               }";
             position = "${toString m.x}x${toString m.y}";
+            scaling = builtins.toString m.scaling;
+            transform = builtins.toString m.transform;
           in "monitor = ${m.name}, ${
-            if m.primary then "${resolution}, ${position}, 1" else "disable"
+            if m.primary then "${resolution}, ${position}, ${scaling}, transform ${transform}" else "disable"
           }") config.modules.devices.monitors)}
 
         ${optionalString config.modules.system.nvidia.enable ''

@@ -44,16 +44,10 @@
       monitors = [
         {
           name = "DP-1";
-          x = 0;
-        }
-        {
-          name = "DP-2";
-          x = 1920;
           primary = true;
-        }
-        {
-          name = "HDMI-A-1";
-          x = 3840;
+          width = 3840;
+          height = 2160;
+          scaling = 1.5;
         }
       ];
       xboxController.enable = true;
@@ -215,6 +209,7 @@
         gimp
         just
         krita
+        nextcloud-client
       ];
     };
     dev = {

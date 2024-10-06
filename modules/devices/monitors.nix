@@ -1,46 +1,57 @@
 # Source: https://github.com/Misterio77/nix-config/blob/main/modules/home-manager/monitors.nix
 { config, lib, ... }:
 
-let cfg = config.modules.devices.monitors;
-in {
-  options.modules.devices.monitors = lib.mkOption {
-    type = lib.types.listOf (lib.types.submodule {
+let
+  inherit (lib) mkOption types;
+  cfg = config.modules.devices.monitors;
+in
+{
+  options.modules.devices.monitors = mkOption {
+    type = types.listOf (types.submodule {
       options = {
-        enabled = lib.mkOption {
-          type = lib.types.bool;
+        enabled = mkOption {
+          type = types.bool;
           default = true;
         };
-        name = lib.mkOption {
-          type = lib.types.str;
+        name = mkOption {
+          type = types.str;
           example = "DP-1";
         };
-        primary = lib.mkOption {
-          type = lib.types.bool;
+        primary = mkOption {
+          type = types.bool;
           default = false;
         };
-        width = lib.mkOption {
-          type = lib.types.int;
+        width = mkOption {
+          type = types.int;
           default = 1920;
         };
-        height = lib.mkOption {
-          type = lib.types.int;
+        height = mkOption {
+          type = types.int;
           default = 1080;
         };
-        refreshRate = lib.mkOption {
-          type = lib.types.int;
+        refreshRate = mkOption {
+          type = types.int;
           default = 60;
         };
-        x = lib.mkOption {
-          type = lib.types.int;
+        x = mkOption {
+          type = types.int;
           default = 0;
         };
-        y = lib.mkOption {
-          type = lib.types.int;
+        y = mkOption {
+          type = types.int;
           default = 0;
         };
-        transform = lib.mkOption {
-          type = lib.types.int;
+        transform = mkOption {
+          type = types.int;
           default = 0;
+        };
+        scaling = mkOption {
+          type = types.oneOf [ types.int types.float ];
+          default = 1;
+        };
+        modeline = mkOption {
+          type = types.nullOr types.str;
+          default = null;
         };
       };
     });

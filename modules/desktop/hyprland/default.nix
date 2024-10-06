@@ -34,7 +34,9 @@ in
         config.modules.devices.monitors).name;
       hyprland = {
         additionalSessionVariables =
-          config.modules.desktop.tiling-wm.wayland.sessionVariables;
+          config.modules.desktop.tiling-wm.wayland.sessionVariables // {
+            GDK_SCALE = 1.5;
+          };
         gaps = {
           inner = 5;
           outer = 4;
@@ -46,7 +48,9 @@ in
       };
     };
 
-    hm.wayland.windowManager.hyprland.settings.render.explicit_sync = false;
+    hm.wayland.windowManager.hyprland.settings = {
+      xwayland.force_zero_scaling = true;
+    };
 
     modules.system.persist.cache.home.directories = [ ".cache/ags/user" ];
   }]);

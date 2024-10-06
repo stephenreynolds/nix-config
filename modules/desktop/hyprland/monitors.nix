@@ -6,11 +6,15 @@ in lib.mkIf cfg.enable {
     (m:
       let
         resolution =
-          "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+          if m.modeline == null then
+            "${toString m.width}x${toString m.height}@${toString m.refreshRate}"
+          else "modeline ${m.modeline}";
         position = "${toString m.x}x${toString m.y}";
+        scaling = builtins.toString m.scaling;
+        transform = builtins.toString m.transform;
       in
       "${m.name}, ${
-      if m.enabled then "${resolution}, ${position}, 1, transform, ${builtins.toString m.transform}" else "disable"
+      if m.enabled then "${resolution}, ${position}, ${scaling}, transform, ${transform}" else "disable"
     }")
     config.modules.devices.monitors;
 }
