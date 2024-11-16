@@ -14,8 +14,6 @@ in {
         tree
         unzip
         trash-cli
-        python312Packages.howdoi
-        my.cz-git
         my.t
         my.tt
       ];
