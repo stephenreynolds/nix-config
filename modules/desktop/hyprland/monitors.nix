@@ -12,9 +12,17 @@ in lib.mkIf cfg.enable {
         position = "${toString m.x}x${toString m.y}";
         scaling = builtins.toString m.scaling;
         transform = builtins.toString m.transform;
+        bitdepth =
+          if m.bitdepth == null then
+            ""
+          else ", bitdepth, ${builtins.toString m.bitdepth}";
+        vrr =
+          if m.vrr == 0 then
+            ""
+          else ", vrr, ${builtins.toString m.vrr}";
       in
       "${m.name}, ${
-      if m.enabled then "${resolution}, ${position}, ${scaling}, transform, ${transform}" else "disable"
-    }")
+          if m.enabled then "${resolution}, ${position}, ${scaling}, transform, ${transform}${bitdepth}${vrr}" else "disable"
+          }")
     config.modules.devices.monitors;
 }

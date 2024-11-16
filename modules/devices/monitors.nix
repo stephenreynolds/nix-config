@@ -53,6 +53,14 @@ in
           type = types.nullOr types.str;
           default = null;
         };
+        bitdepth = mkOption {
+          type = types.nullOr types.int;
+          default = null;
+        };
+        vrr = mkOption {
+          type = types.int;
+          default = 0;
+        };
       };
     });
     default = [ ];

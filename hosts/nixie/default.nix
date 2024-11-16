@@ -48,6 +48,8 @@
           width = 3840;
           height = 2160;
           scaling = 1.5;
+          bitdepth = 10;
+          vrr = 1;
         }
       ];
       xboxController.enable = true;
