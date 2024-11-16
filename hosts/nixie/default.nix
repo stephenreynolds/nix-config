@@ -212,7 +212,6 @@
         gimp
         just
         krita
-        nextcloud-client
       ];
     };
     dev = {
