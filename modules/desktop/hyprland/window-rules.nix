@@ -78,7 +78,7 @@ lib.mkIf cfg.enable {
 
       (map (rule [ "float" "center" ]) [ pavucontrol ])
 
-      (map (rule [ "float" "pin" "noborder" "noshadow" ]) [ firefoxModal pictureInPicture ])
+      (map (rule [ "float" "pin" "noborder" "noshadow" "focusonactivate off" ]) [ firefoxModal pictureInPicture ])
 
       (map (rule [ "keepaspectratio" ]) [ pictureInPicture ])
 
