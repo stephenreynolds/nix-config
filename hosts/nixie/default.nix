@@ -212,6 +212,7 @@
         gimp
         just
         krita
+        heroic
       ];
     };
     dev = {
