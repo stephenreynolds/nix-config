@@ -47,7 +47,6 @@ in
           nf = "nix flake";
           nfu = "nix flake update";
           nfc = "nix flake check";
-          nflu = "nix flake lock --update-input";
           nfi = "nix flake init";
 
           nr = "nixos-rebuild --flake .";

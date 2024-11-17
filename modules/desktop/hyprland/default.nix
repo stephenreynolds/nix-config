@@ -44,7 +44,6 @@ in
         };
         rounding = 10;
         tearing.enable = config.modules.gaming.enable;
-        xdg-autostart = cfg.xdg-autostart;
       };
     };
 

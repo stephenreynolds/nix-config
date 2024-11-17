@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   inherit (lib) mkEnableOption mkIf optional types;
@@ -22,8 +22,8 @@ in
           pixman
           libjpeg
           zenity
-        ] ++ (optional config.modules.gaming.proton.proton-ge.enable [
-          p.proton-ge-bin
+        ] ++ (optional config.modules.gaming.umu-launcher.enable [
+          inputs.umu.packages.${p.system}.umu
         ]);
       })
     ];

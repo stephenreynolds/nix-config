@@ -70,7 +70,7 @@ let
           env = __GLX_VENDOR_LIBRARY_NAME,nvidia
         ''}
 
-        exec = ${vars} ${command} -l debug; ${pkgs.hyprland}/bin/hyprctl dispatch exit
+        exec = ${vars} ${command} -l debug; uwsm stop
       ''
     }";
 in

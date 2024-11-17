@@ -1,12 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkOption mkEnableOption mkMerge mkIf mkDefault mkForce optionalString types;
+  inherit (lib) mkOption mkEnableOption mkMerge mkIf mkDefault optionalString types;
   cfg = config.modules.system.boot;
 in
 {
-  imports = [ inputs.chaotic.nixosModules.default ];
-
   options.modules.system.boot = {
     bootloader = mkOption {
       type = types.enum [ "grub" "systemd-boot" ];
@@ -66,14 +64,6 @@ in
       boot.kernelPackages = cfg.kernel.kernelPackages;
       boot.kernelParams = cfg.kernel.extraKernelParams;
     }
-
-    (mkIf cfg.kernel.cachyos-kernel.enable {
-      boot.kernelPackages = mkForce pkgs.linuxPackages_cachyos;
-      chaotic.scx = {
-        enable = true;
-        scheduler = cfg.kernel.cachyos-kernel.scheduler;
-      };
-    })
 
     (mkIf (cfg.bootloader == "systemd-boot") {
       assertions = [{

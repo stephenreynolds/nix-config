@@ -27,7 +27,7 @@
       nvidia = {
         enable = true;
         open = true;
-        package = config.boot.kernelPackages.nvidiaPackages.beta;
+        package = config.boot.kernelPackages.nvidiaPackages.stable;
       };
       pipewire.enable = true;
       plymouth.enable = true;
