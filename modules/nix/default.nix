@@ -91,6 +91,7 @@ in
       };
 
       environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
+      hm.nixpkgs.config.allowUnfree = true;
 
       hardware.enableRedistributableFirmware = true;
 

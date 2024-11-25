@@ -199,6 +199,7 @@
       '';
       obsidian.enable = true;
       vesktop.enable = true;
+      vscode.enable = true;
       wine = {
         enable = true;
         winetricks.enable = true;
