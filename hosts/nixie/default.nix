@@ -214,6 +214,7 @@
         just
         krita
         heroic
+        nextcloud-client
       ];
     };
     dev = {
