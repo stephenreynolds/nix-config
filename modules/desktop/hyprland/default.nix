@@ -29,6 +29,7 @@ in
     hm.imports = [ inputs.desktop-flake.homeManagerModules.default ];
     hm.desktop-flake = {
       enable = true;
+      ags.enable = true;
       nvidia = config.modules.system.nvidia.enable;
       primaryMonitor = (findSingle (m: m.primary) "DP-1" "DP-1"
         config.modules.devices.monitors).name;
@@ -37,12 +38,6 @@ in
           config.modules.desktop.tiling-wm.wayland.sessionVariables // {
             GDK_SCALE = 1.5;
           };
-        gaps = {
-          inner = 5;
-          outer = 4;
-          workspaces = 50;
-        };
-        rounding = 10;
         tearing.enable = config.modules.gaming.enable;
       };
     };

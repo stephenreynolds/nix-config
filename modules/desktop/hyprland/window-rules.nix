@@ -38,11 +38,15 @@ lib.mkIf cfg.enable {
         class = [ "firefox" ];
         title = [ "Extension.+Mozilla Firefox.*" ];
       };
+      liveCaption = {
+        title = [ "Live Caption" ];
+      };
       pictureInPicture = {
         title = [ "Picture-in-Picture" ];
       };
       gnomeCalculator.class = [ "org.gnome.Calculator" ];
       gnomeClocks.class = [ "org.gnome.clocks" ];
+      immediateOff.class = [ "steam_app_2420510" ];
       mpv.class = [ "mpv" ];
       onedrivegui.title = [ "OneDriveGUI" ];
       pavucontrol.class = [ "pavucontrol" ];
@@ -78,11 +82,13 @@ lib.mkIf cfg.enable {
 
       (map (rule [ "float" "center" ]) [ pavucontrol ])
 
-      (map (rule [ "float" "pin" "noborder" "noshadow" "focusonactivate off" ]) [ firefoxModal pictureInPicture ])
+      (map (rule [ "float" "pin" "noborder" "noshadow" "focusonactivate off" ]) [ firefoxModal pictureInPicture liveCaption ])
 
       (map (rule [ "keepaspectratio" ]) [ pictureInPicture ])
 
       (map (rule [ "fullscreen" "immediate" ]) [ steamApp ])
+
+      (map (rule [ "immediate off" ]) [ immediateOff ])
 
       (map (rule [ "keepaspectratio" ]) [ mpv steamApp riichiCity mahjongsoul ])
 
