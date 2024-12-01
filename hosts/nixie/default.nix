@@ -11,6 +11,7 @@
       boot = {
         initrd.systemd.enable = true;
         iommu.enable = true;
+        kernel.kernelPackages = pkgs.linuxPackages_6_11;
       };
       cpu.intel = {
         enable = true;
@@ -133,7 +134,7 @@
           enable = true;
           monospace = {
             family = "CaskaydiaCove Nerd Font";
-            package = pkgs.nerdfonts.override { fonts = [ "CascadiaCode" ]; };
+            package = pkgs.nerd-fonts.caskaydia-cove;
           };
           regular = {
             family = "Ubuntu Regular";
