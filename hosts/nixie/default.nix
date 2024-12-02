@@ -87,6 +87,7 @@
         drivers = [ pkgs.hplip ];
       };
       system76-scheduler.enable = true;
+      tailscale.enable = true;
     };
     cli = {
       shell = {
