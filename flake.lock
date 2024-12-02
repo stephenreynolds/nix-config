@@ -107,11 +107,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1733095735,
-        "narHash": "sha256-BA6ML4RppWP11o/vUVbNppfXWam9b1za3RicN3a/MRM=",
+        "lastModified": 1733099880,
+        "narHash": "sha256-5DN1F3t52wSvbejsw3usH86BQAItnwbP+XLzzLt1Zb8=",
         "owner": "stephenreynolds",
         "repo": "desktop-flake",
-        "rev": "99dedb0d2fb93b5b86f068643302151c59caf335",
+        "rev": "06a79b448034debe0d28591c48f6d3150264cf54",
         "type": "github"
       },
       "original": {
@@ -338,18 +338,16 @@
       },
       "locked": {
         "lastModified": 1733073275,
-        "narHash": "sha256-U6uCJ9EwwAXhezn6sRymF8RGeiad3aw0STIT8c9zgSY=",
-        "ref": "refs/heads/main",
+        "narHash": "sha256-8F5SUIglJyqSKv+iDglxkfFIeHSYPw5iexeFjzZDzVc=",
+        "owner": "hyprwm",
+        "repo": "Hyprland",
         "rev": "6d7544458d0fafcae410c1978a0cabce2fb4a346",
-        "revCount": 5507,
-        "submodules": true,
-        "type": "git",
-        "url": "https://github.com/hyprwm/Hyprland"
+        "type": "github"
       },
       "original": {
-        "submodules": true,
-        "type": "git",
-        "url": "https://github.com/hyprwm/Hyprland"
+        "owner": "hyprwm",
+        "repo": "Hyprland",
+        "type": "github"
       }
     },
     "hyprland-contrib": {
