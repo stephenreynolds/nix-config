@@ -5,7 +5,7 @@ let
 
   gtk-launch = "${pkgs.gtk3}/bin/gtk-launch";
   xdg-mime = "${pkgs.xdg-utils}/bin/xdg-mime";
-  defaultApp = type: "${gtk-launch} $(${xdg-mime} query default ${type})";
+  defaultApp = type: "uwsm app -- ${gtk-launch} $(${xdg-mime} query default ${type})";
 
   fileBrowser = defaultApp "inode/directory";
 in
@@ -22,7 +22,7 @@ lib.mkIf cfg.enable {
     bind = , M, submap, reset
     bind = , O, exec, ${gtk-launch} obsidian.desktop
     bind = , O, submap, reset
-    bind = , P, exec, ${gtk-launch} pavucontrol.desktop
+    bind = , P, exec, uwsm app -- pavucontrol
     bind = , P, submap, reset
     bind = , S, exec, ${gtk-launch} steam.desktop
     bind = , S, submap, reset
