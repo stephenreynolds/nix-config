@@ -14,6 +14,7 @@ in {
         tree
         unzip
         trash-cli
+        mtr
         my.t
         my.tt
       ];
