@@ -7,7 +7,6 @@ in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    inputs.nur.nixosModules.nur
     (mkAliasOptionModule [ "hm" ] [ "home-manager" "users" config.user.name ])
   ] ++ (mapModulesRec' (toString ./modules) import);
 
