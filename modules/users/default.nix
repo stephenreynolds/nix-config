@@ -3,7 +3,8 @@
 let
   inherit (lib) mkOption mkEnableOption mkIf mkMerge mkAliasDefinitions types;
   cfg = config.modules.users;
-in {
+in
+{
   options.user = mkOption {
     type = types.attrs;
     default = { };
@@ -39,14 +40,16 @@ in {
     {
       users.mutableUsers = cfg.mutableUsers;
 
-      user = let
-        ifTheyExist = groups:
-          builtins.filter (group: builtins.hasAttr group config.users.groups)
-          groups;
-      in {
-        isNormalUser = true;
-        extraGroups = [ "wheel" "input" "audio" "video" "storage" ]
-          ++ ifTheyExist [
+      user =
+        let
+          ifTheyExist = groups:
+            builtins.filter (group: builtins.hasAttr group config.users.groups)
+              groups;
+        in
+        {
+          isNormalUser = true;
+          extraGroups = [ "wheel" "input" "audio" "video" "storage" ]
+            ++ ifTheyExist [
             "i2c"
             "docker"
             "podman"
@@ -59,8 +62,9 @@ in {
             "gamemode"
             "nix-access-tokens"
             "openai-api-key"
+            "intelephense-key"
           ];
-      };
+        };
 
       users.users.${config.user.name} = mkAliasDefinitions options.user;
 

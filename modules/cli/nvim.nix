@@ -3,7 +3,8 @@
 let
   inherit (lib) mkEnableOption mkOption mkIf types;
   cfg = config.modules.cli.nvim;
-in {
+in
+{
   options.modules.cli.nvim = {
     enable = mkEnableOption "Enable Neovim";
     defaultEditor = mkEnableOption "Set Neovim as default editor";
@@ -34,6 +35,14 @@ in {
       vimAlias = cfg.vimAlias;
       vimdiffAlias = cfg.vimdiffAlias;
     };
+
+    sops.secrets.intelephense-key = {
+      sopsFile = ../sops/secrets.yaml;
+      group = config.users.groups.intelephense-key.name;
+      mode = "0440";
+    };
+
+    users.groups.intelephense-key = { };
 
     modules.system.persist.state.home.directories =
       [ ".local/share/nvim" ".config/github-copilot" ];
