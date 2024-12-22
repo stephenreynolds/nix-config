@@ -764,11 +764,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1734204437,
-        "narHash": "sha256-AHDJDD0u6YBcS2tl5t5xtTsxQHefhJDL/GVNoE6LjBs=",
+        "lastModified": 1734896249,
+        "narHash": "sha256-dieFRvVxqdlZg6uDB+chHoAgvxZGX1NT4SK8VhYs0BU=",
         "owner": "stephenreynolds",
         "repo": "nvim",
-        "rev": "8e869f187007e287b5bed21ab4249438b9d918a5",
+        "rev": "624d00ba945876cb90d7193bdd8a58b62fa65aa6",
         "type": "github"
       },
       "original": {
