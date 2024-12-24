@@ -171,7 +171,6 @@
     };
     apps = {
       allusion.enable = true;
-      electron-mail.enable = true;
       firefox = {
         enable = true;
         defaultBrowser = true;
@@ -211,6 +210,7 @@
       extraPackages = with pkgs; [
         celluloid
         deluge-gtk
+        electron-mail
         galaxy-buds-client
         gimp
         just
