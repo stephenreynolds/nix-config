@@ -13,8 +13,7 @@ appimageTools.wrapType2 rec {
   extraInstallCommands =
     let
       appimageContents = appimageTools.extract {
-        inherit src;
-        name = pname;
+        inherit pname version src;
       };
     in
       /* sh */ ''
