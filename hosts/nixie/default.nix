@@ -217,6 +217,7 @@
         krita
         heroic
         nextcloud-client
+        space-cadet-pinball
       ];
     };
     dev = {
