@@ -40,11 +40,12 @@ mkIf cfg.enable {
       inactive_timeout = 10;
       default_monitor = (findSingle (m: m.primary) "DP-1" "DP-1"
         config.modules.devices.monitors).name;
-      # use_cpu_buffer = true;
+      use_cpu_buffer = true;
     };
 
     decoration = {
       rounding = 10;
+      rounding_power = 4;
 
       blur = {
         enabled = true;
@@ -88,7 +89,7 @@ mkIf cfg.enable {
     };
 
     master = {
-      always_center_master = true;
+      slave_count_for_center_master = 0;
       inherit_fullscreen = true;
       mfact = 0.6;
       new_status = "master";

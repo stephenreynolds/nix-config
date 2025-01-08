@@ -20,7 +20,7 @@ in {
         jack.enable = true;
       };
 
-      hardware.pulseaudio.enable = false;
+      services.pulseaudio.enable = false;
 
       modules.system.persist.state.home.directories =
         [ ".local/state/wireplumber" ];
