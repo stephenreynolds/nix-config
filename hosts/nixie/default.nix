@@ -11,7 +11,6 @@
       boot = {
         initrd.systemd.enable = true;
         iommu.enable = true;
-        kernel.kernelPackages = pkgs.linuxPackages_6_11;
       };
       cpu.intel = {
         enable = true;
@@ -28,7 +27,7 @@
       nvidia = {
         enable = true;
         open = true;
-        package = config.boot.kernelPackages.nvidiaPackages.stable;
+        package = config.boot.kernelPackages.nvidiaPackages.beta;
       };
       pipewire.enable = true;
       plymouth.enable = true;
@@ -185,11 +184,8 @@
             devtools.keybindings = "vim";
           };
           search = {
-            default = "Brave";
-            brave = true;
             youtube = true;
             github = true;
-            sourcegraph = true;
             nix-packages = true;
             nix-options = true;
           };
@@ -216,7 +212,6 @@
         just
         krita
         heroic
-        nextcloud-client
         space-cadet-pinball
       ];
     };
