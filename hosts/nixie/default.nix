@@ -171,27 +171,6 @@
     };
     apps = {
       allusion.enable = true;
-      firefox = {
-        enable = false;
-        defaultBrowser = true;
-        extraProfileConfig.stephen = {
-          userChrome = {
-            onebar = true;
-            hideBloat = true;
-          };
-          settings = {
-            hideBookmarksToolbar = true;
-            harden = true;
-            devtools.keybindings = "vim";
-          };
-          search = {
-            youtube = true;
-            github = true;
-            nix-packages = true;
-            nix-options = true;
-          };
-        };
-      };
       nautilus.bookmarks = ''
         file:///home/stephen/src Source
       '';
