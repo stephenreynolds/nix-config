@@ -52,6 +52,7 @@
           vrr = 1;
         }
       ];
+      logitech.enable = true;
       xboxController.enable = true;
       zsa-keyboard.enable = true;
     };
@@ -171,7 +172,7 @@
     apps = {
       allusion.enable = true;
       firefox = {
-        enable = true;
+        enable = false;
         defaultBrowser = true;
         extraProfileConfig.stephen = {
           userChrome = {
@@ -213,6 +214,8 @@
         krita
         heroic
         space-cadet-pinball
+
+        inputs.zen-browser.packages."${pkgs.system}".default
       ];
     };
     dev = {
