@@ -29,11 +29,6 @@ in {
       };
     }
 
-    # Suppress "mlocate and plocate do not support localuser" warning
-    (lib.mkIf (cfg.package == pkgs.mlocate || cfg.package == pkgs.plocate) {
-      services.locate.localuser = null;
-    })
-
     (lib.mkIf (cfg.package == pkgs.mlocate) { users.groups.mlocate = { }; })
   ];
 }
