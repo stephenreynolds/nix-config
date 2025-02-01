@@ -40,7 +40,6 @@ mkIf cfg.enable {
       inactive_timeout = 10;
       default_monitor = (findSingle (m: m.primary) "DP-1" "DP-1"
         config.modules.devices.monitors).name;
-      use_cpu_buffer = true;
     };
 
     decoration = {
