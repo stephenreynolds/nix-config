@@ -35,7 +35,7 @@
     impermanence.url = "github:nix-community/impermanence";
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
+      url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -49,11 +49,6 @@
     firefox-onebar = {
       url = "git+https://codeberg.org/Freeplay/Firefox-Onebar";
       flake = false;
-    };
-
-    umu = {
-      url = "git+https://github.com/Open-Wine-Components/umu-launcher/?dir=packaging\/nix&submodules=1";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     desktop-flake = {

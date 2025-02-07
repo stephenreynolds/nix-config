@@ -15,7 +15,7 @@ in
 
   config = mkIf cfg.enable {
     hm.home.packages = [
-      inputs.umu.packages.${pkgs.system}.umu
+      inputs.nix-gaming.packages.${pkgs.system}.umu-launcher
     ];
 
     modules.system.persist.state.home.directories = [
