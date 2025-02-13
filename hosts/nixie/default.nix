@@ -193,6 +193,7 @@
         krita
         heroic
         space-cadet-pinball
+        postman
 
         inputs.zen-browser.packages."${pkgs.system}".default
       ];
